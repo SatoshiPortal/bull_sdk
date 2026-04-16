@@ -28,16 +28,18 @@
 use flutter_rust_bridge::for_generated::byteorder::{NativeEndian, ReadBytesExt, WriteBytesExt};
 use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
 use flutter_rust_bridge::{Handler, IntoIntoDart};
+use lwk::api::transaction::*;
+use lwk::api::wallet::*;
 
 // Section: boilerplate
 
 flutter_rust_bridge::frb_generated_boilerplate!(
-    default_stream_sink_codec = SseCodec,
-    default_rust_opaque = RustOpaqueMoi,
-    default_rust_auto_opaque = RustAutoOpaqueMoi,
+    default_stream_sink_codec = DcoCodec,
+    default_rust_opaque = RustOpaqueNom,
+    default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.11.1";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1918914929;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1365618180;
 
 // Section: executor
 
@@ -45,63 +47,2123 @@ flutter_rust_bridge::frb_generated_default_handler!();
 
 // Section: wire_funcs
 
-fn wire__crate__api__simple__greet_impl(
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::SseCodec, _>(
+fn wire__lwk__api__transaction__LiquidTransaction_fee_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "greet",
+            debug_name: "LiquidTransaction_fee",
             port: None,
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
         },
         move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            let api_name = <String>::sse_decode(&mut deserializer);
-            deserializer.end();
-            transform_result_sse::<_, ()>((move || {
-                let output_ok = Result::<_, ()>::Ok(crate::api::simple::greet(api_name))?;
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::fee(&*api_that_guard),
+                )?;
                 Ok(output_ok)
             })())
         },
     )
 }
-fn wire__crate__api__simple__init_app_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    ptr_: flutter_rust_bridge::for_generated::PlatformGeneralizedUint8ListPtr,
-    rust_vec_len_: i32,
-    data_len_: i32,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::SseCodec, _, _>(
+fn wire__lwk__api__transaction__LiquidTransaction_from_bytes_impl(
+    tx_bytes: impl CstDecode<Vec<u8>>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "init_app",
+            debug_name: "LiquidTransaction_from_bytes",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_tx_bytes = tx_bytes.cst_decode();
+            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                let output_ok = lwk::api::transaction::LiquidTransaction::from_bytes(api_tx_bytes)?;
+                Ok(output_ok)
+            })().map_err(FrbWrapper))
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_from_pset_impl(
+    pset_string: impl CstDecode<String>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_from_pset",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_pset_string = pset_string.cst_decode();
+            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                let output_ok =
+                    lwk::api::transaction::LiquidTransaction::from_pset(api_pset_string)?;
+                Ok(output_ok)
+            })().map_err(FrbWrapper))
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_get_input_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_get_input",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_index = index.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok =
+                    Result::<_, ()>::Ok(lwk::api::transaction::LiquidTransaction::get_input(
+                        &*api_that_guard,
+                        api_index,
+                    ))?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_get_inputs_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_get_inputs",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::get_inputs(&*api_that_guard),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_get_output_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_get_output",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_index = index.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok =
+                    Result::<_, ()>::Ok(lwk::api::transaction::LiquidTransaction::get_output(
+                        &*api_that_guard,
+                        api_index,
+                    ))?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_get_output_asset_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_get_output_asset",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_index = index.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::get_output_asset(
+                        &*api_that_guard,
+                        api_index,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_get_output_nonce_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_get_output_nonce",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_index = index.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::get_output_nonce(
+                        &*api_that_guard,
+                        api_index,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_get_output_script_pubkey_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_get_output_script_pubkey",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_index = index.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::get_output_script_pubkey(
+                        &*api_that_guard,
+                        api_index,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_get_output_value_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_get_output_value",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_index = index.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::get_output_value(
+                        &*api_that_guard,
+                        api_index,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_get_outputs_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_get_outputs",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::get_outputs(&*api_that_guard),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_input_count_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_input_count",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::input_count(&*api_that_guard),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_is_coinbase_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_is_coinbase",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::is_coinbase(&*api_that_guard),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_lock_time_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_lock_time",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::lock_time(&*api_that_guard),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_output_count_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_output_count",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::output_count(&*api_that_guard),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_to_bytes_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_to_bytes",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::to_bytes(&*api_that_guard),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_txid_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_txid",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::txid(&*api_that_guard),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_version_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_version",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::version(&*api_that_guard),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_vsize_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_vsize",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::vsize(&*api_that_guard),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__LiquidTransaction_weight_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "LiquidTransaction_weight",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::LiquidTransaction::weight(&*api_that_guard),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_extract_tx_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PartiallySignedElementsTransaction_extract_tx",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok =
+                    lwk::api::transaction::PartiallySignedElementsTransaction::extract_tx(
+                        &*api_that_guard,
+                    )?;
+                Ok(output_ok)
+            })().map_err(FrbWrapper))
+        },
+    )
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_from_string_impl(
+    pset_string: impl CstDecode<String>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PartiallySignedElementsTransaction_from_string",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_pset_string = pset_string.cst_decode();
+            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                let output_ok =
+                    lwk::api::transaction::PartiallySignedElementsTransaction::from_string(
+                        api_pset_string,
+                    )?;
+                Ok(output_ok)
+            })().map_err(FrbWrapper))
+        },
+    )
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PartiallySignedElementsTransaction_get_input",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_index = index.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::PartiallySignedElementsTransaction::get_input(
+                        &*api_that_guard,
+                        api_index,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input_utxo_amount_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "PartiallySignedElementsTransaction_get_input_utxo_amount", port: None, mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync }, move || { let api_that = that.cst_decode();let api_index = index.cst_decode();
+                transform_result_dco::<_, _, ()>((move || {
+                    let mut api_that_guard = None;
+let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false)]);
+        for i in decode_indices_ {
+            match i {
+                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                _ => unreachable!(),
+            }
+        }
+        let api_that_guard = api_that_guard.unwrap();
+ let output_ok = Result::<_,()>::Ok(lwk::api::transaction::PartiallySignedElementsTransaction::get_input_utxo_amount(&*api_that_guard, api_index))?;   Ok(output_ok)
+                })()) })
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input_utxo_asset_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PartiallySignedElementsTransaction_get_input_utxo_asset",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_index = index.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::PartiallySignedElementsTransaction::get_input_utxo_asset(
+                        &*api_that_guard,
+                        api_index,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input_utxo_script_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "PartiallySignedElementsTransaction_get_input_utxo_script", port: None, mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync }, move || { let api_that = that.cst_decode();let api_index = index.cst_decode();
+                transform_result_dco::<_, _, ()>((move || {
+                    let mut api_that_guard = None;
+let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false)]);
+        for i in decode_indices_ {
+            match i {
+                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                _ => unreachable!(),
+            }
+        }
+        let api_that_guard = api_that_guard.unwrap();
+ let output_ok = Result::<_,()>::Ok(lwk::api::transaction::PartiallySignedElementsTransaction::get_input_utxo_script(&*api_that_guard, api_index))?;   Ok(output_ok)
+                })()) })
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_inputs_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PartiallySignedElementsTransaction_get_inputs",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::PartiallySignedElementsTransaction::get_inputs(
+                        &*api_that_guard,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PartiallySignedElementsTransaction_get_output",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_index = index.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::PartiallySignedElementsTransaction::get_output(
+                        &*api_that_guard,
+                        api_index,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_amount_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PartiallySignedElementsTransaction_get_output_amount",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_index = index.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::PartiallySignedElementsTransaction::get_output_amount(
+                        &*api_that_guard,
+                        api_index,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_asset_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PartiallySignedElementsTransaction_get_output_asset",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_index = index.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::PartiallySignedElementsTransaction::get_output_asset(
+                        &*api_that_guard,
+                        api_index,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_blinding_key_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "PartiallySignedElementsTransaction_get_output_blinding_key", port: None, mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync }, move || { let api_that = that.cst_decode();let api_index = index.cst_decode();
+                transform_result_dco::<_, _, ()>((move || {
+                    let mut api_that_guard = None;
+let decode_indices_ = flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(&api_that, 0, false)]);
+        for i in decode_indices_ {
+            match i {
+                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                _ => unreachable!(),
+            }
+        }
+        let api_that_guard = api_that_guard.unwrap();
+ let output_ok = Result::<_,()>::Ok(lwk::api::transaction::PartiallySignedElementsTransaction::get_output_blinding_key(&*api_that_guard, api_index))?;   Ok(output_ok)
+                })()) })
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_script_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+    index: impl CstDecode<usize>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PartiallySignedElementsTransaction_get_output_script",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_index = index.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::PartiallySignedElementsTransaction::get_output_script(
+                        &*api_that_guard,
+                        api_index,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_outputs_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PartiallySignedElementsTransaction_get_outputs",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::PartiallySignedElementsTransaction::get_outputs(
+                        &*api_that_guard,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_input_count_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PartiallySignedElementsTransaction_input_count",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::PartiallySignedElementsTransaction::input_count(
+                        &*api_that_guard,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_lock_time_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PartiallySignedElementsTransaction_lock_time",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::PartiallySignedElementsTransaction::lock_time(
+                        &*api_that_guard,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_output_count_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PartiallySignedElementsTransaction_output_count",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::PartiallySignedElementsTransaction::output_count(
+                        &*api_that_guard,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_to_string_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "PartiallySignedElementsTransaction_to_string",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = Result::<_, ()>::Ok(
+                    lwk::api::transaction::PartiallySignedElementsTransaction::to_string(
+                        &*api_that_guard,
+                    ),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_address_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+    index: impl CstDecode<u32>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_address",
             port: Some(port_),
             mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
-            let message = unsafe {
-                flutter_rust_bridge::for_generated::Dart2RustMessageSse::from_wire(
-                    ptr_,
-                    rust_vec_len_,
-                    data_len_,
-                )
-            };
-            let mut deserializer =
-                flutter_rust_bridge::for_generated::SseDeserializer::new(message);
-            deserializer.end();
+            let api_that = that.cst_decode();
+            let api_index = index.cst_decode();
             move |context| {
-                transform_result_sse::<_, ()>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = lwk::api::wallet::Wallet::address(&*api_that_guard, api_index)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_address_last_unused_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_address_last_unused",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok =
+                        lwk::api::wallet::Wallet::address_last_unused(&*api_that_guard)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_balances_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_balances",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = lwk::api::wallet::Wallet::balances(&*api_that_guard)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_blinding_key_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_blinding_key",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = lwk::api::wallet::Wallet::blinding_key(&*api_that_guard)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_build_asset_tx_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+    sats: impl CstDecode<u64>,
+    out_address: impl CstDecode<String>,
+    fee_rate: impl CstDecode<f32>,
+    asset: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_build_asset_tx",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_sats = sats.cst_decode();
+            let api_out_address = out_address.cst_decode();
+            let api_fee_rate = fee_rate.cst_decode();
+            let api_asset = asset.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = lwk::api::wallet::Wallet::build_asset_tx(
+                        &*api_that_guard,
+                        api_sats,
+                        api_out_address,
+                        api_fee_rate,
+                        api_asset,
+                    )?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_build_lbtc_tx_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+    sats: impl CstDecode<u64>,
+    out_address: impl CstDecode<String>,
+    fee_rate: impl CstDecode<f32>,
+    drain: impl CstDecode<bool>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_build_lbtc_tx",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_sats = sats.cst_decode();
+            let api_out_address = out_address.cst_decode();
+            let api_fee_rate = fee_rate.cst_decode();
+            let api_drain = drain.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = lwk::api::wallet::Wallet::build_lbtc_tx(
+                        &*api_that_guard,
+                        api_sats,
+                        api_out_address,
+                        api_fee_rate,
+                        api_drain,
+                    )?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_build_payjoin_tx_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+    sats: impl CstDecode<u64>,
+    out_address: impl CstDecode<String>,
+    asset: impl CstDecode<String>,
+    network: impl CstDecode<lwk::api::types::Network>,
+    base_url: impl CstDecode<Option<String>>,
+    is_send_all: impl CstDecode<bool>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_build_payjoin_tx",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_sats = sats.cst_decode();
+            let api_out_address = out_address.cst_decode();
+            let api_asset = asset.cst_decode();
+            let api_network = network.cst_decode();
+            let api_base_url = base_url.cst_decode();
+            let api_is_send_all = is_send_all.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = lwk::api::wallet::Wallet::build_payjoin_tx(
+                        &*api_that_guard,
+                        api_sats,
+                        api_out_address,
+                        api_asset,
+                        api_network,
+                        api_base_url,
+                        api_is_send_all,
+                    )?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_decode_tx_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+    pset: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_decode_tx",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_pset = pset.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok =
+                        lwk::api::wallet::Wallet::decode_tx(&*api_that_guard, api_pset)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_descriptor_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_descriptor",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = lwk::api::wallet::Wallet::descriptor(&*api_that_guard)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_init_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    network: impl CstDecode<lwk::api::types::Network>,
+    dbpath: impl CstDecode<String>,
+    descriptor: impl CstDecode<lwk::api::descriptor::Descriptor>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_init",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_network = network.cst_decode();
+            let api_dbpath = dbpath.cst_decode();
+            let api_descriptor = descriptor.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let output_ok =
+                        lwk::api::wallet::Wallet::init(api_network, api_dbpath, api_descriptor)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_sign_tx_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+    network: impl CstDecode<lwk::api::types::Network>,
+    pset: impl CstDecode<String>,
+    mnemonic: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_sign_tx",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_network = network.cst_decode();
+            let api_pset = pset.cst_decode();
+            let api_mnemonic = mnemonic.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = lwk::api::wallet::Wallet::sign_tx(
+                        &*api_that_guard,
+                        api_network,
+                        api_pset,
+                        api_mnemonic,
+                    )?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_signed_pset_with_extra_details_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+    network: impl CstDecode<lwk::api::types::Network>,
+    pset: impl CstDecode<String>,
+    mnemonic: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_signed_pset_with_extra_details",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_network = network.cst_decode();
+            let api_pset = pset.cst_decode();
+            let api_mnemonic = mnemonic.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = lwk::api::wallet::Wallet::signed_pset_with_extra_details(
+                        &*api_that_guard,
+                        api_network,
+                        api_pset,
+                        api_mnemonic,
+                    )?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_sync_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+    electrum_url: impl CstDecode<String>,
+    validate_domain: impl CstDecode<bool>,
+    stop_at_index: impl CstDecode<Option<u32>>,
+    timeout: impl CstDecode<Option<u8>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_sync",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_electrum_url = electrum_url.cst_decode();
+            let api_validate_domain = validate_domain.cst_decode();
+            let api_stop_at_index = stop_at_index.cst_decode();
+            let api_timeout = timeout.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = lwk::api::wallet::Wallet::sync(
+                        &*api_that_guard,
+                        api_electrum_url,
+                        api_validate_domain,
+                        api_stop_at_index,
+                        api_timeout,
+                    )?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_txs_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_txs",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = lwk::api::wallet::Wallet::txs(&*api_that_guard)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_utxos_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_utxos",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = lwk::api::wallet::Wallet::utxos(&*api_that_guard)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__types__address_address_from_script_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    network: impl CstDecode<lwk::api::types::Network>,
+    script: impl CstDecode<String>,
+    blinding_key: impl CstDecode<Option<String>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "address_address_from_script",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_network = network.cst_decode();
+            let api_script = script.cst_decode();
+            let api_blinding_key = blinding_key.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let output_ok = lwk::api::types::Address::address_from_script(
+                        api_network,
+                        api_script,
+                        api_blinding_key,
+                    )?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__types__address_validate_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    address_string: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "address_validate",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_address_string = address_string.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let output_ok = lwk::api::types::Address::validate(api_address_string)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__blockchain__blockchain_broadcast_signed_pset_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    electrum_url: impl CstDecode<String>,
+    signed_pset: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "blockchain_broadcast_signed_pset",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_electrum_url = electrum_url.cst_decode();
+            let api_signed_pset = signed_pset.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let output_ok = lwk::api::blockchain::Blockchain::broadcast_signed_pset(
+                        api_electrum_url,
+                        api_signed_pset,
+                    )?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__blockchain__blockchain_broadcast_tx_bytes_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    electrum_url: impl CstDecode<String>,
+    tx_bytes: impl CstDecode<Vec<u8>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "blockchain_broadcast_tx_bytes",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_electrum_url = electrum_url.cst_decode();
+            let api_tx_bytes = tx_bytes.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let output_ok = lwk::api::blockchain::Blockchain::broadcast_tx_bytes(
+                        api_electrum_url,
+                        api_tx_bytes,
+                    )?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__blockchain__blockchain_test_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<lwk::api::blockchain::Blockchain>,
+    electrum_url: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "blockchain_test",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_electrum_url = electrum_url.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let output_ok =
+                        lwk::api::blockchain::Blockchain::test(&api_that, api_electrum_url)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__boltz__api__error__boltz_error_detail_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::error::BoltzError>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "boltz_error_detail",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
                     let output_ok = Result::<_, ()>::Ok({
-                        crate::api::simple::init_app();
+                        boltz::api::error::BoltzError::detail(&api_that);
                     })?;
                     Ok(output_ok)
                 })())
@@ -109,14 +2171,3088 @@ fn wire__crate__api__simple__init_app_impl(
         },
     )
 }
+fn wire__boltz__api__error__boltz_error_new_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    kind: impl CstDecode<String>,
+    message: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "boltz_error_new",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_kind = kind.cst_decode();
+            let api_message = message.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok = Result::<_, ()>::Ok(boltz::api::error::BoltzError::new(
+                        api_kind,
+                        api_message,
+                    ))?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__boltz__api__btc_ln__btc_ln_swap_broadcast_boltz_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::btc_ln::BtcLnSwap>,
+    signed_hex: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_ln_swap_broadcast_boltz",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_signed_hex = signed_hex.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::btc_ln::BtcLnSwap::broadcast_boltz(
+                            &api_that,
+                            api_signed_hex,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__btc_ln__btc_ln_swap_broadcast_local_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::btc_ln::BtcLnSwap>,
+    signed_hex: impl CstDecode<String>,
+    electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_ln_swap_broadcast_local",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_signed_hex = signed_hex.cst_decode();
+            let api_electrum_settings = electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::btc_ln::BtcLnSwap::broadcast_local(
+                            &api_that,
+                            api_signed_hex,
+                            api_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__btc_ln__btc_ln_swap_claim_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::btc_ln::BtcLnSwap>,
+    out_address: impl CstDecode<String>,
+    miner_fee: impl CstDecode<crate::api::simple::TxFee>,
+    try_cooperate: impl CstDecode<bool>,
+    electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_ln_swap_claim",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_out_address = out_address.cst_decode();
+            let api_miner_fee = miner_fee.cst_decode();
+            let api_try_cooperate = try_cooperate.cst_decode();
+            let api_electrum_settings = electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::btc_ln::BtcLnSwap::claim(
+                            &api_that,
+                            api_out_address,
+                            api_miner_fee.into(),
+                            api_try_cooperate,
+                            api_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__btc_ln__btc_ln_swap_claim_tx_size_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::btc_ln::BtcLnSwap>,
+    is_cooperative: impl CstDecode<bool>,
+    electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_ln_swap_claim_tx_size",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_is_cooperative = is_cooperative.cst_decode();
+            let api_electrum_settings = electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::btc_ln::BtcLnSwap::claim_tx_size(
+                            &api_that,
+                            api_is_cooperative,
+                            api_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__btc_ln__btc_ln_swap_coop_close_submarine_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::btc_ln::BtcLnSwap>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_ln_swap_coop_close_submarine",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok =
+                            boltz::api::btc_ln::BtcLnSwap::coop_close_submarine(&api_that).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__btc_ln__btc_ln_swap_from_json_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    json_str: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_ln_swap_from_json",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_json_str = json_str.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
+                    let output_ok = boltz::api::btc_ln::BtcLnSwap::from_json(&api_json_str)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__boltz__api__btc_ln__btc_ln_swap_get_completed_submarine_preimage_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::btc_ln::BtcLnSwap>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_ln_swap_get_completed_submarine_preimage",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok =
+                            boltz::api::btc_ln::BtcLnSwap::get_completed_submarine_preimage(
+                                &api_that,
+                            )
+                            .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__btc_ln__btc_ln_swap_get_preimage_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::btc_ln::BtcLnSwap>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_ln_swap_get_preimage",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok =
+                            boltz::api::btc_ln::BtcLnSwap::get_preimage(&api_that).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__btc_ln__btc_ln_swap_new_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    id: impl CstDecode<String>,
+    kind: impl CstDecode<boltz::api::types::SwapType>,
+    network: impl CstDecode<boltz::api::types::Chain>,
+    keys: impl CstDecode<boltz::api::types::KeyPair>,
+    key_index: impl CstDecode<u64>,
+    preimage: impl CstDecode<boltz::api::types::PreImage>,
+    swap_script: impl CstDecode<boltz::api::types::BtcSwapScriptStr>,
+    invoice: impl CstDecode<String>,
+    script_address: impl CstDecode<String>,
+    out_amount: impl CstDecode<u64>,
+    electrum_url: impl CstDecode<String>,
+    boltz_url: impl CstDecode<String>,
+    referral_id: impl CstDecode<Option<String>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_ln_swap_new",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_id = id.cst_decode();
+            let api_kind = kind.cst_decode();
+            let api_network = network.cst_decode();
+            let api_keys = keys.cst_decode();
+            let api_key_index = key_index.cst_decode();
+            let api_preimage = preimage.cst_decode();
+            let api_swap_script = swap_script.cst_decode();
+            let api_invoice = invoice.cst_decode();
+            let api_script_address = script_address.cst_decode();
+            let api_out_amount = out_amount.cst_decode();
+            let api_electrum_url = electrum_url.cst_decode();
+            let api_boltz_url = boltz_url.cst_decode();
+            let api_referral_id = referral_id.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok = Result::<_, ()>::Ok(boltz::api::btc_ln::BtcLnSwap::new(
+                        api_id,
+                        api_kind,
+                        api_network,
+                        api_keys,
+                        api_key_index,
+                        api_preimage,
+                        api_swap_script,
+                        api_invoice,
+                        api_script_address,
+                        api_out_amount,
+                        api_electrum_url,
+                        api_boltz_url,
+                        api_referral_id,
+                    ))?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__boltz__api__btc_ln__btc_ln_swap_new_reverse_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    mnemonic: impl CstDecode<String>,
+    passphrase: impl CstDecode<Option<String>>,
+    index: impl CstDecode<u64>,
+    out_amount: impl CstDecode<u64>,
+    out_address: impl CstDecode<Option<String>>,
+    network: impl CstDecode<boltz::api::types::Chain>,
+    electrum_url: impl CstDecode<String>,
+    boltz_url: impl CstDecode<String>,
+    description: impl CstDecode<Option<String>>,
+    referral_id: impl CstDecode<Option<String>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_ln_swap_new_reverse",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_mnemonic = mnemonic.cst_decode();
+            let api_passphrase = passphrase.cst_decode();
+            let api_index = index.cst_decode();
+            let api_out_amount = out_amount.cst_decode();
+            let api_out_address = out_address.cst_decode();
+            let api_network = network.cst_decode();
+            let api_electrum_url = electrum_url.cst_decode();
+            let api_boltz_url = boltz_url.cst_decode();
+            let api_description = description.cst_decode();
+            let api_referral_id = referral_id.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::btc_ln::BtcLnSwap::new_reverse(
+                            api_mnemonic,
+                            api_passphrase,
+                            api_index,
+                            api_out_amount,
+                            api_out_address,
+                            api_network,
+                            api_electrum_url,
+                            api_boltz_url,
+                            api_description,
+                            api_referral_id,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__btc_ln__btc_ln_swap_new_submarine_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    mnemonic: impl CstDecode<String>,
+    passphrase: impl CstDecode<Option<String>>,
+    index: impl CstDecode<u64>,
+    invoice: impl CstDecode<String>,
+    network: impl CstDecode<boltz::api::types::Chain>,
+    electrum_url: impl CstDecode<String>,
+    boltz_url: impl CstDecode<String>,
+    referral_id: impl CstDecode<Option<String>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_ln_swap_new_submarine",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_mnemonic = mnemonic.cst_decode();
+            let api_passphrase = passphrase.cst_decode();
+            let api_index = index.cst_decode();
+            let api_invoice = invoice.cst_decode();
+            let api_network = network.cst_decode();
+            let api_electrum_url = electrum_url.cst_decode();
+            let api_boltz_url = boltz_url.cst_decode();
+            let api_referral_id = referral_id.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::btc_ln::BtcLnSwap::new_submarine(
+                            api_mnemonic,
+                            api_passphrase,
+                            api_index,
+                            api_invoice,
+                            api_network,
+                            api_electrum_url,
+                            api_boltz_url,
+                            api_referral_id,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__btc_ln__btc_ln_swap_refund_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::btc_ln::BtcLnSwap>,
+    out_address: impl CstDecode<String>,
+    miner_fee: impl CstDecode<crate::api::simple::TxFee>,
+    try_cooperate: impl CstDecode<bool>,
+    electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_ln_swap_refund",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_out_address = out_address.cst_decode();
+            let api_miner_fee = miner_fee.cst_decode();
+            let api_try_cooperate = try_cooperate.cst_decode();
+            let api_electrum_settings = electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::btc_ln::BtcLnSwap::refund(
+                            &api_that,
+                            api_out_address,
+                            api_miner_fee.into(),
+                            api_try_cooperate,
+                            api_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__btc_ln__btc_ln_swap_refund_tx_size_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::btc_ln::BtcLnSwap>,
+    is_cooperative: impl CstDecode<bool>,
+    electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_ln_swap_refund_tx_size",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_is_cooperative = is_cooperative.cst_decode();
+            let api_electrum_settings = electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::btc_ln::BtcLnSwap::refund_tx_size(
+                            &api_that,
+                            api_is_cooperative,
+                            api_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__btc_ln__btc_ln_swap_to_json_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::btc_ln::BtcLnSwap>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_ln_swap_to_json",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
+                    let output_ok = boltz::api::btc_ln::BtcLnSwap::to_json(&api_that)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__boltz__api__types__btc_swap_script_str_new_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    swap_type: impl CstDecode<boltz::api::types::SwapType>,
+    funding_addrs: impl CstDecode<Option<String>>,
+    hashlock: impl CstDecode<String>,
+    receiver_pubkey: impl CstDecode<String>,
+    locktime: impl CstDecode<u32>,
+    sender_pubkey: impl CstDecode<String>,
+    side: impl CstDecode<Option<boltz::api::types::Side>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "btc_swap_script_str_new",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_swap_type = swap_type.cst_decode();
+            let api_funding_addrs = funding_addrs.cst_decode();
+            let api_hashlock = hashlock.cst_decode();
+            let api_receiver_pubkey = receiver_pubkey.cst_decode();
+            let api_locktime = locktime.cst_decode();
+            let api_sender_pubkey = sender_pubkey.cst_decode();
+            let api_side = side.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok = Result::<_, ()>::Ok(boltz::api::types::BtcSwapScriptStr::new(
+                        api_swap_type,
+                        api_funding_addrs,
+                        api_hashlock,
+                        api_receiver_pubkey,
+                        api_locktime,
+                        api_sender_pubkey,
+                        api_side,
+                    ))?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__boltz__api__chain_swap__chain_swap_broadcast_boltz_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::chain_swap::ChainSwap>,
+    signed_hex: impl CstDecode<String>,
+    kind: impl CstDecode<boltz::api::types::SwapTxKind>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "chain_swap_broadcast_boltz",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_signed_hex = signed_hex.cst_decode();
+            let api_kind = kind.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::chain_swap::ChainSwap::broadcast_boltz(
+                            &api_that,
+                            api_signed_hex,
+                            api_kind,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__chain_swap__chain_swap_broadcast_local_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::chain_swap::ChainSwap>,
+    signed_hex: impl CstDecode<String>,
+    kind: impl CstDecode<boltz::api::types::SwapTxKind>,
+    electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "chain_swap_broadcast_local",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_signed_hex = signed_hex.cst_decode();
+            let api_kind = kind.cst_decode();
+            let api_electrum_settings = electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::chain_swap::ChainSwap::broadcast_local(
+                            &api_that,
+                            api_signed_hex,
+                            api_kind,
+                            api_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__chain_swap__chain_swap_claim_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::chain_swap::ChainSwap>,
+    out_address: impl CstDecode<String>,
+    miner_fee: impl CstDecode<crate::api::simple::TxFee>,
+    try_cooperate: impl CstDecode<bool>,
+    btc_electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+    lbtc_electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "chain_swap_claim",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_out_address = out_address.cst_decode();
+            let api_miner_fee = miner_fee.cst_decode();
+            let api_try_cooperate = try_cooperate.cst_decode();
+            let api_btc_electrum_settings = btc_electrum_settings.cst_decode();
+            let api_lbtc_electrum_settings = lbtc_electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::chain_swap::ChainSwap::claim(
+                            &api_that,
+                            api_out_address,
+                            api_miner_fee.into(),
+                            api_try_cooperate,
+                            api_btc_electrum_settings,
+                            api_lbtc_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__chain_swap__chain_swap_claim_tx_size_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::chain_swap::ChainSwap>,
+    out_address: impl CstDecode<String>,
+    try_cooperate: impl CstDecode<bool>,
+    btc_electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+    lbtc_electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "chain_swap_claim_tx_size",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_out_address = out_address.cst_decode();
+            let api_try_cooperate = try_cooperate.cst_decode();
+            let api_btc_electrum_settings = btc_electrum_settings.cst_decode();
+            let api_lbtc_electrum_settings = lbtc_electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::chain_swap::ChainSwap::claim_tx_size(
+                            &api_that,
+                            api_out_address,
+                            api_try_cooperate,
+                            api_btc_electrum_settings,
+                            api_lbtc_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__chain_swap__chain_swap_from_json_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    json_str: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "chain_swap_from_json",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_json_str = json_str.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok =
+                            boltz::api::chain_swap::ChainSwap::from_json(&api_json_str).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__chain_swap__chain_swap_get_server_lockup_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::chain_swap::ChainSwap>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "chain_swap_get_server_lockup",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok =
+                            boltz::api::chain_swap::ChainSwap::get_server_lockup(&api_that).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__chain_swap__chain_swap_get_user_lockup_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::chain_swap::ChainSwap>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "chain_swap_get_user_lockup",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok =
+                            boltz::api::chain_swap::ChainSwap::get_user_lockup(&api_that).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__chain_swap__chain_swap_new_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    id: impl CstDecode<String>,
+    is_testnet: impl CstDecode<bool>,
+    direction: impl CstDecode<boltz::api::types::ChainSwapDirection>,
+    refund_keys: impl CstDecode<boltz::api::types::KeyPair>,
+    refund_index: impl CstDecode<u64>,
+    claim_keys: impl CstDecode<boltz::api::types::KeyPair>,
+    claim_index: impl CstDecode<u64>,
+    preimage: impl CstDecode<boltz::api::types::PreImage>,
+    btc_script_str: impl CstDecode<boltz::api::types::BtcSwapScriptStr>,
+    lbtc_script_str: impl CstDecode<boltz::api::types::LBtcSwapScriptStr>,
+    script_address: impl CstDecode<String>,
+    out_amount: impl CstDecode<u64>,
+    btc_electrum_url: impl CstDecode<String>,
+    lbtc_electrum_url: impl CstDecode<String>,
+    boltz_url: impl CstDecode<String>,
+    referral_id: impl CstDecode<Option<String>>,
+    blinding_key: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "chain_swap_new",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_id = id.cst_decode();
+            let api_is_testnet = is_testnet.cst_decode();
+            let api_direction = direction.cst_decode();
+            let api_refund_keys = refund_keys.cst_decode();
+            let api_refund_index = refund_index.cst_decode();
+            let api_claim_keys = claim_keys.cst_decode();
+            let api_claim_index = claim_index.cst_decode();
+            let api_preimage = preimage.cst_decode();
+            let api_btc_script_str = btc_script_str.cst_decode();
+            let api_lbtc_script_str = lbtc_script_str.cst_decode();
+            let api_script_address = script_address.cst_decode();
+            let api_out_amount = out_amount.cst_decode();
+            let api_btc_electrum_url = btc_electrum_url.cst_decode();
+            let api_lbtc_electrum_url = lbtc_electrum_url.cst_decode();
+            let api_boltz_url = boltz_url.cst_decode();
+            let api_referral_id = referral_id.cst_decode();
+            let api_blinding_key = blinding_key.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok = Result::<_, ()>::Ok(boltz::api::chain_swap::ChainSwap::new(
+                        api_id,
+                        api_is_testnet,
+                        api_direction,
+                        api_refund_keys,
+                        api_refund_index,
+                        api_claim_keys,
+                        api_claim_index,
+                        api_preimage,
+                        api_btc_script_str,
+                        api_lbtc_script_str,
+                        api_script_address,
+                        api_out_amount,
+                        api_btc_electrum_url,
+                        api_lbtc_electrum_url,
+                        api_boltz_url,
+                        api_referral_id,
+                        api_blinding_key,
+                    ))?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__boltz__api__chain_swap__chain_swap_new_swap_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    direction: impl CstDecode<boltz::api::types::ChainSwapDirection>,
+    mnemonic: impl CstDecode<String>,
+    passphrase: impl CstDecode<Option<String>>,
+    index: impl CstDecode<u64>,
+    amount: impl CstDecode<u64>,
+    is_testnet: impl CstDecode<bool>,
+    btc_electrum_url: impl CstDecode<String>,
+    lbtc_electrum_url: impl CstDecode<String>,
+    boltz_url: impl CstDecode<String>,
+    referral_id: impl CstDecode<Option<String>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "chain_swap_new_swap",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_direction = direction.cst_decode();
+            let api_mnemonic = mnemonic.cst_decode();
+            let api_passphrase = passphrase.cst_decode();
+            let api_index = index.cst_decode();
+            let api_amount = amount.cst_decode();
+            let api_is_testnet = is_testnet.cst_decode();
+            let api_btc_electrum_url = btc_electrum_url.cst_decode();
+            let api_lbtc_electrum_url = lbtc_electrum_url.cst_decode();
+            let api_boltz_url = boltz_url.cst_decode();
+            let api_referral_id = referral_id.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::chain_swap::ChainSwap::new_swap(
+                            api_direction,
+                            api_mnemonic,
+                            api_passphrase,
+                            api_index,
+                            api_amount,
+                            api_is_testnet,
+                            api_btc_electrum_url,
+                            api_lbtc_electrum_url,
+                            api_boltz_url,
+                            api_referral_id,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__chain_swap__chain_swap_refund_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::chain_swap::ChainSwap>,
+    refund_address: impl CstDecode<String>,
+    miner_fee: impl CstDecode<crate::api::simple::TxFee>,
+    try_cooperate: impl CstDecode<bool>,
+    btc_electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+    lbtc_electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "chain_swap_refund",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_refund_address = refund_address.cst_decode();
+            let api_miner_fee = miner_fee.cst_decode();
+            let api_try_cooperate = try_cooperate.cst_decode();
+            let api_btc_electrum_settings = btc_electrum_settings.cst_decode();
+            let api_lbtc_electrum_settings = lbtc_electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::chain_swap::ChainSwap::refund(
+                            &api_that,
+                            api_refund_address,
+                            api_miner_fee.into(),
+                            api_try_cooperate,
+                            api_btc_electrum_settings,
+                            api_lbtc_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__chain_swap__chain_swap_refund_tx_size_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::chain_swap::ChainSwap>,
+    refund_address: impl CstDecode<String>,
+    try_cooperate: impl CstDecode<bool>,
+    btc_electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+    lbtc_electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "chain_swap_refund_tx_size",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_refund_address = refund_address.cst_decode();
+            let api_try_cooperate = try_cooperate.cst_decode();
+            let api_btc_electrum_settings = btc_electrum_settings.cst_decode();
+            let api_lbtc_electrum_settings = lbtc_electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::chain_swap::ChainSwap::refund_tx_size(
+                            &api_that,
+                            api_refund_address,
+                            api_try_cooperate,
+                            api_btc_electrum_settings,
+                            api_lbtc_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__chain_swap__chain_swap_to_json_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::chain_swap::ChainSwap>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "chain_swap_to_json",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok =
+                            boltz::api::chain_swap::ChainSwap::to_json(&api_that).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__transactions__check_vout_0_outspend_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    swap_id: impl CstDecode<String>,
+    swap_type: impl CstDecode<boltz::api::types::SwapType>,
+    tx_kind: impl CstDecode<boltz::api::types::SwapTxKind>,
+    network: impl CstDecode<boltz::api::types::Chain>,
+    boltz_url: impl CstDecode<String>,
+    chain_swap_direction: impl CstDecode<Option<boltz::api::types::ChainSwapDirection>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "check_vout_0_outspend",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_swap_id = swap_id.cst_decode();
+            let api_swap_type = swap_type.cst_decode();
+            let api_tx_kind = tx_kind.cst_decode();
+            let api_network = network.cst_decode();
+            let api_boltz_url = boltz_url.cst_decode();
+            let api_chain_swap_direction = chain_swap_direction.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::transactions::check_vout_0_outspend(
+                            &api_swap_id,
+                            api_swap_type,
+                            api_tx_kind,
+                            api_network,
+                            &api_boltz_url,
+                            api_chain_swap_direction,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__types__decoded_invoice_from_string_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    s: impl CstDecode<String>,
+    boltz_url: impl CstDecode<Option<String>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "decoded_invoice_from_string",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_s = s.cst_decode();
+            let api_boltz_url = boltz_url.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok =
+                            boltz::api::types::DecodedInvoice::from_string(api_s, api_boltz_url)
+                                .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__lwk__api__descriptor__descriptor_new_confidential_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    network: impl CstDecode<lwk::api::types::Network>,
+    mnemonic: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "descriptor_new_confidential",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_network = network.cst_decode();
+            let api_mnemonic = mnemonic.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let output_ok = lwk::api::descriptor::Descriptor::new_confidential(
+                        api_network,
+                        api_mnemonic,
+                    )?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__transaction__extract_tx_bytes_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    pset: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "extract_tx_bytes",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_pset = pset.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let output_ok = lwk::api::transaction::extract_tx_bytes(api_pset)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__boltz__api__fees__fees_chain_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::fees::Fees>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "fees_chain",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::fees::Fees::chain(&api_that).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__fees__fees_new_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    boltz_url: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "fees_new",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_boltz_url = boltz_url.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok =
+                        Result::<_, ()>::Ok(boltz::api::fees::Fees::new(api_boltz_url))?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__boltz__api__fees__fees_reverse_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::fees::Fees>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "fees_reverse",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::fees::Fees::reverse(&api_that).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__fees__fees_submarine_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::fees::Fees>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "fees_submarine",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::fees::Fees::submarine(&api_that).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__lwk__api__types__get_balance_by_asset_id_impl(
+    balances: impl CstDecode<Vec<lwk::api::types::Balance>>,
+    asset_id: impl CstDecode<String>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "get_balance_by_asset_id",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_balances = balances.cst_decode();
+            let api_asset_id = asset_id.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok = Result::<_, ()>::Ok(lwk::api::types::get_balance_by_asset_id(
+                    api_balances,
+                    api_asset_id,
+                ))?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__types__get_lbtc_balance_impl(
+    balances: impl CstDecode<Vec<lwk::api::types::Balance>>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "get_lbtc_balance",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_balances = balances.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok =
+                    Result::<_, ()>::Ok(lwk::api::types::get_lbtc_balance(api_balances))?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__types__get_ltest_balance_impl(
+    balances: impl CstDecode<Vec<lwk::api::types::Balance>>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "get_ltest_balance",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_balances = balances.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok =
+                    Result::<_, ()>::Ok(lwk::api::types::get_ltest_balance(api_balances))?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__lwk__api__transaction__get_size_and_absolute_fees_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    pset: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "get_size_and_absolute_fees",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_pset = pset.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let output_ok = lwk::api::transaction::get_size_and_absolute_fees(api_pset)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__boltz__api__types__key_pair_generate_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    mnemonic: impl CstDecode<String>,
+    passphrase: impl CstDecode<Option<String>>,
+    network: impl CstDecode<boltz::api::types::Chain>,
+    index: impl CstDecode<u64>,
+    swap_type: impl CstDecode<boltz::api::types::SwapType>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "key_pair_generate",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_mnemonic = mnemonic.cst_decode();
+            let api_passphrase = passphrase.cst_decode();
+            let api_network = network.cst_decode();
+            let api_index = index.cst_decode();
+            let api_swap_type = swap_type.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
+                    let output_ok = boltz::api::types::KeyPair::generate(
+                        api_mnemonic,
+                        api_passphrase,
+                        api_network,
+                        api_index,
+                        api_swap_type,
+                    )?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__boltz__api__types__key_pair_new_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    secret_key: impl CstDecode<String>,
+    public_key: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "key_pair_new",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_secret_key = secret_key.cst_decode();
+            let api_public_key = public_key.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok = Result::<_, ()>::Ok(boltz::api::types::KeyPair::new(
+                        api_secret_key,
+                        api_public_key,
+                    ))?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__boltz__api__types__l_btc_swap_script_str_new_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    swap_type: impl CstDecode<boltz::api::types::SwapType>,
+    funding_addrs: impl CstDecode<Option<String>>,
+    hashlock: impl CstDecode<String>,
+    receiver_pubkey: impl CstDecode<String>,
+    locktime: impl CstDecode<u32>,
+    sender_pubkey: impl CstDecode<String>,
+    blinding_key: impl CstDecode<String>,
+    side: impl CstDecode<Option<boltz::api::types::Side>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "l_btc_swap_script_str_new",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_swap_type = swap_type.cst_decode();
+            let api_funding_addrs = funding_addrs.cst_decode();
+            let api_hashlock = hashlock.cst_decode();
+            let api_receiver_pubkey = receiver_pubkey.cst_decode();
+            let api_locktime = locktime.cst_decode();
+            let api_sender_pubkey = sender_pubkey.cst_decode();
+            let api_blinding_key = blinding_key.cst_decode();
+            let api_side = side.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok =
+                        Result::<_, ()>::Ok(boltz::api::types::LBtcSwapScriptStr::new(
+                            api_swap_type,
+                            api_funding_addrs,
+                            api_hashlock,
+                            api_receiver_pubkey,
+                            api_locktime,
+                            api_sender_pubkey,
+                            api_blinding_key,
+                            api_side,
+                        ))?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_broadcast_boltz_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::lbtc_ln::LbtcLnSwap>,
+    signed_hex: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lbtc_ln_swap_broadcast_boltz",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_signed_hex = signed_hex.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::broadcast_boltz(
+                            &api_that,
+                            api_signed_hex,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_broadcast_local_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::lbtc_ln::LbtcLnSwap>,
+    signed_hex: impl CstDecode<String>,
+    electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lbtc_ln_swap_broadcast_local",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_signed_hex = signed_hex.cst_decode();
+            let api_electrum_settings = electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::broadcast_local(
+                            &api_that,
+                            api_signed_hex,
+                            api_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_claim_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::lbtc_ln::LbtcLnSwap>,
+    out_address: impl CstDecode<String>,
+    miner_fee: impl CstDecode<crate::api::simple::TxFee>,
+    try_cooperate: impl CstDecode<bool>,
+    electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lbtc_ln_swap_claim",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_out_address = out_address.cst_decode();
+            let api_miner_fee = miner_fee.cst_decode();
+            let api_try_cooperate = try_cooperate.cst_decode();
+            let api_electrum_settings = electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::claim(
+                            &api_that,
+                            api_out_address,
+                            api_miner_fee.into(),
+                            api_try_cooperate,
+                            api_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_claim_tx_size_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::lbtc_ln::LbtcLnSwap>,
+    is_cooperative: impl CstDecode<bool>,
+    electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lbtc_ln_swap_claim_tx_size",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_is_cooperative = is_cooperative.cst_decode();
+            let api_electrum_settings = electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::claim_tx_size(
+                            &api_that,
+                            api_is_cooperative,
+                            api_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_coop_close_submarine_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::lbtc_ln::LbtcLnSwap>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lbtc_ln_swap_coop_close_submarine",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok =
+                            boltz::api::lbtc_ln::LbtcLnSwap::coop_close_submarine(&api_that)
+                                .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_from_json_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    json_str: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lbtc_ln_swap_from_json",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_json_str = json_str.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
+                    let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::from_json(&api_json_str)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_get_completed_submarine_preimage_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::lbtc_ln::LbtcLnSwap>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lbtc_ln_swap_get_completed_submarine_preimage",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok =
+                            boltz::api::lbtc_ln::LbtcLnSwap::get_completed_submarine_preimage(
+                                &api_that,
+                            )
+                            .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_get_preimage_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::lbtc_ln::LbtcLnSwap>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lbtc_ln_swap_get_preimage",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok =
+                            boltz::api::lbtc_ln::LbtcLnSwap::get_preimage(&api_that).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_new_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    id: impl CstDecode<String>,
+    kind: impl CstDecode<boltz::api::types::SwapType>,
+    network: impl CstDecode<boltz::api::types::Chain>,
+    keys: impl CstDecode<boltz::api::types::KeyPair>,
+    key_index: impl CstDecode<u64>,
+    preimage: impl CstDecode<boltz::api::types::PreImage>,
+    swap_script: impl CstDecode<boltz::api::types::LBtcSwapScriptStr>,
+    invoice: impl CstDecode<String>,
+    out_amount: impl CstDecode<u64>,
+    out_address: impl CstDecode<String>,
+    blinding_key: impl CstDecode<String>,
+    electrum_url: impl CstDecode<String>,
+    boltz_url: impl CstDecode<String>,
+    referral_id: impl CstDecode<Option<String>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lbtc_ln_swap_new",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_id = id.cst_decode();
+            let api_kind = kind.cst_decode();
+            let api_network = network.cst_decode();
+            let api_keys = keys.cst_decode();
+            let api_key_index = key_index.cst_decode();
+            let api_preimage = preimage.cst_decode();
+            let api_swap_script = swap_script.cst_decode();
+            let api_invoice = invoice.cst_decode();
+            let api_out_amount = out_amount.cst_decode();
+            let api_out_address = out_address.cst_decode();
+            let api_blinding_key = blinding_key.cst_decode();
+            let api_electrum_url = electrum_url.cst_decode();
+            let api_boltz_url = boltz_url.cst_decode();
+            let api_referral_id = referral_id.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok = Result::<_, ()>::Ok(boltz::api::lbtc_ln::LbtcLnSwap::new(
+                        api_id,
+                        api_kind,
+                        api_network,
+                        api_keys,
+                        api_key_index,
+                        api_preimage,
+                        api_swap_script,
+                        api_invoice,
+                        api_out_amount,
+                        api_out_address,
+                        api_blinding_key,
+                        api_electrum_url,
+                        api_boltz_url,
+                        api_referral_id,
+                    ))?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_new_reverse_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    mnemonic: impl CstDecode<String>,
+    passphrase: impl CstDecode<Option<String>>,
+    index: impl CstDecode<u64>,
+    out_amount: impl CstDecode<u64>,
+    out_address: impl CstDecode<Option<String>>,
+    network: impl CstDecode<boltz::api::types::Chain>,
+    electrum_url: impl CstDecode<String>,
+    boltz_url: impl CstDecode<String>,
+    description: impl CstDecode<Option<String>>,
+    referral_id: impl CstDecode<Option<String>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lbtc_ln_swap_new_reverse",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_mnemonic = mnemonic.cst_decode();
+            let api_passphrase = passphrase.cst_decode();
+            let api_index = index.cst_decode();
+            let api_out_amount = out_amount.cst_decode();
+            let api_out_address = out_address.cst_decode();
+            let api_network = network.cst_decode();
+            let api_electrum_url = electrum_url.cst_decode();
+            let api_boltz_url = boltz_url.cst_decode();
+            let api_description = description.cst_decode();
+            let api_referral_id = referral_id.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::new_reverse(
+                            api_mnemonic,
+                            api_passphrase,
+                            api_index,
+                            api_out_amount,
+                            api_out_address,
+                            api_network,
+                            api_electrum_url,
+                            api_boltz_url,
+                            api_description,
+                            api_referral_id,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_new_submarine_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    mnemonic: impl CstDecode<String>,
+    passphrase: impl CstDecode<Option<String>>,
+    index: impl CstDecode<u64>,
+    invoice: impl CstDecode<String>,
+    network: impl CstDecode<boltz::api::types::Chain>,
+    electrum_url: impl CstDecode<String>,
+    boltz_url: impl CstDecode<String>,
+    referral_id: impl CstDecode<Option<String>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lbtc_ln_swap_new_submarine",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_mnemonic = mnemonic.cst_decode();
+            let api_passphrase = passphrase.cst_decode();
+            let api_index = index.cst_decode();
+            let api_invoice = invoice.cst_decode();
+            let api_network = network.cst_decode();
+            let api_electrum_url = electrum_url.cst_decode();
+            let api_boltz_url = boltz_url.cst_decode();
+            let api_referral_id = referral_id.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::new_submarine(
+                            api_mnemonic,
+                            api_passphrase,
+                            api_index,
+                            api_invoice,
+                            api_network,
+                            api_electrum_url,
+                            api_boltz_url,
+                            api_referral_id,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_refund_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::lbtc_ln::LbtcLnSwap>,
+    out_address: impl CstDecode<String>,
+    miner_fee: impl CstDecode<crate::api::simple::TxFee>,
+    try_cooperate: impl CstDecode<bool>,
+    electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lbtc_ln_swap_refund",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_out_address = out_address.cst_decode();
+            let api_miner_fee = miner_fee.cst_decode();
+            let api_try_cooperate = try_cooperate.cst_decode();
+            let api_electrum_settings = electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::refund(
+                            &api_that,
+                            api_out_address,
+                            api_miner_fee.into(),
+                            api_try_cooperate,
+                            api_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_refund_tx_size_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::lbtc_ln::LbtcLnSwap>,
+    is_cooperative: impl CstDecode<bool>,
+    electrum_settings: impl CstDecode<Option<boltz::api::types::ElectrumSettings>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lbtc_ln_swap_refund_tx_size",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_is_cooperative = is_cooperative.cst_decode();
+            let api_electrum_settings = electrum_settings.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::refund_tx_size(
+                            &api_that,
+                            api_is_cooperative,
+                            api_electrum_settings,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_to_json_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::lbtc_ln::LbtcLnSwap>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lbtc_ln_swap_to_json",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
+                    let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::to_json(&api_that)?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__boltz__api__lnurl__lnurl_fetch_invoice_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::lnurl::Lnurl>,
+    msats: impl CstDecode<u64>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lnurl_fetch_invoice",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_msats = msats.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok =
+                            boltz::api::lnurl::Lnurl::fetch_invoice(&api_that, api_msats).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__lnurl__lnurl_get_voucher_max_amount_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::lnurl::Lnurl>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lnurl_get_voucher_max_amount",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok =
+                            boltz::api::lnurl::Lnurl::get_voucher_max_amount(&api_that).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__lnurl__lnurl_new_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    value: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lnurl_new",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_value = value.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok = Result::<_, ()>::Ok(boltz::api::lnurl::Lnurl::new(api_value))?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__boltz__api__lnurl__lnurl_validate_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::lnurl::Lnurl>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lnurl_validate",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok =
+                        Result::<_, ()>::Ok(boltz::api::lnurl::Lnurl::validate(&api_that))?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__boltz__api__lnurl__lnurl_withdraw_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::lnurl::Lnurl>,
+    invoice: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "lnurl_withdraw",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_invoice = invoice.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok =
+                            boltz::api::lnurl::Lnurl::withdraw(&api_that, api_invoice).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__types__pre_image_generate_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "pre_image_generate",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok = Result::<_, ()>::Ok(boltz::api::types::PreImage::generate())?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__boltz__api__types__pre_image_new_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    value: impl CstDecode<String>,
+    sha256: impl CstDecode<String>,
+    hash160: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "pre_image_new",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_value = value.cst_decode();
+            let api_sha256 = sha256.cst_decode();
+            let api_hash160 = hash160.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok = Result::<_, ()>::Ok(boltz::api::types::PreImage::new(
+                        api_value,
+                        api_sha256,
+                        api_hash160,
+                    ))?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__boltz__api__swap_status__swap_status_as_string_impl(
+    that: impl CstDecode<boltz::api::swap_status::SwapStatus>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "swap_status_as_string",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok =
+                    Result::<_, ()>::Ok(boltz::api::swap_status::SwapStatus::as_string(&api_that))?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__boltz__api__swap_status__swap_status_from_json_string_impl(
+    status: impl CstDecode<String>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "swap_status_from_json_string",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_status = status.cst_decode();
+            transform_result_dco::<_, _, String>((move || {
+                let output_ok = boltz::api::swap_status::SwapStatus::from_json_string(api_status)?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__boltz__api__swap_status__swap_status_response_from_json_impl(
+    json: impl CstDecode<String>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "swap_status_response_from_json",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_json = json.cst_decode();
+            transform_result_dco::<_, _, String>((move || {
+                let output_ok = boltz::api::swap_status::swap_status_response_from_json(api_json)?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__boltz__api__swap_status__swap_status_to_json_string_impl(
+    that: impl CstDecode<boltz::api::swap_status::SwapStatus>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "swap_status_to_json_string",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok = Result::<_, ()>::Ok(
+                    boltz::api::swap_status::SwapStatus::to_json_string(&api_that),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__boltz__api__swap_status__swap_stream_status_from_json_impl(
+    json: impl CstDecode<String>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "swap_stream_status_from_json",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_json = json.cst_decode();
+            transform_result_dco::<_, _, String>((move || {
+                let output_ok = boltz::api::swap_status::swap_stream_status_from_json(api_json)?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+
+// Section: static_checks
+
+#[allow(clippy::unnecessary_literal_unwrap)]
+const _: fn() = || {
+    {
+        let Address = None::<lwk::api::types::Address>.unwrap();
+        let _: String = Address.standard;
+        let _: String = Address.confidential;
+        let _: Option<u32> = Address.index;
+        let _: Option<String> = Address.blinding_key;
+    }
+    {
+        let Balance = None::<lwk::api::types::Balance>.unwrap();
+        let _: String = Balance.asset_id;
+        let _: i64 = Balance.value;
+    }
+    {
+        let Blockchain = None::<lwk::api::blockchain::Blockchain>.unwrap();
+    }
+    {
+        let BoltzError = None::<boltz::api::error::BoltzError>.unwrap();
+        let _: String = BoltzError.kind;
+        let _: String = BoltzError.message;
+    }
+    {
+        let BtcLnSwap = None::<boltz::api::btc_ln::BtcLnSwap>.unwrap();
+        let _: String = BtcLnSwap.id;
+        let _: boltz::api::types::SwapType = BtcLnSwap.kind;
+        let _: boltz::api::types::Chain = BtcLnSwap.network;
+        let _: boltz::api::types::KeyPair = BtcLnSwap.keys;
+        let _: u64 = BtcLnSwap.key_index;
+        let _: boltz::api::types::PreImage = BtcLnSwap.preimage;
+        let _: boltz::api::types::BtcSwapScriptStr = BtcLnSwap.swap_script;
+        let _: String = BtcLnSwap.invoice;
+        let _: String = BtcLnSwap.script_address;
+        let _: u64 = BtcLnSwap.out_amount;
+        let _: String = BtcLnSwap.electrum_url;
+        let _: String = BtcLnSwap.boltz_url;
+        let _: Option<String> = BtcLnSwap.referral_id;
+    }
+    {
+        let BtcSwapScriptStr = None::<boltz::api::types::BtcSwapScriptStr>.unwrap();
+        let _: boltz::api::types::SwapType = BtcSwapScriptStr.swap_type;
+        let _: Option<String> = BtcSwapScriptStr.funding_addrs;
+        let _: String = BtcSwapScriptStr.hashlock;
+        let _: String = BtcSwapScriptStr.receiver_pubkey;
+        let _: u32 = BtcSwapScriptStr.locktime;
+        let _: String = BtcSwapScriptStr.sender_pubkey;
+        let _: Option<boltz::api::types::Side> = BtcSwapScriptStr.side;
+    }
+    {
+        let ChainFeesAndLimits = None::<boltz::api::fees::ChainFeesAndLimits>.unwrap();
+        let _: boltz::api::fees::SwapLimits = ChainFeesAndLimits.btc_limits;
+        let _: boltz::api::fees::SwapLimits = ChainFeesAndLimits.lbtc_limits;
+        let _: boltz::api::fees::ChainSwapFees = ChainFeesAndLimits.btc_fees;
+        let _: boltz::api::fees::ChainSwapFees = ChainFeesAndLimits.lbtc_fees;
+    }
+    {
+        let ChainSwap = None::<boltz::api::chain_swap::ChainSwap>.unwrap();
+        let _: String = ChainSwap.id;
+        let _: bool = ChainSwap.is_testnet;
+        let _: boltz::api::types::ChainSwapDirection = ChainSwap.direction;
+        let _: boltz::api::types::KeyPair = ChainSwap.refund_keys;
+        let _: u64 = ChainSwap.refund_index;
+        let _: boltz::api::types::KeyPair = ChainSwap.claim_keys;
+        let _: u64 = ChainSwap.claim_index;
+        let _: boltz::api::types::PreImage = ChainSwap.preimage;
+        let _: boltz::api::types::BtcSwapScriptStr = ChainSwap.btc_script_str;
+        let _: boltz::api::types::LBtcSwapScriptStr = ChainSwap.lbtc_script_str;
+        let _: String = ChainSwap.script_address;
+        let _: u64 = ChainSwap.out_amount;
+        let _: String = ChainSwap.btc_electrum_url;
+        let _: String = ChainSwap.lbtc_electrum_url;
+        let _: String = ChainSwap.boltz_url;
+        let _: Option<String> = ChainSwap.referral_id;
+        let _: String = ChainSwap.blinding_key;
+    }
+    {
+        let ChainSwapFees = None::<boltz::api::fees::ChainSwapFees>.unwrap();
+        let _: f64 = ChainSwapFees.percentage;
+        let _: u64 = ChainSwapFees.user_lockup;
+        let _: u64 = ChainSwapFees.user_claim;
+        let _: u64 = ChainSwapFees.server;
+    }
+    {
+        let DecodedInvoice = None::<boltz::api::types::DecodedInvoice>.unwrap();
+        let _: u64 = DecodedInvoice.msats;
+        let _: u64 = DecodedInvoice.expiry;
+        let _: u64 = DecodedInvoice.expires_in;
+        let _: u64 = DecodedInvoice.expires_at;
+        let _: bool = DecodedInvoice.is_expired;
+        let _: String = DecodedInvoice.network;
+        let _: u64 = DecodedInvoice.cltv_exp_delta;
+        let _: Option<String> = DecodedInvoice.bip21;
+        let _: String = DecodedInvoice.preimage_hash;
+        let _: String = DecodedInvoice.description;
+    }
+    {
+        let Descriptor = None::<lwk::api::descriptor::Descriptor>.unwrap();
+        let _: String = Descriptor.ct_descriptor;
+    }
+    {
+        let ElectrumSettings = None::<boltz::api::types::ElectrumSettings>.unwrap();
+        let _: String = ElectrumSettings.url;
+        let _: bool = ElectrumSettings.validate_domain;
+        let _: bool = ElectrumSettings.tls;
+        let _: u8 = ElectrumSettings.timeout;
+    }
+    {
+        let Fees = None::<boltz::api::fees::Fees>.unwrap();
+        let _: String = Fees.boltz_url;
+    }
+    {
+        let KeyPair = None::<boltz::api::types::KeyPair>.unwrap();
+        let _: String = KeyPair.secret_key;
+        let _: String = KeyPair.public_key;
+    }
+    {
+        let LBtcSwapScriptStr = None::<boltz::api::types::LBtcSwapScriptStr>.unwrap();
+        let _: boltz::api::types::SwapType = LBtcSwapScriptStr.swap_type;
+        let _: Option<String> = LBtcSwapScriptStr.funding_addrs;
+        let _: String = LBtcSwapScriptStr.hashlock;
+        let _: String = LBtcSwapScriptStr.receiver_pubkey;
+        let _: u32 = LBtcSwapScriptStr.locktime;
+        let _: String = LBtcSwapScriptStr.sender_pubkey;
+        let _: String = LBtcSwapScriptStr.blinding_key;
+        let _: Option<boltz::api::types::Side> = LBtcSwapScriptStr.side;
+    }
+    {
+        let LbtcLnSwap = None::<boltz::api::lbtc_ln::LbtcLnSwap>.unwrap();
+        let _: String = LbtcLnSwap.id;
+        let _: boltz::api::types::SwapType = LbtcLnSwap.kind;
+        let _: boltz::api::types::Chain = LbtcLnSwap.network;
+        let _: boltz::api::types::KeyPair = LbtcLnSwap.keys;
+        let _: u64 = LbtcLnSwap.key_index;
+        let _: boltz::api::types::PreImage = LbtcLnSwap.preimage;
+        let _: boltz::api::types::LBtcSwapScriptStr = LbtcLnSwap.swap_script;
+        let _: String = LbtcLnSwap.invoice;
+        let _: u64 = LbtcLnSwap.out_amount;
+        let _: String = LbtcLnSwap.script_address;
+        let _: String = LbtcLnSwap.blinding_key;
+        let _: String = LbtcLnSwap.electrum_url;
+        let _: String = LbtcLnSwap.boltz_url;
+        let _: Option<String> = LbtcLnSwap.referral_id;
+    }
+    {
+        let Lnurl = None::<boltz::api::lnurl::Lnurl>.unwrap();
+        let _: String = Lnurl.value;
+    }
+    {
+        let LwkError = None::<lwk::api::error::LwkError>.unwrap();
+        let _: String = LwkError.msg;
+    }
+    {
+        let MinerFees = None::<boltz::api::fees::MinerFees>.unwrap();
+        let _: u64 = MinerFees.lockup;
+        let _: u64 = MinerFees.claim;
+    }
+    {
+        let OutPoint = None::<lwk::api::types::OutPoint>.unwrap();
+        let _: String = OutPoint.txid;
+        let _: u32 = OutPoint.vout;
+    }
+    {
+        let OutspendStatus = None::<boltz::api::types::OutspendStatus>.unwrap();
+        let _: boltz::api::types::SwapTxKind = OutspendStatus.kind;
+        let _: Option<String> = OutspendStatus.txid;
+        let _: Option<u64> = OutspendStatus.timestamp;
+    }
+    {
+        let PayjoinTx = None::<lwk::api::types::PayjoinTx>.unwrap();
+        let _: String = PayjoinTx.pset;
+        let _: u64 = PayjoinTx.network_fee;
+        let _: u64 = PayjoinTx.asset_fee;
+        let _: Vec<lwk::api::types::TxOutSecrets> = PayjoinTx.unblinded_outputs;
+    }
+    {
+        let PreImage = None::<boltz::api::types::PreImage>.unwrap();
+        let _: String = PreImage.value;
+        let _: String = PreImage.sha256;
+        let _: String = PreImage.hash160;
+    }
+    {
+        let PsetAmounts = None::<lwk::api::types::PsetAmounts>.unwrap();
+        let _: u64 = PsetAmounts.absolute_fees;
+        let _: Vec<lwk::api::types::Balance> = PsetAmounts.balances;
+    }
+    {
+        let PsetInput = None::<lwk::api::transaction::PsetInput>.unwrap();
+        let _: Option<String> = PsetInput.witness_utxo_script;
+        let _: Option<u64> = PsetInput.witness_utxo_amount;
+        let _: Option<String> = PsetInput.witness_utxo_asset;
+    }
+    {
+        let PsetOutput = None::<lwk::api::transaction::PsetOutput>.unwrap();
+        let _: String = PsetOutput.script_pubkey;
+        let _: Option<u64> = PsetOutput.amount;
+        let _: Option<String> = PsetOutput.asset;
+        let _: Option<String> = PsetOutput.blinding_key;
+    }
+    {
+        let RevSwapFees = None::<boltz::api::fees::RevSwapFees>.unwrap();
+        let _: f64 = RevSwapFees.percentage;
+        let _: boltz::api::fees::MinerFees = RevSwapFees.miner_fees;
+    }
+    {
+        let ReverseFeesAndLimits = None::<boltz::api::fees::ReverseFeesAndLimits>.unwrap();
+        let _: boltz::api::fees::SwapLimits = ReverseFeesAndLimits.btc_limits;
+        let _: boltz::api::fees::SwapLimits = ReverseFeesAndLimits.lbtc_limits;
+        let _: boltz::api::fees::RevSwapFees = ReverseFeesAndLimits.btc_fees;
+        let _: boltz::api::fees::RevSwapFees = ReverseFeesAndLimits.lbtc_fees;
+    }
+    {
+        let SizeAndFees = None::<lwk::api::types::SizeAndFees>.unwrap();
+        let _: usize = SizeAndFees.discounted_vsize;
+        let _: usize = SizeAndFees.discounted_weight;
+        let _: Vec<lwk::api::types::Balance> = SizeAndFees.absolute_fees;
+    }
+    {
+        let SubSwapFees = None::<boltz::api::fees::SubSwapFees>.unwrap();
+        let _: f64 = SubSwapFees.percentage;
+        let _: u64 = SubSwapFees.miner_fees;
+    }
+    {
+        let SubmarineFeesAndLimits = None::<boltz::api::fees::SubmarineFeesAndLimits>.unwrap();
+        let _: boltz::api::fees::SwapLimits = SubmarineFeesAndLimits.btc_limits;
+        let _: boltz::api::fees::SwapLimits = SubmarineFeesAndLimits.lbtc_limits;
+        let _: boltz::api::fees::SubSwapFees = SubmarineFeesAndLimits.btc_fees;
+        let _: boltz::api::fees::SubSwapFees = SubmarineFeesAndLimits.lbtc_fees;
+    }
+    {
+        let SwapLimits = None::<boltz::api::fees::SwapLimits>.unwrap();
+        let _: u64 = SwapLimits.minimal;
+        let _: u64 = SwapLimits.maximal;
+    }
+    {
+        let SwapStatusResponse = None::<boltz::api::swap_status::SwapStatusResponse>.unwrap();
+        let _: boltz::api::swap_status::SwapStatus = SwapStatusResponse.status;
+        let _: Option<boltz::api::swap_status::Transaction> = SwapStatusResponse.transaction;
+        let _: Option<String> = SwapStatusResponse.failure_reason;
+        let _: Option<String> = SwapStatusResponse.error;
+    }
+    {
+        let SwapStreamStatus = None::<boltz::api::swap_status::SwapStreamStatus>.unwrap();
+        let _: String = SwapStreamStatus.id;
+        let _: boltz::api::swap_status::SwapStatus = SwapStreamStatus.status;
+        let _: Option<String> = SwapStreamStatus.error;
+        let _: Option<boltz::api::swap_status::Transaction> = SwapStreamStatus.transaction;
+    }
+    {
+        let Transaction = None::<boltz::api::swap_status::Transaction>.unwrap();
+        let _: String = Transaction.id;
+        let _: String = Transaction.hex;
+        let _: Option<u32> = Transaction.eta;
+    }
+    {
+        let Tx = None::<lwk::api::types::Tx>.unwrap();
+        let _: Option<u32> = Tx.timestamp;
+        let _: String = Tx.kind;
+        let _: Vec<lwk::api::types::Balance> = Tx.balances;
+        let _: String = Tx.txid;
+        let _: Vec<lwk::api::types::TxOut> = Tx.outputs;
+        let _: Vec<lwk::api::types::TxOut> = Tx.inputs;
+        let _: u64 = Tx.fee;
+        let _: Option<u32> = Tx.height;
+        let _: String = Tx.unblinded_url;
+        let _: usize = Tx.vsize;
+    }
+    {
+        let TxInput = None::<lwk::api::transaction::TxInput>.unwrap();
+        let _: String = TxInput.txid;
+        let _: u32 = TxInput.vout;
+        let _: String = TxInput.script_sig;
+        let _: u32 = TxInput.sequence;
+        let _: Vec<String> = TxInput.witness;
+        let _: bool = TxInput.is_pegin;
+    }
+    {
+        let TxOut = None::<lwk::api::types::TxOut>.unwrap();
+        let _: String = TxOut.script_pubkey;
+        let _: lwk::api::types::OutPoint = TxOut.outpoint;
+        let _: Option<u32> = TxOut.height;
+        let _: lwk::api::types::TxOutSecrets = TxOut.unblinded;
+        let _: bool = TxOut.is_spent;
+        let _: lwk::api::types::Address = TxOut.address;
+    }
+    {
+        let TxOutSecrets = None::<lwk::api::types::TxOutSecrets>.unwrap();
+        let _: u64 = TxOutSecrets.value;
+        let _: String = TxOutSecrets.value_bf;
+        let _: String = TxOutSecrets.asset;
+        let _: String = TxOutSecrets.asset_bf;
+    }
+    {
+        let TxOutput = None::<lwk::api::transaction::TxOutput>.unwrap();
+        let _: String = TxOutput.script_pubkey;
+        let _: Option<String> = TxOutput.asset;
+        let _: Option<u64> = TxOutput.value;
+        let _: Option<String> = TxOutput.nonce;
+    }
+};
 
 // Section: dart2rust
+
+impl CstDecode<bool> for bool {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> bool {
+        self
+    }
+}
+impl CstDecode<boltz::api::types::Chain> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> boltz::api::types::Chain {
+        match self {
+            0 => boltz::api::types::Chain::Bitcoin,
+            1 => boltz::api::types::Chain::BitcoinTestnet,
+            2 => boltz::api::types::Chain::Liquid,
+            3 => boltz::api::types::Chain::LiquidTestnet,
+            _ => unreachable!("Invalid variant for Chain: {}", self),
+        }
+    }
+}
+impl CstDecode<boltz::api::types::ChainSwapDirection> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> boltz::api::types::ChainSwapDirection {
+        match self {
+            0 => boltz::api::types::ChainSwapDirection::BtcToLbtc,
+            1 => boltz::api::types::ChainSwapDirection::LbtcToBtc,
+            _ => unreachable!("Invalid variant for ChainSwapDirection: {}", self),
+        }
+    }
+}
+impl CstDecode<f32> for f32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> f32 {
+        self
+    }
+}
+impl CstDecode<f64> for f64 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> f64 {
+        self
+    }
+}
+impl CstDecode<i32> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> i32 {
+        self
+    }
+}
+impl CstDecode<i64> for i64 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> i64 {
+        self
+    }
+}
+impl CstDecode<lwk::api::types::Network> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> lwk::api::types::Network {
+        match self {
+            0 => lwk::api::types::Network::Mainnet,
+            1 => lwk::api::types::Network::Testnet,
+            _ => unreachable!("Invalid variant for Network: {}", self),
+        }
+    }
+}
+impl CstDecode<boltz::api::types::Side> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> boltz::api::types::Side {
+        match self {
+            0 => boltz::api::types::Side::Lockup,
+            1 => boltz::api::types::Side::Claim,
+            _ => unreachable!("Invalid variant for Side: {}", self),
+        }
+    }
+}
+impl CstDecode<boltz::api::swap_status::SwapStatus> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> boltz::api::swap_status::SwapStatus {
+        match self {
+            0 => boltz::api::swap_status::SwapStatus::SwapCreated,
+            1 => boltz::api::swap_status::SwapStatus::SwapExpired,
+            2 => boltz::api::swap_status::SwapStatus::SwapRefunded,
+            3 => boltz::api::swap_status::SwapStatus::SwapError,
+            4 => boltz::api::swap_status::SwapStatus::TxnMempool,
+            5 => boltz::api::swap_status::SwapStatus::TxnClaimPending,
+            6 => boltz::api::swap_status::SwapStatus::TxnClaimed,
+            7 => boltz::api::swap_status::SwapStatus::TxnConfirmed,
+            8 => boltz::api::swap_status::SwapStatus::TxnRefunded,
+            9 => boltz::api::swap_status::SwapStatus::TxnFailed,
+            10 => boltz::api::swap_status::SwapStatus::TxnLockupFailed,
+            11 => boltz::api::swap_status::SwapStatus::TxnServerMempool,
+            12 => boltz::api::swap_status::SwapStatus::TxnServerConfirmed,
+            13 => boltz::api::swap_status::SwapStatus::TxnDirect,
+            14 => boltz::api::swap_status::SwapStatus::InvoiceSet,
+            15 => boltz::api::swap_status::SwapStatus::InvoicePending,
+            16 => boltz::api::swap_status::SwapStatus::InvoicePaid,
+            17 => boltz::api::swap_status::SwapStatus::InvoiceFailedToPay,
+            18 => boltz::api::swap_status::SwapStatus::InvoiceSettled,
+            19 => boltz::api::swap_status::SwapStatus::InvoiceExpired,
+            20 => boltz::api::swap_status::SwapStatus::MinerfeePaid,
+            _ => unreachable!("Invalid variant for SwapStatus: {}", self),
+        }
+    }
+}
+impl CstDecode<boltz::api::types::SwapTxKind> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> boltz::api::types::SwapTxKind {
+        match self {
+            0 => boltz::api::types::SwapTxKind::Claim,
+            1 => boltz::api::types::SwapTxKind::Refund,
+            _ => unreachable!("Invalid variant for SwapTxKind: {}", self),
+        }
+    }
+}
+impl CstDecode<boltz::api::types::SwapType> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> boltz::api::types::SwapType {
+        match self {
+            0 => boltz::api::types::SwapType::Submarine,
+            1 => boltz::api::types::SwapType::Reverse,
+            2 => boltz::api::types::SwapType::Chain,
+            _ => unreachable!("Invalid variant for SwapType: {}", self),
+        }
+    }
+}
+impl CstDecode<u32> for u32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> u32 {
+        self
+    }
+}
+impl CstDecode<u64> for u64 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> u64 {
+        self
+    }
+}
+impl CstDecode<u8> for u8 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> u8 {
+        self
+    }
+}
+impl CstDecode<usize> for usize {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> usize {
+        self
+    }
+}
+impl SseDecode for LiquidTransaction {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
+impl SseDecode for PartiallySignedElementsTransaction {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
+impl SseDecode for Wallet {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>,
+        >>::sse_decode(deserializer);
+        return flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(inner);
+    }
+}
+
+impl SseDecode
+    for RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return unsafe { decode_rust_opaque_nom(inner) };
+    }
+}
+
+impl SseDecode
+    for RustOpaqueNom<
+        flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PartiallySignedElementsTransaction>,
+    >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return unsafe { decode_rust_opaque_nom(inner) };
+    }
+}
+
+impl SseDecode for RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <usize>::sse_decode(deserializer);
+        return unsafe { decode_rust_opaque_nom(inner) };
+    }
+}
 
 impl SseDecode for String {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut inner = <Vec<u8>>::sse_decode(deserializer);
         return String::from_utf8(inner).unwrap();
+    }
+}
+
+impl SseDecode for lwk::api::types::Address {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_standard = <String>::sse_decode(deserializer);
+        let mut var_confidential = <String>::sse_decode(deserializer);
+        let mut var_index = <Option<u32>>::sse_decode(deserializer);
+        let mut var_blindingKey = <Option<String>>::sse_decode(deserializer);
+        return lwk::api::types::Address {
+            standard: var_standard,
+            confidential: var_confidential,
+            index: var_index,
+            blinding_key: var_blindingKey,
+        };
+    }
+}
+
+impl SseDecode for lwk::api::types::Balance {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_assetId = <String>::sse_decode(deserializer);
+        let mut var_value = <i64>::sse_decode(deserializer);
+        return lwk::api::types::Balance {
+            asset_id: var_assetId,
+            value: var_value,
+        };
+    }
+}
+
+impl SseDecode for lwk::api::blockchain::Blockchain {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        return lwk::api::blockchain::Blockchain {};
+    }
+}
+
+impl SseDecode for boltz::api::error::BoltzError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_kind = <String>::sse_decode(deserializer);
+        let mut var_message = <String>::sse_decode(deserializer);
+        return boltz::api::error::BoltzError {
+            kind: var_kind,
+            message: var_message,
+        };
+    }
+}
+
+impl SseDecode for bool {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_u8().unwrap() != 0
+    }
+}
+
+impl SseDecode for boltz::api::btc_ln::BtcLnSwap {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_id = <String>::sse_decode(deserializer);
+        let mut var_kind = <boltz::api::types::SwapType>::sse_decode(deserializer);
+        let mut var_network = <boltz::api::types::Chain>::sse_decode(deserializer);
+        let mut var_keys = <boltz::api::types::KeyPair>::sse_decode(deserializer);
+        let mut var_keyIndex = <u64>::sse_decode(deserializer);
+        let mut var_preimage = <boltz::api::types::PreImage>::sse_decode(deserializer);
+        let mut var_swapScript = <boltz::api::types::BtcSwapScriptStr>::sse_decode(deserializer);
+        let mut var_invoice = <String>::sse_decode(deserializer);
+        let mut var_scriptAddress = <String>::sse_decode(deserializer);
+        let mut var_outAmount = <u64>::sse_decode(deserializer);
+        let mut var_electrumUrl = <String>::sse_decode(deserializer);
+        let mut var_boltzUrl = <String>::sse_decode(deserializer);
+        let mut var_referralId = <Option<String>>::sse_decode(deserializer);
+        return boltz::api::btc_ln::BtcLnSwap {
+            id: var_id,
+            kind: var_kind,
+            network: var_network,
+            keys: var_keys,
+            key_index: var_keyIndex,
+            preimage: var_preimage,
+            swap_script: var_swapScript,
+            invoice: var_invoice,
+            script_address: var_scriptAddress,
+            out_amount: var_outAmount,
+            electrum_url: var_electrumUrl,
+            boltz_url: var_boltzUrl,
+            referral_id: var_referralId,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::types::BtcSwapScriptStr {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_swapType = <boltz::api::types::SwapType>::sse_decode(deserializer);
+        let mut var_fundingAddrs = <Option<String>>::sse_decode(deserializer);
+        let mut var_hashlock = <String>::sse_decode(deserializer);
+        let mut var_receiverPubkey = <String>::sse_decode(deserializer);
+        let mut var_locktime = <u32>::sse_decode(deserializer);
+        let mut var_senderPubkey = <String>::sse_decode(deserializer);
+        let mut var_side = <Option<boltz::api::types::Side>>::sse_decode(deserializer);
+        return boltz::api::types::BtcSwapScriptStr {
+            swap_type: var_swapType,
+            funding_addrs: var_fundingAddrs,
+            hashlock: var_hashlock,
+            receiver_pubkey: var_receiverPubkey,
+            locktime: var_locktime,
+            sender_pubkey: var_senderPubkey,
+            side: var_side,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::types::Chain {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => boltz::api::types::Chain::Bitcoin,
+            1 => boltz::api::types::Chain::BitcoinTestnet,
+            2 => boltz::api::types::Chain::Liquid,
+            3 => boltz::api::types::Chain::LiquidTestnet,
+            _ => unreachable!("Invalid variant for Chain: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for boltz::api::fees::ChainFeesAndLimits {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_btcLimits = <boltz::api::fees::SwapLimits>::sse_decode(deserializer);
+        let mut var_lbtcLimits = <boltz::api::fees::SwapLimits>::sse_decode(deserializer);
+        let mut var_btcFees = <boltz::api::fees::ChainSwapFees>::sse_decode(deserializer);
+        let mut var_lbtcFees = <boltz::api::fees::ChainSwapFees>::sse_decode(deserializer);
+        return boltz::api::fees::ChainFeesAndLimits {
+            btc_limits: var_btcLimits,
+            lbtc_limits: var_lbtcLimits,
+            btc_fees: var_btcFees,
+            lbtc_fees: var_lbtcFees,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::chain_swap::ChainSwap {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_id = <String>::sse_decode(deserializer);
+        let mut var_isTestnet = <bool>::sse_decode(deserializer);
+        let mut var_direction = <boltz::api::types::ChainSwapDirection>::sse_decode(deserializer);
+        let mut var_refundKeys = <boltz::api::types::KeyPair>::sse_decode(deserializer);
+        let mut var_refundIndex = <u64>::sse_decode(deserializer);
+        let mut var_claimKeys = <boltz::api::types::KeyPair>::sse_decode(deserializer);
+        let mut var_claimIndex = <u64>::sse_decode(deserializer);
+        let mut var_preimage = <boltz::api::types::PreImage>::sse_decode(deserializer);
+        let mut var_btcScriptStr = <boltz::api::types::BtcSwapScriptStr>::sse_decode(deserializer);
+        let mut var_lbtcScriptStr =
+            <boltz::api::types::LBtcSwapScriptStr>::sse_decode(deserializer);
+        let mut var_scriptAddress = <String>::sse_decode(deserializer);
+        let mut var_outAmount = <u64>::sse_decode(deserializer);
+        let mut var_btcElectrumUrl = <String>::sse_decode(deserializer);
+        let mut var_lbtcElectrumUrl = <String>::sse_decode(deserializer);
+        let mut var_boltzUrl = <String>::sse_decode(deserializer);
+        let mut var_referralId = <Option<String>>::sse_decode(deserializer);
+        let mut var_blindingKey = <String>::sse_decode(deserializer);
+        return boltz::api::chain_swap::ChainSwap {
+            id: var_id,
+            is_testnet: var_isTestnet,
+            direction: var_direction,
+            refund_keys: var_refundKeys,
+            refund_index: var_refundIndex,
+            claim_keys: var_claimKeys,
+            claim_index: var_claimIndex,
+            preimage: var_preimage,
+            btc_script_str: var_btcScriptStr,
+            lbtc_script_str: var_lbtcScriptStr,
+            script_address: var_scriptAddress,
+            out_amount: var_outAmount,
+            btc_electrum_url: var_btcElectrumUrl,
+            lbtc_electrum_url: var_lbtcElectrumUrl,
+            boltz_url: var_boltzUrl,
+            referral_id: var_referralId,
+            blinding_key: var_blindingKey,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::types::ChainSwapDirection {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => boltz::api::types::ChainSwapDirection::BtcToLbtc,
+            1 => boltz::api::types::ChainSwapDirection::LbtcToBtc,
+            _ => unreachable!("Invalid variant for ChainSwapDirection: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for boltz::api::fees::ChainSwapFees {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_percentage = <f64>::sse_decode(deserializer);
+        let mut var_userLockup = <u64>::sse_decode(deserializer);
+        let mut var_userClaim = <u64>::sse_decode(deserializer);
+        let mut var_server = <u64>::sse_decode(deserializer);
+        return boltz::api::fees::ChainSwapFees {
+            percentage: var_percentage,
+            user_lockup: var_userLockup,
+            user_claim: var_userClaim,
+            server: var_server,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::types::DecodedInvoice {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_msats = <u64>::sse_decode(deserializer);
+        let mut var_expiry = <u64>::sse_decode(deserializer);
+        let mut var_expiresIn = <u64>::sse_decode(deserializer);
+        let mut var_expiresAt = <u64>::sse_decode(deserializer);
+        let mut var_isExpired = <bool>::sse_decode(deserializer);
+        let mut var_network = <String>::sse_decode(deserializer);
+        let mut var_cltvExpDelta = <u64>::sse_decode(deserializer);
+        let mut var_bip21 = <Option<String>>::sse_decode(deserializer);
+        let mut var_preimageHash = <String>::sse_decode(deserializer);
+        let mut var_description = <String>::sse_decode(deserializer);
+        return boltz::api::types::DecodedInvoice {
+            msats: var_msats,
+            expiry: var_expiry,
+            expires_in: var_expiresIn,
+            expires_at: var_expiresAt,
+            is_expired: var_isExpired,
+            network: var_network,
+            cltv_exp_delta: var_cltvExpDelta,
+            bip21: var_bip21,
+            preimage_hash: var_preimageHash,
+            description: var_description,
+        };
+    }
+}
+
+impl SseDecode for lwk::api::descriptor::Descriptor {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_ctDescriptor = <String>::sse_decode(deserializer);
+        return lwk::api::descriptor::Descriptor {
+            ct_descriptor: var_ctDescriptor,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::types::ElectrumSettings {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_url = <String>::sse_decode(deserializer);
+        let mut var_validateDomain = <bool>::sse_decode(deserializer);
+        let mut var_tls = <bool>::sse_decode(deserializer);
+        let mut var_timeout = <u8>::sse_decode(deserializer);
+        return boltz::api::types::ElectrumSettings {
+            url: var_url,
+            validate_domain: var_validateDomain,
+            tls: var_tls,
+            timeout: var_timeout,
+        };
+    }
+}
+
+impl SseDecode for f32 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_f32::<NativeEndian>().unwrap()
+    }
+}
+
+impl SseDecode for f64 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_f64::<NativeEndian>().unwrap()
+    }
+}
+
+impl SseDecode for boltz::api::fees::Fees {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_boltzUrl = <String>::sse_decode(deserializer);
+        return boltz::api::fees::Fees {
+            boltz_url: var_boltzUrl,
+        };
+    }
+}
+
+impl SseDecode for i32 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_i32::<NativeEndian>().unwrap()
+    }
+}
+
+impl SseDecode for i64 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_i64::<NativeEndian>().unwrap()
+    }
+}
+
+impl SseDecode for boltz::api::types::KeyPair {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_secretKey = <String>::sse_decode(deserializer);
+        let mut var_publicKey = <String>::sse_decode(deserializer);
+        return boltz::api::types::KeyPair {
+            secret_key: var_secretKey,
+            public_key: var_publicKey,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::types::LBtcSwapScriptStr {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_swapType = <boltz::api::types::SwapType>::sse_decode(deserializer);
+        let mut var_fundingAddrs = <Option<String>>::sse_decode(deserializer);
+        let mut var_hashlock = <String>::sse_decode(deserializer);
+        let mut var_receiverPubkey = <String>::sse_decode(deserializer);
+        let mut var_locktime = <u32>::sse_decode(deserializer);
+        let mut var_senderPubkey = <String>::sse_decode(deserializer);
+        let mut var_blindingKey = <String>::sse_decode(deserializer);
+        let mut var_side = <Option<boltz::api::types::Side>>::sse_decode(deserializer);
+        return boltz::api::types::LBtcSwapScriptStr {
+            swap_type: var_swapType,
+            funding_addrs: var_fundingAddrs,
+            hashlock: var_hashlock,
+            receiver_pubkey: var_receiverPubkey,
+            locktime: var_locktime,
+            sender_pubkey: var_senderPubkey,
+            blinding_key: var_blindingKey,
+            side: var_side,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::lbtc_ln::LbtcLnSwap {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_id = <String>::sse_decode(deserializer);
+        let mut var_kind = <boltz::api::types::SwapType>::sse_decode(deserializer);
+        let mut var_network = <boltz::api::types::Chain>::sse_decode(deserializer);
+        let mut var_keys = <boltz::api::types::KeyPair>::sse_decode(deserializer);
+        let mut var_keyIndex = <u64>::sse_decode(deserializer);
+        let mut var_preimage = <boltz::api::types::PreImage>::sse_decode(deserializer);
+        let mut var_swapScript = <boltz::api::types::LBtcSwapScriptStr>::sse_decode(deserializer);
+        let mut var_invoice = <String>::sse_decode(deserializer);
+        let mut var_outAmount = <u64>::sse_decode(deserializer);
+        let mut var_scriptAddress = <String>::sse_decode(deserializer);
+        let mut var_blindingKey = <String>::sse_decode(deserializer);
+        let mut var_electrumUrl = <String>::sse_decode(deserializer);
+        let mut var_boltzUrl = <String>::sse_decode(deserializer);
+        let mut var_referralId = <Option<String>>::sse_decode(deserializer);
+        return boltz::api::lbtc_ln::LbtcLnSwap {
+            id: var_id,
+            kind: var_kind,
+            network: var_network,
+            keys: var_keys,
+            key_index: var_keyIndex,
+            preimage: var_preimage,
+            swap_script: var_swapScript,
+            invoice: var_invoice,
+            out_amount: var_outAmount,
+            script_address: var_scriptAddress,
+            blinding_key: var_blindingKey,
+            electrum_url: var_electrumUrl,
+            boltz_url: var_boltzUrl,
+            referral_id: var_referralId,
+        };
+    }
+}
+
+impl SseDecode for Vec<String> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<String>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<lwk::api::types::Balance> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<lwk::api::types::Balance>::sse_decode(deserializer));
+        }
+        return ans_;
     }
 }
 
@@ -132,6 +5268,703 @@ impl SseDecode for Vec<u8> {
     }
 }
 
+impl SseDecode for Vec<lwk::api::transaction::PsetInput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<lwk::api::transaction::PsetInput>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<lwk::api::transaction::PsetOutput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<lwk::api::transaction::PsetOutput>::sse_decode(
+                deserializer,
+            ));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<lwk::api::types::Tx> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<lwk::api::types::Tx>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<lwk::api::transaction::TxInput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<lwk::api::transaction::TxInput>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<lwk::api::types::TxOut> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<lwk::api::types::TxOut>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<lwk::api::types::TxOutSecrets> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<lwk::api::types::TxOutSecrets>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<lwk::api::transaction::TxOutput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = vec![];
+        for idx_ in 0..len_ {
+            ans_.push(<lwk::api::transaction::TxOutput>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for boltz::api::lnurl::Lnurl {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_value = <String>::sse_decode(deserializer);
+        return boltz::api::lnurl::Lnurl { value: var_value };
+    }
+}
+
+impl SseDecode for lwk::api::error::LwkError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_msg = <String>::sse_decode(deserializer);
+        return lwk::api::error::LwkError { msg: var_msg };
+    }
+}
+
+impl SseDecode for boltz::api::fees::MinerFees {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_lockup = <u64>::sse_decode(deserializer);
+        let mut var_claim = <u64>::sse_decode(deserializer);
+        return boltz::api::fees::MinerFees {
+            lockup: var_lockup,
+            claim: var_claim,
+        };
+    }
+}
+
+impl SseDecode for lwk::api::types::Network {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => lwk::api::types::Network::Mainnet,
+            1 => lwk::api::types::Network::Testnet,
+            _ => unreachable!("Invalid variant for Network: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for Option<String> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<String>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<boltz::api::types::ChainSwapDirection> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<boltz::api::types::ChainSwapDirection>::sse_decode(
+                deserializer,
+            ));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<boltz::api::types::ElectrumSettings> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<boltz::api::types::ElectrumSettings>::sse_decode(
+                deserializer,
+            ));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<lwk::api::transaction::PsetInput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<lwk::api::transaction::PsetInput>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<lwk::api::transaction::PsetOutput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<lwk::api::transaction::PsetOutput>::sse_decode(
+                deserializer,
+            ));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<boltz::api::types::Side> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<boltz::api::types::Side>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<boltz::api::swap_status::Transaction> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<boltz::api::swap_status::Transaction>::sse_decode(
+                deserializer,
+            ));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<lwk::api::transaction::TxInput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<lwk::api::transaction::TxInput>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<lwk::api::transaction::TxOutput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<lwk::api::transaction::TxOutput>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<u32> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<u32>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<u64> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<u64>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<u8> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<u8>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for lwk::api::types::OutPoint {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_txid = <String>::sse_decode(deserializer);
+        let mut var_vout = <u32>::sse_decode(deserializer);
+        return lwk::api::types::OutPoint {
+            txid: var_txid,
+            vout: var_vout,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::types::OutspendStatus {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_kind = <boltz::api::types::SwapTxKind>::sse_decode(deserializer);
+        let mut var_txid = <Option<String>>::sse_decode(deserializer);
+        let mut var_timestamp = <Option<u64>>::sse_decode(deserializer);
+        return boltz::api::types::OutspendStatus {
+            kind: var_kind,
+            txid: var_txid,
+            timestamp: var_timestamp,
+        };
+    }
+}
+
+impl SseDecode for lwk::api::types::PayjoinTx {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_pset = <String>::sse_decode(deserializer);
+        let mut var_networkFee = <u64>::sse_decode(deserializer);
+        let mut var_assetFee = <u64>::sse_decode(deserializer);
+        let mut var_unblindedOutputs =
+            <Vec<lwk::api::types::TxOutSecrets>>::sse_decode(deserializer);
+        return lwk::api::types::PayjoinTx {
+            pset: var_pset,
+            network_fee: var_networkFee,
+            asset_fee: var_assetFee,
+            unblinded_outputs: var_unblindedOutputs,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::types::PreImage {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_value = <String>::sse_decode(deserializer);
+        let mut var_sha256 = <String>::sse_decode(deserializer);
+        let mut var_hash160 = <String>::sse_decode(deserializer);
+        return boltz::api::types::PreImage {
+            value: var_value,
+            sha256: var_sha256,
+            hash160: var_hash160,
+        };
+    }
+}
+
+impl SseDecode for lwk::api::types::PsetAmounts {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_absoluteFees = <u64>::sse_decode(deserializer);
+        let mut var_balances = <Vec<lwk::api::types::Balance>>::sse_decode(deserializer);
+        return lwk::api::types::PsetAmounts {
+            absolute_fees: var_absoluteFees,
+            balances: var_balances,
+        };
+    }
+}
+
+impl SseDecode for lwk::api::transaction::PsetInput {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_witnessUtxoScript = <Option<String>>::sse_decode(deserializer);
+        let mut var_witnessUtxoAmount = <Option<u64>>::sse_decode(deserializer);
+        let mut var_witnessUtxoAsset = <Option<String>>::sse_decode(deserializer);
+        return lwk::api::transaction::PsetInput {
+            witness_utxo_script: var_witnessUtxoScript,
+            witness_utxo_amount: var_witnessUtxoAmount,
+            witness_utxo_asset: var_witnessUtxoAsset,
+        };
+    }
+}
+
+impl SseDecode for lwk::api::transaction::PsetOutput {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_scriptPubkey = <String>::sse_decode(deserializer);
+        let mut var_amount = <Option<u64>>::sse_decode(deserializer);
+        let mut var_asset = <Option<String>>::sse_decode(deserializer);
+        let mut var_blindingKey = <Option<String>>::sse_decode(deserializer);
+        return lwk::api::transaction::PsetOutput {
+            script_pubkey: var_scriptPubkey,
+            amount: var_amount,
+            asset: var_asset,
+            blinding_key: var_blindingKey,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::fees::RevSwapFees {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_percentage = <f64>::sse_decode(deserializer);
+        let mut var_minerFees = <boltz::api::fees::MinerFees>::sse_decode(deserializer);
+        return boltz::api::fees::RevSwapFees {
+            percentage: var_percentage,
+            miner_fees: var_minerFees,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::fees::ReverseFeesAndLimits {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_btcLimits = <boltz::api::fees::SwapLimits>::sse_decode(deserializer);
+        let mut var_lbtcLimits = <boltz::api::fees::SwapLimits>::sse_decode(deserializer);
+        let mut var_btcFees = <boltz::api::fees::RevSwapFees>::sse_decode(deserializer);
+        let mut var_lbtcFees = <boltz::api::fees::RevSwapFees>::sse_decode(deserializer);
+        return boltz::api::fees::ReverseFeesAndLimits {
+            btc_limits: var_btcLimits,
+            lbtc_limits: var_lbtcLimits,
+            btc_fees: var_btcFees,
+            lbtc_fees: var_lbtcFees,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::types::Side {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => boltz::api::types::Side::Lockup,
+            1 => boltz::api::types::Side::Claim,
+            _ => unreachable!("Invalid variant for Side: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for lwk::api::types::SizeAndFees {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_discountedVsize = <usize>::sse_decode(deserializer);
+        let mut var_discountedWeight = <usize>::sse_decode(deserializer);
+        let mut var_absoluteFees = <Vec<lwk::api::types::Balance>>::sse_decode(deserializer);
+        return lwk::api::types::SizeAndFees {
+            discounted_vsize: var_discountedVsize,
+            discounted_weight: var_discountedWeight,
+            absolute_fees: var_absoluteFees,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::fees::SubSwapFees {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_percentage = <f64>::sse_decode(deserializer);
+        let mut var_minerFees = <u64>::sse_decode(deserializer);
+        return boltz::api::fees::SubSwapFees {
+            percentage: var_percentage,
+            miner_fees: var_minerFees,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::fees::SubmarineFeesAndLimits {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_btcLimits = <boltz::api::fees::SwapLimits>::sse_decode(deserializer);
+        let mut var_lbtcLimits = <boltz::api::fees::SwapLimits>::sse_decode(deserializer);
+        let mut var_btcFees = <boltz::api::fees::SubSwapFees>::sse_decode(deserializer);
+        let mut var_lbtcFees = <boltz::api::fees::SubSwapFees>::sse_decode(deserializer);
+        return boltz::api::fees::SubmarineFeesAndLimits {
+            btc_limits: var_btcLimits,
+            lbtc_limits: var_lbtcLimits,
+            btc_fees: var_btcFees,
+            lbtc_fees: var_lbtcFees,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::fees::SwapLimits {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_minimal = <u64>::sse_decode(deserializer);
+        let mut var_maximal = <u64>::sse_decode(deserializer);
+        return boltz::api::fees::SwapLimits {
+            minimal: var_minimal,
+            maximal: var_maximal,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::swap_status::SwapStatus {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => boltz::api::swap_status::SwapStatus::SwapCreated,
+            1 => boltz::api::swap_status::SwapStatus::SwapExpired,
+            2 => boltz::api::swap_status::SwapStatus::SwapRefunded,
+            3 => boltz::api::swap_status::SwapStatus::SwapError,
+            4 => boltz::api::swap_status::SwapStatus::TxnMempool,
+            5 => boltz::api::swap_status::SwapStatus::TxnClaimPending,
+            6 => boltz::api::swap_status::SwapStatus::TxnClaimed,
+            7 => boltz::api::swap_status::SwapStatus::TxnConfirmed,
+            8 => boltz::api::swap_status::SwapStatus::TxnRefunded,
+            9 => boltz::api::swap_status::SwapStatus::TxnFailed,
+            10 => boltz::api::swap_status::SwapStatus::TxnLockupFailed,
+            11 => boltz::api::swap_status::SwapStatus::TxnServerMempool,
+            12 => boltz::api::swap_status::SwapStatus::TxnServerConfirmed,
+            13 => boltz::api::swap_status::SwapStatus::TxnDirect,
+            14 => boltz::api::swap_status::SwapStatus::InvoiceSet,
+            15 => boltz::api::swap_status::SwapStatus::InvoicePending,
+            16 => boltz::api::swap_status::SwapStatus::InvoicePaid,
+            17 => boltz::api::swap_status::SwapStatus::InvoiceFailedToPay,
+            18 => boltz::api::swap_status::SwapStatus::InvoiceSettled,
+            19 => boltz::api::swap_status::SwapStatus::InvoiceExpired,
+            20 => boltz::api::swap_status::SwapStatus::MinerfeePaid,
+            _ => unreachable!("Invalid variant for SwapStatus: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for boltz::api::swap_status::SwapStatusResponse {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_status = <boltz::api::swap_status::SwapStatus>::sse_decode(deserializer);
+        let mut var_transaction =
+            <Option<boltz::api::swap_status::Transaction>>::sse_decode(deserializer);
+        let mut var_failureReason = <Option<String>>::sse_decode(deserializer);
+        let mut var_error = <Option<String>>::sse_decode(deserializer);
+        return boltz::api::swap_status::SwapStatusResponse {
+            status: var_status,
+            transaction: var_transaction,
+            failure_reason: var_failureReason,
+            error: var_error,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::swap_status::SwapStreamStatus {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_id = <String>::sse_decode(deserializer);
+        let mut var_status = <boltz::api::swap_status::SwapStatus>::sse_decode(deserializer);
+        let mut var_error = <Option<String>>::sse_decode(deserializer);
+        let mut var_transaction =
+            <Option<boltz::api::swap_status::Transaction>>::sse_decode(deserializer);
+        return boltz::api::swap_status::SwapStreamStatus {
+            id: var_id,
+            status: var_status,
+            error: var_error,
+            transaction: var_transaction,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::types::SwapTxKind {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => boltz::api::types::SwapTxKind::Claim,
+            1 => boltz::api::types::SwapTxKind::Refund,
+            _ => unreachable!("Invalid variant for SwapTxKind: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for boltz::api::types::SwapType {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => boltz::api::types::SwapType::Submarine,
+            1 => boltz::api::types::SwapType::Reverse,
+            2 => boltz::api::types::SwapType::Chain,
+            _ => unreachable!("Invalid variant for SwapType: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for boltz::api::swap_status::Transaction {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_id = <String>::sse_decode(deserializer);
+        let mut var_hex = <String>::sse_decode(deserializer);
+        let mut var_eta = <Option<u32>>::sse_decode(deserializer);
+        return boltz::api::swap_status::Transaction {
+            id: var_id,
+            hex: var_hex,
+            eta: var_eta,
+        };
+    }
+}
+
+impl SseDecode for lwk::api::types::Tx {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_timestamp = <Option<u32>>::sse_decode(deserializer);
+        let mut var_kind = <String>::sse_decode(deserializer);
+        let mut var_balances = <Vec<lwk::api::types::Balance>>::sse_decode(deserializer);
+        let mut var_txid = <String>::sse_decode(deserializer);
+        let mut var_outputs = <Vec<lwk::api::types::TxOut>>::sse_decode(deserializer);
+        let mut var_inputs = <Vec<lwk::api::types::TxOut>>::sse_decode(deserializer);
+        let mut var_fee = <u64>::sse_decode(deserializer);
+        let mut var_height = <Option<u32>>::sse_decode(deserializer);
+        let mut var_unblindedUrl = <String>::sse_decode(deserializer);
+        let mut var_vsize = <usize>::sse_decode(deserializer);
+        return lwk::api::types::Tx {
+            timestamp: var_timestamp,
+            kind: var_kind,
+            balances: var_balances,
+            txid: var_txid,
+            outputs: var_outputs,
+            inputs: var_inputs,
+            fee: var_fee,
+            height: var_height,
+            unblinded_url: var_unblindedUrl,
+            vsize: var_vsize,
+        };
+    }
+}
+
+impl SseDecode for crate::api::simple::TxFee {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                let mut var_field0 = <u64>::sse_decode(deserializer);
+                return crate::api::simple::TxFee::Absolute(var_field0);
+            }
+            1 => {
+                let mut var_field0 = <f64>::sse_decode(deserializer);
+                return crate::api::simple::TxFee::Relative(var_field0);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
+impl SseDecode for lwk::api::transaction::TxInput {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_txid = <String>::sse_decode(deserializer);
+        let mut var_vout = <u32>::sse_decode(deserializer);
+        let mut var_scriptSig = <String>::sse_decode(deserializer);
+        let mut var_sequence = <u32>::sse_decode(deserializer);
+        let mut var_witness = <Vec<String>>::sse_decode(deserializer);
+        let mut var_isPegin = <bool>::sse_decode(deserializer);
+        return lwk::api::transaction::TxInput {
+            txid: var_txid,
+            vout: var_vout,
+            script_sig: var_scriptSig,
+            sequence: var_sequence,
+            witness: var_witness,
+            is_pegin: var_isPegin,
+        };
+    }
+}
+
+impl SseDecode for lwk::api::types::TxOut {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_scriptPubkey = <String>::sse_decode(deserializer);
+        let mut var_outpoint = <lwk::api::types::OutPoint>::sse_decode(deserializer);
+        let mut var_height = <Option<u32>>::sse_decode(deserializer);
+        let mut var_unblinded = <lwk::api::types::TxOutSecrets>::sse_decode(deserializer);
+        let mut var_isSpent = <bool>::sse_decode(deserializer);
+        let mut var_address = <lwk::api::types::Address>::sse_decode(deserializer);
+        return lwk::api::types::TxOut {
+            script_pubkey: var_scriptPubkey,
+            outpoint: var_outpoint,
+            height: var_height,
+            unblinded: var_unblinded,
+            is_spent: var_isSpent,
+            address: var_address,
+        };
+    }
+}
+
+impl SseDecode for lwk::api::types::TxOutSecrets {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_value = <u64>::sse_decode(deserializer);
+        let mut var_valueBf = <String>::sse_decode(deserializer);
+        let mut var_asset = <String>::sse_decode(deserializer);
+        let mut var_assetBf = <String>::sse_decode(deserializer);
+        return lwk::api::types::TxOutSecrets {
+            value: var_value,
+            value_bf: var_valueBf,
+            asset: var_asset,
+            asset_bf: var_assetBf,
+        };
+    }
+}
+
+impl SseDecode for lwk::api::transaction::TxOutput {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_scriptPubkey = <String>::sse_decode(deserializer);
+        let mut var_asset = <Option<String>>::sse_decode(deserializer);
+        let mut var_value = <Option<u64>>::sse_decode(deserializer);
+        let mut var_nonce = <Option<String>>::sse_decode(deserializer);
+        return lwk::api::transaction::TxOutput {
+            script_pubkey: var_scriptPubkey,
+            asset: var_asset,
+            value: var_value,
+            nonce: var_nonce,
+        };
+    }
+}
+
+impl SseDecode for u32 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_u32::<NativeEndian>().unwrap()
+    }
+}
+
+impl SseDecode for u64 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        deserializer.cursor.read_u64::<NativeEndian>().unwrap()
+    }
+}
+
 impl SseDecode for u8 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -144,17 +5977,10 @@ impl SseDecode for () {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {}
 }
 
-impl SseDecode for i32 {
+impl SseDecode for usize {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        deserializer.cursor.read_i32::<NativeEndian>().unwrap()
-    }
-}
-
-impl SseDecode for bool {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        deserializer.cursor.read_u8().unwrap() != 0
+        deserializer.cursor.read_u64::<NativeEndian>().unwrap() as _
     }
 }
 
@@ -167,7 +5993,6 @@ fn pde_ffi_dispatcher_primary_impl(
 ) {
     // Codec=Pde (Serialization + dispatch), see doc to use other codecs
     match func_id {
-        2 => wire__crate__api__simple__init_app_impl(port, ptr, rust_vec_len, data_len),
         _ => unreachable!(),
     }
 }
@@ -180,17 +6005,1516 @@ fn pde_ffi_dispatcher_sync_impl(
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartSse {
     // Codec=Pde (Serialization + dispatch), see doc to use other codecs
     match func_id {
-        1 => wire__crate__api__simple__greet_impl(ptr, rust_vec_len, data_len),
         _ => unreachable!(),
     }
 }
 
 // Section: rust2dart
 
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<LiquidTransaction> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<LiquidTransaction> {}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<LiquidTransaction>> for LiquidTransaction {
+    fn into_into_dart(self) -> FrbWrapper<LiquidTransaction> {
+        self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<PartiallySignedElementsTransaction> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<PartiallySignedElementsTransaction>
+{
+}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<PartiallySignedElementsTransaction>>
+    for PartiallySignedElementsTransaction
+{
+    fn into_into_dart(self) -> FrbWrapper<PartiallySignedElementsTransaction> {
+        self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<Wallet> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self.0)
+            .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<Wallet> {}
+
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<Wallet>> for Wallet {
+    fn into_into_dart(self) -> FrbWrapper<Wallet> {
+        self.into()
+    }
+}
+
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::Address> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.standard.into_into_dart().into_dart(),
+            self.0.confidential.into_into_dart().into_dart(),
+            self.0.index.into_into_dart().into_dart(),
+            self.0.blinding_key.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::Address>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::Address>>
+    for lwk::api::types::Address
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::Address> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::Balance> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.asset_id.into_into_dart().into_dart(),
+            self.0.value.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::Balance>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::Balance>>
+    for lwk::api::types::Balance
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::Balance> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::blockchain::Blockchain> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        Vec::<u8>::new().into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::blockchain::Blockchain>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::blockchain::Blockchain>>
+    for lwk::api::blockchain::Blockchain
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::blockchain::Blockchain> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::error::BoltzError> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.kind.into_into_dart().into_dart(),
+            self.0.message.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::error::BoltzError>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::error::BoltzError>>
+    for boltz::api::error::BoltzError
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::error::BoltzError> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::btc_ln::BtcLnSwap> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.id.into_into_dart().into_dart(),
+            self.0.kind.into_into_dart().into_dart(),
+            self.0.network.into_into_dart().into_dart(),
+            self.0.keys.into_into_dart().into_dart(),
+            self.0.key_index.into_into_dart().into_dart(),
+            self.0.preimage.into_into_dart().into_dart(),
+            self.0.swap_script.into_into_dart().into_dart(),
+            self.0.invoice.into_into_dart().into_dart(),
+            self.0.script_address.into_into_dart().into_dart(),
+            self.0.out_amount.into_into_dart().into_dart(),
+            self.0.electrum_url.into_into_dart().into_dart(),
+            self.0.boltz_url.into_into_dart().into_dart(),
+            self.0.referral_id.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::btc_ln::BtcLnSwap>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::btc_ln::BtcLnSwap>>
+    for boltz::api::btc_ln::BtcLnSwap
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::btc_ln::BtcLnSwap> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::types::BtcSwapScriptStr> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.swap_type.into_into_dart().into_dart(),
+            self.0.funding_addrs.into_into_dart().into_dart(),
+            self.0.hashlock.into_into_dart().into_dart(),
+            self.0.receiver_pubkey.into_into_dart().into_dart(),
+            self.0.locktime.into_into_dart().into_dart(),
+            self.0.sender_pubkey.into_into_dart().into_dart(),
+            self.0.side.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::types::BtcSwapScriptStr>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::types::BtcSwapScriptStr>>
+    for boltz::api::types::BtcSwapScriptStr
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::types::BtcSwapScriptStr> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::types::Chain> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            boltz::api::types::Chain::Bitcoin => 0.into_dart(),
+            boltz::api::types::Chain::BitcoinTestnet => 1.into_dart(),
+            boltz::api::types::Chain::Liquid => 2.into_dart(),
+            boltz::api::types::Chain::LiquidTestnet => 3.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::types::Chain>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::types::Chain>>
+    for boltz::api::types::Chain
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::types::Chain> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::fees::ChainFeesAndLimits> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.btc_limits.into_into_dart().into_dart(),
+            self.0.lbtc_limits.into_into_dart().into_dart(),
+            self.0.btc_fees.into_into_dart().into_dart(),
+            self.0.lbtc_fees.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::fees::ChainFeesAndLimits>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::fees::ChainFeesAndLimits>>
+    for boltz::api::fees::ChainFeesAndLimits
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::fees::ChainFeesAndLimits> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::chain_swap::ChainSwap> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.id.into_into_dart().into_dart(),
+            self.0.is_testnet.into_into_dart().into_dart(),
+            self.0.direction.into_into_dart().into_dart(),
+            self.0.refund_keys.into_into_dart().into_dart(),
+            self.0.refund_index.into_into_dart().into_dart(),
+            self.0.claim_keys.into_into_dart().into_dart(),
+            self.0.claim_index.into_into_dart().into_dart(),
+            self.0.preimage.into_into_dart().into_dart(),
+            self.0.btc_script_str.into_into_dart().into_dart(),
+            self.0.lbtc_script_str.into_into_dart().into_dart(),
+            self.0.script_address.into_into_dart().into_dart(),
+            self.0.out_amount.into_into_dart().into_dart(),
+            self.0.btc_electrum_url.into_into_dart().into_dart(),
+            self.0.lbtc_electrum_url.into_into_dart().into_dart(),
+            self.0.boltz_url.into_into_dart().into_dart(),
+            self.0.referral_id.into_into_dart().into_dart(),
+            self.0.blinding_key.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::chain_swap::ChainSwap>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::chain_swap::ChainSwap>>
+    for boltz::api::chain_swap::ChainSwap
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::chain_swap::ChainSwap> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::types::ChainSwapDirection> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            boltz::api::types::ChainSwapDirection::BtcToLbtc => 0.into_dart(),
+            boltz::api::types::ChainSwapDirection::LbtcToBtc => 1.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::types::ChainSwapDirection>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::types::ChainSwapDirection>>
+    for boltz::api::types::ChainSwapDirection
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::types::ChainSwapDirection> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::fees::ChainSwapFees> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.percentage.into_into_dart().into_dart(),
+            self.0.user_lockup.into_into_dart().into_dart(),
+            self.0.user_claim.into_into_dart().into_dart(),
+            self.0.server.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::fees::ChainSwapFees>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::fees::ChainSwapFees>>
+    for boltz::api::fees::ChainSwapFees
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::fees::ChainSwapFees> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::types::DecodedInvoice> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.msats.into_into_dart().into_dart(),
+            self.0.expiry.into_into_dart().into_dart(),
+            self.0.expires_in.into_into_dart().into_dart(),
+            self.0.expires_at.into_into_dart().into_dart(),
+            self.0.is_expired.into_into_dart().into_dart(),
+            self.0.network.into_into_dart().into_dart(),
+            self.0.cltv_exp_delta.into_into_dart().into_dart(),
+            self.0.bip21.into_into_dart().into_dart(),
+            self.0.preimage_hash.into_into_dart().into_dart(),
+            self.0.description.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::types::DecodedInvoice>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::types::DecodedInvoice>>
+    for boltz::api::types::DecodedInvoice
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::types::DecodedInvoice> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::descriptor::Descriptor> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.0.ct_descriptor.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::descriptor::Descriptor>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::descriptor::Descriptor>>
+    for lwk::api::descriptor::Descriptor
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::descriptor::Descriptor> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::types::ElectrumSettings> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.url.into_into_dart().into_dart(),
+            self.0.validate_domain.into_into_dart().into_dart(),
+            self.0.tls.into_into_dart().into_dart(),
+            self.0.timeout.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::types::ElectrumSettings>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::types::ElectrumSettings>>
+    for boltz::api::types::ElectrumSettings
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::types::ElectrumSettings> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::fees::Fees> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.0.boltz_url.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::fees::Fees>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::fees::Fees>>
+    for boltz::api::fees::Fees
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::fees::Fees> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::types::KeyPair> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.secret_key.into_into_dart().into_dart(),
+            self.0.public_key.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::types::KeyPair>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::types::KeyPair>>
+    for boltz::api::types::KeyPair
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::types::KeyPair> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::types::LBtcSwapScriptStr> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.swap_type.into_into_dart().into_dart(),
+            self.0.funding_addrs.into_into_dart().into_dart(),
+            self.0.hashlock.into_into_dart().into_dart(),
+            self.0.receiver_pubkey.into_into_dart().into_dart(),
+            self.0.locktime.into_into_dart().into_dart(),
+            self.0.sender_pubkey.into_into_dart().into_dart(),
+            self.0.blinding_key.into_into_dart().into_dart(),
+            self.0.side.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::types::LBtcSwapScriptStr>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::types::LBtcSwapScriptStr>>
+    for boltz::api::types::LBtcSwapScriptStr
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::types::LBtcSwapScriptStr> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::lbtc_ln::LbtcLnSwap> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.id.into_into_dart().into_dart(),
+            self.0.kind.into_into_dart().into_dart(),
+            self.0.network.into_into_dart().into_dart(),
+            self.0.keys.into_into_dart().into_dart(),
+            self.0.key_index.into_into_dart().into_dart(),
+            self.0.preimage.into_into_dart().into_dart(),
+            self.0.swap_script.into_into_dart().into_dart(),
+            self.0.invoice.into_into_dart().into_dart(),
+            self.0.out_amount.into_into_dart().into_dart(),
+            self.0.script_address.into_into_dart().into_dart(),
+            self.0.blinding_key.into_into_dart().into_dart(),
+            self.0.electrum_url.into_into_dart().into_dart(),
+            self.0.boltz_url.into_into_dart().into_dart(),
+            self.0.referral_id.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::lbtc_ln::LbtcLnSwap>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::lbtc_ln::LbtcLnSwap>>
+    for boltz::api::lbtc_ln::LbtcLnSwap
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::lbtc_ln::LbtcLnSwap> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::lnurl::Lnurl> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.0.value.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::lnurl::Lnurl>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::lnurl::Lnurl>>
+    for boltz::api::lnurl::Lnurl
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::lnurl::Lnurl> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::error::LwkError> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [self.0.msg.into_into_dart().into_dart()].into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::error::LwkError>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::error::LwkError>>
+    for lwk::api::error::LwkError
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::error::LwkError> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::fees::MinerFees> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.lockup.into_into_dart().into_dart(),
+            self.0.claim.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::fees::MinerFees>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::fees::MinerFees>>
+    for boltz::api::fees::MinerFees
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::fees::MinerFees> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::Network> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            lwk::api::types::Network::Mainnet => 0.into_dart(),
+            lwk::api::types::Network::Testnet => 1.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::Network>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::Network>>
+    for lwk::api::types::Network
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::Network> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::OutPoint> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.txid.into_into_dart().into_dart(),
+            self.0.vout.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::OutPoint>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::OutPoint>>
+    for lwk::api::types::OutPoint
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::OutPoint> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::types::OutspendStatus> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.kind.into_into_dart().into_dart(),
+            self.0.txid.into_into_dart().into_dart(),
+            self.0.timestamp.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::types::OutspendStatus>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::types::OutspendStatus>>
+    for boltz::api::types::OutspendStatus
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::types::OutspendStatus> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::PayjoinTx> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.pset.into_into_dart().into_dart(),
+            self.0.network_fee.into_into_dart().into_dart(),
+            self.0.asset_fee.into_into_dart().into_dart(),
+            self.0.unblinded_outputs.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::PayjoinTx>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::PayjoinTx>>
+    for lwk::api::types::PayjoinTx
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::PayjoinTx> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::types::PreImage> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.value.into_into_dart().into_dart(),
+            self.0.sha256.into_into_dart().into_dart(),
+            self.0.hash160.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::types::PreImage>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::types::PreImage>>
+    for boltz::api::types::PreImage
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::types::PreImage> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::PsetAmounts> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.absolute_fees.into_into_dart().into_dart(),
+            self.0.balances.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::PsetAmounts>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::PsetAmounts>>
+    for lwk::api::types::PsetAmounts
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::PsetAmounts> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::transaction::PsetInput> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.witness_utxo_script.into_into_dart().into_dart(),
+            self.0.witness_utxo_amount.into_into_dart().into_dart(),
+            self.0.witness_utxo_asset.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::transaction::PsetInput>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::transaction::PsetInput>>
+    for lwk::api::transaction::PsetInput
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::transaction::PsetInput> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::transaction::PsetOutput> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.script_pubkey.into_into_dart().into_dart(),
+            self.0.amount.into_into_dart().into_dart(),
+            self.0.asset.into_into_dart().into_dart(),
+            self.0.blinding_key.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::transaction::PsetOutput>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::transaction::PsetOutput>>
+    for lwk::api::transaction::PsetOutput
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::transaction::PsetOutput> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::fees::RevSwapFees> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.percentage.into_into_dart().into_dart(),
+            self.0.miner_fees.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::fees::RevSwapFees>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::fees::RevSwapFees>>
+    for boltz::api::fees::RevSwapFees
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::fees::RevSwapFees> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::fees::ReverseFeesAndLimits> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.btc_limits.into_into_dart().into_dart(),
+            self.0.lbtc_limits.into_into_dart().into_dart(),
+            self.0.btc_fees.into_into_dart().into_dart(),
+            self.0.lbtc_fees.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::fees::ReverseFeesAndLimits>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::fees::ReverseFeesAndLimits>>
+    for boltz::api::fees::ReverseFeesAndLimits
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::fees::ReverseFeesAndLimits> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::types::Side> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            boltz::api::types::Side::Lockup => 0.into_dart(),
+            boltz::api::types::Side::Claim => 1.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::types::Side>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::types::Side>>
+    for boltz::api::types::Side
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::types::Side> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::SizeAndFees> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.discounted_vsize.into_into_dart().into_dart(),
+            self.0.discounted_weight.into_into_dart().into_dart(),
+            self.0.absolute_fees.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::SizeAndFees>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::SizeAndFees>>
+    for lwk::api::types::SizeAndFees
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::SizeAndFees> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::fees::SubSwapFees> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.percentage.into_into_dart().into_dart(),
+            self.0.miner_fees.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::fees::SubSwapFees>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::fees::SubSwapFees>>
+    for boltz::api::fees::SubSwapFees
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::fees::SubSwapFees> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::fees::SubmarineFeesAndLimits> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.btc_limits.into_into_dart().into_dart(),
+            self.0.lbtc_limits.into_into_dart().into_dart(),
+            self.0.btc_fees.into_into_dart().into_dart(),
+            self.0.lbtc_fees.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::fees::SubmarineFeesAndLimits>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::fees::SubmarineFeesAndLimits>>
+    for boltz::api::fees::SubmarineFeesAndLimits
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::fees::SubmarineFeesAndLimits> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::fees::SwapLimits> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.minimal.into_into_dart().into_dart(),
+            self.0.maximal.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::fees::SwapLimits>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::fees::SwapLimits>>
+    for boltz::api::fees::SwapLimits
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::fees::SwapLimits> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::swap_status::SwapStatus> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            boltz::api::swap_status::SwapStatus::SwapCreated => 0.into_dart(),
+            boltz::api::swap_status::SwapStatus::SwapExpired => 1.into_dart(),
+            boltz::api::swap_status::SwapStatus::SwapRefunded => 2.into_dart(),
+            boltz::api::swap_status::SwapStatus::SwapError => 3.into_dart(),
+            boltz::api::swap_status::SwapStatus::TxnMempool => 4.into_dart(),
+            boltz::api::swap_status::SwapStatus::TxnClaimPending => 5.into_dart(),
+            boltz::api::swap_status::SwapStatus::TxnClaimed => 6.into_dart(),
+            boltz::api::swap_status::SwapStatus::TxnConfirmed => 7.into_dart(),
+            boltz::api::swap_status::SwapStatus::TxnRefunded => 8.into_dart(),
+            boltz::api::swap_status::SwapStatus::TxnFailed => 9.into_dart(),
+            boltz::api::swap_status::SwapStatus::TxnLockupFailed => 10.into_dart(),
+            boltz::api::swap_status::SwapStatus::TxnServerMempool => 11.into_dart(),
+            boltz::api::swap_status::SwapStatus::TxnServerConfirmed => 12.into_dart(),
+            boltz::api::swap_status::SwapStatus::TxnDirect => 13.into_dart(),
+            boltz::api::swap_status::SwapStatus::InvoiceSet => 14.into_dart(),
+            boltz::api::swap_status::SwapStatus::InvoicePending => 15.into_dart(),
+            boltz::api::swap_status::SwapStatus::InvoicePaid => 16.into_dart(),
+            boltz::api::swap_status::SwapStatus::InvoiceFailedToPay => 17.into_dart(),
+            boltz::api::swap_status::SwapStatus::InvoiceSettled => 18.into_dart(),
+            boltz::api::swap_status::SwapStatus::InvoiceExpired => 19.into_dart(),
+            boltz::api::swap_status::SwapStatus::MinerfeePaid => 20.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::swap_status::SwapStatus>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::swap_status::SwapStatus>>
+    for boltz::api::swap_status::SwapStatus
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::swap_status::SwapStatus> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::swap_status::SwapStatusResponse> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.status.into_into_dart().into_dart(),
+            self.0.transaction.into_into_dart().into_dart(),
+            self.0.failure_reason.into_into_dart().into_dart(),
+            self.0.error.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::swap_status::SwapStatusResponse>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::swap_status::SwapStatusResponse>>
+    for boltz::api::swap_status::SwapStatusResponse
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::swap_status::SwapStatusResponse> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::swap_status::SwapStreamStatus> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.id.into_into_dart().into_dart(),
+            self.0.status.into_into_dart().into_dart(),
+            self.0.error.into_into_dart().into_dart(),
+            self.0.transaction.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::swap_status::SwapStreamStatus>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::swap_status::SwapStreamStatus>>
+    for boltz::api::swap_status::SwapStreamStatus
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::swap_status::SwapStreamStatus> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::types::SwapTxKind> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            boltz::api::types::SwapTxKind::Claim => 0.into_dart(),
+            boltz::api::types::SwapTxKind::Refund => 1.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::types::SwapTxKind>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::types::SwapTxKind>>
+    for boltz::api::types::SwapTxKind
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::types::SwapTxKind> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::types::SwapType> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            boltz::api::types::SwapType::Submarine => 0.into_dart(),
+            boltz::api::types::SwapType::Reverse => 1.into_dart(),
+            boltz::api::types::SwapType::Chain => 2.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::types::SwapType>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::types::SwapType>>
+    for boltz::api::types::SwapType
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::types::SwapType> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::swap_status::Transaction> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.id.into_into_dart().into_dart(),
+            self.0.hex.into_into_dart().into_dart(),
+            self.0.eta.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::swap_status::Transaction>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::swap_status::Transaction>>
+    for boltz::api::swap_status::Transaction
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::swap_status::Transaction> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::Tx> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.timestamp.into_into_dart().into_dart(),
+            self.0.kind.into_into_dart().into_dart(),
+            self.0.balances.into_into_dart().into_dart(),
+            self.0.txid.into_into_dart().into_dart(),
+            self.0.outputs.into_into_dart().into_dart(),
+            self.0.inputs.into_into_dart().into_dart(),
+            self.0.fee.into_into_dart().into_dart(),
+            self.0.height.into_into_dart().into_dart(),
+            self.0.unblinded_url.into_into_dart().into_dart(),
+            self.0.vsize.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::Tx>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::Tx>> for lwk::api::types::Tx {
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::Tx> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::simple::TxFee {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            crate::api::simple::TxFee::Absolute(field0) => {
+                [0.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::simple::TxFee::Relative(field0) => {
+                [1.into_dart(), field0.into_into_dart().into_dart()].into_dart()
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::simple::TxFee {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::simple::TxFee> for crate::api::simple::TxFee {
+    fn into_into_dart(self) -> crate::api::simple::TxFee {
+        self
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::transaction::TxInput> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.txid.into_into_dart().into_dart(),
+            self.0.vout.into_into_dart().into_dart(),
+            self.0.script_sig.into_into_dart().into_dart(),
+            self.0.sequence.into_into_dart().into_dart(),
+            self.0.witness.into_into_dart().into_dart(),
+            self.0.is_pegin.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::transaction::TxInput>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::transaction::TxInput>>
+    for lwk::api::transaction::TxInput
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::transaction::TxInput> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::TxOut> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.script_pubkey.into_into_dart().into_dart(),
+            self.0.outpoint.into_into_dart().into_dart(),
+            self.0.height.into_into_dart().into_dart(),
+            self.0.unblinded.into_into_dart().into_dart(),
+            self.0.is_spent.into_into_dart().into_dart(),
+            self.0.address.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::TxOut>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::TxOut>>
+    for lwk::api::types::TxOut
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::TxOut> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::TxOutSecrets> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.value.into_into_dart().into_dart(),
+            self.0.value_bf.into_into_dart().into_dart(),
+            self.0.asset.into_into_dart().into_dart(),
+            self.0.asset_bf.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::TxOutSecrets>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::TxOutSecrets>>
+    for lwk::api::types::TxOutSecrets
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::TxOutSecrets> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::transaction::TxOutput> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.script_pubkey.into_into_dart().into_dart(),
+            self.0.asset.into_into_dart().into_dart(),
+            self.0.value.into_into_dart().into_dart(),
+            self.0.nonce.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::transaction::TxOutput>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::transaction::TxOutput>>
+    for lwk::api::transaction::TxOutput
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::transaction::TxOutput> {
+        self.into()
+    }
+}
+
+impl SseEncode for LiquidTransaction {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self), serializer);
+    }
+}
+
+impl SseEncode for PartiallySignedElementsTransaction {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        >>::sse_encode(
+            flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self),
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for Wallet {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>::sse_encode(flutter_rust_bridge::for_generated::rust_auto_opaque_encode::<_, StdArc<_>>(self), serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode
+    for RustOpaqueNom<
+        flutter_rust_bridge::for_generated::RustAutoOpaqueInner<PartiallySignedElementsTransaction>,
+    >
+{
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
+impl SseEncode for RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        let (ptr, size) = self.sse_encode_raw();
+        <usize>::sse_encode(ptr, serializer);
+        <i32>::sse_encode(size, serializer);
+    }
+}
+
 impl SseEncode for String {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <Vec<u8>>::sse_encode(self.into_bytes(), serializer);
+    }
+}
+
+impl SseEncode for lwk::api::types::Address {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.standard, serializer);
+        <String>::sse_encode(self.confidential, serializer);
+        <Option<u32>>::sse_encode(self.index, serializer);
+        <Option<String>>::sse_encode(self.blinding_key, serializer);
+    }
+}
+
+impl SseEncode for lwk::api::types::Balance {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.asset_id, serializer);
+        <i64>::sse_encode(self.value, serializer);
+    }
+}
+
+impl SseEncode for lwk::api::blockchain::Blockchain {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {}
+}
+
+impl SseEncode for boltz::api::error::BoltzError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.kind, serializer);
+        <String>::sse_encode(self.message, serializer);
+    }
+}
+
+impl SseEncode for bool {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_u8(self as _).unwrap();
+    }
+}
+
+impl SseEncode for boltz::api::btc_ln::BtcLnSwap {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.id, serializer);
+        <boltz::api::types::SwapType>::sse_encode(self.kind, serializer);
+        <boltz::api::types::Chain>::sse_encode(self.network, serializer);
+        <boltz::api::types::KeyPair>::sse_encode(self.keys, serializer);
+        <u64>::sse_encode(self.key_index, serializer);
+        <boltz::api::types::PreImage>::sse_encode(self.preimage, serializer);
+        <boltz::api::types::BtcSwapScriptStr>::sse_encode(self.swap_script, serializer);
+        <String>::sse_encode(self.invoice, serializer);
+        <String>::sse_encode(self.script_address, serializer);
+        <u64>::sse_encode(self.out_amount, serializer);
+        <String>::sse_encode(self.electrum_url, serializer);
+        <String>::sse_encode(self.boltz_url, serializer);
+        <Option<String>>::sse_encode(self.referral_id, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::types::BtcSwapScriptStr {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <boltz::api::types::SwapType>::sse_encode(self.swap_type, serializer);
+        <Option<String>>::sse_encode(self.funding_addrs, serializer);
+        <String>::sse_encode(self.hashlock, serializer);
+        <String>::sse_encode(self.receiver_pubkey, serializer);
+        <u32>::sse_encode(self.locktime, serializer);
+        <String>::sse_encode(self.sender_pubkey, serializer);
+        <Option<boltz::api::types::Side>>::sse_encode(self.side, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::types::Chain {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                boltz::api::types::Chain::Bitcoin => 0,
+                boltz::api::types::Chain::BitcoinTestnet => 1,
+                boltz::api::types::Chain::Liquid => 2,
+                boltz::api::types::Chain::LiquidTestnet => 3,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for boltz::api::fees::ChainFeesAndLimits {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <boltz::api::fees::SwapLimits>::sse_encode(self.btc_limits, serializer);
+        <boltz::api::fees::SwapLimits>::sse_encode(self.lbtc_limits, serializer);
+        <boltz::api::fees::ChainSwapFees>::sse_encode(self.btc_fees, serializer);
+        <boltz::api::fees::ChainSwapFees>::sse_encode(self.lbtc_fees, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::chain_swap::ChainSwap {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.id, serializer);
+        <bool>::sse_encode(self.is_testnet, serializer);
+        <boltz::api::types::ChainSwapDirection>::sse_encode(self.direction, serializer);
+        <boltz::api::types::KeyPair>::sse_encode(self.refund_keys, serializer);
+        <u64>::sse_encode(self.refund_index, serializer);
+        <boltz::api::types::KeyPair>::sse_encode(self.claim_keys, serializer);
+        <u64>::sse_encode(self.claim_index, serializer);
+        <boltz::api::types::PreImage>::sse_encode(self.preimage, serializer);
+        <boltz::api::types::BtcSwapScriptStr>::sse_encode(self.btc_script_str, serializer);
+        <boltz::api::types::LBtcSwapScriptStr>::sse_encode(self.lbtc_script_str, serializer);
+        <String>::sse_encode(self.script_address, serializer);
+        <u64>::sse_encode(self.out_amount, serializer);
+        <String>::sse_encode(self.btc_electrum_url, serializer);
+        <String>::sse_encode(self.lbtc_electrum_url, serializer);
+        <String>::sse_encode(self.boltz_url, serializer);
+        <Option<String>>::sse_encode(self.referral_id, serializer);
+        <String>::sse_encode(self.blinding_key, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::types::ChainSwapDirection {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                boltz::api::types::ChainSwapDirection::BtcToLbtc => 0,
+                boltz::api::types::ChainSwapDirection::LbtcToBtc => 1,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for boltz::api::fees::ChainSwapFees {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <f64>::sse_encode(self.percentage, serializer);
+        <u64>::sse_encode(self.user_lockup, serializer);
+        <u64>::sse_encode(self.user_claim, serializer);
+        <u64>::sse_encode(self.server, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::types::DecodedInvoice {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u64>::sse_encode(self.msats, serializer);
+        <u64>::sse_encode(self.expiry, serializer);
+        <u64>::sse_encode(self.expires_in, serializer);
+        <u64>::sse_encode(self.expires_at, serializer);
+        <bool>::sse_encode(self.is_expired, serializer);
+        <String>::sse_encode(self.network, serializer);
+        <u64>::sse_encode(self.cltv_exp_delta, serializer);
+        <Option<String>>::sse_encode(self.bip21, serializer);
+        <String>::sse_encode(self.preimage_hash, serializer);
+        <String>::sse_encode(self.description, serializer);
+    }
+}
+
+impl SseEncode for lwk::api::descriptor::Descriptor {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.ct_descriptor, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::types::ElectrumSettings {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.url, serializer);
+        <bool>::sse_encode(self.validate_domain, serializer);
+        <bool>::sse_encode(self.tls, serializer);
+        <u8>::sse_encode(self.timeout, serializer);
+    }
+}
+
+impl SseEncode for f32 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_f32::<NativeEndian>(self).unwrap();
+    }
+}
+
+impl SseEncode for f64 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_f64::<NativeEndian>(self).unwrap();
+    }
+}
+
+impl SseEncode for boltz::api::fees::Fees {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.boltz_url, serializer);
+    }
+}
+
+impl SseEncode for i32 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_i32::<NativeEndian>(self).unwrap();
+    }
+}
+
+impl SseEncode for i64 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_i64::<NativeEndian>(self).unwrap();
+    }
+}
+
+impl SseEncode for boltz::api::types::KeyPair {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.secret_key, serializer);
+        <String>::sse_encode(self.public_key, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::types::LBtcSwapScriptStr {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <boltz::api::types::SwapType>::sse_encode(self.swap_type, serializer);
+        <Option<String>>::sse_encode(self.funding_addrs, serializer);
+        <String>::sse_encode(self.hashlock, serializer);
+        <String>::sse_encode(self.receiver_pubkey, serializer);
+        <u32>::sse_encode(self.locktime, serializer);
+        <String>::sse_encode(self.sender_pubkey, serializer);
+        <String>::sse_encode(self.blinding_key, serializer);
+        <Option<boltz::api::types::Side>>::sse_encode(self.side, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::lbtc_ln::LbtcLnSwap {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.id, serializer);
+        <boltz::api::types::SwapType>::sse_encode(self.kind, serializer);
+        <boltz::api::types::Chain>::sse_encode(self.network, serializer);
+        <boltz::api::types::KeyPair>::sse_encode(self.keys, serializer);
+        <u64>::sse_encode(self.key_index, serializer);
+        <boltz::api::types::PreImage>::sse_encode(self.preimage, serializer);
+        <boltz::api::types::LBtcSwapScriptStr>::sse_encode(self.swap_script, serializer);
+        <String>::sse_encode(self.invoice, serializer);
+        <u64>::sse_encode(self.out_amount, serializer);
+        <String>::sse_encode(self.script_address, serializer);
+        <String>::sse_encode(self.blinding_key, serializer);
+        <String>::sse_encode(self.electrum_url, serializer);
+        <String>::sse_encode(self.boltz_url, serializer);
+        <Option<String>>::sse_encode(self.referral_id, serializer);
+    }
+}
+
+impl SseEncode for Vec<String> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <String>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<lwk::api::types::Balance> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <lwk::api::types::Balance>::sse_encode(item, serializer);
+        }
     }
 }
 
@@ -201,6 +7525,556 @@ impl SseEncode for Vec<u8> {
         for item in self {
             <u8>::sse_encode(item, serializer);
         }
+    }
+}
+
+impl SseEncode for Vec<lwk::api::transaction::PsetInput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <lwk::api::transaction::PsetInput>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<lwk::api::transaction::PsetOutput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <lwk::api::transaction::PsetOutput>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<lwk::api::types::Tx> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <lwk::api::types::Tx>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<lwk::api::transaction::TxInput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <lwk::api::transaction::TxInput>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<lwk::api::types::TxOut> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <lwk::api::types::TxOut>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<lwk::api::types::TxOutSecrets> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <lwk::api::types::TxOutSecrets>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<lwk::api::transaction::TxOutput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <lwk::api::transaction::TxOutput>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for boltz::api::lnurl::Lnurl {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.value, serializer);
+    }
+}
+
+impl SseEncode for lwk::api::error::LwkError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.msg, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::fees::MinerFees {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u64>::sse_encode(self.lockup, serializer);
+        <u64>::sse_encode(self.claim, serializer);
+    }
+}
+
+impl SseEncode for lwk::api::types::Network {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                lwk::api::types::Network::Mainnet => 0,
+                lwk::api::types::Network::Testnet => 1,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for Option<String> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <String>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<boltz::api::types::ChainSwapDirection> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <boltz::api::types::ChainSwapDirection>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<boltz::api::types::ElectrumSettings> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <boltz::api::types::ElectrumSettings>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<lwk::api::transaction::PsetInput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <lwk::api::transaction::PsetInput>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<lwk::api::transaction::PsetOutput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <lwk::api::transaction::PsetOutput>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<boltz::api::types::Side> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <boltz::api::types::Side>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<boltz::api::swap_status::Transaction> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <boltz::api::swap_status::Transaction>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<lwk::api::transaction::TxInput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <lwk::api::transaction::TxInput>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<lwk::api::transaction::TxOutput> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <lwk::api::transaction::TxOutput>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<u32> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <u32>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<u64> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <u64>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<u8> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <u8>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for lwk::api::types::OutPoint {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.txid, serializer);
+        <u32>::sse_encode(self.vout, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::types::OutspendStatus {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <boltz::api::types::SwapTxKind>::sse_encode(self.kind, serializer);
+        <Option<String>>::sse_encode(self.txid, serializer);
+        <Option<u64>>::sse_encode(self.timestamp, serializer);
+    }
+}
+
+impl SseEncode for lwk::api::types::PayjoinTx {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.pset, serializer);
+        <u64>::sse_encode(self.network_fee, serializer);
+        <u64>::sse_encode(self.asset_fee, serializer);
+        <Vec<lwk::api::types::TxOutSecrets>>::sse_encode(self.unblinded_outputs, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::types::PreImage {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.value, serializer);
+        <String>::sse_encode(self.sha256, serializer);
+        <String>::sse_encode(self.hash160, serializer);
+    }
+}
+
+impl SseEncode for lwk::api::types::PsetAmounts {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u64>::sse_encode(self.absolute_fees, serializer);
+        <Vec<lwk::api::types::Balance>>::sse_encode(self.balances, serializer);
+    }
+}
+
+impl SseEncode for lwk::api::transaction::PsetInput {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Option<String>>::sse_encode(self.witness_utxo_script, serializer);
+        <Option<u64>>::sse_encode(self.witness_utxo_amount, serializer);
+        <Option<String>>::sse_encode(self.witness_utxo_asset, serializer);
+    }
+}
+
+impl SseEncode for lwk::api::transaction::PsetOutput {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.script_pubkey, serializer);
+        <Option<u64>>::sse_encode(self.amount, serializer);
+        <Option<String>>::sse_encode(self.asset, serializer);
+        <Option<String>>::sse_encode(self.blinding_key, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::fees::RevSwapFees {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <f64>::sse_encode(self.percentage, serializer);
+        <boltz::api::fees::MinerFees>::sse_encode(self.miner_fees, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::fees::ReverseFeesAndLimits {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <boltz::api::fees::SwapLimits>::sse_encode(self.btc_limits, serializer);
+        <boltz::api::fees::SwapLimits>::sse_encode(self.lbtc_limits, serializer);
+        <boltz::api::fees::RevSwapFees>::sse_encode(self.btc_fees, serializer);
+        <boltz::api::fees::RevSwapFees>::sse_encode(self.lbtc_fees, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::types::Side {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                boltz::api::types::Side::Lockup => 0,
+                boltz::api::types::Side::Claim => 1,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for lwk::api::types::SizeAndFees {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <usize>::sse_encode(self.discounted_vsize, serializer);
+        <usize>::sse_encode(self.discounted_weight, serializer);
+        <Vec<lwk::api::types::Balance>>::sse_encode(self.absolute_fees, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::fees::SubSwapFees {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <f64>::sse_encode(self.percentage, serializer);
+        <u64>::sse_encode(self.miner_fees, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::fees::SubmarineFeesAndLimits {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <boltz::api::fees::SwapLimits>::sse_encode(self.btc_limits, serializer);
+        <boltz::api::fees::SwapLimits>::sse_encode(self.lbtc_limits, serializer);
+        <boltz::api::fees::SubSwapFees>::sse_encode(self.btc_fees, serializer);
+        <boltz::api::fees::SubSwapFees>::sse_encode(self.lbtc_fees, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::fees::SwapLimits {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u64>::sse_encode(self.minimal, serializer);
+        <u64>::sse_encode(self.maximal, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::swap_status::SwapStatus {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                boltz::api::swap_status::SwapStatus::SwapCreated => 0,
+                boltz::api::swap_status::SwapStatus::SwapExpired => 1,
+                boltz::api::swap_status::SwapStatus::SwapRefunded => 2,
+                boltz::api::swap_status::SwapStatus::SwapError => 3,
+                boltz::api::swap_status::SwapStatus::TxnMempool => 4,
+                boltz::api::swap_status::SwapStatus::TxnClaimPending => 5,
+                boltz::api::swap_status::SwapStatus::TxnClaimed => 6,
+                boltz::api::swap_status::SwapStatus::TxnConfirmed => 7,
+                boltz::api::swap_status::SwapStatus::TxnRefunded => 8,
+                boltz::api::swap_status::SwapStatus::TxnFailed => 9,
+                boltz::api::swap_status::SwapStatus::TxnLockupFailed => 10,
+                boltz::api::swap_status::SwapStatus::TxnServerMempool => 11,
+                boltz::api::swap_status::SwapStatus::TxnServerConfirmed => 12,
+                boltz::api::swap_status::SwapStatus::TxnDirect => 13,
+                boltz::api::swap_status::SwapStatus::InvoiceSet => 14,
+                boltz::api::swap_status::SwapStatus::InvoicePending => 15,
+                boltz::api::swap_status::SwapStatus::InvoicePaid => 16,
+                boltz::api::swap_status::SwapStatus::InvoiceFailedToPay => 17,
+                boltz::api::swap_status::SwapStatus::InvoiceSettled => 18,
+                boltz::api::swap_status::SwapStatus::InvoiceExpired => 19,
+                boltz::api::swap_status::SwapStatus::MinerfeePaid => 20,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for boltz::api::swap_status::SwapStatusResponse {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <boltz::api::swap_status::SwapStatus>::sse_encode(self.status, serializer);
+        <Option<boltz::api::swap_status::Transaction>>::sse_encode(self.transaction, serializer);
+        <Option<String>>::sse_encode(self.failure_reason, serializer);
+        <Option<String>>::sse_encode(self.error, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::swap_status::SwapStreamStatus {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.id, serializer);
+        <boltz::api::swap_status::SwapStatus>::sse_encode(self.status, serializer);
+        <Option<String>>::sse_encode(self.error, serializer);
+        <Option<boltz::api::swap_status::Transaction>>::sse_encode(self.transaction, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::types::SwapTxKind {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                boltz::api::types::SwapTxKind::Claim => 0,
+                boltz::api::types::SwapTxKind::Refund => 1,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for boltz::api::types::SwapType {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                boltz::api::types::SwapType::Submarine => 0,
+                boltz::api::types::SwapType::Reverse => 1,
+                boltz::api::types::SwapType::Chain => 2,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for boltz::api::swap_status::Transaction {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.id, serializer);
+        <String>::sse_encode(self.hex, serializer);
+        <Option<u32>>::sse_encode(self.eta, serializer);
+    }
+}
+
+impl SseEncode for lwk::api::types::Tx {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Option<u32>>::sse_encode(self.timestamp, serializer);
+        <String>::sse_encode(self.kind, serializer);
+        <Vec<lwk::api::types::Balance>>::sse_encode(self.balances, serializer);
+        <String>::sse_encode(self.txid, serializer);
+        <Vec<lwk::api::types::TxOut>>::sse_encode(self.outputs, serializer);
+        <Vec<lwk::api::types::TxOut>>::sse_encode(self.inputs, serializer);
+        <u64>::sse_encode(self.fee, serializer);
+        <Option<u32>>::sse_encode(self.height, serializer);
+        <String>::sse_encode(self.unblinded_url, serializer);
+        <usize>::sse_encode(self.vsize, serializer);
+    }
+}
+
+impl SseEncode for crate::api::simple::TxFee {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::api::simple::TxFee::Absolute(field0) => {
+                <i32>::sse_encode(0, serializer);
+                <u64>::sse_encode(field0, serializer);
+            }
+            crate::api::simple::TxFee::Relative(field0) => {
+                <i32>::sse_encode(1, serializer);
+                <f64>::sse_encode(field0, serializer);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
+impl SseEncode for lwk::api::transaction::TxInput {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.txid, serializer);
+        <u32>::sse_encode(self.vout, serializer);
+        <String>::sse_encode(self.script_sig, serializer);
+        <u32>::sse_encode(self.sequence, serializer);
+        <Vec<String>>::sse_encode(self.witness, serializer);
+        <bool>::sse_encode(self.is_pegin, serializer);
+    }
+}
+
+impl SseEncode for lwk::api::types::TxOut {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.script_pubkey, serializer);
+        <lwk::api::types::OutPoint>::sse_encode(self.outpoint, serializer);
+        <Option<u32>>::sse_encode(self.height, serializer);
+        <lwk::api::types::TxOutSecrets>::sse_encode(self.unblinded, serializer);
+        <bool>::sse_encode(self.is_spent, serializer);
+        <lwk::api::types::Address>::sse_encode(self.address, serializer);
+    }
+}
+
+impl SseEncode for lwk::api::types::TxOutSecrets {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u64>::sse_encode(self.value, serializer);
+        <String>::sse_encode(self.value_bf, serializer);
+        <String>::sse_encode(self.asset, serializer);
+        <String>::sse_encode(self.asset_bf, serializer);
+    }
+}
+
+impl SseEncode for lwk::api::transaction::TxOutput {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.script_pubkey, serializer);
+        <Option<String>>::sse_encode(self.asset, serializer);
+        <Option<u64>>::sse_encode(self.value, serializer);
+        <Option<String>>::sse_encode(self.nonce, serializer);
+    }
+}
+
+impl SseEncode for u32 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_u32::<NativeEndian>(self).unwrap();
+    }
+}
+
+impl SseEncode for u64 {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        serializer.cursor.write_u64::<NativeEndian>(self).unwrap();
     }
 }
 
@@ -216,17 +8090,13 @@ impl SseEncode for () {
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {}
 }
 
-impl SseEncode for i32 {
+impl SseEncode for usize {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        serializer.cursor.write_i32::<NativeEndian>(self).unwrap();
-    }
-}
-
-impl SseEncode for bool {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        serializer.cursor.write_u8(self as _).unwrap();
+        serializer
+            .cursor
+            .write_u64::<NativeEndian>(self as _)
+            .unwrap();
     }
 }
 
@@ -243,34 +8113,3726 @@ mod io {
     };
     use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
     use flutter_rust_bridge::{Handler, IntoIntoDart};
+    use lwk::api::transaction::*;
+    use lwk::api::wallet::*;
 
     // Section: boilerplate
 
     flutter_rust_bridge::frb_generated_boilerplate_io!();
+
+    // Section: dart2rust
+
+    impl CstDecode<LiquidTransaction> for usize {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> LiquidTransaction {
+            flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(CstDecode::<
+                RustOpaqueNom<
+                    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>,
+                >,
+            >::cst_decode(
+                self
+            ))
+        }
+    }
+    impl CstDecode<PartiallySignedElementsTransaction> for usize {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> PartiallySignedElementsTransaction {
+            flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(CstDecode::<
+                RustOpaqueNom<
+                    flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                        PartiallySignedElementsTransaction,
+                    >,
+                >,
+            >::cst_decode(
+                self
+            ))
+        }
+    }
+    impl CstDecode<Wallet> for usize {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Wallet {
+            flutter_rust_bridge::for_generated::rust_auto_opaque_decode_owned(CstDecode::<
+                RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>,
+            >::cst_decode(
+                self
+            ))
+        }
+    }
+    impl
+        CstDecode<
+            RustOpaqueNom<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>,
+            >,
+        > for usize
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(
+            self,
+        ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>
+        {
+            unsafe { decode_rust_opaque_nom(self as _) }
+        }
+    }
+    impl
+        CstDecode<
+            RustOpaqueNom<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                    PartiallySignedElementsTransaction,
+                >,
+            >,
+        > for usize
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(
+            self,
+        ) -> RustOpaqueNom<
+            flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                PartiallySignedElementsTransaction,
+            >,
+        > {
+            unsafe { decode_rust_opaque_nom(self as _) }
+        }
+    }
+    impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>
+        for usize
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(
+            self,
+        ) -> RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>
+        {
+            unsafe { decode_rust_opaque_nom(self as _) }
+        }
+    }
+    impl CstDecode<String> for *mut wire_cst_list_prim_u_8_strict {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> String {
+            let vec: Vec<u8> = self.cst_decode();
+            String::from_utf8(vec).unwrap()
+        }
+    }
+    impl CstDecode<lwk::api::types::Address> for wire_cst_address {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::types::Address {
+            lwk::api::types::Address {
+                standard: self.standard.cst_decode(),
+                confidential: self.confidential.cst_decode(),
+                index: self.index.cst_decode(),
+                blinding_key: self.blinding_key.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::types::Balance> for wire_cst_balance {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::types::Balance {
+            lwk::api::types::Balance {
+                asset_id: self.asset_id.cst_decode(),
+                value: self.value.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::blockchain::Blockchain> for wire_cst_blockchain {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::blockchain::Blockchain {
+            lwk::api::blockchain::Blockchain {}
+        }
+    }
+    impl CstDecode<boltz::api::error::BoltzError> for wire_cst_boltz_error {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::error::BoltzError {
+            boltz::api::error::BoltzError {
+                kind: self.kind.cst_decode(),
+                message: self.message.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::blockchain::Blockchain> for *mut wire_cst_blockchain {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::blockchain::Blockchain {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<lwk::api::blockchain::Blockchain>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<boltz::api::error::BoltzError> for *mut wire_cst_boltz_error {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::error::BoltzError {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<boltz::api::error::BoltzError>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<boltz::api::btc_ln::BtcLnSwap> for *mut wire_cst_btc_ln_swap {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::btc_ln::BtcLnSwap {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<boltz::api::btc_ln::BtcLnSwap>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<boltz::api::types::BtcSwapScriptStr> for *mut wire_cst_btc_swap_script_str {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::BtcSwapScriptStr {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<boltz::api::types::BtcSwapScriptStr>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<boltz::api::chain_swap::ChainSwap> for *mut wire_cst_chain_swap {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::chain_swap::ChainSwap {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<boltz::api::chain_swap::ChainSwap>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<boltz::api::types::ChainSwapDirection> for *mut i32 {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::ChainSwapDirection {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<boltz::api::types::ChainSwapDirection>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<lwk::api::descriptor::Descriptor> for *mut wire_cst_descriptor {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::descriptor::Descriptor {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<lwk::api::descriptor::Descriptor>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<boltz::api::types::ElectrumSettings> for *mut wire_cst_electrum_settings {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::ElectrumSettings {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<boltz::api::types::ElectrumSettings>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<boltz::api::fees::Fees> for *mut wire_cst_fees {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::fees::Fees {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<boltz::api::fees::Fees>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<boltz::api::types::KeyPair> for *mut wire_cst_key_pair {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::KeyPair {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<boltz::api::types::KeyPair>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<boltz::api::types::LBtcSwapScriptStr> for *mut wire_cst_l_btc_swap_script_str {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::LBtcSwapScriptStr {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<boltz::api::types::LBtcSwapScriptStr>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<boltz::api::lbtc_ln::LbtcLnSwap> for *mut wire_cst_lbtc_ln_swap {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::lbtc_ln::LbtcLnSwap {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<boltz::api::lbtc_ln::LbtcLnSwap>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<boltz::api::lnurl::Lnurl> for *mut wire_cst_lnurl {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::lnurl::Lnurl {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<boltz::api::lnurl::Lnurl>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<boltz::api::types::PreImage> for *mut wire_cst_pre_image {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::PreImage {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<boltz::api::types::PreImage>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<lwk::api::transaction::PsetInput> for *mut wire_cst_pset_input {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::transaction::PsetInput {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<lwk::api::transaction::PsetInput>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<lwk::api::transaction::PsetOutput> for *mut wire_cst_pset_output {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::transaction::PsetOutput {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<lwk::api::transaction::PsetOutput>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<boltz::api::types::Side> for *mut i32 {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::Side {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<boltz::api::types::Side>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<boltz::api::swap_status::Transaction> for *mut wire_cst_transaction {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::swap_status::Transaction {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<boltz::api::swap_status::Transaction>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<crate::api::simple::TxFee> for *mut wire_cst_tx_fee {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::simple::TxFee {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<crate::api::simple::TxFee>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<lwk::api::transaction::TxInput> for *mut wire_cst_tx_input {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::transaction::TxInput {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<lwk::api::transaction::TxInput>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<lwk::api::transaction::TxOutput> for *mut wire_cst_tx_output {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::transaction::TxOutput {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<lwk::api::transaction::TxOutput>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<u32> for *mut u32 {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> u32 {
+            unsafe { *flutter_rust_bridge::for_generated::box_from_leak_ptr(self) }
+        }
+    }
+    impl CstDecode<u64> for *mut u64 {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> u64 {
+            unsafe { *flutter_rust_bridge::for_generated::box_from_leak_ptr(self) }
+        }
+    }
+    impl CstDecode<u8> for *mut u8 {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> u8 {
+            unsafe { *flutter_rust_bridge::for_generated::box_from_leak_ptr(self) }
+        }
+    }
+    impl CstDecode<boltz::api::btc_ln::BtcLnSwap> for wire_cst_btc_ln_swap {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::btc_ln::BtcLnSwap {
+            boltz::api::btc_ln::BtcLnSwap {
+                id: self.id.cst_decode(),
+                kind: self.kind.cst_decode(),
+                network: self.network.cst_decode(),
+                keys: self.keys.cst_decode(),
+                key_index: self.key_index.cst_decode(),
+                preimage: self.preimage.cst_decode(),
+                swap_script: self.swap_script.cst_decode(),
+                invoice: self.invoice.cst_decode(),
+                script_address: self.script_address.cst_decode(),
+                out_amount: self.out_amount.cst_decode(),
+                electrum_url: self.electrum_url.cst_decode(),
+                boltz_url: self.boltz_url.cst_decode(),
+                referral_id: self.referral_id.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::types::BtcSwapScriptStr> for wire_cst_btc_swap_script_str {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::BtcSwapScriptStr {
+            boltz::api::types::BtcSwapScriptStr {
+                swap_type: self.swap_type.cst_decode(),
+                funding_addrs: self.funding_addrs.cst_decode(),
+                hashlock: self.hashlock.cst_decode(),
+                receiver_pubkey: self.receiver_pubkey.cst_decode(),
+                locktime: self.locktime.cst_decode(),
+                sender_pubkey: self.sender_pubkey.cst_decode(),
+                side: self.side.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::fees::ChainFeesAndLimits> for wire_cst_chain_fees_and_limits {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::fees::ChainFeesAndLimits {
+            boltz::api::fees::ChainFeesAndLimits {
+                btc_limits: self.btc_limits.cst_decode(),
+                lbtc_limits: self.lbtc_limits.cst_decode(),
+                btc_fees: self.btc_fees.cst_decode(),
+                lbtc_fees: self.lbtc_fees.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::chain_swap::ChainSwap> for wire_cst_chain_swap {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::chain_swap::ChainSwap {
+            boltz::api::chain_swap::ChainSwap {
+                id: self.id.cst_decode(),
+                is_testnet: self.is_testnet.cst_decode(),
+                direction: self.direction.cst_decode(),
+                refund_keys: self.refund_keys.cst_decode(),
+                refund_index: self.refund_index.cst_decode(),
+                claim_keys: self.claim_keys.cst_decode(),
+                claim_index: self.claim_index.cst_decode(),
+                preimage: self.preimage.cst_decode(),
+                btc_script_str: self.btc_script_str.cst_decode(),
+                lbtc_script_str: self.lbtc_script_str.cst_decode(),
+                script_address: self.script_address.cst_decode(),
+                out_amount: self.out_amount.cst_decode(),
+                btc_electrum_url: self.btc_electrum_url.cst_decode(),
+                lbtc_electrum_url: self.lbtc_electrum_url.cst_decode(),
+                boltz_url: self.boltz_url.cst_decode(),
+                referral_id: self.referral_id.cst_decode(),
+                blinding_key: self.blinding_key.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::fees::ChainSwapFees> for wire_cst_chain_swap_fees {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::fees::ChainSwapFees {
+            boltz::api::fees::ChainSwapFees {
+                percentage: self.percentage.cst_decode(),
+                user_lockup: self.user_lockup.cst_decode(),
+                user_claim: self.user_claim.cst_decode(),
+                server: self.server.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::types::DecodedInvoice> for wire_cst_decoded_invoice {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::DecodedInvoice {
+            boltz::api::types::DecodedInvoice {
+                msats: self.msats.cst_decode(),
+                expiry: self.expiry.cst_decode(),
+                expires_in: self.expires_in.cst_decode(),
+                expires_at: self.expires_at.cst_decode(),
+                is_expired: self.is_expired.cst_decode(),
+                network: self.network.cst_decode(),
+                cltv_exp_delta: self.cltv_exp_delta.cst_decode(),
+                bip21: self.bip21.cst_decode(),
+                preimage_hash: self.preimage_hash.cst_decode(),
+                description: self.description.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::descriptor::Descriptor> for wire_cst_descriptor {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::descriptor::Descriptor {
+            lwk::api::descriptor::Descriptor {
+                ct_descriptor: self.ct_descriptor.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::types::ElectrumSettings> for wire_cst_electrum_settings {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::ElectrumSettings {
+            boltz::api::types::ElectrumSettings {
+                url: self.url.cst_decode(),
+                validate_domain: self.validate_domain.cst_decode(),
+                tls: self.tls.cst_decode(),
+                timeout: self.timeout.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::fees::Fees> for wire_cst_fees {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::fees::Fees {
+            boltz::api::fees::Fees {
+                boltz_url: self.boltz_url.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::types::KeyPair> for wire_cst_key_pair {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::KeyPair {
+            boltz::api::types::KeyPair {
+                secret_key: self.secret_key.cst_decode(),
+                public_key: self.public_key.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::types::LBtcSwapScriptStr> for wire_cst_l_btc_swap_script_str {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::LBtcSwapScriptStr {
+            boltz::api::types::LBtcSwapScriptStr {
+                swap_type: self.swap_type.cst_decode(),
+                funding_addrs: self.funding_addrs.cst_decode(),
+                hashlock: self.hashlock.cst_decode(),
+                receiver_pubkey: self.receiver_pubkey.cst_decode(),
+                locktime: self.locktime.cst_decode(),
+                sender_pubkey: self.sender_pubkey.cst_decode(),
+                blinding_key: self.blinding_key.cst_decode(),
+                side: self.side.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::lbtc_ln::LbtcLnSwap> for wire_cst_lbtc_ln_swap {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::lbtc_ln::LbtcLnSwap {
+            boltz::api::lbtc_ln::LbtcLnSwap {
+                id: self.id.cst_decode(),
+                kind: self.kind.cst_decode(),
+                network: self.network.cst_decode(),
+                keys: self.keys.cst_decode(),
+                key_index: self.key_index.cst_decode(),
+                preimage: self.preimage.cst_decode(),
+                swap_script: self.swap_script.cst_decode(),
+                invoice: self.invoice.cst_decode(),
+                out_amount: self.out_amount.cst_decode(),
+                script_address: self.script_address.cst_decode(),
+                blinding_key: self.blinding_key.cst_decode(),
+                electrum_url: self.electrum_url.cst_decode(),
+                boltz_url: self.boltz_url.cst_decode(),
+                referral_id: self.referral_id.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<Vec<String>> for *mut wire_cst_list_String {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<String> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<Vec<lwk::api::types::Balance>> for *mut wire_cst_list_balance {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<lwk::api::types::Balance> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<Vec<u8>> for *mut wire_cst_list_prim_u_8_loose {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<u8> {
+            unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            }
+        }
+    }
+    impl CstDecode<Vec<u8>> for *mut wire_cst_list_prim_u_8_strict {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<u8> {
+            unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            }
+        }
+    }
+    impl CstDecode<Vec<lwk::api::transaction::PsetInput>> for *mut wire_cst_list_pset_input {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<lwk::api::transaction::PsetInput> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<Vec<lwk::api::transaction::PsetOutput>> for *mut wire_cst_list_pset_output {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<lwk::api::transaction::PsetOutput> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<Vec<lwk::api::types::Tx>> for *mut wire_cst_list_tx {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<lwk::api::types::Tx> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<Vec<lwk::api::transaction::TxInput>> for *mut wire_cst_list_tx_input {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<lwk::api::transaction::TxInput> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<Vec<lwk::api::types::TxOut>> for *mut wire_cst_list_tx_out {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<lwk::api::types::TxOut> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<Vec<lwk::api::types::TxOutSecrets>> for *mut wire_cst_list_tx_out_secrets {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<lwk::api::types::TxOutSecrets> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<Vec<lwk::api::transaction::TxOutput>> for *mut wire_cst_list_tx_output {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<lwk::api::transaction::TxOutput> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<boltz::api::lnurl::Lnurl> for wire_cst_lnurl {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::lnurl::Lnurl {
+            boltz::api::lnurl::Lnurl {
+                value: self.value.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::error::LwkError> for wire_cst_lwk_error {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::error::LwkError {
+            lwk::api::error::LwkError {
+                msg: self.msg.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::fees::MinerFees> for wire_cst_miner_fees {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::fees::MinerFees {
+            boltz::api::fees::MinerFees {
+                lockup: self.lockup.cst_decode(),
+                claim: self.claim.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::types::OutPoint> for wire_cst_out_point {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::types::OutPoint {
+            lwk::api::types::OutPoint {
+                txid: self.txid.cst_decode(),
+                vout: self.vout.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::types::OutspendStatus> for wire_cst_outspend_status {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::OutspendStatus {
+            boltz::api::types::OutspendStatus {
+                kind: self.kind.cst_decode(),
+                txid: self.txid.cst_decode(),
+                timestamp: self.timestamp.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::types::PayjoinTx> for wire_cst_payjoin_tx {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::types::PayjoinTx {
+            lwk::api::types::PayjoinTx {
+                pset: self.pset.cst_decode(),
+                network_fee: self.network_fee.cst_decode(),
+                asset_fee: self.asset_fee.cst_decode(),
+                unblinded_outputs: self.unblinded_outputs.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::types::PreImage> for wire_cst_pre_image {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::PreImage {
+            boltz::api::types::PreImage {
+                value: self.value.cst_decode(),
+                sha256: self.sha256.cst_decode(),
+                hash160: self.hash160.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::types::PsetAmounts> for wire_cst_pset_amounts {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::types::PsetAmounts {
+            lwk::api::types::PsetAmounts {
+                absolute_fees: self.absolute_fees.cst_decode(),
+                balances: self.balances.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::transaction::PsetInput> for wire_cst_pset_input {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::transaction::PsetInput {
+            lwk::api::transaction::PsetInput {
+                witness_utxo_script: self.witness_utxo_script.cst_decode(),
+                witness_utxo_amount: self.witness_utxo_amount.cst_decode(),
+                witness_utxo_asset: self.witness_utxo_asset.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::transaction::PsetOutput> for wire_cst_pset_output {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::transaction::PsetOutput {
+            lwk::api::transaction::PsetOutput {
+                script_pubkey: self.script_pubkey.cst_decode(),
+                amount: self.amount.cst_decode(),
+                asset: self.asset.cst_decode(),
+                blinding_key: self.blinding_key.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::fees::RevSwapFees> for wire_cst_rev_swap_fees {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::fees::RevSwapFees {
+            boltz::api::fees::RevSwapFees {
+                percentage: self.percentage.cst_decode(),
+                miner_fees: self.miner_fees.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::fees::ReverseFeesAndLimits> for wire_cst_reverse_fees_and_limits {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::fees::ReverseFeesAndLimits {
+            boltz::api::fees::ReverseFeesAndLimits {
+                btc_limits: self.btc_limits.cst_decode(),
+                lbtc_limits: self.lbtc_limits.cst_decode(),
+                btc_fees: self.btc_fees.cst_decode(),
+                lbtc_fees: self.lbtc_fees.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::types::SizeAndFees> for wire_cst_size_and_fees {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::types::SizeAndFees {
+            lwk::api::types::SizeAndFees {
+                discounted_vsize: self.discounted_vsize.cst_decode(),
+                discounted_weight: self.discounted_weight.cst_decode(),
+                absolute_fees: self.absolute_fees.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::fees::SubSwapFees> for wire_cst_sub_swap_fees {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::fees::SubSwapFees {
+            boltz::api::fees::SubSwapFees {
+                percentage: self.percentage.cst_decode(),
+                miner_fees: self.miner_fees.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::fees::SubmarineFeesAndLimits> for wire_cst_submarine_fees_and_limits {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::fees::SubmarineFeesAndLimits {
+            boltz::api::fees::SubmarineFeesAndLimits {
+                btc_limits: self.btc_limits.cst_decode(),
+                lbtc_limits: self.lbtc_limits.cst_decode(),
+                btc_fees: self.btc_fees.cst_decode(),
+                lbtc_fees: self.lbtc_fees.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::fees::SwapLimits> for wire_cst_swap_limits {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::fees::SwapLimits {
+            boltz::api::fees::SwapLimits {
+                minimal: self.minimal.cst_decode(),
+                maximal: self.maximal.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::swap_status::SwapStatusResponse> for wire_cst_swap_status_response {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::swap_status::SwapStatusResponse {
+            boltz::api::swap_status::SwapStatusResponse {
+                status: self.status.cst_decode(),
+                transaction: self.transaction.cst_decode(),
+                failure_reason: self.failure_reason.cst_decode(),
+                error: self.error.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::swap_status::SwapStreamStatus> for wire_cst_swap_stream_status {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::swap_status::SwapStreamStatus {
+            boltz::api::swap_status::SwapStreamStatus {
+                id: self.id.cst_decode(),
+                status: self.status.cst_decode(),
+                error: self.error.cst_decode(),
+                transaction: self.transaction.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::swap_status::Transaction> for wire_cst_transaction {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::swap_status::Transaction {
+            boltz::api::swap_status::Transaction {
+                id: self.id.cst_decode(),
+                hex: self.hex.cst_decode(),
+                eta: self.eta.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::types::Tx> for wire_cst_tx {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::types::Tx {
+            lwk::api::types::Tx {
+                timestamp: self.timestamp.cst_decode(),
+                kind: self.kind.cst_decode(),
+                balances: self.balances.cst_decode(),
+                txid: self.txid.cst_decode(),
+                outputs: self.outputs.cst_decode(),
+                inputs: self.inputs.cst_decode(),
+                fee: self.fee.cst_decode(),
+                height: self.height.cst_decode(),
+                unblinded_url: self.unblinded_url.cst_decode(),
+                vsize: self.vsize.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<crate::api::simple::TxFee> for wire_cst_tx_fee {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::simple::TxFee {
+            match self.tag {
+                0 => {
+                    let ans = unsafe { self.kind.Absolute };
+                    crate::api::simple::TxFee::Absolute(ans.field0.cst_decode())
+                }
+                1 => {
+                    let ans = unsafe { self.kind.Relative };
+                    crate::api::simple::TxFee::Relative(ans.field0.cst_decode())
+                }
+                _ => unreachable!(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::transaction::TxInput> for wire_cst_tx_input {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::transaction::TxInput {
+            lwk::api::transaction::TxInput {
+                txid: self.txid.cst_decode(),
+                vout: self.vout.cst_decode(),
+                script_sig: self.script_sig.cst_decode(),
+                sequence: self.sequence.cst_decode(),
+                witness: self.witness.cst_decode(),
+                is_pegin: self.is_pegin.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::types::TxOut> for wire_cst_tx_out {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::types::TxOut {
+            lwk::api::types::TxOut {
+                script_pubkey: self.script_pubkey.cst_decode(),
+                outpoint: self.outpoint.cst_decode(),
+                height: self.height.cst_decode(),
+                unblinded: self.unblinded.cst_decode(),
+                is_spent: self.is_spent.cst_decode(),
+                address: self.address.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::types::TxOutSecrets> for wire_cst_tx_out_secrets {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::types::TxOutSecrets {
+            lwk::api::types::TxOutSecrets {
+                value: self.value.cst_decode(),
+                value_bf: self.value_bf.cst_decode(),
+                asset: self.asset.cst_decode(),
+                asset_bf: self.asset_bf.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::transaction::TxOutput> for wire_cst_tx_output {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::transaction::TxOutput {
+            lwk::api::transaction::TxOutput {
+                script_pubkey: self.script_pubkey.cst_decode(),
+                asset: self.asset.cst_decode(),
+                value: self.value.cst_decode(),
+                nonce: self.nonce.cst_decode(),
+            }
+        }
+    }
+    impl NewWithNullPtr for wire_cst_address {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                standard: core::ptr::null_mut(),
+                confidential: core::ptr::null_mut(),
+                index: core::ptr::null_mut(),
+                blinding_key: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_address {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_balance {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                asset_id: core::ptr::null_mut(),
+                value: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_balance {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_blockchain {
+        fn new_with_null_ptr() -> Self {
+            Self {}
+        }
+    }
+    impl Default for wire_cst_blockchain {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_boltz_error {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                kind: core::ptr::null_mut(),
+                message: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_boltz_error {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_btc_ln_swap {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                id: core::ptr::null_mut(),
+                kind: Default::default(),
+                network: Default::default(),
+                keys: Default::default(),
+                key_index: Default::default(),
+                preimage: Default::default(),
+                swap_script: Default::default(),
+                invoice: core::ptr::null_mut(),
+                script_address: core::ptr::null_mut(),
+                out_amount: Default::default(),
+                electrum_url: core::ptr::null_mut(),
+                boltz_url: core::ptr::null_mut(),
+                referral_id: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_btc_ln_swap {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_btc_swap_script_str {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                swap_type: Default::default(),
+                funding_addrs: core::ptr::null_mut(),
+                hashlock: core::ptr::null_mut(),
+                receiver_pubkey: core::ptr::null_mut(),
+                locktime: Default::default(),
+                sender_pubkey: core::ptr::null_mut(),
+                side: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_btc_swap_script_str {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_chain_fees_and_limits {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                btc_limits: Default::default(),
+                lbtc_limits: Default::default(),
+                btc_fees: Default::default(),
+                lbtc_fees: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_chain_fees_and_limits {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_chain_swap {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                id: core::ptr::null_mut(),
+                is_testnet: Default::default(),
+                direction: Default::default(),
+                refund_keys: Default::default(),
+                refund_index: Default::default(),
+                claim_keys: Default::default(),
+                claim_index: Default::default(),
+                preimage: Default::default(),
+                btc_script_str: Default::default(),
+                lbtc_script_str: Default::default(),
+                script_address: core::ptr::null_mut(),
+                out_amount: Default::default(),
+                btc_electrum_url: core::ptr::null_mut(),
+                lbtc_electrum_url: core::ptr::null_mut(),
+                boltz_url: core::ptr::null_mut(),
+                referral_id: core::ptr::null_mut(),
+                blinding_key: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_chain_swap {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_chain_swap_fees {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                percentage: Default::default(),
+                user_lockup: Default::default(),
+                user_claim: Default::default(),
+                server: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_chain_swap_fees {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_decoded_invoice {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                msats: Default::default(),
+                expiry: Default::default(),
+                expires_in: Default::default(),
+                expires_at: Default::default(),
+                is_expired: Default::default(),
+                network: core::ptr::null_mut(),
+                cltv_exp_delta: Default::default(),
+                bip21: core::ptr::null_mut(),
+                preimage_hash: core::ptr::null_mut(),
+                description: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_decoded_invoice {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_descriptor {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                ct_descriptor: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_descriptor {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_electrum_settings {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                url: core::ptr::null_mut(),
+                validate_domain: Default::default(),
+                tls: Default::default(),
+                timeout: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_electrum_settings {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_fees {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                boltz_url: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_fees {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_key_pair {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                secret_key: core::ptr::null_mut(),
+                public_key: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_key_pair {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_l_btc_swap_script_str {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                swap_type: Default::default(),
+                funding_addrs: core::ptr::null_mut(),
+                hashlock: core::ptr::null_mut(),
+                receiver_pubkey: core::ptr::null_mut(),
+                locktime: Default::default(),
+                sender_pubkey: core::ptr::null_mut(),
+                blinding_key: core::ptr::null_mut(),
+                side: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_l_btc_swap_script_str {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_lbtc_ln_swap {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                id: core::ptr::null_mut(),
+                kind: Default::default(),
+                network: Default::default(),
+                keys: Default::default(),
+                key_index: Default::default(),
+                preimage: Default::default(),
+                swap_script: Default::default(),
+                invoice: core::ptr::null_mut(),
+                out_amount: Default::default(),
+                script_address: core::ptr::null_mut(),
+                blinding_key: core::ptr::null_mut(),
+                electrum_url: core::ptr::null_mut(),
+                boltz_url: core::ptr::null_mut(),
+                referral_id: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_lbtc_ln_swap {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_lnurl {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                value: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_lnurl {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_lwk_error {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                msg: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_lwk_error {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_miner_fees {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                lockup: Default::default(),
+                claim: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_miner_fees {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_out_point {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                txid: core::ptr::null_mut(),
+                vout: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_out_point {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_outspend_status {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                kind: Default::default(),
+                txid: core::ptr::null_mut(),
+                timestamp: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_outspend_status {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_payjoin_tx {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                pset: core::ptr::null_mut(),
+                network_fee: Default::default(),
+                asset_fee: Default::default(),
+                unblinded_outputs: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_payjoin_tx {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_pre_image {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                value: core::ptr::null_mut(),
+                sha256: core::ptr::null_mut(),
+                hash160: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_pre_image {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_pset_amounts {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                absolute_fees: Default::default(),
+                balances: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_pset_amounts {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_pset_input {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                witness_utxo_script: core::ptr::null_mut(),
+                witness_utxo_amount: core::ptr::null_mut(),
+                witness_utxo_asset: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_pset_input {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_pset_output {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                script_pubkey: core::ptr::null_mut(),
+                amount: core::ptr::null_mut(),
+                asset: core::ptr::null_mut(),
+                blinding_key: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_pset_output {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_rev_swap_fees {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                percentage: Default::default(),
+                miner_fees: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_rev_swap_fees {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_reverse_fees_and_limits {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                btc_limits: Default::default(),
+                lbtc_limits: Default::default(),
+                btc_fees: Default::default(),
+                lbtc_fees: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_reverse_fees_and_limits {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_size_and_fees {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                discounted_vsize: Default::default(),
+                discounted_weight: Default::default(),
+                absolute_fees: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_size_and_fees {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_sub_swap_fees {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                percentage: Default::default(),
+                miner_fees: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_sub_swap_fees {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_submarine_fees_and_limits {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                btc_limits: Default::default(),
+                lbtc_limits: Default::default(),
+                btc_fees: Default::default(),
+                lbtc_fees: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_submarine_fees_and_limits {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_swap_limits {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                minimal: Default::default(),
+                maximal: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_swap_limits {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_swap_status_response {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                status: Default::default(),
+                transaction: core::ptr::null_mut(),
+                failure_reason: core::ptr::null_mut(),
+                error: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_swap_status_response {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_swap_stream_status {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                id: core::ptr::null_mut(),
+                status: Default::default(),
+                error: core::ptr::null_mut(),
+                transaction: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_swap_stream_status {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_transaction {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                id: core::ptr::null_mut(),
+                hex: core::ptr::null_mut(),
+                eta: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_transaction {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_tx {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                timestamp: core::ptr::null_mut(),
+                kind: core::ptr::null_mut(),
+                balances: core::ptr::null_mut(),
+                txid: core::ptr::null_mut(),
+                outputs: core::ptr::null_mut(),
+                inputs: core::ptr::null_mut(),
+                fee: Default::default(),
+                height: core::ptr::null_mut(),
+                unblinded_url: core::ptr::null_mut(),
+                vsize: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_tx {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_tx_fee {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                tag: -1,
+                kind: TxFeeKind { nil__: () },
+            }
+        }
+    }
+    impl Default for wire_cst_tx_fee {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_tx_input {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                txid: core::ptr::null_mut(),
+                vout: Default::default(),
+                script_sig: core::ptr::null_mut(),
+                sequence: Default::default(),
+                witness: core::ptr::null_mut(),
+                is_pegin: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_tx_input {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_tx_out {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                script_pubkey: core::ptr::null_mut(),
+                outpoint: Default::default(),
+                height: core::ptr::null_mut(),
+                unblinded: Default::default(),
+                is_spent: Default::default(),
+                address: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_tx_out {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_tx_out_secrets {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                value: Default::default(),
+                value_bf: core::ptr::null_mut(),
+                asset: core::ptr::null_mut(),
+                asset_bf: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_tx_out_secrets {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_tx_output {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                script_pubkey: core::ptr::null_mut(),
+                asset: core::ptr::null_mut(),
+                value: core::ptr::null_mut(),
+                nonce: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_tx_output {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_fee(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_fee_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_from_bytes(
+        tx_bytes: *mut wire_cst_list_prim_u_8_loose,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_from_bytes_impl(tx_bytes)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_from_pset(
+        pset_string: *mut wire_cst_list_prim_u_8_strict,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_from_pset_impl(pset_string)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_get_input(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_get_input_impl(that, index)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_get_inputs(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_get_inputs_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_get_output(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_get_output_impl(that, index)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_get_output_asset(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_get_output_asset_impl(that, index)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_get_output_nonce(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_get_output_nonce_impl(that, index)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_get_output_script_pubkey(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_get_output_script_pubkey_impl(that, index)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_get_output_value(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_get_output_value_impl(that, index)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_get_outputs(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_get_outputs_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_input_count(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_input_count_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_is_coinbase(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_is_coinbase_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_lock_time(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_lock_time_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_output_count(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_output_count_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_to_bytes(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_to_bytes_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_txid(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_txid_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_version(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_version_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_vsize(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_vsize_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__LiquidTransaction_weight(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__LiquidTransaction_weight_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_extract_tx(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_extract_tx_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_from_string(
+        pset_string: *mut wire_cst_list_prim_u_8_strict,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_from_string_impl(
+            pset_string,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input_impl(that, index)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input_utxo_amount(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input_utxo_amount_impl(
+            that, index,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input_utxo_asset(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input_utxo_asset_impl(
+            that, index,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input_utxo_script(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input_utxo_script_impl(
+            that, index,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_inputs(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_inputs_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_impl(that, index)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_amount(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_amount_impl(
+            that, index,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_asset(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_asset_impl(
+            that, index,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_blinding_key(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_blinding_key_impl(
+            that, index,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_script(
+        that: usize,
+        index: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_script_impl(
+            that, index,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_outputs(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_outputs_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_input_count(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_input_count_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_lock_time(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_lock_time_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_output_count(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_output_count_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__PartiallySignedElementsTransaction_to_string(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__transaction__PartiallySignedElementsTransaction_to_string_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_address(
+        port_: i64,
+        that: usize,
+        index: u32,
+    ) {
+        wire__lwk__api__wallet__Wallet_address_impl(port_, that, index)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_address_last_unused(
+        port_: i64,
+        that: usize,
+    ) {
+        wire__lwk__api__wallet__Wallet_address_last_unused_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_balances(
+        port_: i64,
+        that: usize,
+    ) {
+        wire__lwk__api__wallet__Wallet_balances_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_blinding_key(
+        port_: i64,
+        that: usize,
+    ) {
+        wire__lwk__api__wallet__Wallet_blinding_key_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_build_asset_tx(
+        port_: i64,
+        that: usize,
+        sats: u64,
+        out_address: *mut wire_cst_list_prim_u_8_strict,
+        fee_rate: f32,
+        asset: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__lwk__api__wallet__Wallet_build_asset_tx_impl(
+            port_,
+            that,
+            sats,
+            out_address,
+            fee_rate,
+            asset,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_build_lbtc_tx(
+        port_: i64,
+        that: usize,
+        sats: u64,
+        out_address: *mut wire_cst_list_prim_u_8_strict,
+        fee_rate: f32,
+        drain: bool,
+    ) {
+        wire__lwk__api__wallet__Wallet_build_lbtc_tx_impl(
+            port_,
+            that,
+            sats,
+            out_address,
+            fee_rate,
+            drain,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_build_payjoin_tx(
+        port_: i64,
+        that: usize,
+        sats: u64,
+        out_address: *mut wire_cst_list_prim_u_8_strict,
+        asset: *mut wire_cst_list_prim_u_8_strict,
+        network: i32,
+        base_url: *mut wire_cst_list_prim_u_8_strict,
+        is_send_all: bool,
+    ) {
+        wire__lwk__api__wallet__Wallet_build_payjoin_tx_impl(
+            port_,
+            that,
+            sats,
+            out_address,
+            asset,
+            network,
+            base_url,
+            is_send_all,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_decode_tx(
+        port_: i64,
+        that: usize,
+        pset: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__lwk__api__wallet__Wallet_decode_tx_impl(port_, that, pset)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_descriptor(
+        port_: i64,
+        that: usize,
+    ) {
+        wire__lwk__api__wallet__Wallet_descriptor_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_init(
+        port_: i64,
+        network: i32,
+        dbpath: *mut wire_cst_list_prim_u_8_strict,
+        descriptor: *mut wire_cst_descriptor,
+    ) {
+        wire__lwk__api__wallet__Wallet_init_impl(port_, network, dbpath, descriptor)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_sign_tx(
+        port_: i64,
+        that: usize,
+        network: i32,
+        pset: *mut wire_cst_list_prim_u_8_strict,
+        mnemonic: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__lwk__api__wallet__Wallet_sign_tx_impl(port_, that, network, pset, mnemonic)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_signed_pset_with_extra_details(
+        port_: i64,
+        that: usize,
+        network: i32,
+        pset: *mut wire_cst_list_prim_u_8_strict,
+        mnemonic: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__lwk__api__wallet__Wallet_signed_pset_with_extra_details_impl(
+            port_, that, network, pset, mnemonic,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_sync(
+        port_: i64,
+        that: usize,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        validate_domain: bool,
+        stop_at_index: *mut u32,
+        timeout: *mut u8,
+    ) {
+        wire__lwk__api__wallet__Wallet_sync_impl(
+            port_,
+            that,
+            electrum_url,
+            validate_domain,
+            stop_at_index,
+            timeout,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_txs(port_: i64, that: usize) {
+        wire__lwk__api__wallet__Wallet_txs_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_utxos(
+        port_: i64,
+        that: usize,
+    ) {
+        wire__lwk__api__wallet__Wallet_utxos_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__types__address_address_from_script(
+        port_: i64,
+        network: i32,
+        script: *mut wire_cst_list_prim_u_8_strict,
+        blinding_key: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__lwk__api__types__address_address_from_script_impl(
+            port_,
+            network,
+            script,
+            blinding_key,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__types__address_validate(
+        port_: i64,
+        address_string: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__lwk__api__types__address_validate_impl(port_, address_string)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__blockchain__blockchain_broadcast_signed_pset(
+        port_: i64,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        signed_pset: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__lwk__api__blockchain__blockchain_broadcast_signed_pset_impl(
+            port_,
+            electrum_url,
+            signed_pset,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__blockchain__blockchain_broadcast_tx_bytes(
+        port_: i64,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        tx_bytes: *mut wire_cst_list_prim_u_8_loose,
+    ) {
+        wire__lwk__api__blockchain__blockchain_broadcast_tx_bytes_impl(
+            port_,
+            electrum_url,
+            tx_bytes,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__blockchain__blockchain_test(
+        port_: i64,
+        that: *mut wire_cst_blockchain,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__lwk__api__blockchain__blockchain_test_impl(port_, that, electrum_url)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__error__boltz_error_detail(
+        port_: i64,
+        that: *mut wire_cst_boltz_error,
+    ) {
+        wire__boltz__api__error__boltz_error_detail_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__error__boltz_error_new(
+        port_: i64,
+        kind: *mut wire_cst_list_prim_u_8_strict,
+        message: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__error__boltz_error_new_impl(port_, kind, message)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__btc_ln__btc_ln_swap_broadcast_boltz(
+        port_: i64,
+        that: *mut wire_cst_btc_ln_swap,
+        signed_hex: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__btc_ln__btc_ln_swap_broadcast_boltz_impl(port_, that, signed_hex)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__btc_ln__btc_ln_swap_broadcast_local(
+        port_: i64,
+        that: *mut wire_cst_btc_ln_swap,
+        signed_hex: *mut wire_cst_list_prim_u_8_strict,
+        electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__btc_ln__btc_ln_swap_broadcast_local_impl(
+            port_,
+            that,
+            signed_hex,
+            electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__btc_ln__btc_ln_swap_claim(
+        port_: i64,
+        that: *mut wire_cst_btc_ln_swap,
+        out_address: *mut wire_cst_list_prim_u_8_strict,
+        miner_fee: *mut wire_cst_tx_fee,
+        try_cooperate: bool,
+        electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__btc_ln__btc_ln_swap_claim_impl(
+            port_,
+            that,
+            out_address,
+            miner_fee,
+            try_cooperate,
+            electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__btc_ln__btc_ln_swap_claim_tx_size(
+        port_: i64,
+        that: *mut wire_cst_btc_ln_swap,
+        is_cooperative: bool,
+        electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__btc_ln__btc_ln_swap_claim_tx_size_impl(
+            port_,
+            that,
+            is_cooperative,
+            electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__btc_ln__btc_ln_swap_coop_close_submarine(
+        port_: i64,
+        that: *mut wire_cst_btc_ln_swap,
+    ) {
+        wire__boltz__api__btc_ln__btc_ln_swap_coop_close_submarine_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__btc_ln__btc_ln_swap_from_json(
+        port_: i64,
+        json_str: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__btc_ln__btc_ln_swap_from_json_impl(port_, json_str)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__btc_ln__btc_ln_swap_get_completed_submarine_preimage(
+        port_: i64,
+        that: *mut wire_cst_btc_ln_swap,
+    ) {
+        wire__boltz__api__btc_ln__btc_ln_swap_get_completed_submarine_preimage_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__btc_ln__btc_ln_swap_get_preimage(
+        port_: i64,
+        that: *mut wire_cst_btc_ln_swap,
+    ) {
+        wire__boltz__api__btc_ln__btc_ln_swap_get_preimage_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__btc_ln__btc_ln_swap_new(
+        port_: i64,
+        id: *mut wire_cst_list_prim_u_8_strict,
+        kind: i32,
+        network: i32,
+        keys: *mut wire_cst_key_pair,
+        key_index: u64,
+        preimage: *mut wire_cst_pre_image,
+        swap_script: *mut wire_cst_btc_swap_script_str,
+        invoice: *mut wire_cst_list_prim_u_8_strict,
+        script_address: *mut wire_cst_list_prim_u_8_strict,
+        out_amount: u64,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+        referral_id: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__btc_ln__btc_ln_swap_new_impl(
+            port_,
+            id,
+            kind,
+            network,
+            keys,
+            key_index,
+            preimage,
+            swap_script,
+            invoice,
+            script_address,
+            out_amount,
+            electrum_url,
+            boltz_url,
+            referral_id,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__btc_ln__btc_ln_swap_new_reverse(
+        port_: i64,
+        mnemonic: *mut wire_cst_list_prim_u_8_strict,
+        passphrase: *mut wire_cst_list_prim_u_8_strict,
+        index: u64,
+        out_amount: u64,
+        out_address: *mut wire_cst_list_prim_u_8_strict,
+        network: i32,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+        description: *mut wire_cst_list_prim_u_8_strict,
+        referral_id: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__btc_ln__btc_ln_swap_new_reverse_impl(
+            port_,
+            mnemonic,
+            passphrase,
+            index,
+            out_amount,
+            out_address,
+            network,
+            electrum_url,
+            boltz_url,
+            description,
+            referral_id,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__btc_ln__btc_ln_swap_new_submarine(
+        port_: i64,
+        mnemonic: *mut wire_cst_list_prim_u_8_strict,
+        passphrase: *mut wire_cst_list_prim_u_8_strict,
+        index: u64,
+        invoice: *mut wire_cst_list_prim_u_8_strict,
+        network: i32,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+        referral_id: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__btc_ln__btc_ln_swap_new_submarine_impl(
+            port_,
+            mnemonic,
+            passphrase,
+            index,
+            invoice,
+            network,
+            electrum_url,
+            boltz_url,
+            referral_id,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__btc_ln__btc_ln_swap_refund(
+        port_: i64,
+        that: *mut wire_cst_btc_ln_swap,
+        out_address: *mut wire_cst_list_prim_u_8_strict,
+        miner_fee: *mut wire_cst_tx_fee,
+        try_cooperate: bool,
+        electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__btc_ln__btc_ln_swap_refund_impl(
+            port_,
+            that,
+            out_address,
+            miner_fee,
+            try_cooperate,
+            electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__btc_ln__btc_ln_swap_refund_tx_size(
+        port_: i64,
+        that: *mut wire_cst_btc_ln_swap,
+        is_cooperative: bool,
+        electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__btc_ln__btc_ln_swap_refund_tx_size_impl(
+            port_,
+            that,
+            is_cooperative,
+            electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__btc_ln__btc_ln_swap_to_json(
+        port_: i64,
+        that: *mut wire_cst_btc_ln_swap,
+    ) {
+        wire__boltz__api__btc_ln__btc_ln_swap_to_json_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__types__btc_swap_script_str_new(
+        port_: i64,
+        swap_type: i32,
+        funding_addrs: *mut wire_cst_list_prim_u_8_strict,
+        hashlock: *mut wire_cst_list_prim_u_8_strict,
+        receiver_pubkey: *mut wire_cst_list_prim_u_8_strict,
+        locktime: u32,
+        sender_pubkey: *mut wire_cst_list_prim_u_8_strict,
+        side: *mut i32,
+    ) {
+        wire__boltz__api__types__btc_swap_script_str_new_impl(
+            port_,
+            swap_type,
+            funding_addrs,
+            hashlock,
+            receiver_pubkey,
+            locktime,
+            sender_pubkey,
+            side,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__chain_swap__chain_swap_broadcast_boltz(
+        port_: i64,
+        that: *mut wire_cst_chain_swap,
+        signed_hex: *mut wire_cst_list_prim_u_8_strict,
+        kind: i32,
+    ) {
+        wire__boltz__api__chain_swap__chain_swap_broadcast_boltz_impl(port_, that, signed_hex, kind)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__chain_swap__chain_swap_broadcast_local(
+        port_: i64,
+        that: *mut wire_cst_chain_swap,
+        signed_hex: *mut wire_cst_list_prim_u_8_strict,
+        kind: i32,
+        electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__chain_swap__chain_swap_broadcast_local_impl(
+            port_,
+            that,
+            signed_hex,
+            kind,
+            electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__chain_swap__chain_swap_claim(
+        port_: i64,
+        that: *mut wire_cst_chain_swap,
+        out_address: *mut wire_cst_list_prim_u_8_strict,
+        miner_fee: *mut wire_cst_tx_fee,
+        try_cooperate: bool,
+        btc_electrum_settings: *mut wire_cst_electrum_settings,
+        lbtc_electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__chain_swap__chain_swap_claim_impl(
+            port_,
+            that,
+            out_address,
+            miner_fee,
+            try_cooperate,
+            btc_electrum_settings,
+            lbtc_electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__chain_swap__chain_swap_claim_tx_size(
+        port_: i64,
+        that: *mut wire_cst_chain_swap,
+        out_address: *mut wire_cst_list_prim_u_8_strict,
+        try_cooperate: bool,
+        btc_electrum_settings: *mut wire_cst_electrum_settings,
+        lbtc_electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__chain_swap__chain_swap_claim_tx_size_impl(
+            port_,
+            that,
+            out_address,
+            try_cooperate,
+            btc_electrum_settings,
+            lbtc_electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__chain_swap__chain_swap_from_json(
+        port_: i64,
+        json_str: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__chain_swap__chain_swap_from_json_impl(port_, json_str)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__chain_swap__chain_swap_get_server_lockup(
+        port_: i64,
+        that: *mut wire_cst_chain_swap,
+    ) {
+        wire__boltz__api__chain_swap__chain_swap_get_server_lockup_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__chain_swap__chain_swap_get_user_lockup(
+        port_: i64,
+        that: *mut wire_cst_chain_swap,
+    ) {
+        wire__boltz__api__chain_swap__chain_swap_get_user_lockup_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__chain_swap__chain_swap_new(
+        port_: i64,
+        id: *mut wire_cst_list_prim_u_8_strict,
+        is_testnet: bool,
+        direction: i32,
+        refund_keys: *mut wire_cst_key_pair,
+        refund_index: u64,
+        claim_keys: *mut wire_cst_key_pair,
+        claim_index: u64,
+        preimage: *mut wire_cst_pre_image,
+        btc_script_str: *mut wire_cst_btc_swap_script_str,
+        lbtc_script_str: *mut wire_cst_l_btc_swap_script_str,
+        script_address: *mut wire_cst_list_prim_u_8_strict,
+        out_amount: u64,
+        btc_electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        lbtc_electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+        referral_id: *mut wire_cst_list_prim_u_8_strict,
+        blinding_key: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__chain_swap__chain_swap_new_impl(
+            port_,
+            id,
+            is_testnet,
+            direction,
+            refund_keys,
+            refund_index,
+            claim_keys,
+            claim_index,
+            preimage,
+            btc_script_str,
+            lbtc_script_str,
+            script_address,
+            out_amount,
+            btc_electrum_url,
+            lbtc_electrum_url,
+            boltz_url,
+            referral_id,
+            blinding_key,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__chain_swap__chain_swap_new_swap(
+        port_: i64,
+        direction: i32,
+        mnemonic: *mut wire_cst_list_prim_u_8_strict,
+        passphrase: *mut wire_cst_list_prim_u_8_strict,
+        index: u64,
+        amount: u64,
+        is_testnet: bool,
+        btc_electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        lbtc_electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+        referral_id: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__chain_swap__chain_swap_new_swap_impl(
+            port_,
+            direction,
+            mnemonic,
+            passphrase,
+            index,
+            amount,
+            is_testnet,
+            btc_electrum_url,
+            lbtc_electrum_url,
+            boltz_url,
+            referral_id,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__chain_swap__chain_swap_refund(
+        port_: i64,
+        that: *mut wire_cst_chain_swap,
+        refund_address: *mut wire_cst_list_prim_u_8_strict,
+        miner_fee: *mut wire_cst_tx_fee,
+        try_cooperate: bool,
+        btc_electrum_settings: *mut wire_cst_electrum_settings,
+        lbtc_electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__chain_swap__chain_swap_refund_impl(
+            port_,
+            that,
+            refund_address,
+            miner_fee,
+            try_cooperate,
+            btc_electrum_settings,
+            lbtc_electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__chain_swap__chain_swap_refund_tx_size(
+        port_: i64,
+        that: *mut wire_cst_chain_swap,
+        refund_address: *mut wire_cst_list_prim_u_8_strict,
+        try_cooperate: bool,
+        btc_electrum_settings: *mut wire_cst_electrum_settings,
+        lbtc_electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__chain_swap__chain_swap_refund_tx_size_impl(
+            port_,
+            that,
+            refund_address,
+            try_cooperate,
+            btc_electrum_settings,
+            lbtc_electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__chain_swap__chain_swap_to_json(
+        port_: i64,
+        that: *mut wire_cst_chain_swap,
+    ) {
+        wire__boltz__api__chain_swap__chain_swap_to_json_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__transactions__check_vout_0_outspend(
+        port_: i64,
+        swap_id: *mut wire_cst_list_prim_u_8_strict,
+        swap_type: i32,
+        tx_kind: i32,
+        network: i32,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+        chain_swap_direction: *mut i32,
+    ) {
+        wire__boltz__api__transactions__check_vout_0_outspend_impl(
+            port_,
+            swap_id,
+            swap_type,
+            tx_kind,
+            network,
+            boltz_url,
+            chain_swap_direction,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__types__decoded_invoice_from_string(
+        port_: i64,
+        s: *mut wire_cst_list_prim_u_8_strict,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__types__decoded_invoice_from_string_impl(port_, s, boltz_url)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__descriptor__descriptor_new_confidential(
+        port_: i64,
+        network: i32,
+        mnemonic: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__lwk__api__descriptor__descriptor_new_confidential_impl(port_, network, mnemonic)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__extract_tx_bytes(
+        port_: i64,
+        pset: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__lwk__api__transaction__extract_tx_bytes_impl(port_, pset)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__fees__fees_chain(
+        port_: i64,
+        that: *mut wire_cst_fees,
+    ) {
+        wire__boltz__api__fees__fees_chain_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__fees__fees_new(
+        port_: i64,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__fees__fees_new_impl(port_, boltz_url)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__fees__fees_reverse(
+        port_: i64,
+        that: *mut wire_cst_fees,
+    ) {
+        wire__boltz__api__fees__fees_reverse_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__fees__fees_submarine(
+        port_: i64,
+        that: *mut wire_cst_fees,
+    ) {
+        wire__boltz__api__fees__fees_submarine_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__types__get_balance_by_asset_id(
+        balances: *mut wire_cst_list_balance,
+        asset_id: *mut wire_cst_list_prim_u_8_strict,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__types__get_balance_by_asset_id_impl(balances, asset_id)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__types__get_lbtc_balance(
+        balances: *mut wire_cst_list_balance,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__types__get_lbtc_balance_impl(balances)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__types__get_ltest_balance(
+        balances: *mut wire_cst_list_balance,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__lwk__api__types__get_ltest_balance_impl(balances)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__get_size_and_absolute_fees(
+        port_: i64,
+        pset: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__lwk__api__transaction__get_size_and_absolute_fees_impl(port_, pset)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__types__key_pair_generate(
+        port_: i64,
+        mnemonic: *mut wire_cst_list_prim_u_8_strict,
+        passphrase: *mut wire_cst_list_prim_u_8_strict,
+        network: i32,
+        index: u64,
+        swap_type: i32,
+    ) {
+        wire__boltz__api__types__key_pair_generate_impl(
+            port_, mnemonic, passphrase, network, index, swap_type,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__types__key_pair_new(
+        port_: i64,
+        secret_key: *mut wire_cst_list_prim_u_8_strict,
+        public_key: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__types__key_pair_new_impl(port_, secret_key, public_key)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__types__l_btc_swap_script_str_new(
+        port_: i64,
+        swap_type: i32,
+        funding_addrs: *mut wire_cst_list_prim_u_8_strict,
+        hashlock: *mut wire_cst_list_prim_u_8_strict,
+        receiver_pubkey: *mut wire_cst_list_prim_u_8_strict,
+        locktime: u32,
+        sender_pubkey: *mut wire_cst_list_prim_u_8_strict,
+        blinding_key: *mut wire_cst_list_prim_u_8_strict,
+        side: *mut i32,
+    ) {
+        wire__boltz__api__types__l_btc_swap_script_str_new_impl(
+            port_,
+            swap_type,
+            funding_addrs,
+            hashlock,
+            receiver_pubkey,
+            locktime,
+            sender_pubkey,
+            blinding_key,
+            side,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lbtc_ln__lbtc_ln_swap_broadcast_boltz(
+        port_: i64,
+        that: *mut wire_cst_lbtc_ln_swap,
+        signed_hex: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__lbtc_ln__lbtc_ln_swap_broadcast_boltz_impl(port_, that, signed_hex)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lbtc_ln__lbtc_ln_swap_broadcast_local(
+        port_: i64,
+        that: *mut wire_cst_lbtc_ln_swap,
+        signed_hex: *mut wire_cst_list_prim_u_8_strict,
+        electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__lbtc_ln__lbtc_ln_swap_broadcast_local_impl(
+            port_,
+            that,
+            signed_hex,
+            electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lbtc_ln__lbtc_ln_swap_claim(
+        port_: i64,
+        that: *mut wire_cst_lbtc_ln_swap,
+        out_address: *mut wire_cst_list_prim_u_8_strict,
+        miner_fee: *mut wire_cst_tx_fee,
+        try_cooperate: bool,
+        electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__lbtc_ln__lbtc_ln_swap_claim_impl(
+            port_,
+            that,
+            out_address,
+            miner_fee,
+            try_cooperate,
+            electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lbtc_ln__lbtc_ln_swap_claim_tx_size(
+        port_: i64,
+        that: *mut wire_cst_lbtc_ln_swap,
+        is_cooperative: bool,
+        electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__lbtc_ln__lbtc_ln_swap_claim_tx_size_impl(
+            port_,
+            that,
+            is_cooperative,
+            electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lbtc_ln__lbtc_ln_swap_coop_close_submarine(
+        port_: i64,
+        that: *mut wire_cst_lbtc_ln_swap,
+    ) {
+        wire__boltz__api__lbtc_ln__lbtc_ln_swap_coop_close_submarine_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lbtc_ln__lbtc_ln_swap_from_json(
+        port_: i64,
+        json_str: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__lbtc_ln__lbtc_ln_swap_from_json_impl(port_, json_str)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lbtc_ln__lbtc_ln_swap_get_completed_submarine_preimage(
+        port_: i64,
+        that: *mut wire_cst_lbtc_ln_swap,
+    ) {
+        wire__boltz__api__lbtc_ln__lbtc_ln_swap_get_completed_submarine_preimage_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lbtc_ln__lbtc_ln_swap_get_preimage(
+        port_: i64,
+        that: *mut wire_cst_lbtc_ln_swap,
+    ) {
+        wire__boltz__api__lbtc_ln__lbtc_ln_swap_get_preimage_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lbtc_ln__lbtc_ln_swap_new(
+        port_: i64,
+        id: *mut wire_cst_list_prim_u_8_strict,
+        kind: i32,
+        network: i32,
+        keys: *mut wire_cst_key_pair,
+        key_index: u64,
+        preimage: *mut wire_cst_pre_image,
+        swap_script: *mut wire_cst_l_btc_swap_script_str,
+        invoice: *mut wire_cst_list_prim_u_8_strict,
+        out_amount: u64,
+        out_address: *mut wire_cst_list_prim_u_8_strict,
+        blinding_key: *mut wire_cst_list_prim_u_8_strict,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+        referral_id: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__lbtc_ln__lbtc_ln_swap_new_impl(
+            port_,
+            id,
+            kind,
+            network,
+            keys,
+            key_index,
+            preimage,
+            swap_script,
+            invoice,
+            out_amount,
+            out_address,
+            blinding_key,
+            electrum_url,
+            boltz_url,
+            referral_id,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lbtc_ln__lbtc_ln_swap_new_reverse(
+        port_: i64,
+        mnemonic: *mut wire_cst_list_prim_u_8_strict,
+        passphrase: *mut wire_cst_list_prim_u_8_strict,
+        index: u64,
+        out_amount: u64,
+        out_address: *mut wire_cst_list_prim_u_8_strict,
+        network: i32,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+        description: *mut wire_cst_list_prim_u_8_strict,
+        referral_id: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__lbtc_ln__lbtc_ln_swap_new_reverse_impl(
+            port_,
+            mnemonic,
+            passphrase,
+            index,
+            out_amount,
+            out_address,
+            network,
+            electrum_url,
+            boltz_url,
+            description,
+            referral_id,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lbtc_ln__lbtc_ln_swap_new_submarine(
+        port_: i64,
+        mnemonic: *mut wire_cst_list_prim_u_8_strict,
+        passphrase: *mut wire_cst_list_prim_u_8_strict,
+        index: u64,
+        invoice: *mut wire_cst_list_prim_u_8_strict,
+        network: i32,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+        referral_id: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__lbtc_ln__lbtc_ln_swap_new_submarine_impl(
+            port_,
+            mnemonic,
+            passphrase,
+            index,
+            invoice,
+            network,
+            electrum_url,
+            boltz_url,
+            referral_id,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lbtc_ln__lbtc_ln_swap_refund(
+        port_: i64,
+        that: *mut wire_cst_lbtc_ln_swap,
+        out_address: *mut wire_cst_list_prim_u_8_strict,
+        miner_fee: *mut wire_cst_tx_fee,
+        try_cooperate: bool,
+        electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__lbtc_ln__lbtc_ln_swap_refund_impl(
+            port_,
+            that,
+            out_address,
+            miner_fee,
+            try_cooperate,
+            electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lbtc_ln__lbtc_ln_swap_refund_tx_size(
+        port_: i64,
+        that: *mut wire_cst_lbtc_ln_swap,
+        is_cooperative: bool,
+        electrum_settings: *mut wire_cst_electrum_settings,
+    ) {
+        wire__boltz__api__lbtc_ln__lbtc_ln_swap_refund_tx_size_impl(
+            port_,
+            that,
+            is_cooperative,
+            electrum_settings,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lbtc_ln__lbtc_ln_swap_to_json(
+        port_: i64,
+        that: *mut wire_cst_lbtc_ln_swap,
+    ) {
+        wire__boltz__api__lbtc_ln__lbtc_ln_swap_to_json_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lnurl__lnurl_fetch_invoice(
+        port_: i64,
+        that: *mut wire_cst_lnurl,
+        msats: u64,
+    ) {
+        wire__boltz__api__lnurl__lnurl_fetch_invoice_impl(port_, that, msats)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lnurl__lnurl_get_voucher_max_amount(
+        port_: i64,
+        that: *mut wire_cst_lnurl,
+    ) {
+        wire__boltz__api__lnurl__lnurl_get_voucher_max_amount_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lnurl__lnurl_new(
+        port_: i64,
+        value: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__lnurl__lnurl_new_impl(port_, value)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lnurl__lnurl_validate(
+        port_: i64,
+        that: *mut wire_cst_lnurl,
+    ) {
+        wire__boltz__api__lnurl__lnurl_validate_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__lnurl__lnurl_withdraw(
+        port_: i64,
+        that: *mut wire_cst_lnurl,
+        invoice: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__lnurl__lnurl_withdraw_impl(port_, that, invoice)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__types__pre_image_generate(port_: i64) {
+        wire__boltz__api__types__pre_image_generate_impl(port_)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__types__pre_image_new(
+        port_: i64,
+        value: *mut wire_cst_list_prim_u_8_strict,
+        sha256: *mut wire_cst_list_prim_u_8_strict,
+        hash160: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__types__pre_image_new_impl(port_, value, sha256, hash160)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__swap_status__swap_status_as_string(
+        that: i32,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__boltz__api__swap_status__swap_status_as_string_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__swap_status__swap_status_from_json_string(
+        status: *mut wire_cst_list_prim_u_8_strict,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__boltz__api__swap_status__swap_status_from_json_string_impl(status)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__swap_status__swap_status_response_from_json(
+        json: *mut wire_cst_list_prim_u_8_strict,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__boltz__api__swap_status__swap_status_response_from_json_impl(json)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__swap_status__swap_status_to_json_string(
+        that: i32,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__boltz__api__swap_status__swap_status_to_json_string_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__swap_status__swap_stream_status_from_json(
+        json: *mut wire_cst_list_prim_u_8_strict,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__boltz__api__swap_status__swap_stream_status_from_json_impl(json)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+        ptr: *const std::ffi::c_void,
+    ) {
+        unsafe {
+            StdArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>::increment_strong_count(ptr as _);
+        }
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+        ptr: *const std::ffi::c_void,
+    ) {
+        unsafe {
+            StdArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<LiquidTransaction>>::decrement_strong_count(ptr as _);
+        }
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+        ptr: *const std::ffi::c_void,
+    ) {
+        unsafe {
+            StdArc::<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                    PartiallySignedElementsTransaction,
+                >,
+            >::increment_strong_count(ptr as _);
+        }
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+        ptr: *const std::ffi::c_void,
+    ) {
+        unsafe {
+            StdArc::<
+                flutter_rust_bridge::for_generated::RustAutoOpaqueInner<
+                    PartiallySignedElementsTransaction,
+                >,
+            >::decrement_strong_count(ptr as _);
+        }
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+        ptr: *const std::ffi::c_void,
+    ) {
+        unsafe {
+            StdArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>::increment_strong_count(ptr as _);
+        }
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+        ptr: *const std::ffi::c_void,
+    ) {
+        unsafe {
+            StdArc::<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>::decrement_strong_count(ptr as _);
+        }
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_blockchain() -> *mut wire_cst_blockchain {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_blockchain::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_boltz_error() -> *mut wire_cst_boltz_error
+    {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_boltz_error::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_btc_ln_swap() -> *mut wire_cst_btc_ln_swap
+    {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_btc_ln_swap::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_btc_swap_script_str(
+    ) -> *mut wire_cst_btc_swap_script_str {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_btc_swap_script_str::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_chain_swap() -> *mut wire_cst_chain_swap {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_chain_swap::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_chain_swap_direction(
+        value: i32,
+    ) -> *mut i32 {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(value)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_descriptor() -> *mut wire_cst_descriptor {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_descriptor::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_electrum_settings(
+    ) -> *mut wire_cst_electrum_settings {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_electrum_settings::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_fees() -> *mut wire_cst_fees {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_fees::new_with_null_ptr())
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_key_pair() -> *mut wire_cst_key_pair {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_key_pair::new_with_null_ptr())
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_l_btc_swap_script_str(
+    ) -> *mut wire_cst_l_btc_swap_script_str {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_l_btc_swap_script_str::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_lbtc_ln_swap(
+    ) -> *mut wire_cst_lbtc_ln_swap {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_lbtc_ln_swap::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_lnurl() -> *mut wire_cst_lnurl {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_lnurl::new_with_null_ptr())
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_pre_image() -> *mut wire_cst_pre_image {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_pre_image::new_with_null_ptr())
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_pset_input() -> *mut wire_cst_pset_input {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_pset_input::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_pset_output() -> *mut wire_cst_pset_output
+    {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_pset_output::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_side(value: i32) -> *mut i32 {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(value)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_transaction() -> *mut wire_cst_transaction
+    {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_transaction::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_tx_fee() -> *mut wire_cst_tx_fee {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_tx_fee::new_with_null_ptr())
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_tx_input() -> *mut wire_cst_tx_input {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_tx_input::new_with_null_ptr())
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_tx_output() -> *mut wire_cst_tx_output {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wire_cst_tx_output::new_with_null_ptr())
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_u_32(value: u32) -> *mut u32 {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(value)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_u_64(value: u64) -> *mut u64 {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(value)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_u_8(value: u8) -> *mut u8 {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(value)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_String(len: i32) -> *mut wire_cst_list_String {
+        let wrap = wire_cst_list_String {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <*mut wire_cst_list_prim_u_8_strict>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_balance(len: i32) -> *mut wire_cst_list_balance {
+        let wrap = wire_cst_list_balance {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_balance>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_prim_u_8_loose(
+        len: i32,
+    ) -> *mut wire_cst_list_prim_u_8_loose {
+        let ans = wire_cst_list_prim_u_8_loose {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(Default::default(), len),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(ans)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_prim_u_8_strict(
+        len: i32,
+    ) -> *mut wire_cst_list_prim_u_8_strict {
+        let ans = wire_cst_list_prim_u_8_strict {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(Default::default(), len),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(ans)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_pset_input(
+        len: i32,
+    ) -> *mut wire_cst_list_pset_input {
+        let wrap = wire_cst_list_pset_input {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_pset_input>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_pset_output(
+        len: i32,
+    ) -> *mut wire_cst_list_pset_output {
+        let wrap = wire_cst_list_pset_output {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_pset_output>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_tx(len: i32) -> *mut wire_cst_list_tx {
+        let wrap = wire_cst_list_tx {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_tx>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_tx_input(
+        len: i32,
+    ) -> *mut wire_cst_list_tx_input {
+        let wrap = wire_cst_list_tx_input {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_tx_input>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_tx_out(len: i32) -> *mut wire_cst_list_tx_out {
+        let wrap = wire_cst_list_tx_out {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_tx_out>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_tx_out_secrets(
+        len: i32,
+    ) -> *mut wire_cst_list_tx_out_secrets {
+        let wrap = wire_cst_list_tx_out_secrets {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_tx_out_secrets>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_tx_output(
+        len: i32,
+    ) -> *mut wire_cst_list_tx_output {
+        let wrap = wire_cst_list_tx_output {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_tx_output>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_address {
+        standard: *mut wire_cst_list_prim_u_8_strict,
+        confidential: *mut wire_cst_list_prim_u_8_strict,
+        index: *mut u32,
+        blinding_key: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_balance {
+        asset_id: *mut wire_cst_list_prim_u_8_strict,
+        value: i64,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_blockchain {}
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_boltz_error {
+        kind: *mut wire_cst_list_prim_u_8_strict,
+        message: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_btc_ln_swap {
+        id: *mut wire_cst_list_prim_u_8_strict,
+        kind: i32,
+        network: i32,
+        keys: wire_cst_key_pair,
+        key_index: u64,
+        preimage: wire_cst_pre_image,
+        swap_script: wire_cst_btc_swap_script_str,
+        invoice: *mut wire_cst_list_prim_u_8_strict,
+        script_address: *mut wire_cst_list_prim_u_8_strict,
+        out_amount: u64,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+        referral_id: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_btc_swap_script_str {
+        swap_type: i32,
+        funding_addrs: *mut wire_cst_list_prim_u_8_strict,
+        hashlock: *mut wire_cst_list_prim_u_8_strict,
+        receiver_pubkey: *mut wire_cst_list_prim_u_8_strict,
+        locktime: u32,
+        sender_pubkey: *mut wire_cst_list_prim_u_8_strict,
+        side: *mut i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_chain_fees_and_limits {
+        btc_limits: wire_cst_swap_limits,
+        lbtc_limits: wire_cst_swap_limits,
+        btc_fees: wire_cst_chain_swap_fees,
+        lbtc_fees: wire_cst_chain_swap_fees,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_chain_swap {
+        id: *mut wire_cst_list_prim_u_8_strict,
+        is_testnet: bool,
+        direction: i32,
+        refund_keys: wire_cst_key_pair,
+        refund_index: u64,
+        claim_keys: wire_cst_key_pair,
+        claim_index: u64,
+        preimage: wire_cst_pre_image,
+        btc_script_str: wire_cst_btc_swap_script_str,
+        lbtc_script_str: wire_cst_l_btc_swap_script_str,
+        script_address: *mut wire_cst_list_prim_u_8_strict,
+        out_amount: u64,
+        btc_electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        lbtc_electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+        referral_id: *mut wire_cst_list_prim_u_8_strict,
+        blinding_key: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_chain_swap_fees {
+        percentage: f64,
+        user_lockup: u64,
+        user_claim: u64,
+        server: u64,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_decoded_invoice {
+        msats: u64,
+        expiry: u64,
+        expires_in: u64,
+        expires_at: u64,
+        is_expired: bool,
+        network: *mut wire_cst_list_prim_u_8_strict,
+        cltv_exp_delta: u64,
+        bip21: *mut wire_cst_list_prim_u_8_strict,
+        preimage_hash: *mut wire_cst_list_prim_u_8_strict,
+        description: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_descriptor {
+        ct_descriptor: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_electrum_settings {
+        url: *mut wire_cst_list_prim_u_8_strict,
+        validate_domain: bool,
+        tls: bool,
+        timeout: u8,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_fees {
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_key_pair {
+        secret_key: *mut wire_cst_list_prim_u_8_strict,
+        public_key: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_l_btc_swap_script_str {
+        swap_type: i32,
+        funding_addrs: *mut wire_cst_list_prim_u_8_strict,
+        hashlock: *mut wire_cst_list_prim_u_8_strict,
+        receiver_pubkey: *mut wire_cst_list_prim_u_8_strict,
+        locktime: u32,
+        sender_pubkey: *mut wire_cst_list_prim_u_8_strict,
+        blinding_key: *mut wire_cst_list_prim_u_8_strict,
+        side: *mut i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_lbtc_ln_swap {
+        id: *mut wire_cst_list_prim_u_8_strict,
+        kind: i32,
+        network: i32,
+        keys: wire_cst_key_pair,
+        key_index: u64,
+        preimage: wire_cst_pre_image,
+        swap_script: wire_cst_l_btc_swap_script_str,
+        invoice: *mut wire_cst_list_prim_u_8_strict,
+        out_amount: u64,
+        script_address: *mut wire_cst_list_prim_u_8_strict,
+        blinding_key: *mut wire_cst_list_prim_u_8_strict,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+        referral_id: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_String {
+        ptr: *mut *mut wire_cst_list_prim_u_8_strict,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_balance {
+        ptr: *mut wire_cst_balance,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_prim_u_8_loose {
+        ptr: *mut u8,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_prim_u_8_strict {
+        ptr: *mut u8,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_pset_input {
+        ptr: *mut wire_cst_pset_input,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_pset_output {
+        ptr: *mut wire_cst_pset_output,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_tx {
+        ptr: *mut wire_cst_tx,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_tx_input {
+        ptr: *mut wire_cst_tx_input,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_tx_out {
+        ptr: *mut wire_cst_tx_out,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_tx_out_secrets {
+        ptr: *mut wire_cst_tx_out_secrets,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_tx_output {
+        ptr: *mut wire_cst_tx_output,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_lnurl {
+        value: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_lwk_error {
+        msg: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_miner_fees {
+        lockup: u64,
+        claim: u64,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_out_point {
+        txid: *mut wire_cst_list_prim_u_8_strict,
+        vout: u32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_outspend_status {
+        kind: i32,
+        txid: *mut wire_cst_list_prim_u_8_strict,
+        timestamp: *mut u64,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_payjoin_tx {
+        pset: *mut wire_cst_list_prim_u_8_strict,
+        network_fee: u64,
+        asset_fee: u64,
+        unblinded_outputs: *mut wire_cst_list_tx_out_secrets,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_pre_image {
+        value: *mut wire_cst_list_prim_u_8_strict,
+        sha256: *mut wire_cst_list_prim_u_8_strict,
+        hash160: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_pset_amounts {
+        absolute_fees: u64,
+        balances: *mut wire_cst_list_balance,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_pset_input {
+        witness_utxo_script: *mut wire_cst_list_prim_u_8_strict,
+        witness_utxo_amount: *mut u64,
+        witness_utxo_asset: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_pset_output {
+        script_pubkey: *mut wire_cst_list_prim_u_8_strict,
+        amount: *mut u64,
+        asset: *mut wire_cst_list_prim_u_8_strict,
+        blinding_key: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_rev_swap_fees {
+        percentage: f64,
+        miner_fees: wire_cst_miner_fees,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_reverse_fees_and_limits {
+        btc_limits: wire_cst_swap_limits,
+        lbtc_limits: wire_cst_swap_limits,
+        btc_fees: wire_cst_rev_swap_fees,
+        lbtc_fees: wire_cst_rev_swap_fees,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_size_and_fees {
+        discounted_vsize: usize,
+        discounted_weight: usize,
+        absolute_fees: *mut wire_cst_list_balance,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_sub_swap_fees {
+        percentage: f64,
+        miner_fees: u64,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_submarine_fees_and_limits {
+        btc_limits: wire_cst_swap_limits,
+        lbtc_limits: wire_cst_swap_limits,
+        btc_fees: wire_cst_sub_swap_fees,
+        lbtc_fees: wire_cst_sub_swap_fees,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_swap_limits {
+        minimal: u64,
+        maximal: u64,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_swap_status_response {
+        status: i32,
+        transaction: *mut wire_cst_transaction,
+        failure_reason: *mut wire_cst_list_prim_u_8_strict,
+        error: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_swap_stream_status {
+        id: *mut wire_cst_list_prim_u_8_strict,
+        status: i32,
+        error: *mut wire_cst_list_prim_u_8_strict,
+        transaction: *mut wire_cst_transaction,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_transaction {
+        id: *mut wire_cst_list_prim_u_8_strict,
+        hex: *mut wire_cst_list_prim_u_8_strict,
+        eta: *mut u32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_tx {
+        timestamp: *mut u32,
+        kind: *mut wire_cst_list_prim_u_8_strict,
+        balances: *mut wire_cst_list_balance,
+        txid: *mut wire_cst_list_prim_u_8_strict,
+        outputs: *mut wire_cst_list_tx_out,
+        inputs: *mut wire_cst_list_tx_out,
+        fee: u64,
+        height: *mut u32,
+        unblinded_url: *mut wire_cst_list_prim_u_8_strict,
+        vsize: usize,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_tx_fee {
+        tag: i32,
+        kind: TxFeeKind,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub union TxFeeKind {
+        Absolute: wire_cst_TxFee_Absolute,
+        Relative: wire_cst_TxFee_Relative,
+        nil__: (),
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_TxFee_Absolute {
+        field0: u64,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_TxFee_Relative {
+        field0: f64,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_tx_input {
+        txid: *mut wire_cst_list_prim_u_8_strict,
+        vout: u32,
+        script_sig: *mut wire_cst_list_prim_u_8_strict,
+        sequence: u32,
+        witness: *mut wire_cst_list_String,
+        is_pegin: bool,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_tx_out {
+        script_pubkey: *mut wire_cst_list_prim_u_8_strict,
+        outpoint: wire_cst_out_point,
+        height: *mut u32,
+        unblinded: wire_cst_tx_out_secrets,
+        is_spent: bool,
+        address: wire_cst_address,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_tx_out_secrets {
+        value: u64,
+        value_bf: *mut wire_cst_list_prim_u_8_strict,
+        asset: *mut wire_cst_list_prim_u_8_strict,
+        asset_bf: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_tx_output {
+        script_pubkey: *mut wire_cst_list_prim_u_8_strict,
+        asset: *mut wire_cst_list_prim_u_8_strict,
+        value: *mut u64,
+        nonce: *mut wire_cst_list_prim_u_8_strict,
+    }
 }
 #[cfg(not(target_family = "wasm"))]
 pub use io::*;
-
-/// cbindgen:ignore
-#[cfg(target_family = "wasm")]
-mod web {
-    // This file is automatically generated, so please do not edit it.
-    // @generated by `flutter_rust_bridge`@ 2.11.1.
-
-    // Section: imports
-
-    use super::*;
-    use flutter_rust_bridge::for_generated::byteorder::{
-        NativeEndian, ReadBytesExt, WriteBytesExt,
-    };
-    use flutter_rust_bridge::for_generated::wasm_bindgen;
-    use flutter_rust_bridge::for_generated::wasm_bindgen::prelude::*;
-    use flutter_rust_bridge::for_generated::{transform_result_dco, Lifetimeable, Lockable};
-    use flutter_rust_bridge::{Handler, IntoIntoDart};
-
-    // Section: boilerplate
-
-    flutter_rust_bridge::frb_generated_boilerplate_web!();
-}
-#[cfg(target_family = "wasm")]
-pub use web::*;

@@ -1,0 +1,6 @@
+[submodule "packages/boltz"]
+	path = packages/boltz
+	url = git@github.com:SatoshiPortal/boltz-dart.git
+[submodule "packages/lwk"]
+	path = packages/lwk
+	url = git@github.com:SatoshiPortal/lwk-dart.git

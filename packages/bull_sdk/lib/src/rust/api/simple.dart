@@ -5,6 +5,13 @@
 
 import '../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
+part 'simple.freezed.dart';
 
-String greet({required String name}) =>
-    RustLib.instance.api.crateApiSimpleGreet(name: name);
+@freezed
+sealed class TxFee with _$TxFee {
+  const TxFee._();
+
+  const factory TxFee.absolute(BigInt field0) = TxFee_Absolute;
+  const factory TxFee.relative(double field0) = TxFee_Relative;
+}

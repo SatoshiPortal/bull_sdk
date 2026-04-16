@@ -1,4 +1,5 @@
-name: bull_sdk
+name: bull_sdk_workspace
+publish_to: none
 environment:
   sdk: ">=3.10.4 <4.0.0"
 dev_dependencies:

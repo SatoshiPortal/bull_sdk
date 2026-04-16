@@ -10,17 +10,32 @@ import 'frb_generated.dart';
 import 'frb_generated.io.dart'
     if (dart.library.js_interop) 'frb_generated.web.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+import 'third_party/boltz/api/btc_ln.dart';
+import 'third_party/boltz/api/chain_swap.dart';
+import 'third_party/boltz/api/error.dart';
+import 'third_party/boltz/api/fees.dart';
+import 'third_party/boltz/api/lbtc_ln.dart';
+import 'third_party/boltz/api/lnurl.dart';
+import 'third_party/boltz/api/swap_status.dart';
+import 'third_party/boltz/api/transactions.dart';
+import 'third_party/boltz/api/types.dart';
+import 'third_party/lwk/api/blockchain.dart';
+import 'third_party/lwk/api/descriptor.dart';
+import 'third_party/lwk/api/error.dart';
+import 'third_party/lwk/api/transaction.dart';
+import 'third_party/lwk/api/types.dart';
+import 'third_party/lwk/api/wallet.dart';
 
 /// Main entrypoint of the Rust API
-class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
+class BullSdk extends BaseEntrypoint<BullSdkApi, BullSdkApiImpl, BullSdkWire> {
   @internal
-  static final instance = RustLib._();
+  static final instance = BullSdk._();
 
-  RustLib._();
+  BullSdk._();
 
   /// Initialize flutter_rust_bridge
   static Future<void> init({
-    RustLibApi? api,
+    BullSdkApi? api,
     BaseHandler? handler,
     ExternalLibrary? externalLibrary,
     bool forceSameCodegenVersion = true,
@@ -35,7 +50,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
 
   /// Initialize flutter_rust_bridge in mock mode.
   /// No libraries for FFI are loaded.
-  static void initMock({required RustLibApi api}) {
+  static void initMock({required BullSdkApi api}) {
     instance.initMockImpl(api: api);
   }
 
@@ -46,17 +61,15 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   static void dispose() => instance.disposeImpl();
 
   @override
-  ApiImplConstructor<RustLibApiImpl, RustLibWire> get apiImplConstructor =>
-      RustLibApiImpl.new;
+  ApiImplConstructor<BullSdkApiImpl, BullSdkWire> get apiImplConstructor =>
+      BullSdkApiImpl.new;
 
   @override
-  WireConstructor<RustLibWire> get wireConstructor =>
-      RustLibWire.fromExternalLibrary;
+  WireConstructor<BullSdkWire> get wireConstructor =>
+      BullSdkWire.fromExternalLibrary;
 
   @override
-  Future<void> executeRustInitializers() async {
-    await api.crateApiSimpleInitApp();
-  }
+  Future<void> executeRustInitializers() async {}
 
   @override
   ExternalLibraryLoaderConfig get defaultExternalLibraryLoaderConfig =>
@@ -66,7 +79,7 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
   String get codegenVersion => '2.11.1';
 
   @override
-  int get rustContentHash => -1918914929;
+  int get rustContentHash => -1365618180;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -76,14 +89,712 @@ class RustLib extends BaseEntrypoint<RustLibApi, RustLibApiImpl, RustLibWire> {
       );
 }
 
-abstract class RustLibApi extends BaseApi {
-  String crateApiSimpleGreet({required String name});
+abstract class BullSdkApi extends BaseApi {
+  BigInt lwkApiTransactionLiquidTransactionFee({
+    required LiquidTransaction that,
+  });
 
-  Future<void> crateApiSimpleInitApp();
+  LiquidTransaction lwkApiTransactionLiquidTransactionFromBytes({
+    required List<int> txBytes,
+  });
+
+  LiquidTransaction lwkApiTransactionLiquidTransactionFromPset({
+    required String psetString,
+  });
+
+  TxInput? lwkApiTransactionLiquidTransactionGetInput({
+    required LiquidTransaction that,
+    required BigInt index,
+  });
+
+  List<TxInput> lwkApiTransactionLiquidTransactionGetInputs({
+    required LiquidTransaction that,
+  });
+
+  TxOutput? lwkApiTransactionLiquidTransactionGetOutput({
+    required LiquidTransaction that,
+    required BigInt index,
+  });
+
+  String? lwkApiTransactionLiquidTransactionGetOutputAsset({
+    required LiquidTransaction that,
+    required BigInt index,
+  });
+
+  String? lwkApiTransactionLiquidTransactionGetOutputNonce({
+    required LiquidTransaction that,
+    required BigInt index,
+  });
+
+  String? lwkApiTransactionLiquidTransactionGetOutputScriptPubkey({
+    required LiquidTransaction that,
+    required BigInt index,
+  });
+
+  BigInt? lwkApiTransactionLiquidTransactionGetOutputValue({
+    required LiquidTransaction that,
+    required BigInt index,
+  });
+
+  List<TxOutput> lwkApiTransactionLiquidTransactionGetOutputs({
+    required LiquidTransaction that,
+  });
+
+  BigInt lwkApiTransactionLiquidTransactionInputCount({
+    required LiquidTransaction that,
+  });
+
+  bool lwkApiTransactionLiquidTransactionIsCoinbase({
+    required LiquidTransaction that,
+  });
+
+  int lwkApiTransactionLiquidTransactionLockTime({
+    required LiquidTransaction that,
+  });
+
+  BigInt lwkApiTransactionLiquidTransactionOutputCount({
+    required LiquidTransaction that,
+  });
+
+  Uint8List lwkApiTransactionLiquidTransactionToBytes({
+    required LiquidTransaction that,
+  });
+
+  String lwkApiTransactionLiquidTransactionTxid({
+    required LiquidTransaction that,
+  });
+
+  int lwkApiTransactionLiquidTransactionVersion({
+    required LiquidTransaction that,
+  });
+
+  BigInt lwkApiTransactionLiquidTransactionVsize({
+    required LiquidTransaction that,
+  });
+
+  BigInt lwkApiTransactionLiquidTransactionWeight({
+    required LiquidTransaction that,
+  });
+
+  LiquidTransaction
+  lwkApiTransactionPartiallySignedElementsTransactionExtractTx({
+    required PartiallySignedElementsTransaction that,
+  });
+
+  PartiallySignedElementsTransaction
+  lwkApiTransactionPartiallySignedElementsTransactionFromString({
+    required String psetString,
+  });
+
+  PsetInput? lwkApiTransactionPartiallySignedElementsTransactionGetInput({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  });
+
+  BigInt?
+  lwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoAmount({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  });
+
+  String? lwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoAsset({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  });
+
+  String?
+  lwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoScript({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  });
+
+  List<PsetInput> lwkApiTransactionPartiallySignedElementsTransactionGetInputs({
+    required PartiallySignedElementsTransaction that,
+  });
+
+  PsetOutput? lwkApiTransactionPartiallySignedElementsTransactionGetOutput({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  });
+
+  BigInt? lwkApiTransactionPartiallySignedElementsTransactionGetOutputAmount({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  });
+
+  String? lwkApiTransactionPartiallySignedElementsTransactionGetOutputAsset({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  });
+
+  String?
+  lwkApiTransactionPartiallySignedElementsTransactionGetOutputBlindingKey({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  });
+
+  String? lwkApiTransactionPartiallySignedElementsTransactionGetOutputScript({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  });
+
+  List<PsetOutput>
+  lwkApiTransactionPartiallySignedElementsTransactionGetOutputs({
+    required PartiallySignedElementsTransaction that,
+  });
+
+  BigInt lwkApiTransactionPartiallySignedElementsTransactionInputCount({
+    required PartiallySignedElementsTransaction that,
+  });
+
+  int? lwkApiTransactionPartiallySignedElementsTransactionLockTime({
+    required PartiallySignedElementsTransaction that,
+  });
+
+  BigInt lwkApiTransactionPartiallySignedElementsTransactionOutputCount({
+    required PartiallySignedElementsTransaction that,
+  });
+
+  String lwkApiTransactionPartiallySignedElementsTransactionToString({
+    required PartiallySignedElementsTransaction that,
+  });
+
+  Future<Address> lwkApiWalletWalletAddress({
+    required Wallet that,
+    required int index,
+  });
+
+  Future<Address> lwkApiWalletWalletAddressLastUnused({required Wallet that});
+
+  Future<List<Balance>> lwkApiWalletWalletBalances({required Wallet that});
+
+  Future<String> lwkApiWalletWalletBlindingKey({required Wallet that});
+
+  Future<String> lwkApiWalletWalletBuildAssetTx({
+    required Wallet that,
+    required BigInt sats,
+    required String outAddress,
+    required double feeRate,
+    required String asset,
+  });
+
+  Future<String> lwkApiWalletWalletBuildLbtcTx({
+    required Wallet that,
+    required BigInt sats,
+    required String outAddress,
+    required double feeRate,
+    required bool drain,
+  });
+
+  Future<PayjoinTx> lwkApiWalletWalletBuildPayjoinTx({
+    required Wallet that,
+    required BigInt sats,
+    required String outAddress,
+    required String asset,
+    required Network network,
+    String? baseUrl,
+    required bool isSendAll,
+  });
+
+  Future<PsetAmounts> lwkApiWalletWalletDecodeTx({
+    required Wallet that,
+    required String pset,
+  });
+
+  Future<String> lwkApiWalletWalletDescriptor({required Wallet that});
+
+  Future<Wallet> lwkApiWalletWalletInit({
+    required Network network,
+    required String dbpath,
+    required Descriptor descriptor,
+  });
+
+  Future<String> lwkApiWalletWalletSignTx({
+    required Wallet that,
+    required Network network,
+    required String pset,
+    required String mnemonic,
+  });
+
+  Future<String> lwkApiWalletWalletSignedPsetWithExtraDetails({
+    required Wallet that,
+    required Network network,
+    required String pset,
+    required String mnemonic,
+  });
+
+  Future<void> lwkApiWalletWalletSync({
+    required Wallet that,
+    required String electrumUrl,
+    required bool validateDomain,
+    int? stopAtIndex,
+    int? timeout,
+  });
+
+  Future<List<Tx>> lwkApiWalletWalletTxs({required Wallet that});
+
+  Future<List<TxOut>> lwkApiWalletWalletUtxos({required Wallet that});
+
+  Future<Address> lwkApiTypesAddressAddressFromScript({
+    required Network network,
+    required String script,
+    String? blindingKey,
+  });
+
+  Future<Network> lwkApiTypesAddressValidate({required String addressString});
+
+  Future<String> lwkApiBlockchainBlockchainBroadcastSignedPset({
+    required String electrumUrl,
+    required String signedPset,
+  });
+
+  Future<String> lwkApiBlockchainBlockchainBroadcastTxBytes({
+    required String electrumUrl,
+    required List<int> txBytes,
+  });
+
+  Future<void> lwkApiBlockchainBlockchainTest({
+    required Blockchain that,
+    required String electrumUrl,
+  });
+
+  Future<void> boltzApiErrorBoltzErrorDetail({required BoltzError that});
+
+  Future<BoltzError> boltzApiErrorBoltzErrorNew({
+    required String kind,
+    required String message,
+  });
+
+  Future<String> boltzApiBtcLnBtcLnSwapBroadcastBoltz({
+    required BtcLnSwap that,
+    required String signedHex,
+  });
+
+  Future<String> boltzApiBtcLnBtcLnSwapBroadcastLocal({
+    required BtcLnSwap that,
+    required String signedHex,
+    ElectrumSettings? electrumSettings,
+  });
+
+  Future<String> boltzApiBtcLnBtcLnSwapClaim({
+    required BtcLnSwap that,
+    required String outAddress,
+    required TxFee minerFee,
+    required bool tryCooperate,
+    ElectrumSettings? electrumSettings,
+  });
+
+  Future<BigInt> boltzApiBtcLnBtcLnSwapClaimTxSize({
+    required BtcLnSwap that,
+    required bool isCooperative,
+    ElectrumSettings? electrumSettings,
+  });
+
+  Future<void> boltzApiBtcLnBtcLnSwapCoopCloseSubmarine({
+    required BtcLnSwap that,
+  });
+
+  Future<BtcLnSwap> boltzApiBtcLnBtcLnSwapFromJson({required String jsonStr});
+
+  Future<String> boltzApiBtcLnBtcLnSwapGetCompletedSubmarinePreimage({
+    required BtcLnSwap that,
+  });
+
+  Future<String> boltzApiBtcLnBtcLnSwapGetPreimage({required BtcLnSwap that});
+
+  Future<BtcLnSwap> boltzApiBtcLnBtcLnSwapNew({
+    required String id,
+    required SwapType kind,
+    required Chain network,
+    required KeyPair keys,
+    required BigInt keyIndex,
+    required PreImage preimage,
+    required BtcSwapScriptStr swapScript,
+    required String invoice,
+    required String scriptAddress,
+    required BigInt outAmount,
+    required String electrumUrl,
+    required String boltzUrl,
+    String? referralId,
+  });
+
+  Future<BtcLnSwap> boltzApiBtcLnBtcLnSwapNewReverse({
+    required String mnemonic,
+    String? passphrase,
+    required BigInt index,
+    required BigInt outAmount,
+    String? outAddress,
+    required Chain network,
+    required String electrumUrl,
+    required String boltzUrl,
+    String? description,
+    String? referralId,
+  });
+
+  Future<BtcLnSwap> boltzApiBtcLnBtcLnSwapNewSubmarine({
+    required String mnemonic,
+    String? passphrase,
+    required BigInt index,
+    required String invoice,
+    required Chain network,
+    required String electrumUrl,
+    required String boltzUrl,
+    String? referralId,
+  });
+
+  Future<String> boltzApiBtcLnBtcLnSwapRefund({
+    required BtcLnSwap that,
+    required String outAddress,
+    required TxFee minerFee,
+    required bool tryCooperate,
+    ElectrumSettings? electrumSettings,
+  });
+
+  Future<BigInt> boltzApiBtcLnBtcLnSwapRefundTxSize({
+    required BtcLnSwap that,
+    required bool isCooperative,
+    ElectrumSettings? electrumSettings,
+  });
+
+  Future<String> boltzApiBtcLnBtcLnSwapToJson({required BtcLnSwap that});
+
+  Future<BtcSwapScriptStr> boltzApiTypesBtcSwapScriptStrNew({
+    required SwapType swapType,
+    String? fundingAddrs,
+    required String hashlock,
+    required String receiverPubkey,
+    required int locktime,
+    required String senderPubkey,
+    Side? side,
+  });
+
+  Future<String> boltzApiChainSwapChainSwapBroadcastBoltz({
+    required ChainSwap that,
+    required String signedHex,
+    required SwapTxKind kind,
+  });
+
+  Future<String> boltzApiChainSwapChainSwapBroadcastLocal({
+    required ChainSwap that,
+    required String signedHex,
+    required SwapTxKind kind,
+    ElectrumSettings? electrumSettings,
+  });
+
+  Future<String> boltzApiChainSwapChainSwapClaim({
+    required ChainSwap that,
+    required String outAddress,
+    required TxFee minerFee,
+    required bool tryCooperate,
+    ElectrumSettings? btcElectrumSettings,
+    ElectrumSettings? lbtcElectrumSettings,
+  });
+
+  Future<BigInt> boltzApiChainSwapChainSwapClaimTxSize({
+    required ChainSwap that,
+    required String outAddress,
+    required bool tryCooperate,
+    ElectrumSettings? btcElectrumSettings,
+    ElectrumSettings? lbtcElectrumSettings,
+  });
+
+  Future<ChainSwap> boltzApiChainSwapChainSwapFromJson({
+    required String jsonStr,
+  });
+
+  Future<String> boltzApiChainSwapChainSwapGetServerLockup({
+    required ChainSwap that,
+  });
+
+  Future<String> boltzApiChainSwapChainSwapGetUserLockup({
+    required ChainSwap that,
+  });
+
+  Future<ChainSwap> boltzApiChainSwapChainSwapNew({
+    required String id,
+    required bool isTestnet,
+    required ChainSwapDirection direction,
+    required KeyPair refundKeys,
+    required BigInt refundIndex,
+    required KeyPair claimKeys,
+    required BigInt claimIndex,
+    required PreImage preimage,
+    required BtcSwapScriptStr btcScriptStr,
+    required LBtcSwapScriptStr lbtcScriptStr,
+    required String scriptAddress,
+    required BigInt outAmount,
+    required String btcElectrumUrl,
+    required String lbtcElectrumUrl,
+    required String boltzUrl,
+    String? referralId,
+    required String blindingKey,
+  });
+
+  Future<ChainSwap> boltzApiChainSwapChainSwapNewSwap({
+    required ChainSwapDirection direction,
+    required String mnemonic,
+    String? passphrase,
+    required BigInt index,
+    required BigInt amount,
+    required bool isTestnet,
+    required String btcElectrumUrl,
+    required String lbtcElectrumUrl,
+    required String boltzUrl,
+    String? referralId,
+  });
+
+  Future<String> boltzApiChainSwapChainSwapRefund({
+    required ChainSwap that,
+    required String refundAddress,
+    required TxFee minerFee,
+    required bool tryCooperate,
+    ElectrumSettings? btcElectrumSettings,
+    ElectrumSettings? lbtcElectrumSettings,
+  });
+
+  Future<BigInt> boltzApiChainSwapChainSwapRefundTxSize({
+    required ChainSwap that,
+    required String refundAddress,
+    required bool tryCooperate,
+    ElectrumSettings? btcElectrumSettings,
+    ElectrumSettings? lbtcElectrumSettings,
+  });
+
+  Future<String> boltzApiChainSwapChainSwapToJson({required ChainSwap that});
+
+  Future<OutspendStatus> boltzApiTransactionsCheckVout0Outspend({
+    required String swapId,
+    required SwapType swapType,
+    required SwapTxKind txKind,
+    required Chain network,
+    required String boltzUrl,
+    ChainSwapDirection? chainSwapDirection,
+  });
+
+  Future<DecodedInvoice> boltzApiTypesDecodedInvoiceFromString({
+    required String s,
+    String? boltzUrl,
+  });
+
+  Future<Descriptor> lwkApiDescriptorDescriptorNewConfidential({
+    required Network network,
+    required String mnemonic,
+  });
+
+  Future<Uint8List> lwkApiTransactionExtractTxBytes({required String pset});
+
+  Future<ChainFeesAndLimits> boltzApiFeesFeesChain({required Fees that});
+
+  Future<Fees> boltzApiFeesFeesNew({required String boltzUrl});
+
+  Future<ReverseFeesAndLimits> boltzApiFeesFeesReverse({required Fees that});
+
+  Future<SubmarineFeesAndLimits> boltzApiFeesFeesSubmarine({
+    required Fees that,
+  });
+
+  PlatformInt64 lwkApiTypesGetBalanceByAssetId({
+    required List<Balance> balances,
+    required String assetId,
+  });
+
+  PlatformInt64 lwkApiTypesGetLbtcBalance({required List<Balance> balances});
+
+  PlatformInt64 lwkApiTypesGetLtestBalance({required List<Balance> balances});
+
+  Future<SizeAndFees> lwkApiTransactionGetSizeAndAbsoluteFees({
+    required String pset,
+  });
+
+  Future<KeyPair> boltzApiTypesKeyPairGenerate({
+    required String mnemonic,
+    String? passphrase,
+    required Chain network,
+    required BigInt index,
+    required SwapType swapType,
+  });
+
+  Future<KeyPair> boltzApiTypesKeyPairNew({
+    required String secretKey,
+    required String publicKey,
+  });
+
+  Future<LBtcSwapScriptStr> boltzApiTypesLBtcSwapScriptStrNew({
+    required SwapType swapType,
+    String? fundingAddrs,
+    required String hashlock,
+    required String receiverPubkey,
+    required int locktime,
+    required String senderPubkey,
+    required String blindingKey,
+    Side? side,
+  });
+
+  Future<String> boltzApiLbtcLnLbtcLnSwapBroadcastBoltz({
+    required LbtcLnSwap that,
+    required String signedHex,
+  });
+
+  Future<String> boltzApiLbtcLnLbtcLnSwapBroadcastLocal({
+    required LbtcLnSwap that,
+    required String signedHex,
+    ElectrumSettings? electrumSettings,
+  });
+
+  Future<String> boltzApiLbtcLnLbtcLnSwapClaim({
+    required LbtcLnSwap that,
+    required String outAddress,
+    required TxFee minerFee,
+    required bool tryCooperate,
+    ElectrumSettings? electrumSettings,
+  });
+
+  Future<BigInt> boltzApiLbtcLnLbtcLnSwapClaimTxSize({
+    required LbtcLnSwap that,
+    required bool isCooperative,
+    ElectrumSettings? electrumSettings,
+  });
+
+  Future<void> boltzApiLbtcLnLbtcLnSwapCoopCloseSubmarine({
+    required LbtcLnSwap that,
+  });
+
+  Future<LbtcLnSwap> boltzApiLbtcLnLbtcLnSwapFromJson({
+    required String jsonStr,
+  });
+
+  Future<String> boltzApiLbtcLnLbtcLnSwapGetCompletedSubmarinePreimage({
+    required LbtcLnSwap that,
+  });
+
+  Future<String> boltzApiLbtcLnLbtcLnSwapGetPreimage({
+    required LbtcLnSwap that,
+  });
+
+  Future<LbtcLnSwap> boltzApiLbtcLnLbtcLnSwapNew({
+    required String id,
+    required SwapType kind,
+    required Chain network,
+    required KeyPair keys,
+    required BigInt keyIndex,
+    required PreImage preimage,
+    required LBtcSwapScriptStr swapScript,
+    required String invoice,
+    required BigInt outAmount,
+    required String outAddress,
+    required String blindingKey,
+    required String electrumUrl,
+    required String boltzUrl,
+    String? referralId,
+  });
+
+  Future<LbtcLnSwap> boltzApiLbtcLnLbtcLnSwapNewReverse({
+    required String mnemonic,
+    String? passphrase,
+    required BigInt index,
+    required BigInt outAmount,
+    String? outAddress,
+    required Chain network,
+    required String electrumUrl,
+    required String boltzUrl,
+    String? description,
+    String? referralId,
+  });
+
+  Future<LbtcLnSwap> boltzApiLbtcLnLbtcLnSwapNewSubmarine({
+    required String mnemonic,
+    String? passphrase,
+    required BigInt index,
+    required String invoice,
+    required Chain network,
+    required String electrumUrl,
+    required String boltzUrl,
+    String? referralId,
+  });
+
+  Future<String> boltzApiLbtcLnLbtcLnSwapRefund({
+    required LbtcLnSwap that,
+    required String outAddress,
+    required TxFee minerFee,
+    required bool tryCooperate,
+    ElectrumSettings? electrumSettings,
+  });
+
+  Future<BigInt> boltzApiLbtcLnLbtcLnSwapRefundTxSize({
+    required LbtcLnSwap that,
+    required bool isCooperative,
+    ElectrumSettings? electrumSettings,
+  });
+
+  Future<String> boltzApiLbtcLnLbtcLnSwapToJson({required LbtcLnSwap that});
+
+  Future<String> boltzApiLnurlLnurlFetchInvoice({
+    required Lnurl that,
+    required BigInt msats,
+  });
+
+  Future<BigInt> boltzApiLnurlLnurlGetVoucherMaxAmount({required Lnurl that});
+
+  Future<Lnurl> boltzApiLnurlLnurlNew({required String value});
+
+  Future<bool> boltzApiLnurlLnurlValidate({required Lnurl that});
+
+  Future<void> boltzApiLnurlLnurlWithdraw({
+    required Lnurl that,
+    required String invoice,
+  });
+
+  Future<PreImage> boltzApiTypesPreImageGenerate();
+
+  Future<PreImage> boltzApiTypesPreImageNew({
+    required String value,
+    required String sha256,
+    required String hash160,
+  });
+
+  String boltzApiSwapStatusSwapStatusAsString({required SwapStatus that});
+
+  SwapStatus boltzApiSwapStatusSwapStatusFromJsonString({
+    required String status,
+  });
+
+  SwapStatusResponse boltzApiSwapStatusSwapStatusResponseFromJson({
+    required String json,
+  });
+
+  String boltzApiSwapStatusSwapStatusToJsonString({required SwapStatus that});
+
+  SwapStreamStatus boltzApiSwapStatusSwapStreamStatusFromJson({
+    required String json,
+  });
+
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_LiquidTransaction;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_LiquidTransaction;
+
+  CrossPlatformFinalizerArg
+  get rust_arc_decrement_strong_count_LiquidTransactionPtr;
+
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_PartiallySignedElementsTransaction;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_PartiallySignedElementsTransaction;
+
+  CrossPlatformFinalizerArg
+  get rust_arc_decrement_strong_count_PartiallySignedElementsTransactionPtr;
+
+  RustArcIncrementStrongCountFnType get rust_arc_increment_strong_count_Wallet;
+
+  RustArcDecrementStrongCountFnType get rust_arc_decrement_strong_count_Wallet;
+
+  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_WalletPtr;
 }
 
-class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
-  RustLibApiImpl({
+class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
+  BullSdkApiImpl({
     required super.handler,
     required super.wire,
     required super.generalizedFrbRustBinding,
@@ -91,54 +802,4955 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   });
 
   @override
-  String crateApiSimpleGreet({required String name}) {
+  BigInt lwkApiTransactionLiquidTransactionFee({
+    required LiquidTransaction that,
+  }) {
     return handler.executeSync(
       SyncTask(
         callFfi: () {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          sse_encode_String(name, serializer);
-          return pdeCallFfi(generalizedFrbRustBinding, serializer, funcId: 1)!;
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          return wire.wire__lwk__api__transaction__LiquidTransaction_fee(arg0);
         },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_String,
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_u_64,
           decodeErrorData: null,
         ),
-        constMeta: kCrateApiSimpleGreetConstMeta,
-        argValues: [name],
+        constMeta: kLwkApiTransactionLiquidTransactionFeeConstMeta,
+        argValues: [that],
         apiImpl: this,
       ),
     );
   }
 
-  TaskConstMeta get kCrateApiSimpleGreetConstMeta =>
-      const TaskConstMeta(debugName: "greet", argNames: ["name"]);
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionFeeConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_fee",
+        argNames: ["that"],
+      );
 
   @override
-  Future<void> crateApiSimpleInitApp() {
+  LiquidTransaction lwkApiTransactionLiquidTransactionFromBytes({
+    required List<int> txBytes,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 = cst_encode_list_prim_u_8_loose(txBytes);
+          return wire.wire__lwk__api__transaction__LiquidTransaction_from_bytes(
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData:
+              dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionFromBytesConstMeta,
+        argValues: [txBytes],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionFromBytesConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_from_bytes",
+        argNames: ["txBytes"],
+      );
+
+  @override
+  LiquidTransaction lwkApiTransactionLiquidTransactionFromPset({
+    required String psetString,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 = cst_encode_String(psetString);
+          return wire.wire__lwk__api__transaction__LiquidTransaction_from_pset(
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData:
+              dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionFromPsetConstMeta,
+        argValues: [psetString],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionFromPsetConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_from_pset",
+        argNames: ["psetString"],
+      );
+
+  @override
+  TxInput? lwkApiTransactionLiquidTransactionGetInput({
+    required LiquidTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire.wire__lwk__api__transaction__LiquidTransaction_get_input(
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_box_autoadd_tx_input,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionGetInputConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionGetInputConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_get_input",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  List<TxInput> lwkApiTransactionLiquidTransactionGetInputs({
+    required LiquidTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          return wire.wire__lwk__api__transaction__LiquidTransaction_get_inputs(
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_list_tx_input,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionGetInputsConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionGetInputsConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_get_inputs",
+        argNames: ["that"],
+      );
+
+  @override
+  TxOutput? lwkApiTransactionLiquidTransactionGetOutput({
+    required LiquidTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire.wire__lwk__api__transaction__LiquidTransaction_get_output(
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_box_autoadd_tx_output,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionGetOutputConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionGetOutputConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_get_output",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  String? lwkApiTransactionLiquidTransactionGetOutputAsset({
+    required LiquidTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire
+              .wire__lwk__api__transaction__LiquidTransaction_get_output_asset(
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionGetOutputAssetConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionLiquidTransactionGetOutputAssetConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_get_output_asset",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  String? lwkApiTransactionLiquidTransactionGetOutputNonce({
+    required LiquidTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire
+              .wire__lwk__api__transaction__LiquidTransaction_get_output_nonce(
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionGetOutputNonceConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionLiquidTransactionGetOutputNonceConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_get_output_nonce",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  String? lwkApiTransactionLiquidTransactionGetOutputScriptPubkey({
+    required LiquidTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire
+              .wire__lwk__api__transaction__LiquidTransaction_get_output_script_pubkey(
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_String,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionLiquidTransactionGetOutputScriptPubkeyConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionLiquidTransactionGetOutputScriptPubkeyConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_get_output_script_pubkey",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  BigInt? lwkApiTransactionLiquidTransactionGetOutputValue({
+    required LiquidTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire
+              .wire__lwk__api__transaction__LiquidTransaction_get_output_value(
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_box_autoadd_u_64,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionGetOutputValueConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionLiquidTransactionGetOutputValueConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_get_output_value",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  List<TxOutput> lwkApiTransactionLiquidTransactionGetOutputs({
+    required LiquidTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          return wire
+              .wire__lwk__api__transaction__LiquidTransaction_get_outputs(arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_list_tx_output,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionGetOutputsConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionGetOutputsConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_get_outputs",
+        argNames: ["that"],
+      );
+
+  @override
+  BigInt lwkApiTransactionLiquidTransactionInputCount({
+    required LiquidTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          return wire
+              .wire__lwk__api__transaction__LiquidTransaction_input_count(arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_usize,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionInputCountConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionInputCountConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_input_count",
+        argNames: ["that"],
+      );
+
+  @override
+  bool lwkApiTransactionLiquidTransactionIsCoinbase({
+    required LiquidTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          return wire
+              .wire__lwk__api__transaction__LiquidTransaction_is_coinbase(arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionIsCoinbaseConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionIsCoinbaseConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_is_coinbase",
+        argNames: ["that"],
+      );
+
+  @override
+  int lwkApiTransactionLiquidTransactionLockTime({
+    required LiquidTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          return wire.wire__lwk__api__transaction__LiquidTransaction_lock_time(
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_u_32,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionLockTimeConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionLockTimeConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_lock_time",
+        argNames: ["that"],
+      );
+
+  @override
+  BigInt lwkApiTransactionLiquidTransactionOutputCount({
+    required LiquidTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          return wire
+              .wire__lwk__api__transaction__LiquidTransaction_output_count(
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_usize,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionOutputCountConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionOutputCountConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_output_count",
+        argNames: ["that"],
+      );
+
+  @override
+  Uint8List lwkApiTransactionLiquidTransactionToBytes({
+    required LiquidTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          return wire.wire__lwk__api__transaction__LiquidTransaction_to_bytes(
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_list_prim_u_8_strict,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionToBytesConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionToBytesConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_to_bytes",
+        argNames: ["that"],
+      );
+
+  @override
+  String lwkApiTransactionLiquidTransactionTxid({
+    required LiquidTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          return wire.wire__lwk__api__transaction__LiquidTransaction_txid(arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionTxidConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionTxidConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_txid",
+        argNames: ["that"],
+      );
+
+  @override
+  int lwkApiTransactionLiquidTransactionVersion({
+    required LiquidTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          return wire.wire__lwk__api__transaction__LiquidTransaction_version(
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_u_32,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionVersionConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionVersionConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_version",
+        argNames: ["that"],
+      );
+
+  @override
+  BigInt lwkApiTransactionLiquidTransactionVsize({
+    required LiquidTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          return wire.wire__lwk__api__transaction__LiquidTransaction_vsize(
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_usize,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionVsizeConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionVsizeConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_vsize",
+        argNames: ["that"],
+      );
+
+  @override
+  BigInt lwkApiTransactionLiquidTransactionWeight({
+    required LiquidTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+                that,
+              );
+          return wire.wire__lwk__api__transaction__LiquidTransaction_weight(
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_usize,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTransactionLiquidTransactionWeightConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionLiquidTransactionWeightConstMeta =>
+      const TaskConstMeta(
+        debugName: "LiquidTransaction_weight",
+        argNames: ["that"],
+      );
+
+  @override
+  LiquidTransaction
+  lwkApiTransactionPartiallySignedElementsTransactionExtractTx({
+    required PartiallySignedElementsTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_extract_tx(
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData:
+              dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionExtractTxConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionExtractTxConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_extract_tx",
+        argNames: ["that"],
+      );
+
+  @override
+  PartiallySignedElementsTransaction
+  lwkApiTransactionPartiallySignedElementsTransactionFromString({
+    required String psetString,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 = cst_encode_String(psetString);
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_from_string(
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData:
+              dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionFromStringConstMeta,
+        argValues: [psetString],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionFromStringConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_from_string",
+        argNames: ["psetString"],
+      );
+
+  @override
+  PsetInput? lwkApiTransactionPartiallySignedElementsTransactionGetInput({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input(
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_box_autoadd_pset_input,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionGetInputConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionGetInputConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_get_input",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  BigInt?
+  lwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoAmount({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input_utxo_amount(
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_box_autoadd_u_64,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoAmountConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoAmountConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_get_input_utxo_amount",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  String? lwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoAsset({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input_utxo_asset(
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_String,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoAssetConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoAssetConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_get_input_utxo_asset",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  String?
+  lwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoScript({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_input_utxo_script(
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_String,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoScriptConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoScriptConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_get_input_utxo_script",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  List<PsetInput> lwkApiTransactionPartiallySignedElementsTransactionGetInputs({
+    required PartiallySignedElementsTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_inputs(
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_list_pset_input,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionGetInputsConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionGetInputsConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_get_inputs",
+        argNames: ["that"],
+      );
+
+  @override
+  PsetOutput? lwkApiTransactionPartiallySignedElementsTransactionGetOutput({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output(
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_box_autoadd_pset_output,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionGetOutputConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionGetOutputConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_get_output",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  BigInt? lwkApiTransactionPartiallySignedElementsTransactionGetOutputAmount({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_amount(
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_box_autoadd_u_64,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionGetOutputAmountConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionGetOutputAmountConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_get_output_amount",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  String? lwkApiTransactionPartiallySignedElementsTransactionGetOutputAsset({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_asset(
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_String,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionGetOutputAssetConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionGetOutputAssetConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_get_output_asset",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  String?
+  lwkApiTransactionPartiallySignedElementsTransactionGetOutputBlindingKey({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_blinding_key(
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_String,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionGetOutputBlindingKeyConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionGetOutputBlindingKeyConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_get_output_blinding_key",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  String? lwkApiTransactionPartiallySignedElementsTransactionGetOutputScript({
+    required PartiallySignedElementsTransaction that,
+    required BigInt index,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          var arg1 = cst_encode_usize(index);
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_output_script(
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_String,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionGetOutputScriptConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionGetOutputScriptConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_get_output_script",
+        argNames: ["that", "index"],
+      );
+
+  @override
+  List<PsetOutput>
+  lwkApiTransactionPartiallySignedElementsTransactionGetOutputs({
+    required PartiallySignedElementsTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_get_outputs(
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_list_pset_output,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionGetOutputsConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionGetOutputsConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_get_outputs",
+        argNames: ["that"],
+      );
+
+  @override
+  BigInt lwkApiTransactionPartiallySignedElementsTransactionInputCount({
+    required PartiallySignedElementsTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_input_count(
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_usize,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionInputCountConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionInputCountConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_input_count",
+        argNames: ["that"],
+      );
+
+  @override
+  int? lwkApiTransactionPartiallySignedElementsTransactionLockTime({
+    required PartiallySignedElementsTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_lock_time(
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_box_autoadd_u_32,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionLockTimeConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionLockTimeConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_lock_time",
+        argNames: ["that"],
+      );
+
+  @override
+  BigInt lwkApiTransactionPartiallySignedElementsTransactionOutputCount({
+    required PartiallySignedElementsTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_output_count(
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_usize,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionOutputCountConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionOutputCountConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_output_count",
+        argNames: ["that"],
+      );
+
+  @override
+  String lwkApiTransactionPartiallySignedElementsTransactionToString({
+    required PartiallySignedElementsTransaction that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+                that,
+              );
+          return wire
+              .wire__lwk__api__transaction__PartiallySignedElementsTransaction_to_string(
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: null,
+        ),
+        constMeta:
+            kLwkApiTransactionPartiallySignedElementsTransactionToStringConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kLwkApiTransactionPartiallySignedElementsTransactionToStringConstMeta =>
+      const TaskConstMeta(
+        debugName: "PartiallySignedElementsTransaction_to_string",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<Address> lwkApiWalletWalletAddress({
+    required Wallet that,
+    required int index,
+  }) {
     return handler.executeNormal(
       NormalTask(
         callFfi: (port_) {
-          final serializer = SseSerializer(generalizedFrbRustBinding);
-          pdeCallFfi(
-            generalizedFrbRustBinding,
-            serializer,
-            funcId: 2,
-            port: port_,
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          var arg1 = cst_encode_u_32(index);
+          return wire.wire__lwk__api__wallet__Wallet_address(port_, arg0, arg1);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_address,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletAddressConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletAddressConstMeta => const TaskConstMeta(
+    debugName: "Wallet_address",
+    argNames: ["that", "index"],
+  );
+
+  @override
+  Future<Address> lwkApiWalletWalletAddressLastUnused({required Wallet that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          return wire.wire__lwk__api__wallet__Wallet_address_last_unused(
+            port_,
+            arg0,
           );
         },
-        codec: SseCodec(
-          decodeSuccessData: sse_decode_unit,
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_address,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletAddressLastUnusedConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletAddressLastUnusedConstMeta =>
+      const TaskConstMeta(
+        debugName: "Wallet_address_last_unused",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<List<Balance>> lwkApiWalletWalletBalances({required Wallet that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          return wire.wire__lwk__api__wallet__Wallet_balances(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_list_balance,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletBalancesConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletBalancesConstMeta =>
+      const TaskConstMeta(debugName: "Wallet_balances", argNames: ["that"]);
+
+  @override
+  Future<String> lwkApiWalletWalletBlindingKey({required Wallet that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          return wire.wire__lwk__api__wallet__Wallet_blinding_key(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletBlindingKeyConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletBlindingKeyConstMeta =>
+      const TaskConstMeta(debugName: "Wallet_blinding_key", argNames: ["that"]);
+
+  @override
+  Future<String> lwkApiWalletWalletBuildAssetTx({
+    required Wallet that,
+    required BigInt sats,
+    required String outAddress,
+    required double feeRate,
+    required String asset,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          var arg1 = cst_encode_u_64(sats);
+          var arg2 = cst_encode_String(outAddress);
+          var arg3 = cst_encode_f_32(feeRate);
+          var arg4 = cst_encode_String(asset);
+          return wire.wire__lwk__api__wallet__Wallet_build_asset_tx(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletBuildAssetTxConstMeta,
+        argValues: [that, sats, outAddress, feeRate, asset],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletBuildAssetTxConstMeta =>
+      const TaskConstMeta(
+        debugName: "Wallet_build_asset_tx",
+        argNames: ["that", "sats", "outAddress", "feeRate", "asset"],
+      );
+
+  @override
+  Future<String> lwkApiWalletWalletBuildLbtcTx({
+    required Wallet that,
+    required BigInt sats,
+    required String outAddress,
+    required double feeRate,
+    required bool drain,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          var arg1 = cst_encode_u_64(sats);
+          var arg2 = cst_encode_String(outAddress);
+          var arg3 = cst_encode_f_32(feeRate);
+          var arg4 = cst_encode_bool(drain);
+          return wire.wire__lwk__api__wallet__Wallet_build_lbtc_tx(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletBuildLbtcTxConstMeta,
+        argValues: [that, sats, outAddress, feeRate, drain],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletBuildLbtcTxConstMeta =>
+      const TaskConstMeta(
+        debugName: "Wallet_build_lbtc_tx",
+        argNames: ["that", "sats", "outAddress", "feeRate", "drain"],
+      );
+
+  @override
+  Future<PayjoinTx> lwkApiWalletWalletBuildPayjoinTx({
+    required Wallet that,
+    required BigInt sats,
+    required String outAddress,
+    required String asset,
+    required Network network,
+    String? baseUrl,
+    required bool isSendAll,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          var arg1 = cst_encode_u_64(sats);
+          var arg2 = cst_encode_String(outAddress);
+          var arg3 = cst_encode_String(asset);
+          var arg4 = cst_encode_network(network);
+          var arg5 = cst_encode_opt_String(baseUrl);
+          var arg6 = cst_encode_bool(isSendAll);
+          return wire.wire__lwk__api__wallet__Wallet_build_payjoin_tx(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+            arg6,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_payjoin_tx,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletBuildPayjoinTxConstMeta,
+        argValues: [that, sats, outAddress, asset, network, baseUrl, isSendAll],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletBuildPayjoinTxConstMeta =>
+      const TaskConstMeta(
+        debugName: "Wallet_build_payjoin_tx",
+        argNames: [
+          "that",
+          "sats",
+          "outAddress",
+          "asset",
+          "network",
+          "baseUrl",
+          "isSendAll",
+        ],
+      );
+
+  @override
+  Future<PsetAmounts> lwkApiWalletWalletDecodeTx({
+    required Wallet that,
+    required String pset,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          var arg1 = cst_encode_String(pset);
+          return wire.wire__lwk__api__wallet__Wallet_decode_tx(
+            port_,
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_pset_amounts,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletDecodeTxConstMeta,
+        argValues: [that, pset],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletDecodeTxConstMeta => const TaskConstMeta(
+    debugName: "Wallet_decode_tx",
+    argNames: ["that", "pset"],
+  );
+
+  @override
+  Future<String> lwkApiWalletWalletDescriptor({required Wallet that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          return wire.wire__lwk__api__wallet__Wallet_descriptor(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletDescriptorConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletDescriptorConstMeta =>
+      const TaskConstMeta(debugName: "Wallet_descriptor", argNames: ["that"]);
+
+  @override
+  Future<Wallet> lwkApiWalletWalletInit({
+    required Network network,
+    required String dbpath,
+    required Descriptor descriptor,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_network(network);
+          var arg1 = cst_encode_String(dbpath);
+          var arg2 = cst_encode_box_autoadd_descriptor(descriptor);
+          return wire.wire__lwk__api__wallet__Wallet_init(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData:
+              dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletInitConstMeta,
+        argValues: [network, dbpath, descriptor],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletInitConstMeta => const TaskConstMeta(
+    debugName: "Wallet_init",
+    argNames: ["network", "dbpath", "descriptor"],
+  );
+
+  @override
+  Future<String> lwkApiWalletWalletSignTx({
+    required Wallet that,
+    required Network network,
+    required String pset,
+    required String mnemonic,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          var arg1 = cst_encode_network(network);
+          var arg2 = cst_encode_String(pset);
+          var arg3 = cst_encode_String(mnemonic);
+          return wire.wire__lwk__api__wallet__Wallet_sign_tx(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletSignTxConstMeta,
+        argValues: [that, network, pset, mnemonic],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletSignTxConstMeta => const TaskConstMeta(
+    debugName: "Wallet_sign_tx",
+    argNames: ["that", "network", "pset", "mnemonic"],
+  );
+
+  @override
+  Future<String> lwkApiWalletWalletSignedPsetWithExtraDetails({
+    required Wallet that,
+    required Network network,
+    required String pset,
+    required String mnemonic,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          var arg1 = cst_encode_network(network);
+          var arg2 = cst_encode_String(pset);
+          var arg3 = cst_encode_String(mnemonic);
+          return wire
+              .wire__lwk__api__wallet__Wallet_signed_pset_with_extra_details(
+                port_,
+                arg0,
+                arg1,
+                arg2,
+                arg3,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletSignedPsetWithExtraDetailsConstMeta,
+        argValues: [that, network, pset, mnemonic],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletSignedPsetWithExtraDetailsConstMeta =>
+      const TaskConstMeta(
+        debugName: "Wallet_signed_pset_with_extra_details",
+        argNames: ["that", "network", "pset", "mnemonic"],
+      );
+
+  @override
+  Future<void> lwkApiWalletWalletSync({
+    required Wallet that,
+    required String electrumUrl,
+    required bool validateDomain,
+    int? stopAtIndex,
+    int? timeout,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          var arg1 = cst_encode_String(electrumUrl);
+          var arg2 = cst_encode_bool(validateDomain);
+          var arg3 = cst_encode_opt_box_autoadd_u_32(stopAtIndex);
+          var arg4 = cst_encode_opt_box_autoadd_u_8(timeout);
+          return wire.wire__lwk__api__wallet__Wallet_sync(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_unit,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletSyncConstMeta,
+        argValues: [that, electrumUrl, validateDomain, stopAtIndex, timeout],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletSyncConstMeta => const TaskConstMeta(
+    debugName: "Wallet_sync",
+    argNames: [
+      "that",
+      "electrumUrl",
+      "validateDomain",
+      "stopAtIndex",
+      "timeout",
+    ],
+  );
+
+  @override
+  Future<List<Tx>> lwkApiWalletWalletTxs({required Wallet that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          return wire.wire__lwk__api__wallet__Wallet_txs(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_list_tx,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletTxsConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletTxsConstMeta =>
+      const TaskConstMeta(debugName: "Wallet_txs", argNames: ["that"]);
+
+  @override
+  Future<List<TxOut>> lwkApiWalletWalletUtxos({required Wallet that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          return wire.wire__lwk__api__wallet__Wallet_utxos(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_list_tx_out,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletUtxosConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletUtxosConstMeta =>
+      const TaskConstMeta(debugName: "Wallet_utxos", argNames: ["that"]);
+
+  @override
+  Future<Address> lwkApiTypesAddressAddressFromScript({
+    required Network network,
+    required String script,
+    String? blindingKey,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_network(network);
+          var arg1 = cst_encode_String(script);
+          var arg2 = cst_encode_opt_String(blindingKey);
+          return wire.wire__lwk__api__types__address_address_from_script(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_address,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiTypesAddressAddressFromScriptConstMeta,
+        argValues: [network, script, blindingKey],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTypesAddressAddressFromScriptConstMeta =>
+      const TaskConstMeta(
+        debugName: "address_address_from_script",
+        argNames: ["network", "script", "blindingKey"],
+      );
+
+  @override
+  Future<Network> lwkApiTypesAddressValidate({required String addressString}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(addressString);
+          return wire.wire__lwk__api__types__address_validate(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_network,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiTypesAddressValidateConstMeta,
+        argValues: [addressString],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTypesAddressValidateConstMeta => const TaskConstMeta(
+    debugName: "address_validate",
+    argNames: ["addressString"],
+  );
+
+  @override
+  Future<String> lwkApiBlockchainBlockchainBroadcastSignedPset({
+    required String electrumUrl,
+    required String signedPset,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(electrumUrl);
+          var arg1 = cst_encode_String(signedPset);
+          return wire
+              .wire__lwk__api__blockchain__blockchain_broadcast_signed_pset(
+                port_,
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiBlockchainBlockchainBroadcastSignedPsetConstMeta,
+        argValues: [electrumUrl, signedPset],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiBlockchainBlockchainBroadcastSignedPsetConstMeta =>
+      const TaskConstMeta(
+        debugName: "blockchain_broadcast_signed_pset",
+        argNames: ["electrumUrl", "signedPset"],
+      );
+
+  @override
+  Future<String> lwkApiBlockchainBlockchainBroadcastTxBytes({
+    required String electrumUrl,
+    required List<int> txBytes,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(electrumUrl);
+          var arg1 = cst_encode_list_prim_u_8_loose(txBytes);
+          return wire.wire__lwk__api__blockchain__blockchain_broadcast_tx_bytes(
+            port_,
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiBlockchainBlockchainBroadcastTxBytesConstMeta,
+        argValues: [electrumUrl, txBytes],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiBlockchainBlockchainBroadcastTxBytesConstMeta =>
+      const TaskConstMeta(
+        debugName: "blockchain_broadcast_tx_bytes",
+        argNames: ["electrumUrl", "txBytes"],
+      );
+
+  @override
+  Future<void> lwkApiBlockchainBlockchainTest({
+    required Blockchain that,
+    required String electrumUrl,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_blockchain(that);
+          var arg1 = cst_encode_String(electrumUrl);
+          return wire.wire__lwk__api__blockchain__blockchain_test(
+            port_,
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_unit,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiBlockchainBlockchainTestConstMeta,
+        argValues: [that, electrumUrl],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiBlockchainBlockchainTestConstMeta =>
+      const TaskConstMeta(
+        debugName: "blockchain_test",
+        argNames: ["that", "electrumUrl"],
+      );
+
+  @override
+  Future<void> boltzApiErrorBoltzErrorDetail({required BoltzError that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_boltz_error(that);
+          return wire.wire__boltz__api__error__boltz_error_detail(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_unit,
           decodeErrorData: null,
         ),
-        constMeta: kCrateApiSimpleInitAppConstMeta,
+        constMeta: kBoltzApiErrorBoltzErrorDetailConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiErrorBoltzErrorDetailConstMeta =>
+      const TaskConstMeta(debugName: "boltz_error_detail", argNames: ["that"]);
+
+  @override
+  Future<BoltzError> boltzApiErrorBoltzErrorNew({
+    required String kind,
+    required String message,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(kind);
+          var arg1 = cst_encode_String(message);
+          return wire.wire__boltz__api__error__boltz_error_new(
+            port_,
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_boltz_error,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiErrorBoltzErrorNewConstMeta,
+        argValues: [kind, message],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiErrorBoltzErrorNewConstMeta => const TaskConstMeta(
+    debugName: "boltz_error_new",
+    argNames: ["kind", "message"],
+  );
+
+  @override
+  Future<String> boltzApiBtcLnBtcLnSwapBroadcastBoltz({
+    required BtcLnSwap that,
+    required String signedHex,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_btc_ln_swap(that);
+          var arg1 = cst_encode_String(signedHex);
+          return wire.wire__boltz__api__btc_ln__btc_ln_swap_broadcast_boltz(
+            port_,
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiBtcLnBtcLnSwapBroadcastBoltzConstMeta,
+        argValues: [that, signedHex],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiBtcLnBtcLnSwapBroadcastBoltzConstMeta =>
+      const TaskConstMeta(
+        debugName: "btc_ln_swap_broadcast_boltz",
+        argNames: ["that", "signedHex"],
+      );
+
+  @override
+  Future<String> boltzApiBtcLnBtcLnSwapBroadcastLocal({
+    required BtcLnSwap that,
+    required String signedHex,
+    ElectrumSettings? electrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_btc_ln_swap(that);
+          var arg1 = cst_encode_String(signedHex);
+          var arg2 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
+          return wire.wire__boltz__api__btc_ln__btc_ln_swap_broadcast_local(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiBtcLnBtcLnSwapBroadcastLocalConstMeta,
+        argValues: [that, signedHex, electrumSettings],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiBtcLnBtcLnSwapBroadcastLocalConstMeta =>
+      const TaskConstMeta(
+        debugName: "btc_ln_swap_broadcast_local",
+        argNames: ["that", "signedHex", "electrumSettings"],
+      );
+
+  @override
+  Future<String> boltzApiBtcLnBtcLnSwapClaim({
+    required BtcLnSwap that,
+    required String outAddress,
+    required TxFee minerFee,
+    required bool tryCooperate,
+    ElectrumSettings? electrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_btc_ln_swap(that);
+          var arg1 = cst_encode_String(outAddress);
+          var arg2 = cst_encode_box_autoadd_tx_fee(minerFee);
+          var arg3 = cst_encode_bool(tryCooperate);
+          var arg4 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
+          return wire.wire__boltz__api__btc_ln__btc_ln_swap_claim(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiBtcLnBtcLnSwapClaimConstMeta,
+        argValues: [that, outAddress, minerFee, tryCooperate, electrumSettings],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiBtcLnBtcLnSwapClaimConstMeta =>
+      const TaskConstMeta(
+        debugName: "btc_ln_swap_claim",
+        argNames: [
+          "that",
+          "outAddress",
+          "minerFee",
+          "tryCooperate",
+          "electrumSettings",
+        ],
+      );
+
+  @override
+  Future<BigInt> boltzApiBtcLnBtcLnSwapClaimTxSize({
+    required BtcLnSwap that,
+    required bool isCooperative,
+    ElectrumSettings? electrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_btc_ln_swap(that);
+          var arg1 = cst_encode_bool(isCooperative);
+          var arg2 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
+          return wire.wire__boltz__api__btc_ln__btc_ln_swap_claim_tx_size(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_usize,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiBtcLnBtcLnSwapClaimTxSizeConstMeta,
+        argValues: [that, isCooperative, electrumSettings],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiBtcLnBtcLnSwapClaimTxSizeConstMeta =>
+      const TaskConstMeta(
+        debugName: "btc_ln_swap_claim_tx_size",
+        argNames: ["that", "isCooperative", "electrumSettings"],
+      );
+
+  @override
+  Future<void> boltzApiBtcLnBtcLnSwapCoopCloseSubmarine({
+    required BtcLnSwap that,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_btc_ln_swap(that);
+          return wire
+              .wire__boltz__api__btc_ln__btc_ln_swap_coop_close_submarine(
+                port_,
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_unit,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiBtcLnBtcLnSwapCoopCloseSubmarineConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiBtcLnBtcLnSwapCoopCloseSubmarineConstMeta =>
+      const TaskConstMeta(
+        debugName: "btc_ln_swap_coop_close_submarine",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<BtcLnSwap> boltzApiBtcLnBtcLnSwapFromJson({required String jsonStr}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(jsonStr);
+          return wire.wire__boltz__api__btc_ln__btc_ln_swap_from_json(
+            port_,
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_btc_ln_swap,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiBtcLnBtcLnSwapFromJsonConstMeta,
+        argValues: [jsonStr],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiBtcLnBtcLnSwapFromJsonConstMeta =>
+      const TaskConstMeta(
+        debugName: "btc_ln_swap_from_json",
+        argNames: ["jsonStr"],
+      );
+
+  @override
+  Future<String> boltzApiBtcLnBtcLnSwapGetCompletedSubmarinePreimage({
+    required BtcLnSwap that,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_btc_ln_swap(that);
+          return wire
+              .wire__boltz__api__btc_ln__btc_ln_swap_get_completed_submarine_preimage(
+                port_,
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta:
+            kBoltzApiBtcLnBtcLnSwapGetCompletedSubmarinePreimageConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kBoltzApiBtcLnBtcLnSwapGetCompletedSubmarinePreimageConstMeta =>
+      const TaskConstMeta(
+        debugName: "btc_ln_swap_get_completed_submarine_preimage",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<String> boltzApiBtcLnBtcLnSwapGetPreimage({required BtcLnSwap that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_btc_ln_swap(that);
+          return wire.wire__boltz__api__btc_ln__btc_ln_swap_get_preimage(
+            port_,
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiBtcLnBtcLnSwapGetPreimageConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiBtcLnBtcLnSwapGetPreimageConstMeta =>
+      const TaskConstMeta(
+        debugName: "btc_ln_swap_get_preimage",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<BtcLnSwap> boltzApiBtcLnBtcLnSwapNew({
+    required String id,
+    required SwapType kind,
+    required Chain network,
+    required KeyPair keys,
+    required BigInt keyIndex,
+    required PreImage preimage,
+    required BtcSwapScriptStr swapScript,
+    required String invoice,
+    required String scriptAddress,
+    required BigInt outAmount,
+    required String electrumUrl,
+    required String boltzUrl,
+    String? referralId,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(id);
+          var arg1 = cst_encode_swap_type(kind);
+          var arg2 = cst_encode_chain(network);
+          var arg3 = cst_encode_box_autoadd_key_pair(keys);
+          var arg4 = cst_encode_u_64(keyIndex);
+          var arg5 = cst_encode_box_autoadd_pre_image(preimage);
+          var arg6 = cst_encode_box_autoadd_btc_swap_script_str(swapScript);
+          var arg7 = cst_encode_String(invoice);
+          var arg8 = cst_encode_String(scriptAddress);
+          var arg9 = cst_encode_u_64(outAmount);
+          var arg10 = cst_encode_String(electrumUrl);
+          var arg11 = cst_encode_String(boltzUrl);
+          var arg12 = cst_encode_opt_String(referralId);
+          return wire.wire__boltz__api__btc_ln__btc_ln_swap_new(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+            arg6,
+            arg7,
+            arg8,
+            arg9,
+            arg10,
+            arg11,
+            arg12,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_btc_ln_swap,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiBtcLnBtcLnSwapNewConstMeta,
+        argValues: [
+          id,
+          kind,
+          network,
+          keys,
+          keyIndex,
+          preimage,
+          swapScript,
+          invoice,
+          scriptAddress,
+          outAmount,
+          electrumUrl,
+          boltzUrl,
+          referralId,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiBtcLnBtcLnSwapNewConstMeta => const TaskConstMeta(
+    debugName: "btc_ln_swap_new",
+    argNames: [
+      "id",
+      "kind",
+      "network",
+      "keys",
+      "keyIndex",
+      "preimage",
+      "swapScript",
+      "invoice",
+      "scriptAddress",
+      "outAmount",
+      "electrumUrl",
+      "boltzUrl",
+      "referralId",
+    ],
+  );
+
+  @override
+  Future<BtcLnSwap> boltzApiBtcLnBtcLnSwapNewReverse({
+    required String mnemonic,
+    String? passphrase,
+    required BigInt index,
+    required BigInt outAmount,
+    String? outAddress,
+    required Chain network,
+    required String electrumUrl,
+    required String boltzUrl,
+    String? description,
+    String? referralId,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(mnemonic);
+          var arg1 = cst_encode_opt_String(passphrase);
+          var arg2 = cst_encode_u_64(index);
+          var arg3 = cst_encode_u_64(outAmount);
+          var arg4 = cst_encode_opt_String(outAddress);
+          var arg5 = cst_encode_chain(network);
+          var arg6 = cst_encode_String(electrumUrl);
+          var arg7 = cst_encode_String(boltzUrl);
+          var arg8 = cst_encode_opt_String(description);
+          var arg9 = cst_encode_opt_String(referralId);
+          return wire.wire__boltz__api__btc_ln__btc_ln_swap_new_reverse(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+            arg6,
+            arg7,
+            arg8,
+            arg9,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_btc_ln_swap,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiBtcLnBtcLnSwapNewReverseConstMeta,
+        argValues: [
+          mnemonic,
+          passphrase,
+          index,
+          outAmount,
+          outAddress,
+          network,
+          electrumUrl,
+          boltzUrl,
+          description,
+          referralId,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiBtcLnBtcLnSwapNewReverseConstMeta =>
+      const TaskConstMeta(
+        debugName: "btc_ln_swap_new_reverse",
+        argNames: [
+          "mnemonic",
+          "passphrase",
+          "index",
+          "outAmount",
+          "outAddress",
+          "network",
+          "electrumUrl",
+          "boltzUrl",
+          "description",
+          "referralId",
+        ],
+      );
+
+  @override
+  Future<BtcLnSwap> boltzApiBtcLnBtcLnSwapNewSubmarine({
+    required String mnemonic,
+    String? passphrase,
+    required BigInt index,
+    required String invoice,
+    required Chain network,
+    required String electrumUrl,
+    required String boltzUrl,
+    String? referralId,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(mnemonic);
+          var arg1 = cst_encode_opt_String(passphrase);
+          var arg2 = cst_encode_u_64(index);
+          var arg3 = cst_encode_String(invoice);
+          var arg4 = cst_encode_chain(network);
+          var arg5 = cst_encode_String(electrumUrl);
+          var arg6 = cst_encode_String(boltzUrl);
+          var arg7 = cst_encode_opt_String(referralId);
+          return wire.wire__boltz__api__btc_ln__btc_ln_swap_new_submarine(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+            arg6,
+            arg7,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_btc_ln_swap,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiBtcLnBtcLnSwapNewSubmarineConstMeta,
+        argValues: [
+          mnemonic,
+          passphrase,
+          index,
+          invoice,
+          network,
+          electrumUrl,
+          boltzUrl,
+          referralId,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiBtcLnBtcLnSwapNewSubmarineConstMeta =>
+      const TaskConstMeta(
+        debugName: "btc_ln_swap_new_submarine",
+        argNames: [
+          "mnemonic",
+          "passphrase",
+          "index",
+          "invoice",
+          "network",
+          "electrumUrl",
+          "boltzUrl",
+          "referralId",
+        ],
+      );
+
+  @override
+  Future<String> boltzApiBtcLnBtcLnSwapRefund({
+    required BtcLnSwap that,
+    required String outAddress,
+    required TxFee minerFee,
+    required bool tryCooperate,
+    ElectrumSettings? electrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_btc_ln_swap(that);
+          var arg1 = cst_encode_String(outAddress);
+          var arg2 = cst_encode_box_autoadd_tx_fee(minerFee);
+          var arg3 = cst_encode_bool(tryCooperate);
+          var arg4 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
+          return wire.wire__boltz__api__btc_ln__btc_ln_swap_refund(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiBtcLnBtcLnSwapRefundConstMeta,
+        argValues: [that, outAddress, minerFee, tryCooperate, electrumSettings],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiBtcLnBtcLnSwapRefundConstMeta =>
+      const TaskConstMeta(
+        debugName: "btc_ln_swap_refund",
+        argNames: [
+          "that",
+          "outAddress",
+          "minerFee",
+          "tryCooperate",
+          "electrumSettings",
+        ],
+      );
+
+  @override
+  Future<BigInt> boltzApiBtcLnBtcLnSwapRefundTxSize({
+    required BtcLnSwap that,
+    required bool isCooperative,
+    ElectrumSettings? electrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_btc_ln_swap(that);
+          var arg1 = cst_encode_bool(isCooperative);
+          var arg2 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
+          return wire.wire__boltz__api__btc_ln__btc_ln_swap_refund_tx_size(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_usize,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiBtcLnBtcLnSwapRefundTxSizeConstMeta,
+        argValues: [that, isCooperative, electrumSettings],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiBtcLnBtcLnSwapRefundTxSizeConstMeta =>
+      const TaskConstMeta(
+        debugName: "btc_ln_swap_refund_tx_size",
+        argNames: ["that", "isCooperative", "electrumSettings"],
+      );
+
+  @override
+  Future<String> boltzApiBtcLnBtcLnSwapToJson({required BtcLnSwap that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_btc_ln_swap(that);
+          return wire.wire__boltz__api__btc_ln__btc_ln_swap_to_json(
+            port_,
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiBtcLnBtcLnSwapToJsonConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiBtcLnBtcLnSwapToJsonConstMeta =>
+      const TaskConstMeta(debugName: "btc_ln_swap_to_json", argNames: ["that"]);
+
+  @override
+  Future<BtcSwapScriptStr> boltzApiTypesBtcSwapScriptStrNew({
+    required SwapType swapType,
+    String? fundingAddrs,
+    required String hashlock,
+    required String receiverPubkey,
+    required int locktime,
+    required String senderPubkey,
+    Side? side,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_swap_type(swapType);
+          var arg1 = cst_encode_opt_String(fundingAddrs);
+          var arg2 = cst_encode_String(hashlock);
+          var arg3 = cst_encode_String(receiverPubkey);
+          var arg4 = cst_encode_u_32(locktime);
+          var arg5 = cst_encode_String(senderPubkey);
+          var arg6 = cst_encode_opt_box_autoadd_side(side);
+          return wire.wire__boltz__api__types__btc_swap_script_str_new(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+            arg6,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_btc_swap_script_str,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiTypesBtcSwapScriptStrNewConstMeta,
+        argValues: [
+          swapType,
+          fundingAddrs,
+          hashlock,
+          receiverPubkey,
+          locktime,
+          senderPubkey,
+          side,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiTypesBtcSwapScriptStrNewConstMeta =>
+      const TaskConstMeta(
+        debugName: "btc_swap_script_str_new",
+        argNames: [
+          "swapType",
+          "fundingAddrs",
+          "hashlock",
+          "receiverPubkey",
+          "locktime",
+          "senderPubkey",
+          "side",
+        ],
+      );
+
+  @override
+  Future<String> boltzApiChainSwapChainSwapBroadcastBoltz({
+    required ChainSwap that,
+    required String signedHex,
+    required SwapTxKind kind,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_chain_swap(that);
+          var arg1 = cst_encode_String(signedHex);
+          var arg2 = cst_encode_swap_tx_kind(kind);
+          return wire.wire__boltz__api__chain_swap__chain_swap_broadcast_boltz(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiChainSwapChainSwapBroadcastBoltzConstMeta,
+        argValues: [that, signedHex, kind],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiChainSwapChainSwapBroadcastBoltzConstMeta =>
+      const TaskConstMeta(
+        debugName: "chain_swap_broadcast_boltz",
+        argNames: ["that", "signedHex", "kind"],
+      );
+
+  @override
+  Future<String> boltzApiChainSwapChainSwapBroadcastLocal({
+    required ChainSwap that,
+    required String signedHex,
+    required SwapTxKind kind,
+    ElectrumSettings? electrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_chain_swap(that);
+          var arg1 = cst_encode_String(signedHex);
+          var arg2 = cst_encode_swap_tx_kind(kind);
+          var arg3 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
+          return wire.wire__boltz__api__chain_swap__chain_swap_broadcast_local(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiChainSwapChainSwapBroadcastLocalConstMeta,
+        argValues: [that, signedHex, kind, electrumSettings],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiChainSwapChainSwapBroadcastLocalConstMeta =>
+      const TaskConstMeta(
+        debugName: "chain_swap_broadcast_local",
+        argNames: ["that", "signedHex", "kind", "electrumSettings"],
+      );
+
+  @override
+  Future<String> boltzApiChainSwapChainSwapClaim({
+    required ChainSwap that,
+    required String outAddress,
+    required TxFee minerFee,
+    required bool tryCooperate,
+    ElectrumSettings? btcElectrumSettings,
+    ElectrumSettings? lbtcElectrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_chain_swap(that);
+          var arg1 = cst_encode_String(outAddress);
+          var arg2 = cst_encode_box_autoadd_tx_fee(minerFee);
+          var arg3 = cst_encode_bool(tryCooperate);
+          var arg4 = cst_encode_opt_box_autoadd_electrum_settings(
+            btcElectrumSettings,
+          );
+          var arg5 = cst_encode_opt_box_autoadd_electrum_settings(
+            lbtcElectrumSettings,
+          );
+          return wire.wire__boltz__api__chain_swap__chain_swap_claim(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiChainSwapChainSwapClaimConstMeta,
+        argValues: [
+          that,
+          outAddress,
+          minerFee,
+          tryCooperate,
+          btcElectrumSettings,
+          lbtcElectrumSettings,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiChainSwapChainSwapClaimConstMeta =>
+      const TaskConstMeta(
+        debugName: "chain_swap_claim",
+        argNames: [
+          "that",
+          "outAddress",
+          "minerFee",
+          "tryCooperate",
+          "btcElectrumSettings",
+          "lbtcElectrumSettings",
+        ],
+      );
+
+  @override
+  Future<BigInt> boltzApiChainSwapChainSwapClaimTxSize({
+    required ChainSwap that,
+    required String outAddress,
+    required bool tryCooperate,
+    ElectrumSettings? btcElectrumSettings,
+    ElectrumSettings? lbtcElectrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_chain_swap(that);
+          var arg1 = cst_encode_String(outAddress);
+          var arg2 = cst_encode_bool(tryCooperate);
+          var arg3 = cst_encode_opt_box_autoadd_electrum_settings(
+            btcElectrumSettings,
+          );
+          var arg4 = cst_encode_opt_box_autoadd_electrum_settings(
+            lbtcElectrumSettings,
+          );
+          return wire.wire__boltz__api__chain_swap__chain_swap_claim_tx_size(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_usize,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiChainSwapChainSwapClaimTxSizeConstMeta,
+        argValues: [
+          that,
+          outAddress,
+          tryCooperate,
+          btcElectrumSettings,
+          lbtcElectrumSettings,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiChainSwapChainSwapClaimTxSizeConstMeta =>
+      const TaskConstMeta(
+        debugName: "chain_swap_claim_tx_size",
+        argNames: [
+          "that",
+          "outAddress",
+          "tryCooperate",
+          "btcElectrumSettings",
+          "lbtcElectrumSettings",
+        ],
+      );
+
+  @override
+  Future<ChainSwap> boltzApiChainSwapChainSwapFromJson({
+    required String jsonStr,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(jsonStr);
+          return wire.wire__boltz__api__chain_swap__chain_swap_from_json(
+            port_,
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_chain_swap,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiChainSwapChainSwapFromJsonConstMeta,
+        argValues: [jsonStr],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiChainSwapChainSwapFromJsonConstMeta =>
+      const TaskConstMeta(
+        debugName: "chain_swap_from_json",
+        argNames: ["jsonStr"],
+      );
+
+  @override
+  Future<String> boltzApiChainSwapChainSwapGetServerLockup({
+    required ChainSwap that,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_chain_swap(that);
+          return wire
+              .wire__boltz__api__chain_swap__chain_swap_get_server_lockup(
+                port_,
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiChainSwapChainSwapGetServerLockupConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiChainSwapChainSwapGetServerLockupConstMeta =>
+      const TaskConstMeta(
+        debugName: "chain_swap_get_server_lockup",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<String> boltzApiChainSwapChainSwapGetUserLockup({
+    required ChainSwap that,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_chain_swap(that);
+          return wire.wire__boltz__api__chain_swap__chain_swap_get_user_lockup(
+            port_,
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiChainSwapChainSwapGetUserLockupConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiChainSwapChainSwapGetUserLockupConstMeta =>
+      const TaskConstMeta(
+        debugName: "chain_swap_get_user_lockup",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<ChainSwap> boltzApiChainSwapChainSwapNew({
+    required String id,
+    required bool isTestnet,
+    required ChainSwapDirection direction,
+    required KeyPair refundKeys,
+    required BigInt refundIndex,
+    required KeyPair claimKeys,
+    required BigInt claimIndex,
+    required PreImage preimage,
+    required BtcSwapScriptStr btcScriptStr,
+    required LBtcSwapScriptStr lbtcScriptStr,
+    required String scriptAddress,
+    required BigInt outAmount,
+    required String btcElectrumUrl,
+    required String lbtcElectrumUrl,
+    required String boltzUrl,
+    String? referralId,
+    required String blindingKey,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(id);
+          var arg1 = cst_encode_bool(isTestnet);
+          var arg2 = cst_encode_chain_swap_direction(direction);
+          var arg3 = cst_encode_box_autoadd_key_pair(refundKeys);
+          var arg4 = cst_encode_u_64(refundIndex);
+          var arg5 = cst_encode_box_autoadd_key_pair(claimKeys);
+          var arg6 = cst_encode_u_64(claimIndex);
+          var arg7 = cst_encode_box_autoadd_pre_image(preimage);
+          var arg8 = cst_encode_box_autoadd_btc_swap_script_str(btcScriptStr);
+          var arg9 = cst_encode_box_autoadd_l_btc_swap_script_str(
+            lbtcScriptStr,
+          );
+          var arg10 = cst_encode_String(scriptAddress);
+          var arg11 = cst_encode_u_64(outAmount);
+          var arg12 = cst_encode_String(btcElectrumUrl);
+          var arg13 = cst_encode_String(lbtcElectrumUrl);
+          var arg14 = cst_encode_String(boltzUrl);
+          var arg15 = cst_encode_opt_String(referralId);
+          var arg16 = cst_encode_String(blindingKey);
+          return wire.wire__boltz__api__chain_swap__chain_swap_new(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+            arg6,
+            arg7,
+            arg8,
+            arg9,
+            arg10,
+            arg11,
+            arg12,
+            arg13,
+            arg14,
+            arg15,
+            arg16,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_chain_swap,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiChainSwapChainSwapNewConstMeta,
+        argValues: [
+          id,
+          isTestnet,
+          direction,
+          refundKeys,
+          refundIndex,
+          claimKeys,
+          claimIndex,
+          preimage,
+          btcScriptStr,
+          lbtcScriptStr,
+          scriptAddress,
+          outAmount,
+          btcElectrumUrl,
+          lbtcElectrumUrl,
+          boltzUrl,
+          referralId,
+          blindingKey,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiChainSwapChainSwapNewConstMeta =>
+      const TaskConstMeta(
+        debugName: "chain_swap_new",
+        argNames: [
+          "id",
+          "isTestnet",
+          "direction",
+          "refundKeys",
+          "refundIndex",
+          "claimKeys",
+          "claimIndex",
+          "preimage",
+          "btcScriptStr",
+          "lbtcScriptStr",
+          "scriptAddress",
+          "outAmount",
+          "btcElectrumUrl",
+          "lbtcElectrumUrl",
+          "boltzUrl",
+          "referralId",
+          "blindingKey",
+        ],
+      );
+
+  @override
+  Future<ChainSwap> boltzApiChainSwapChainSwapNewSwap({
+    required ChainSwapDirection direction,
+    required String mnemonic,
+    String? passphrase,
+    required BigInt index,
+    required BigInt amount,
+    required bool isTestnet,
+    required String btcElectrumUrl,
+    required String lbtcElectrumUrl,
+    required String boltzUrl,
+    String? referralId,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_chain_swap_direction(direction);
+          var arg1 = cst_encode_String(mnemonic);
+          var arg2 = cst_encode_opt_String(passphrase);
+          var arg3 = cst_encode_u_64(index);
+          var arg4 = cst_encode_u_64(amount);
+          var arg5 = cst_encode_bool(isTestnet);
+          var arg6 = cst_encode_String(btcElectrumUrl);
+          var arg7 = cst_encode_String(lbtcElectrumUrl);
+          var arg8 = cst_encode_String(boltzUrl);
+          var arg9 = cst_encode_opt_String(referralId);
+          return wire.wire__boltz__api__chain_swap__chain_swap_new_swap(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+            arg6,
+            arg7,
+            arg8,
+            arg9,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_chain_swap,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiChainSwapChainSwapNewSwapConstMeta,
+        argValues: [
+          direction,
+          mnemonic,
+          passphrase,
+          index,
+          amount,
+          isTestnet,
+          btcElectrumUrl,
+          lbtcElectrumUrl,
+          boltzUrl,
+          referralId,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiChainSwapChainSwapNewSwapConstMeta =>
+      const TaskConstMeta(
+        debugName: "chain_swap_new_swap",
+        argNames: [
+          "direction",
+          "mnemonic",
+          "passphrase",
+          "index",
+          "amount",
+          "isTestnet",
+          "btcElectrumUrl",
+          "lbtcElectrumUrl",
+          "boltzUrl",
+          "referralId",
+        ],
+      );
+
+  @override
+  Future<String> boltzApiChainSwapChainSwapRefund({
+    required ChainSwap that,
+    required String refundAddress,
+    required TxFee minerFee,
+    required bool tryCooperate,
+    ElectrumSettings? btcElectrumSettings,
+    ElectrumSettings? lbtcElectrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_chain_swap(that);
+          var arg1 = cst_encode_String(refundAddress);
+          var arg2 = cst_encode_box_autoadd_tx_fee(minerFee);
+          var arg3 = cst_encode_bool(tryCooperate);
+          var arg4 = cst_encode_opt_box_autoadd_electrum_settings(
+            btcElectrumSettings,
+          );
+          var arg5 = cst_encode_opt_box_autoadd_electrum_settings(
+            lbtcElectrumSettings,
+          );
+          return wire.wire__boltz__api__chain_swap__chain_swap_refund(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiChainSwapChainSwapRefundConstMeta,
+        argValues: [
+          that,
+          refundAddress,
+          minerFee,
+          tryCooperate,
+          btcElectrumSettings,
+          lbtcElectrumSettings,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiChainSwapChainSwapRefundConstMeta =>
+      const TaskConstMeta(
+        debugName: "chain_swap_refund",
+        argNames: [
+          "that",
+          "refundAddress",
+          "minerFee",
+          "tryCooperate",
+          "btcElectrumSettings",
+          "lbtcElectrumSettings",
+        ],
+      );
+
+  @override
+  Future<BigInt> boltzApiChainSwapChainSwapRefundTxSize({
+    required ChainSwap that,
+    required String refundAddress,
+    required bool tryCooperate,
+    ElectrumSettings? btcElectrumSettings,
+    ElectrumSettings? lbtcElectrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_chain_swap(that);
+          var arg1 = cst_encode_String(refundAddress);
+          var arg2 = cst_encode_bool(tryCooperate);
+          var arg3 = cst_encode_opt_box_autoadd_electrum_settings(
+            btcElectrumSettings,
+          );
+          var arg4 = cst_encode_opt_box_autoadd_electrum_settings(
+            lbtcElectrumSettings,
+          );
+          return wire.wire__boltz__api__chain_swap__chain_swap_refund_tx_size(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_usize,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiChainSwapChainSwapRefundTxSizeConstMeta,
+        argValues: [
+          that,
+          refundAddress,
+          tryCooperate,
+          btcElectrumSettings,
+          lbtcElectrumSettings,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiChainSwapChainSwapRefundTxSizeConstMeta =>
+      const TaskConstMeta(
+        debugName: "chain_swap_refund_tx_size",
+        argNames: [
+          "that",
+          "refundAddress",
+          "tryCooperate",
+          "btcElectrumSettings",
+          "lbtcElectrumSettings",
+        ],
+      );
+
+  @override
+  Future<String> boltzApiChainSwapChainSwapToJson({required ChainSwap that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_chain_swap(that);
+          return wire.wire__boltz__api__chain_swap__chain_swap_to_json(
+            port_,
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiChainSwapChainSwapToJsonConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiChainSwapChainSwapToJsonConstMeta =>
+      const TaskConstMeta(debugName: "chain_swap_to_json", argNames: ["that"]);
+
+  @override
+  Future<OutspendStatus> boltzApiTransactionsCheckVout0Outspend({
+    required String swapId,
+    required SwapType swapType,
+    required SwapTxKind txKind,
+    required Chain network,
+    required String boltzUrl,
+    ChainSwapDirection? chainSwapDirection,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(swapId);
+          var arg1 = cst_encode_swap_type(swapType);
+          var arg2 = cst_encode_swap_tx_kind(txKind);
+          var arg3 = cst_encode_chain(network);
+          var arg4 = cst_encode_String(boltzUrl);
+          var arg5 = cst_encode_opt_box_autoadd_chain_swap_direction(
+            chainSwapDirection,
+          );
+          return wire.wire__boltz__api__transactions__check_vout_0_outspend(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_outspend_status,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiTransactionsCheckVout0OutspendConstMeta,
+        argValues: [
+          swapId,
+          swapType,
+          txKind,
+          network,
+          boltzUrl,
+          chainSwapDirection,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiTransactionsCheckVout0OutspendConstMeta =>
+      const TaskConstMeta(
+        debugName: "check_vout_0_outspend",
+        argNames: [
+          "swapId",
+          "swapType",
+          "txKind",
+          "network",
+          "boltzUrl",
+          "chainSwapDirection",
+        ],
+      );
+
+  @override
+  Future<DecodedInvoice> boltzApiTypesDecodedInvoiceFromString({
+    required String s,
+    String? boltzUrl,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(s);
+          var arg1 = cst_encode_opt_String(boltzUrl);
+          return wire.wire__boltz__api__types__decoded_invoice_from_string(
+            port_,
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_decoded_invoice,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiTypesDecodedInvoiceFromStringConstMeta,
+        argValues: [s, boltzUrl],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiTypesDecodedInvoiceFromStringConstMeta =>
+      const TaskConstMeta(
+        debugName: "decoded_invoice_from_string",
+        argNames: ["s", "boltzUrl"],
+      );
+
+  @override
+  Future<Descriptor> lwkApiDescriptorDescriptorNewConfidential({
+    required Network network,
+    required String mnemonic,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_network(network);
+          var arg1 = cst_encode_String(mnemonic);
+          return wire.wire__lwk__api__descriptor__descriptor_new_confidential(
+            port_,
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_descriptor,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiDescriptorDescriptorNewConfidentialConstMeta,
+        argValues: [network, mnemonic],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiDescriptorDescriptorNewConfidentialConstMeta =>
+      const TaskConstMeta(
+        debugName: "descriptor_new_confidential",
+        argNames: ["network", "mnemonic"],
+      );
+
+  @override
+  Future<Uint8List> lwkApiTransactionExtractTxBytes({required String pset}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(pset);
+          return wire.wire__lwk__api__transaction__extract_tx_bytes(
+            port_,
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_list_prim_u_8_strict,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiTransactionExtractTxBytesConstMeta,
+        argValues: [pset],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionExtractTxBytesConstMeta =>
+      const TaskConstMeta(debugName: "extract_tx_bytes", argNames: ["pset"]);
+
+  @override
+  Future<ChainFeesAndLimits> boltzApiFeesFeesChain({required Fees that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_fees(that);
+          return wire.wire__boltz__api__fees__fees_chain(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_chain_fees_and_limits,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiFeesFeesChainConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiFeesFeesChainConstMeta =>
+      const TaskConstMeta(debugName: "fees_chain", argNames: ["that"]);
+
+  @override
+  Future<Fees> boltzApiFeesFeesNew({required String boltzUrl}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(boltzUrl);
+          return wire.wire__boltz__api__fees__fees_new(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_fees,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiFeesFeesNewConstMeta,
+        argValues: [boltzUrl],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiFeesFeesNewConstMeta =>
+      const TaskConstMeta(debugName: "fees_new", argNames: ["boltzUrl"]);
+
+  @override
+  Future<ReverseFeesAndLimits> boltzApiFeesFeesReverse({required Fees that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_fees(that);
+          return wire.wire__boltz__api__fees__fees_reverse(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_reverse_fees_and_limits,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiFeesFeesReverseConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiFeesFeesReverseConstMeta =>
+      const TaskConstMeta(debugName: "fees_reverse", argNames: ["that"]);
+
+  @override
+  Future<SubmarineFeesAndLimits> boltzApiFeesFeesSubmarine({
+    required Fees that,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_fees(that);
+          return wire.wire__boltz__api__fees__fees_submarine(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_submarine_fees_and_limits,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiFeesFeesSubmarineConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiFeesFeesSubmarineConstMeta =>
+      const TaskConstMeta(debugName: "fees_submarine", argNames: ["that"]);
+
+  @override
+  PlatformInt64 lwkApiTypesGetBalanceByAssetId({
+    required List<Balance> balances,
+    required String assetId,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 = cst_encode_list_balance(balances);
+          var arg1 = cst_encode_String(assetId);
+          return wire.wire__lwk__api__types__get_balance_by_asset_id(
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_i_64,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTypesGetBalanceByAssetIdConstMeta,
+        argValues: [balances, assetId],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTypesGetBalanceByAssetIdConstMeta =>
+      const TaskConstMeta(
+        debugName: "get_balance_by_asset_id",
+        argNames: ["balances", "assetId"],
+      );
+
+  @override
+  PlatformInt64 lwkApiTypesGetLbtcBalance({required List<Balance> balances}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 = cst_encode_list_balance(balances);
+          return wire.wire__lwk__api__types__get_lbtc_balance(arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_i_64,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTypesGetLbtcBalanceConstMeta,
+        argValues: [balances],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTypesGetLbtcBalanceConstMeta => const TaskConstMeta(
+    debugName: "get_lbtc_balance",
+    argNames: ["balances"],
+  );
+
+  @override
+  PlatformInt64 lwkApiTypesGetLtestBalance({required List<Balance> balances}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 = cst_encode_list_balance(balances);
+          return wire.wire__lwk__api__types__get_ltest_balance(arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_i_64,
+          decodeErrorData: null,
+        ),
+        constMeta: kLwkApiTypesGetLtestBalanceConstMeta,
+        argValues: [balances],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTypesGetLtestBalanceConstMeta => const TaskConstMeta(
+    debugName: "get_ltest_balance",
+    argNames: ["balances"],
+  );
+
+  @override
+  Future<SizeAndFees> lwkApiTransactionGetSizeAndAbsoluteFees({
+    required String pset,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(pset);
+          return wire.wire__lwk__api__transaction__get_size_and_absolute_fees(
+            port_,
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_size_and_fees,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiTransactionGetSizeAndAbsoluteFeesConstMeta,
+        argValues: [pset],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiTransactionGetSizeAndAbsoluteFeesConstMeta =>
+      const TaskConstMeta(
+        debugName: "get_size_and_absolute_fees",
+        argNames: ["pset"],
+      );
+
+  @override
+  Future<KeyPair> boltzApiTypesKeyPairGenerate({
+    required String mnemonic,
+    String? passphrase,
+    required Chain network,
+    required BigInt index,
+    required SwapType swapType,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(mnemonic);
+          var arg1 = cst_encode_opt_String(passphrase);
+          var arg2 = cst_encode_chain(network);
+          var arg3 = cst_encode_u_64(index);
+          var arg4 = cst_encode_swap_type(swapType);
+          return wire.wire__boltz__api__types__key_pair_generate(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_key_pair,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiTypesKeyPairGenerateConstMeta,
+        argValues: [mnemonic, passphrase, network, index, swapType],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiTypesKeyPairGenerateConstMeta =>
+      const TaskConstMeta(
+        debugName: "key_pair_generate",
+        argNames: ["mnemonic", "passphrase", "network", "index", "swapType"],
+      );
+
+  @override
+  Future<KeyPair> boltzApiTypesKeyPairNew({
+    required String secretKey,
+    required String publicKey,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(secretKey);
+          var arg1 = cst_encode_String(publicKey);
+          return wire.wire__boltz__api__types__key_pair_new(port_, arg0, arg1);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_key_pair,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiTypesKeyPairNewConstMeta,
+        argValues: [secretKey, publicKey],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiTypesKeyPairNewConstMeta => const TaskConstMeta(
+    debugName: "key_pair_new",
+    argNames: ["secretKey", "publicKey"],
+  );
+
+  @override
+  Future<LBtcSwapScriptStr> boltzApiTypesLBtcSwapScriptStrNew({
+    required SwapType swapType,
+    String? fundingAddrs,
+    required String hashlock,
+    required String receiverPubkey,
+    required int locktime,
+    required String senderPubkey,
+    required String blindingKey,
+    Side? side,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_swap_type(swapType);
+          var arg1 = cst_encode_opt_String(fundingAddrs);
+          var arg2 = cst_encode_String(hashlock);
+          var arg3 = cst_encode_String(receiverPubkey);
+          var arg4 = cst_encode_u_32(locktime);
+          var arg5 = cst_encode_String(senderPubkey);
+          var arg6 = cst_encode_String(blindingKey);
+          var arg7 = cst_encode_opt_box_autoadd_side(side);
+          return wire.wire__boltz__api__types__l_btc_swap_script_str_new(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+            arg6,
+            arg7,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_l_btc_swap_script_str,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiTypesLBtcSwapScriptStrNewConstMeta,
+        argValues: [
+          swapType,
+          fundingAddrs,
+          hashlock,
+          receiverPubkey,
+          locktime,
+          senderPubkey,
+          blindingKey,
+          side,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiTypesLBtcSwapScriptStrNewConstMeta =>
+      const TaskConstMeta(
+        debugName: "l_btc_swap_script_str_new",
+        argNames: [
+          "swapType",
+          "fundingAddrs",
+          "hashlock",
+          "receiverPubkey",
+          "locktime",
+          "senderPubkey",
+          "blindingKey",
+          "side",
+        ],
+      );
+
+  @override
+  Future<String> boltzApiLbtcLnLbtcLnSwapBroadcastBoltz({
+    required LbtcLnSwap that,
+    required String signedHex,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_lbtc_ln_swap(that);
+          var arg1 = cst_encode_String(signedHex);
+          return wire.wire__boltz__api__lbtc_ln__lbtc_ln_swap_broadcast_boltz(
+            port_,
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLbtcLnLbtcLnSwapBroadcastBoltzConstMeta,
+        argValues: [that, signedHex],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLbtcLnLbtcLnSwapBroadcastBoltzConstMeta =>
+      const TaskConstMeta(
+        debugName: "lbtc_ln_swap_broadcast_boltz",
+        argNames: ["that", "signedHex"],
+      );
+
+  @override
+  Future<String> boltzApiLbtcLnLbtcLnSwapBroadcastLocal({
+    required LbtcLnSwap that,
+    required String signedHex,
+    ElectrumSettings? electrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_lbtc_ln_swap(that);
+          var arg1 = cst_encode_String(signedHex);
+          var arg2 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
+          return wire.wire__boltz__api__lbtc_ln__lbtc_ln_swap_broadcast_local(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLbtcLnLbtcLnSwapBroadcastLocalConstMeta,
+        argValues: [that, signedHex, electrumSettings],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLbtcLnLbtcLnSwapBroadcastLocalConstMeta =>
+      const TaskConstMeta(
+        debugName: "lbtc_ln_swap_broadcast_local",
+        argNames: ["that", "signedHex", "electrumSettings"],
+      );
+
+  @override
+  Future<String> boltzApiLbtcLnLbtcLnSwapClaim({
+    required LbtcLnSwap that,
+    required String outAddress,
+    required TxFee minerFee,
+    required bool tryCooperate,
+    ElectrumSettings? electrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_lbtc_ln_swap(that);
+          var arg1 = cst_encode_String(outAddress);
+          var arg2 = cst_encode_box_autoadd_tx_fee(minerFee);
+          var arg3 = cst_encode_bool(tryCooperate);
+          var arg4 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
+          return wire.wire__boltz__api__lbtc_ln__lbtc_ln_swap_claim(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLbtcLnLbtcLnSwapClaimConstMeta,
+        argValues: [that, outAddress, minerFee, tryCooperate, electrumSettings],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLbtcLnLbtcLnSwapClaimConstMeta =>
+      const TaskConstMeta(
+        debugName: "lbtc_ln_swap_claim",
+        argNames: [
+          "that",
+          "outAddress",
+          "minerFee",
+          "tryCooperate",
+          "electrumSettings",
+        ],
+      );
+
+  @override
+  Future<BigInt> boltzApiLbtcLnLbtcLnSwapClaimTxSize({
+    required LbtcLnSwap that,
+    required bool isCooperative,
+    ElectrumSettings? electrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_lbtc_ln_swap(that);
+          var arg1 = cst_encode_bool(isCooperative);
+          var arg2 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
+          return wire.wire__boltz__api__lbtc_ln__lbtc_ln_swap_claim_tx_size(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_usize,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLbtcLnLbtcLnSwapClaimTxSizeConstMeta,
+        argValues: [that, isCooperative, electrumSettings],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLbtcLnLbtcLnSwapClaimTxSizeConstMeta =>
+      const TaskConstMeta(
+        debugName: "lbtc_ln_swap_claim_tx_size",
+        argNames: ["that", "isCooperative", "electrumSettings"],
+      );
+
+  @override
+  Future<void> boltzApiLbtcLnLbtcLnSwapCoopCloseSubmarine({
+    required LbtcLnSwap that,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_lbtc_ln_swap(that);
+          return wire
+              .wire__boltz__api__lbtc_ln__lbtc_ln_swap_coop_close_submarine(
+                port_,
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_unit,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLbtcLnLbtcLnSwapCoopCloseSubmarineConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLbtcLnLbtcLnSwapCoopCloseSubmarineConstMeta =>
+      const TaskConstMeta(
+        debugName: "lbtc_ln_swap_coop_close_submarine",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<LbtcLnSwap> boltzApiLbtcLnLbtcLnSwapFromJson({
+    required String jsonStr,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(jsonStr);
+          return wire.wire__boltz__api__lbtc_ln__lbtc_ln_swap_from_json(
+            port_,
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_lbtc_ln_swap,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLbtcLnLbtcLnSwapFromJsonConstMeta,
+        argValues: [jsonStr],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLbtcLnLbtcLnSwapFromJsonConstMeta =>
+      const TaskConstMeta(
+        debugName: "lbtc_ln_swap_from_json",
+        argNames: ["jsonStr"],
+      );
+
+  @override
+  Future<String> boltzApiLbtcLnLbtcLnSwapGetCompletedSubmarinePreimage({
+    required LbtcLnSwap that,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_lbtc_ln_swap(that);
+          return wire
+              .wire__boltz__api__lbtc_ln__lbtc_ln_swap_get_completed_submarine_preimage(
+                port_,
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta:
+            kBoltzApiLbtcLnLbtcLnSwapGetCompletedSubmarinePreimageConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kBoltzApiLbtcLnLbtcLnSwapGetCompletedSubmarinePreimageConstMeta =>
+      const TaskConstMeta(
+        debugName: "lbtc_ln_swap_get_completed_submarine_preimage",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<String> boltzApiLbtcLnLbtcLnSwapGetPreimage({
+    required LbtcLnSwap that,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_lbtc_ln_swap(that);
+          return wire.wire__boltz__api__lbtc_ln__lbtc_ln_swap_get_preimage(
+            port_,
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLbtcLnLbtcLnSwapGetPreimageConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLbtcLnLbtcLnSwapGetPreimageConstMeta =>
+      const TaskConstMeta(
+        debugName: "lbtc_ln_swap_get_preimage",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<LbtcLnSwap> boltzApiLbtcLnLbtcLnSwapNew({
+    required String id,
+    required SwapType kind,
+    required Chain network,
+    required KeyPair keys,
+    required BigInt keyIndex,
+    required PreImage preimage,
+    required LBtcSwapScriptStr swapScript,
+    required String invoice,
+    required BigInt outAmount,
+    required String outAddress,
+    required String blindingKey,
+    required String electrumUrl,
+    required String boltzUrl,
+    String? referralId,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(id);
+          var arg1 = cst_encode_swap_type(kind);
+          var arg2 = cst_encode_chain(network);
+          var arg3 = cst_encode_box_autoadd_key_pair(keys);
+          var arg4 = cst_encode_u_64(keyIndex);
+          var arg5 = cst_encode_box_autoadd_pre_image(preimage);
+          var arg6 = cst_encode_box_autoadd_l_btc_swap_script_str(swapScript);
+          var arg7 = cst_encode_String(invoice);
+          var arg8 = cst_encode_u_64(outAmount);
+          var arg9 = cst_encode_String(outAddress);
+          var arg10 = cst_encode_String(blindingKey);
+          var arg11 = cst_encode_String(electrumUrl);
+          var arg12 = cst_encode_String(boltzUrl);
+          var arg13 = cst_encode_opt_String(referralId);
+          return wire.wire__boltz__api__lbtc_ln__lbtc_ln_swap_new(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+            arg6,
+            arg7,
+            arg8,
+            arg9,
+            arg10,
+            arg11,
+            arg12,
+            arg13,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_lbtc_ln_swap,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiLbtcLnLbtcLnSwapNewConstMeta,
+        argValues: [
+          id,
+          kind,
+          network,
+          keys,
+          keyIndex,
+          preimage,
+          swapScript,
+          invoice,
+          outAmount,
+          outAddress,
+          blindingKey,
+          electrumUrl,
+          boltzUrl,
+          referralId,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLbtcLnLbtcLnSwapNewConstMeta =>
+      const TaskConstMeta(
+        debugName: "lbtc_ln_swap_new",
+        argNames: [
+          "id",
+          "kind",
+          "network",
+          "keys",
+          "keyIndex",
+          "preimage",
+          "swapScript",
+          "invoice",
+          "outAmount",
+          "outAddress",
+          "blindingKey",
+          "electrumUrl",
+          "boltzUrl",
+          "referralId",
+        ],
+      );
+
+  @override
+  Future<LbtcLnSwap> boltzApiLbtcLnLbtcLnSwapNewReverse({
+    required String mnemonic,
+    String? passphrase,
+    required BigInt index,
+    required BigInt outAmount,
+    String? outAddress,
+    required Chain network,
+    required String electrumUrl,
+    required String boltzUrl,
+    String? description,
+    String? referralId,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(mnemonic);
+          var arg1 = cst_encode_opt_String(passphrase);
+          var arg2 = cst_encode_u_64(index);
+          var arg3 = cst_encode_u_64(outAmount);
+          var arg4 = cst_encode_opt_String(outAddress);
+          var arg5 = cst_encode_chain(network);
+          var arg6 = cst_encode_String(electrumUrl);
+          var arg7 = cst_encode_String(boltzUrl);
+          var arg8 = cst_encode_opt_String(description);
+          var arg9 = cst_encode_opt_String(referralId);
+          return wire.wire__boltz__api__lbtc_ln__lbtc_ln_swap_new_reverse(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+            arg6,
+            arg7,
+            arg8,
+            arg9,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_lbtc_ln_swap,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLbtcLnLbtcLnSwapNewReverseConstMeta,
+        argValues: [
+          mnemonic,
+          passphrase,
+          index,
+          outAmount,
+          outAddress,
+          network,
+          electrumUrl,
+          boltzUrl,
+          description,
+          referralId,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLbtcLnLbtcLnSwapNewReverseConstMeta =>
+      const TaskConstMeta(
+        debugName: "lbtc_ln_swap_new_reverse",
+        argNames: [
+          "mnemonic",
+          "passphrase",
+          "index",
+          "outAmount",
+          "outAddress",
+          "network",
+          "electrumUrl",
+          "boltzUrl",
+          "description",
+          "referralId",
+        ],
+      );
+
+  @override
+  Future<LbtcLnSwap> boltzApiLbtcLnLbtcLnSwapNewSubmarine({
+    required String mnemonic,
+    String? passphrase,
+    required BigInt index,
+    required String invoice,
+    required Chain network,
+    required String electrumUrl,
+    required String boltzUrl,
+    String? referralId,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(mnemonic);
+          var arg1 = cst_encode_opt_String(passphrase);
+          var arg2 = cst_encode_u_64(index);
+          var arg3 = cst_encode_String(invoice);
+          var arg4 = cst_encode_chain(network);
+          var arg5 = cst_encode_String(electrumUrl);
+          var arg6 = cst_encode_String(boltzUrl);
+          var arg7 = cst_encode_opt_String(referralId);
+          return wire.wire__boltz__api__lbtc_ln__lbtc_ln_swap_new_submarine(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+            arg6,
+            arg7,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_lbtc_ln_swap,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLbtcLnLbtcLnSwapNewSubmarineConstMeta,
+        argValues: [
+          mnemonic,
+          passphrase,
+          index,
+          invoice,
+          network,
+          electrumUrl,
+          boltzUrl,
+          referralId,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLbtcLnLbtcLnSwapNewSubmarineConstMeta =>
+      const TaskConstMeta(
+        debugName: "lbtc_ln_swap_new_submarine",
+        argNames: [
+          "mnemonic",
+          "passphrase",
+          "index",
+          "invoice",
+          "network",
+          "electrumUrl",
+          "boltzUrl",
+          "referralId",
+        ],
+      );
+
+  @override
+  Future<String> boltzApiLbtcLnLbtcLnSwapRefund({
+    required LbtcLnSwap that,
+    required String outAddress,
+    required TxFee minerFee,
+    required bool tryCooperate,
+    ElectrumSettings? electrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_lbtc_ln_swap(that);
+          var arg1 = cst_encode_String(outAddress);
+          var arg2 = cst_encode_box_autoadd_tx_fee(minerFee);
+          var arg3 = cst_encode_bool(tryCooperate);
+          var arg4 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
+          return wire.wire__boltz__api__lbtc_ln__lbtc_ln_swap_refund(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLbtcLnLbtcLnSwapRefundConstMeta,
+        argValues: [that, outAddress, minerFee, tryCooperate, electrumSettings],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLbtcLnLbtcLnSwapRefundConstMeta =>
+      const TaskConstMeta(
+        debugName: "lbtc_ln_swap_refund",
+        argNames: [
+          "that",
+          "outAddress",
+          "minerFee",
+          "tryCooperate",
+          "electrumSettings",
+        ],
+      );
+
+  @override
+  Future<BigInt> boltzApiLbtcLnLbtcLnSwapRefundTxSize({
+    required LbtcLnSwap that,
+    required bool isCooperative,
+    ElectrumSettings? electrumSettings,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_lbtc_ln_swap(that);
+          var arg1 = cst_encode_bool(isCooperative);
+          var arg2 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
+          return wire.wire__boltz__api__lbtc_ln__lbtc_ln_swap_refund_tx_size(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_usize,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLbtcLnLbtcLnSwapRefundTxSizeConstMeta,
+        argValues: [that, isCooperative, electrumSettings],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLbtcLnLbtcLnSwapRefundTxSizeConstMeta =>
+      const TaskConstMeta(
+        debugName: "lbtc_ln_swap_refund_tx_size",
+        argNames: ["that", "isCooperative", "electrumSettings"],
+      );
+
+  @override
+  Future<String> boltzApiLbtcLnLbtcLnSwapToJson({required LbtcLnSwap that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_lbtc_ln_swap(that);
+          return wire.wire__boltz__api__lbtc_ln__lbtc_ln_swap_to_json(
+            port_,
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLbtcLnLbtcLnSwapToJsonConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLbtcLnLbtcLnSwapToJsonConstMeta =>
+      const TaskConstMeta(
+        debugName: "lbtc_ln_swap_to_json",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<String> boltzApiLnurlLnurlFetchInvoice({
+    required Lnurl that,
+    required BigInt msats,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_lnurl(that);
+          var arg1 = cst_encode_u_64(msats);
+          return wire.wire__boltz__api__lnurl__lnurl_fetch_invoice(
+            port_,
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLnurlLnurlFetchInvoiceConstMeta,
+        argValues: [that, msats],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLnurlLnurlFetchInvoiceConstMeta =>
+      const TaskConstMeta(
+        debugName: "lnurl_fetch_invoice",
+        argNames: ["that", "msats"],
+      );
+
+  @override
+  Future<BigInt> boltzApiLnurlLnurlGetVoucherMaxAmount({required Lnurl that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_lnurl(that);
+          return wire.wire__boltz__api__lnurl__lnurl_get_voucher_max_amount(
+            port_,
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_u_64,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLnurlLnurlGetVoucherMaxAmountConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLnurlLnurlGetVoucherMaxAmountConstMeta =>
+      const TaskConstMeta(
+        debugName: "lnurl_get_voucher_max_amount",
+        argNames: ["that"],
+      );
+
+  @override
+  Future<Lnurl> boltzApiLnurlLnurlNew({required String value}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(value);
+          return wire.wire__boltz__api__lnurl__lnurl_new(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_lnurl,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiLnurlLnurlNewConstMeta,
+        argValues: [value],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLnurlLnurlNewConstMeta =>
+      const TaskConstMeta(debugName: "lnurl_new", argNames: ["value"]);
+
+  @override
+  Future<bool> boltzApiLnurlLnurlValidate({required Lnurl that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_lnurl(that);
+          return wire.wire__boltz__api__lnurl__lnurl_validate(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiLnurlLnurlValidateConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLnurlLnurlValidateConstMeta =>
+      const TaskConstMeta(debugName: "lnurl_validate", argNames: ["that"]);
+
+  @override
+  Future<void> boltzApiLnurlLnurlWithdraw({
+    required Lnurl that,
+    required String invoice,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_lnurl(that);
+          var arg1 = cst_encode_String(invoice);
+          return wire.wire__boltz__api__lnurl__lnurl_withdraw(
+            port_,
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_unit,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiLnurlLnurlWithdrawConstMeta,
+        argValues: [that, invoice],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiLnurlLnurlWithdrawConstMeta => const TaskConstMeta(
+    debugName: "lnurl_withdraw",
+    argNames: ["that", "invoice"],
+  );
+
+  @override
+  Future<PreImage> boltzApiTypesPreImageGenerate() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          return wire.wire__boltz__api__types__pre_image_generate(port_);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_pre_image,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiTypesPreImageGenerateConstMeta,
         argValues: [],
         apiImpl: this,
       ),
     );
   }
 
-  TaskConstMeta get kCrateApiSimpleInitAppConstMeta =>
-      const TaskConstMeta(debugName: "init_app", argNames: []);
+  TaskConstMeta get kBoltzApiTypesPreImageGenerateConstMeta =>
+      const TaskConstMeta(debugName: "pre_image_generate", argNames: []);
+
+  @override
+  Future<PreImage> boltzApiTypesPreImageNew({
+    required String value,
+    required String sha256,
+    required String hash160,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(value);
+          var arg1 = cst_encode_String(sha256);
+          var arg2 = cst_encode_String(hash160);
+          return wire.wire__boltz__api__types__pre_image_new(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_pre_image,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiTypesPreImageNewConstMeta,
+        argValues: [value, sha256, hash160],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiTypesPreImageNewConstMeta => const TaskConstMeta(
+    debugName: "pre_image_new",
+    argNames: ["value", "sha256", "hash160"],
+  );
+
+  @override
+  String boltzApiSwapStatusSwapStatusAsString({required SwapStatus that}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 = cst_encode_swap_status(that);
+          return wire.wire__boltz__api__swap_status__swap_status_as_string(
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiSwapStatusSwapStatusAsStringConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiSwapStatusSwapStatusAsStringConstMeta =>
+      const TaskConstMeta(
+        debugName: "swap_status_as_string",
+        argNames: ["that"],
+      );
+
+  @override
+  SwapStatus boltzApiSwapStatusSwapStatusFromJsonString({
+    required String status,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 = cst_encode_String(status);
+          return wire
+              .wire__boltz__api__swap_status__swap_status_from_json_string(
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_swap_status,
+          decodeErrorData: dco_decode_String,
+        ),
+        constMeta: kBoltzApiSwapStatusSwapStatusFromJsonStringConstMeta,
+        argValues: [status],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiSwapStatusSwapStatusFromJsonStringConstMeta =>
+      const TaskConstMeta(
+        debugName: "swap_status_from_json_string",
+        argNames: ["status"],
+      );
+
+  @override
+  SwapStatusResponse boltzApiSwapStatusSwapStatusResponseFromJson({
+    required String json,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 = cst_encode_String(json);
+          return wire
+              .wire__boltz__api__swap_status__swap_status_response_from_json(
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_swap_status_response,
+          decodeErrorData: dco_decode_String,
+        ),
+        constMeta: kBoltzApiSwapStatusSwapStatusResponseFromJsonConstMeta,
+        argValues: [json],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiSwapStatusSwapStatusResponseFromJsonConstMeta =>
+      const TaskConstMeta(
+        debugName: "swap_status_response_from_json",
+        argNames: ["json"],
+      );
+
+  @override
+  String boltzApiSwapStatusSwapStatusToJsonString({required SwapStatus that}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 = cst_encode_swap_status(that);
+          return wire.wire__boltz__api__swap_status__swap_status_to_json_string(
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiSwapStatusSwapStatusToJsonStringConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiSwapStatusSwapStatusToJsonStringConstMeta =>
+      const TaskConstMeta(
+        debugName: "swap_status_to_json_string",
+        argNames: ["that"],
+      );
+
+  @override
+  SwapStreamStatus boltzApiSwapStatusSwapStreamStatusFromJson({
+    required String json,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 = cst_encode_String(json);
+          return wire
+              .wire__boltz__api__swap_status__swap_stream_status_from_json(
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_swap_stream_status,
+          decodeErrorData: dco_decode_String,
+        ),
+        constMeta: kBoltzApiSwapStatusSwapStreamStatusFromJsonConstMeta,
+        argValues: [json],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiSwapStatusSwapStreamStatusFromJsonConstMeta =>
+      const TaskConstMeta(
+        debugName: "swap_stream_status_from_json",
+        argNames: ["json"],
+      );
+
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_LiquidTransaction => wire
+      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_LiquidTransaction => wire
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction;
+
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_PartiallySignedElementsTransaction => wire
+      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_PartiallySignedElementsTransaction => wire
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction;
+
+  RustArcIncrementStrongCountFnType
+  get rust_arc_increment_strong_count_Wallet => wire
+      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet;
+
+  RustArcDecrementStrongCountFnType
+  get rust_arc_decrement_strong_count_Wallet => wire
+      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet;
+
+  @protected
+  LiquidTransaction
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return LiquidTransactionImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  PartiallySignedElementsTransaction
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return PartiallySignedElementsTransactionImpl.frbInternalDcoDecode(
+      raw as List<dynamic>,
+    );
+  }
+
+  @protected
+  Wallet
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return WalletImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  LiquidTransaction
+  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return LiquidTransactionImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  PartiallySignedElementsTransaction
+  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return PartiallySignedElementsTransactionImpl.frbInternalDcoDecode(
+      raw as List<dynamic>,
+    );
+  }
+
+  @protected
+  Wallet
+  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return WalletImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  LiquidTransaction
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return LiquidTransactionImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
+
+  @protected
+  PartiallySignedElementsTransaction
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return PartiallySignedElementsTransactionImpl.frbInternalDcoDecode(
+      raw as List<dynamic>,
+    );
+  }
+
+  @protected
+  Wallet
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return WalletImpl.frbInternalDcoDecode(raw as List<dynamic>);
+  }
 
   @protected
   String dco_decode_String(dynamic raw) {
@@ -147,9 +5759,953 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  Address dco_decode_address(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return Address(
+      standard: dco_decode_String(arr[0]),
+      confidential: dco_decode_String(arr[1]),
+      index: dco_decode_opt_box_autoadd_u_32(arr[2]),
+      blindingKey: dco_decode_opt_String(arr[3]),
+    );
+  }
+
+  @protected
+  Balance dco_decode_balance(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return Balance(
+      assetId: dco_decode_String(arr[0]),
+      value: dco_decode_i_64(arr[1]),
+    );
+  }
+
+  @protected
+  Blockchain dco_decode_blockchain(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.isNotEmpty)
+      throw Exception('unexpected arr length: expect 0 but see ${arr.length}');
+    return Blockchain();
+  }
+
+  @protected
+  BoltzError dco_decode_boltz_error(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return BoltzError(
+      kind: dco_decode_String(arr[0]),
+      message: dco_decode_String(arr[1]),
+    );
+  }
+
+  @protected
+  bool dco_decode_bool(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as bool;
+  }
+
+  @protected
+  Blockchain dco_decode_box_autoadd_blockchain(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_blockchain(raw);
+  }
+
+  @protected
+  BoltzError dco_decode_box_autoadd_boltz_error(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_boltz_error(raw);
+  }
+
+  @protected
+  BtcLnSwap dco_decode_box_autoadd_btc_ln_swap(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_btc_ln_swap(raw);
+  }
+
+  @protected
+  BtcSwapScriptStr dco_decode_box_autoadd_btc_swap_script_str(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_btc_swap_script_str(raw);
+  }
+
+  @protected
+  ChainSwap dco_decode_box_autoadd_chain_swap(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_chain_swap(raw);
+  }
+
+  @protected
+  ChainSwapDirection dco_decode_box_autoadd_chain_swap_direction(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_chain_swap_direction(raw);
+  }
+
+  @protected
+  Descriptor dco_decode_box_autoadd_descriptor(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_descriptor(raw);
+  }
+
+  @protected
+  ElectrumSettings dco_decode_box_autoadd_electrum_settings(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_electrum_settings(raw);
+  }
+
+  @protected
+  Fees dco_decode_box_autoadd_fees(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_fees(raw);
+  }
+
+  @protected
+  KeyPair dco_decode_box_autoadd_key_pair(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_key_pair(raw);
+  }
+
+  @protected
+  LBtcSwapScriptStr dco_decode_box_autoadd_l_btc_swap_script_str(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_l_btc_swap_script_str(raw);
+  }
+
+  @protected
+  LbtcLnSwap dco_decode_box_autoadd_lbtc_ln_swap(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_lbtc_ln_swap(raw);
+  }
+
+  @protected
+  Lnurl dco_decode_box_autoadd_lnurl(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_lnurl(raw);
+  }
+
+  @protected
+  PreImage dco_decode_box_autoadd_pre_image(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_pre_image(raw);
+  }
+
+  @protected
+  PsetInput dco_decode_box_autoadd_pset_input(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_pset_input(raw);
+  }
+
+  @protected
+  PsetOutput dco_decode_box_autoadd_pset_output(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_pset_output(raw);
+  }
+
+  @protected
+  Side dco_decode_box_autoadd_side(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_side(raw);
+  }
+
+  @protected
+  Transaction dco_decode_box_autoadd_transaction(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_transaction(raw);
+  }
+
+  @protected
+  TxFee dco_decode_box_autoadd_tx_fee(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_tx_fee(raw);
+  }
+
+  @protected
+  TxInput dco_decode_box_autoadd_tx_input(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_tx_input(raw);
+  }
+
+  @protected
+  TxOutput dco_decode_box_autoadd_tx_output(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_tx_output(raw);
+  }
+
+  @protected
+  int dco_decode_box_autoadd_u_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
+  BigInt dco_decode_box_autoadd_u_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_u_64(raw);
+  }
+
+  @protected
+  int dco_decode_box_autoadd_u_8(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
+  BtcLnSwap dco_decode_btc_ln_swap(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 13)
+      throw Exception('unexpected arr length: expect 13 but see ${arr.length}');
+    return BtcLnSwap(
+      id: dco_decode_String(arr[0]),
+      kind: dco_decode_swap_type(arr[1]),
+      network: dco_decode_chain(arr[2]),
+      keys: dco_decode_key_pair(arr[3]),
+      keyIndex: dco_decode_u_64(arr[4]),
+      preimage: dco_decode_pre_image(arr[5]),
+      swapScript: dco_decode_btc_swap_script_str(arr[6]),
+      invoice: dco_decode_String(arr[7]),
+      scriptAddress: dco_decode_String(arr[8]),
+      outAmount: dco_decode_u_64(arr[9]),
+      electrumUrl: dco_decode_String(arr[10]),
+      boltzUrl: dco_decode_String(arr[11]),
+      referralId: dco_decode_opt_String(arr[12]),
+    );
+  }
+
+  @protected
+  BtcSwapScriptStr dco_decode_btc_swap_script_str(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 7)
+      throw Exception('unexpected arr length: expect 7 but see ${arr.length}');
+    return BtcSwapScriptStr(
+      swapType: dco_decode_swap_type(arr[0]),
+      fundingAddrs: dco_decode_opt_String(arr[1]),
+      hashlock: dco_decode_String(arr[2]),
+      receiverPubkey: dco_decode_String(arr[3]),
+      locktime: dco_decode_u_32(arr[4]),
+      senderPubkey: dco_decode_String(arr[5]),
+      side: dco_decode_opt_box_autoadd_side(arr[6]),
+    );
+  }
+
+  @protected
+  Chain dco_decode_chain(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Chain.values[raw as int];
+  }
+
+  @protected
+  ChainFeesAndLimits dco_decode_chain_fees_and_limits(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return ChainFeesAndLimits(
+      btcLimits: dco_decode_swap_limits(arr[0]),
+      lbtcLimits: dco_decode_swap_limits(arr[1]),
+      btcFees: dco_decode_chain_swap_fees(arr[2]),
+      lbtcFees: dco_decode_chain_swap_fees(arr[3]),
+    );
+  }
+
+  @protected
+  ChainSwap dco_decode_chain_swap(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 17)
+      throw Exception('unexpected arr length: expect 17 but see ${arr.length}');
+    return ChainSwap(
+      id: dco_decode_String(arr[0]),
+      isTestnet: dco_decode_bool(arr[1]),
+      direction: dco_decode_chain_swap_direction(arr[2]),
+      refundKeys: dco_decode_key_pair(arr[3]),
+      refundIndex: dco_decode_u_64(arr[4]),
+      claimKeys: dco_decode_key_pair(arr[5]),
+      claimIndex: dco_decode_u_64(arr[6]),
+      preimage: dco_decode_pre_image(arr[7]),
+      btcScriptStr: dco_decode_btc_swap_script_str(arr[8]),
+      lbtcScriptStr: dco_decode_l_btc_swap_script_str(arr[9]),
+      scriptAddress: dco_decode_String(arr[10]),
+      outAmount: dco_decode_u_64(arr[11]),
+      btcElectrumUrl: dco_decode_String(arr[12]),
+      lbtcElectrumUrl: dco_decode_String(arr[13]),
+      boltzUrl: dco_decode_String(arr[14]),
+      referralId: dco_decode_opt_String(arr[15]),
+      blindingKey: dco_decode_String(arr[16]),
+    );
+  }
+
+  @protected
+  ChainSwapDirection dco_decode_chain_swap_direction(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return ChainSwapDirection.values[raw as int];
+  }
+
+  @protected
+  ChainSwapFees dco_decode_chain_swap_fees(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return ChainSwapFees(
+      percentage: dco_decode_f_64(arr[0]),
+      userLockup: dco_decode_u_64(arr[1]),
+      userClaim: dco_decode_u_64(arr[2]),
+      server: dco_decode_u_64(arr[3]),
+    );
+  }
+
+  @protected
+  DecodedInvoice dco_decode_decoded_invoice(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 10)
+      throw Exception('unexpected arr length: expect 10 but see ${arr.length}');
+    return DecodedInvoice(
+      msats: dco_decode_u_64(arr[0]),
+      expiry: dco_decode_u_64(arr[1]),
+      expiresIn: dco_decode_u_64(arr[2]),
+      expiresAt: dco_decode_u_64(arr[3]),
+      isExpired: dco_decode_bool(arr[4]),
+      network: dco_decode_String(arr[5]),
+      cltvExpDelta: dco_decode_u_64(arr[6]),
+      bip21: dco_decode_opt_String(arr[7]),
+      preimageHash: dco_decode_String(arr[8]),
+      description: dco_decode_String(arr[9]),
+    );
+  }
+
+  @protected
+  Descriptor dco_decode_descriptor(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return Descriptor(ctDescriptor: dco_decode_String(arr[0]));
+  }
+
+  @protected
+  ElectrumSettings dco_decode_electrum_settings(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return ElectrumSettings(
+      url: dco_decode_String(arr[0]),
+      validateDomain: dco_decode_bool(arr[1]),
+      tls: dco_decode_bool(arr[2]),
+      timeout: dco_decode_u_8(arr[3]),
+    );
+  }
+
+  @protected
+  double dco_decode_f_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as double;
+  }
+
+  @protected
+  double dco_decode_f_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as double;
+  }
+
+  @protected
+  Fees dco_decode_fees(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return Fees(boltzUrl: dco_decode_String(arr[0]));
+  }
+
+  @protected
+  int dco_decode_i_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
+  PlatformInt64 dco_decode_i_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeI64(raw);
+  }
+
+  @protected
+  KeyPair dco_decode_key_pair(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return KeyPair(
+      secretKey: dco_decode_String(arr[0]),
+      publicKey: dco_decode_String(arr[1]),
+    );
+  }
+
+  @protected
+  LBtcSwapScriptStr dco_decode_l_btc_swap_script_str(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 8)
+      throw Exception('unexpected arr length: expect 8 but see ${arr.length}');
+    return LBtcSwapScriptStr(
+      swapType: dco_decode_swap_type(arr[0]),
+      fundingAddrs: dco_decode_opt_String(arr[1]),
+      hashlock: dco_decode_String(arr[2]),
+      receiverPubkey: dco_decode_String(arr[3]),
+      locktime: dco_decode_u_32(arr[4]),
+      senderPubkey: dco_decode_String(arr[5]),
+      blindingKey: dco_decode_String(arr[6]),
+      side: dco_decode_opt_box_autoadd_side(arr[7]),
+    );
+  }
+
+  @protected
+  LbtcLnSwap dco_decode_lbtc_ln_swap(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 14)
+      throw Exception('unexpected arr length: expect 14 but see ${arr.length}');
+    return LbtcLnSwap(
+      id: dco_decode_String(arr[0]),
+      kind: dco_decode_swap_type(arr[1]),
+      network: dco_decode_chain(arr[2]),
+      keys: dco_decode_key_pair(arr[3]),
+      keyIndex: dco_decode_u_64(arr[4]),
+      preimage: dco_decode_pre_image(arr[5]),
+      swapScript: dco_decode_l_btc_swap_script_str(arr[6]),
+      invoice: dco_decode_String(arr[7]),
+      outAmount: dco_decode_u_64(arr[8]),
+      scriptAddress: dco_decode_String(arr[9]),
+      blindingKey: dco_decode_String(arr[10]),
+      electrumUrl: dco_decode_String(arr[11]),
+      boltzUrl: dco_decode_String(arr[12]),
+      referralId: dco_decode_opt_String(arr[13]),
+    );
+  }
+
+  @protected
+  List<String> dco_decode_list_String(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_String).toList();
+  }
+
+  @protected
+  List<Balance> dco_decode_list_balance(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_balance).toList();
+  }
+
+  @protected
+  List<int> dco_decode_list_prim_u_8_loose(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as List<int>;
+  }
+
+  @protected
   Uint8List dco_decode_list_prim_u_8_strict(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as Uint8List;
+  }
+
+  @protected
+  List<PsetInput> dco_decode_list_pset_input(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_pset_input).toList();
+  }
+
+  @protected
+  List<PsetOutput> dco_decode_list_pset_output(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_pset_output).toList();
+  }
+
+  @protected
+  List<Tx> dco_decode_list_tx(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_tx).toList();
+  }
+
+  @protected
+  List<TxInput> dco_decode_list_tx_input(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_tx_input).toList();
+  }
+
+  @protected
+  List<TxOut> dco_decode_list_tx_out(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_tx_out).toList();
+  }
+
+  @protected
+  List<TxOutSecrets> dco_decode_list_tx_out_secrets(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_tx_out_secrets).toList();
+  }
+
+  @protected
+  List<TxOutput> dco_decode_list_tx_output(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_tx_output).toList();
+  }
+
+  @protected
+  Lnurl dco_decode_lnurl(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return Lnurl(value: dco_decode_String(arr[0]));
+  }
+
+  @protected
+  LwkError dco_decode_lwk_error(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 1)
+      throw Exception('unexpected arr length: expect 1 but see ${arr.length}');
+    return LwkError(msg: dco_decode_String(arr[0]));
+  }
+
+  @protected
+  MinerFees dco_decode_miner_fees(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return MinerFees(
+      lockup: dco_decode_u_64(arr[0]),
+      claim: dco_decode_u_64(arr[1]),
+    );
+  }
+
+  @protected
+  Network dco_decode_network(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Network.values[raw as int];
+  }
+
+  @protected
+  String? dco_decode_opt_String(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_String(raw);
+  }
+
+  @protected
+  ChainSwapDirection? dco_decode_opt_box_autoadd_chain_swap_direction(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null
+        ? null
+        : dco_decode_box_autoadd_chain_swap_direction(raw);
+  }
+
+  @protected
+  ElectrumSettings? dco_decode_opt_box_autoadd_electrum_settings(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_electrum_settings(raw);
+  }
+
+  @protected
+  PsetInput? dco_decode_opt_box_autoadd_pset_input(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_pset_input(raw);
+  }
+
+  @protected
+  PsetOutput? dco_decode_opt_box_autoadd_pset_output(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_pset_output(raw);
+  }
+
+  @protected
+  Side? dco_decode_opt_box_autoadd_side(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_side(raw);
+  }
+
+  @protected
+  Transaction? dco_decode_opt_box_autoadd_transaction(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_transaction(raw);
+  }
+
+  @protected
+  TxInput? dco_decode_opt_box_autoadd_tx_input(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_tx_input(raw);
+  }
+
+  @protected
+  TxOutput? dco_decode_opt_box_autoadd_tx_output(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_tx_output(raw);
+  }
+
+  @protected
+  int? dco_decode_opt_box_autoadd_u_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_u_32(raw);
+  }
+
+  @protected
+  BigInt? dco_decode_opt_box_autoadd_u_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_u_64(raw);
+  }
+
+  @protected
+  int? dco_decode_opt_box_autoadd_u_8(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_box_autoadd_u_8(raw);
+  }
+
+  @protected
+  OutPoint dco_decode_out_point(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return OutPoint(
+      txid: dco_decode_String(arr[0]),
+      vout: dco_decode_u_32(arr[1]),
+    );
+  }
+
+  @protected
+  OutspendStatus dco_decode_outspend_status(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return OutspendStatus(
+      kind: dco_decode_swap_tx_kind(arr[0]),
+      txid: dco_decode_opt_String(arr[1]),
+      timestamp: dco_decode_opt_box_autoadd_u_64(arr[2]),
+    );
+  }
+
+  @protected
+  PayjoinTx dco_decode_payjoin_tx(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return PayjoinTx(
+      pset: dco_decode_String(arr[0]),
+      networkFee: dco_decode_u_64(arr[1]),
+      assetFee: dco_decode_u_64(arr[2]),
+      unblindedOutputs: dco_decode_list_tx_out_secrets(arr[3]),
+    );
+  }
+
+  @protected
+  PreImage dco_decode_pre_image(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return PreImage(
+      value: dco_decode_String(arr[0]),
+      sha256: dco_decode_String(arr[1]),
+      hash160: dco_decode_String(arr[2]),
+    );
+  }
+
+  @protected
+  PsetAmounts dco_decode_pset_amounts(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return PsetAmounts(
+      absoluteFees: dco_decode_u_64(arr[0]),
+      balances: dco_decode_list_balance(arr[1]),
+    );
+  }
+
+  @protected
+  PsetInput dco_decode_pset_input(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return PsetInput(
+      witnessUtxoScript: dco_decode_opt_String(arr[0]),
+      witnessUtxoAmount: dco_decode_opt_box_autoadd_u_64(arr[1]),
+      witnessUtxoAsset: dco_decode_opt_String(arr[2]),
+    );
+  }
+
+  @protected
+  PsetOutput dco_decode_pset_output(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return PsetOutput(
+      scriptPubkey: dco_decode_String(arr[0]),
+      amount: dco_decode_opt_box_autoadd_u_64(arr[1]),
+      asset: dco_decode_opt_String(arr[2]),
+      blindingKey: dco_decode_opt_String(arr[3]),
+    );
+  }
+
+  @protected
+  RevSwapFees dco_decode_rev_swap_fees(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return RevSwapFees(
+      percentage: dco_decode_f_64(arr[0]),
+      minerFees: dco_decode_miner_fees(arr[1]),
+    );
+  }
+
+  @protected
+  ReverseFeesAndLimits dco_decode_reverse_fees_and_limits(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return ReverseFeesAndLimits(
+      btcLimits: dco_decode_swap_limits(arr[0]),
+      lbtcLimits: dco_decode_swap_limits(arr[1]),
+      btcFees: dco_decode_rev_swap_fees(arr[2]),
+      lbtcFees: dco_decode_rev_swap_fees(arr[3]),
+    );
+  }
+
+  @protected
+  Side dco_decode_side(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return Side.values[raw as int];
+  }
+
+  @protected
+  SizeAndFees dco_decode_size_and_fees(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return SizeAndFees(
+      discountedVsize: dco_decode_usize(arr[0]),
+      discountedWeight: dco_decode_usize(arr[1]),
+      absoluteFees: dco_decode_list_balance(arr[2]),
+    );
+  }
+
+  @protected
+  SubSwapFees dco_decode_sub_swap_fees(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return SubSwapFees(
+      percentage: dco_decode_f_64(arr[0]),
+      minerFees: dco_decode_u_64(arr[1]),
+    );
+  }
+
+  @protected
+  SubmarineFeesAndLimits dco_decode_submarine_fees_and_limits(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return SubmarineFeesAndLimits(
+      btcLimits: dco_decode_swap_limits(arr[0]),
+      lbtcLimits: dco_decode_swap_limits(arr[1]),
+      btcFees: dco_decode_sub_swap_fees(arr[2]),
+      lbtcFees: dco_decode_sub_swap_fees(arr[3]),
+    );
+  }
+
+  @protected
+  SwapLimits dco_decode_swap_limits(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return SwapLimits(
+      minimal: dco_decode_u_64(arr[0]),
+      maximal: dco_decode_u_64(arr[1]),
+    );
+  }
+
+  @protected
+  SwapStatus dco_decode_swap_status(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return SwapStatus.values[raw as int];
+  }
+
+  @protected
+  SwapStatusResponse dco_decode_swap_status_response(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return SwapStatusResponse(
+      status: dco_decode_swap_status(arr[0]),
+      transaction: dco_decode_opt_box_autoadd_transaction(arr[1]),
+      failureReason: dco_decode_opt_String(arr[2]),
+      error: dco_decode_opt_String(arr[3]),
+    );
+  }
+
+  @protected
+  SwapStreamStatus dco_decode_swap_stream_status(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return SwapStreamStatus(
+      id: dco_decode_String(arr[0]),
+      status: dco_decode_swap_status(arr[1]),
+      error: dco_decode_opt_String(arr[2]),
+      transaction: dco_decode_opt_box_autoadd_transaction(arr[3]),
+    );
+  }
+
+  @protected
+  SwapTxKind dco_decode_swap_tx_kind(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return SwapTxKind.values[raw as int];
+  }
+
+  @protected
+  SwapType dco_decode_swap_type(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return SwapType.values[raw as int];
+  }
+
+  @protected
+  Transaction dco_decode_transaction(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return Transaction(
+      id: dco_decode_String(arr[0]),
+      hex: dco_decode_String(arr[1]),
+      eta: dco_decode_opt_box_autoadd_u_32(arr[2]),
+    );
+  }
+
+  @protected
+  Tx dco_decode_tx(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 10)
+      throw Exception('unexpected arr length: expect 10 but see ${arr.length}');
+    return Tx(
+      timestamp: dco_decode_opt_box_autoadd_u_32(arr[0]),
+      kind: dco_decode_String(arr[1]),
+      balances: dco_decode_list_balance(arr[2]),
+      txid: dco_decode_String(arr[3]),
+      outputs: dco_decode_list_tx_out(arr[4]),
+      inputs: dco_decode_list_tx_out(arr[5]),
+      fee: dco_decode_u_64(arr[6]),
+      height: dco_decode_opt_box_autoadd_u_32(arr[7]),
+      unblindedUrl: dco_decode_String(arr[8]),
+      vsize: dco_decode_usize(arr[9]),
+    );
+  }
+
+  @protected
+  TxFee dco_decode_tx_fee(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return TxFee_Absolute(dco_decode_u_64(raw[1]));
+      case 1:
+        return TxFee_Relative(dco_decode_f_64(raw[1]));
+      default:
+        throw Exception("unreachable");
+    }
+  }
+
+  @protected
+  TxInput dco_decode_tx_input(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 6)
+      throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
+    return TxInput(
+      txid: dco_decode_String(arr[0]),
+      vout: dco_decode_u_32(arr[1]),
+      scriptSig: dco_decode_String(arr[2]),
+      sequence: dco_decode_u_32(arr[3]),
+      witness: dco_decode_list_String(arr[4]),
+      isPegin: dco_decode_bool(arr[5]),
+    );
+  }
+
+  @protected
+  TxOut dco_decode_tx_out(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 6)
+      throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
+    return TxOut(
+      scriptPubkey: dco_decode_String(arr[0]),
+      outpoint: dco_decode_out_point(arr[1]),
+      height: dco_decode_opt_box_autoadd_u_32(arr[2]),
+      unblinded: dco_decode_tx_out_secrets(arr[3]),
+      isSpent: dco_decode_bool(arr[4]),
+      address: dco_decode_address(arr[5]),
+    );
+  }
+
+  @protected
+  TxOutSecrets dco_decode_tx_out_secrets(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return TxOutSecrets(
+      value: dco_decode_u_64(arr[0]),
+      valueBf: dco_decode_String(arr[1]),
+      asset: dco_decode_String(arr[2]),
+      assetBf: dco_decode_String(arr[3]),
+    );
+  }
+
+  @protected
+  TxOutput dco_decode_tx_output(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return TxOutput(
+      scriptPubkey: dco_decode_String(arr[0]),
+      asset: dco_decode_opt_String(arr[1]),
+      value: dco_decode_opt_box_autoadd_u_64(arr[2]),
+      nonce: dco_decode_opt_String(arr[3]),
+    );
+  }
+
+  @protected
+  int dco_decode_u_32(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw as int;
+  }
+
+  @protected
+  BigInt dco_decode_u_64(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeU64(raw);
   }
 
   @protected
@@ -165,6 +6721,120 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  BigInt dco_decode_usize(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dcoDecodeU64(raw);
+  }
+
+  @protected
+  LiquidTransaction
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return LiquidTransactionImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  PartiallySignedElementsTransaction
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return PartiallySignedElementsTransactionImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  Wallet
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return WalletImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  LiquidTransaction
+  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return LiquidTransactionImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  PartiallySignedElementsTransaction
+  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return PartiallySignedElementsTransactionImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  Wallet
+  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return WalletImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  LiquidTransaction
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return LiquidTransactionImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  PartiallySignedElementsTransaction
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return PartiallySignedElementsTransactionImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
+  Wallet
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return WalletImpl.frbInternalSseDecode(
+      sse_decode_usize(deserializer),
+      sse_decode_i_32(deserializer),
+    );
+  }
+
+  @protected
   String sse_decode_String(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_list_prim_u_8_strict(deserializer);
@@ -172,10 +6842,1131 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
+  Address sse_decode_address(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_standard = sse_decode_String(deserializer);
+    var var_confidential = sse_decode_String(deserializer);
+    var var_index = sse_decode_opt_box_autoadd_u_32(deserializer);
+    var var_blindingKey = sse_decode_opt_String(deserializer);
+    return Address(
+      standard: var_standard,
+      confidential: var_confidential,
+      index: var_index,
+      blindingKey: var_blindingKey,
+    );
+  }
+
+  @protected
+  Balance sse_decode_balance(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_assetId = sse_decode_String(deserializer);
+    var var_value = sse_decode_i_64(deserializer);
+    return Balance(assetId: var_assetId, value: var_value);
+  }
+
+  @protected
+  Blockchain sse_decode_blockchain(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return Blockchain();
+  }
+
+  @protected
+  BoltzError sse_decode_boltz_error(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_kind = sse_decode_String(deserializer);
+    var var_message = sse_decode_String(deserializer);
+    return BoltzError(kind: var_kind, message: var_message);
+  }
+
+  @protected
+  bool sse_decode_bool(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getUint8() != 0;
+  }
+
+  @protected
+  Blockchain sse_decode_box_autoadd_blockchain(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_blockchain(deserializer));
+  }
+
+  @protected
+  BoltzError sse_decode_box_autoadd_boltz_error(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_boltz_error(deserializer));
+  }
+
+  @protected
+  BtcLnSwap sse_decode_box_autoadd_btc_ln_swap(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_btc_ln_swap(deserializer));
+  }
+
+  @protected
+  BtcSwapScriptStr sse_decode_box_autoadd_btc_swap_script_str(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_btc_swap_script_str(deserializer));
+  }
+
+  @protected
+  ChainSwap sse_decode_box_autoadd_chain_swap(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_chain_swap(deserializer));
+  }
+
+  @protected
+  ChainSwapDirection sse_decode_box_autoadd_chain_swap_direction(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_chain_swap_direction(deserializer));
+  }
+
+  @protected
+  Descriptor sse_decode_box_autoadd_descriptor(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_descriptor(deserializer));
+  }
+
+  @protected
+  ElectrumSettings sse_decode_box_autoadd_electrum_settings(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_electrum_settings(deserializer));
+  }
+
+  @protected
+  Fees sse_decode_box_autoadd_fees(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_fees(deserializer));
+  }
+
+  @protected
+  KeyPair sse_decode_box_autoadd_key_pair(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_key_pair(deserializer));
+  }
+
+  @protected
+  LBtcSwapScriptStr sse_decode_box_autoadd_l_btc_swap_script_str(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_l_btc_swap_script_str(deserializer));
+  }
+
+  @protected
+  LbtcLnSwap sse_decode_box_autoadd_lbtc_ln_swap(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_lbtc_ln_swap(deserializer));
+  }
+
+  @protected
+  Lnurl sse_decode_box_autoadd_lnurl(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_lnurl(deserializer));
+  }
+
+  @protected
+  PreImage sse_decode_box_autoadd_pre_image(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_pre_image(deserializer));
+  }
+
+  @protected
+  PsetInput sse_decode_box_autoadd_pset_input(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_pset_input(deserializer));
+  }
+
+  @protected
+  PsetOutput sse_decode_box_autoadd_pset_output(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_pset_output(deserializer));
+  }
+
+  @protected
+  Side sse_decode_box_autoadd_side(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_side(deserializer));
+  }
+
+  @protected
+  Transaction sse_decode_box_autoadd_transaction(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_transaction(deserializer));
+  }
+
+  @protected
+  TxFee sse_decode_box_autoadd_tx_fee(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_tx_fee(deserializer));
+  }
+
+  @protected
+  TxInput sse_decode_box_autoadd_tx_input(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_tx_input(deserializer));
+  }
+
+  @protected
+  TxOutput sse_decode_box_autoadd_tx_output(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_tx_output(deserializer));
+  }
+
+  @protected
+  int sse_decode_box_autoadd_u_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_u_32(deserializer));
+  }
+
+  @protected
+  BigInt sse_decode_box_autoadd_u_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_u_64(deserializer));
+  }
+
+  @protected
+  int sse_decode_box_autoadd_u_8(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_u_8(deserializer));
+  }
+
+  @protected
+  BtcLnSwap sse_decode_btc_ln_swap(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_String(deserializer);
+    var var_kind = sse_decode_swap_type(deserializer);
+    var var_network = sse_decode_chain(deserializer);
+    var var_keys = sse_decode_key_pair(deserializer);
+    var var_keyIndex = sse_decode_u_64(deserializer);
+    var var_preimage = sse_decode_pre_image(deserializer);
+    var var_swapScript = sse_decode_btc_swap_script_str(deserializer);
+    var var_invoice = sse_decode_String(deserializer);
+    var var_scriptAddress = sse_decode_String(deserializer);
+    var var_outAmount = sse_decode_u_64(deserializer);
+    var var_electrumUrl = sse_decode_String(deserializer);
+    var var_boltzUrl = sse_decode_String(deserializer);
+    var var_referralId = sse_decode_opt_String(deserializer);
+    return BtcLnSwap(
+      id: var_id,
+      kind: var_kind,
+      network: var_network,
+      keys: var_keys,
+      keyIndex: var_keyIndex,
+      preimage: var_preimage,
+      swapScript: var_swapScript,
+      invoice: var_invoice,
+      scriptAddress: var_scriptAddress,
+      outAmount: var_outAmount,
+      electrumUrl: var_electrumUrl,
+      boltzUrl: var_boltzUrl,
+      referralId: var_referralId,
+    );
+  }
+
+  @protected
+  BtcSwapScriptStr sse_decode_btc_swap_script_str(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_swapType = sse_decode_swap_type(deserializer);
+    var var_fundingAddrs = sse_decode_opt_String(deserializer);
+    var var_hashlock = sse_decode_String(deserializer);
+    var var_receiverPubkey = sse_decode_String(deserializer);
+    var var_locktime = sse_decode_u_32(deserializer);
+    var var_senderPubkey = sse_decode_String(deserializer);
+    var var_side = sse_decode_opt_box_autoadd_side(deserializer);
+    return BtcSwapScriptStr(
+      swapType: var_swapType,
+      fundingAddrs: var_fundingAddrs,
+      hashlock: var_hashlock,
+      receiverPubkey: var_receiverPubkey,
+      locktime: var_locktime,
+      senderPubkey: var_senderPubkey,
+      side: var_side,
+    );
+  }
+
+  @protected
+  Chain sse_decode_chain(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return Chain.values[inner];
+  }
+
+  @protected
+  ChainFeesAndLimits sse_decode_chain_fees_and_limits(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_btcLimits = sse_decode_swap_limits(deserializer);
+    var var_lbtcLimits = sse_decode_swap_limits(deserializer);
+    var var_btcFees = sse_decode_chain_swap_fees(deserializer);
+    var var_lbtcFees = sse_decode_chain_swap_fees(deserializer);
+    return ChainFeesAndLimits(
+      btcLimits: var_btcLimits,
+      lbtcLimits: var_lbtcLimits,
+      btcFees: var_btcFees,
+      lbtcFees: var_lbtcFees,
+    );
+  }
+
+  @protected
+  ChainSwap sse_decode_chain_swap(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_String(deserializer);
+    var var_isTestnet = sse_decode_bool(deserializer);
+    var var_direction = sse_decode_chain_swap_direction(deserializer);
+    var var_refundKeys = sse_decode_key_pair(deserializer);
+    var var_refundIndex = sse_decode_u_64(deserializer);
+    var var_claimKeys = sse_decode_key_pair(deserializer);
+    var var_claimIndex = sse_decode_u_64(deserializer);
+    var var_preimage = sse_decode_pre_image(deserializer);
+    var var_btcScriptStr = sse_decode_btc_swap_script_str(deserializer);
+    var var_lbtcScriptStr = sse_decode_l_btc_swap_script_str(deserializer);
+    var var_scriptAddress = sse_decode_String(deserializer);
+    var var_outAmount = sse_decode_u_64(deserializer);
+    var var_btcElectrumUrl = sse_decode_String(deserializer);
+    var var_lbtcElectrumUrl = sse_decode_String(deserializer);
+    var var_boltzUrl = sse_decode_String(deserializer);
+    var var_referralId = sse_decode_opt_String(deserializer);
+    var var_blindingKey = sse_decode_String(deserializer);
+    return ChainSwap(
+      id: var_id,
+      isTestnet: var_isTestnet,
+      direction: var_direction,
+      refundKeys: var_refundKeys,
+      refundIndex: var_refundIndex,
+      claimKeys: var_claimKeys,
+      claimIndex: var_claimIndex,
+      preimage: var_preimage,
+      btcScriptStr: var_btcScriptStr,
+      lbtcScriptStr: var_lbtcScriptStr,
+      scriptAddress: var_scriptAddress,
+      outAmount: var_outAmount,
+      btcElectrumUrl: var_btcElectrumUrl,
+      lbtcElectrumUrl: var_lbtcElectrumUrl,
+      boltzUrl: var_boltzUrl,
+      referralId: var_referralId,
+      blindingKey: var_blindingKey,
+    );
+  }
+
+  @protected
+  ChainSwapDirection sse_decode_chain_swap_direction(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return ChainSwapDirection.values[inner];
+  }
+
+  @protected
+  ChainSwapFees sse_decode_chain_swap_fees(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_percentage = sse_decode_f_64(deserializer);
+    var var_userLockup = sse_decode_u_64(deserializer);
+    var var_userClaim = sse_decode_u_64(deserializer);
+    var var_server = sse_decode_u_64(deserializer);
+    return ChainSwapFees(
+      percentage: var_percentage,
+      userLockup: var_userLockup,
+      userClaim: var_userClaim,
+      server: var_server,
+    );
+  }
+
+  @protected
+  DecodedInvoice sse_decode_decoded_invoice(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_msats = sse_decode_u_64(deserializer);
+    var var_expiry = sse_decode_u_64(deserializer);
+    var var_expiresIn = sse_decode_u_64(deserializer);
+    var var_expiresAt = sse_decode_u_64(deserializer);
+    var var_isExpired = sse_decode_bool(deserializer);
+    var var_network = sse_decode_String(deserializer);
+    var var_cltvExpDelta = sse_decode_u_64(deserializer);
+    var var_bip21 = sse_decode_opt_String(deserializer);
+    var var_preimageHash = sse_decode_String(deserializer);
+    var var_description = sse_decode_String(deserializer);
+    return DecodedInvoice(
+      msats: var_msats,
+      expiry: var_expiry,
+      expiresIn: var_expiresIn,
+      expiresAt: var_expiresAt,
+      isExpired: var_isExpired,
+      network: var_network,
+      cltvExpDelta: var_cltvExpDelta,
+      bip21: var_bip21,
+      preimageHash: var_preimageHash,
+      description: var_description,
+    );
+  }
+
+  @protected
+  Descriptor sse_decode_descriptor(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_ctDescriptor = sse_decode_String(deserializer);
+    return Descriptor(ctDescriptor: var_ctDescriptor);
+  }
+
+  @protected
+  ElectrumSettings sse_decode_electrum_settings(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_url = sse_decode_String(deserializer);
+    var var_validateDomain = sse_decode_bool(deserializer);
+    var var_tls = sse_decode_bool(deserializer);
+    var var_timeout = sse_decode_u_8(deserializer);
+    return ElectrumSettings(
+      url: var_url,
+      validateDomain: var_validateDomain,
+      tls: var_tls,
+      timeout: var_timeout,
+    );
+  }
+
+  @protected
+  double sse_decode_f_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getFloat32();
+  }
+
+  @protected
+  double sse_decode_f_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getFloat64();
+  }
+
+  @protected
+  Fees sse_decode_fees(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_boltzUrl = sse_decode_String(deserializer);
+    return Fees(boltzUrl: var_boltzUrl);
+  }
+
+  @protected
+  int sse_decode_i_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getInt32();
+  }
+
+  @protected
+  PlatformInt64 sse_decode_i_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getPlatformInt64();
+  }
+
+  @protected
+  KeyPair sse_decode_key_pair(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_secretKey = sse_decode_String(deserializer);
+    var var_publicKey = sse_decode_String(deserializer);
+    return KeyPair(secretKey: var_secretKey, publicKey: var_publicKey);
+  }
+
+  @protected
+  LBtcSwapScriptStr sse_decode_l_btc_swap_script_str(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_swapType = sse_decode_swap_type(deserializer);
+    var var_fundingAddrs = sse_decode_opt_String(deserializer);
+    var var_hashlock = sse_decode_String(deserializer);
+    var var_receiverPubkey = sse_decode_String(deserializer);
+    var var_locktime = sse_decode_u_32(deserializer);
+    var var_senderPubkey = sse_decode_String(deserializer);
+    var var_blindingKey = sse_decode_String(deserializer);
+    var var_side = sse_decode_opt_box_autoadd_side(deserializer);
+    return LBtcSwapScriptStr(
+      swapType: var_swapType,
+      fundingAddrs: var_fundingAddrs,
+      hashlock: var_hashlock,
+      receiverPubkey: var_receiverPubkey,
+      locktime: var_locktime,
+      senderPubkey: var_senderPubkey,
+      blindingKey: var_blindingKey,
+      side: var_side,
+    );
+  }
+
+  @protected
+  LbtcLnSwap sse_decode_lbtc_ln_swap(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_String(deserializer);
+    var var_kind = sse_decode_swap_type(deserializer);
+    var var_network = sse_decode_chain(deserializer);
+    var var_keys = sse_decode_key_pair(deserializer);
+    var var_keyIndex = sse_decode_u_64(deserializer);
+    var var_preimage = sse_decode_pre_image(deserializer);
+    var var_swapScript = sse_decode_l_btc_swap_script_str(deserializer);
+    var var_invoice = sse_decode_String(deserializer);
+    var var_outAmount = sse_decode_u_64(deserializer);
+    var var_scriptAddress = sse_decode_String(deserializer);
+    var var_blindingKey = sse_decode_String(deserializer);
+    var var_electrumUrl = sse_decode_String(deserializer);
+    var var_boltzUrl = sse_decode_String(deserializer);
+    var var_referralId = sse_decode_opt_String(deserializer);
+    return LbtcLnSwap(
+      id: var_id,
+      kind: var_kind,
+      network: var_network,
+      keys: var_keys,
+      keyIndex: var_keyIndex,
+      preimage: var_preimage,
+      swapScript: var_swapScript,
+      invoice: var_invoice,
+      outAmount: var_outAmount,
+      scriptAddress: var_scriptAddress,
+      blindingKey: var_blindingKey,
+      electrumUrl: var_electrumUrl,
+      boltzUrl: var_boltzUrl,
+      referralId: var_referralId,
+    );
+  }
+
+  @protected
+  List<String> sse_decode_list_String(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <String>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_String(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<Balance> sse_decode_list_balance(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <Balance>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_balance(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var len_ = sse_decode_i_32(deserializer);
+    return deserializer.buffer.getUint8List(len_);
+  }
+
+  @protected
   Uint8List sse_decode_list_prim_u_8_strict(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var len_ = sse_decode_i_32(deserializer);
     return deserializer.buffer.getUint8List(len_);
+  }
+
+  @protected
+  List<PsetInput> sse_decode_list_pset_input(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <PsetInput>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_pset_input(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<PsetOutput> sse_decode_list_pset_output(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <PsetOutput>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_pset_output(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<Tx> sse_decode_list_tx(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <Tx>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_tx(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<TxInput> sse_decode_list_tx_input(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <TxInput>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_tx_input(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<TxOut> sse_decode_list_tx_out(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <TxOut>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_tx_out(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<TxOutSecrets> sse_decode_list_tx_out_secrets(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <TxOutSecrets>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_tx_out_secrets(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<TxOutput> sse_decode_list_tx_output(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <TxOutput>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_tx_output(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  Lnurl sse_decode_lnurl(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_value = sse_decode_String(deserializer);
+    return Lnurl(value: var_value);
+  }
+
+  @protected
+  LwkError sse_decode_lwk_error(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_msg = sse_decode_String(deserializer);
+    return LwkError(msg: var_msg);
+  }
+
+  @protected
+  MinerFees sse_decode_miner_fees(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_lockup = sse_decode_u_64(deserializer);
+    var var_claim = sse_decode_u_64(deserializer);
+    return MinerFees(lockup: var_lockup, claim: var_claim);
+  }
+
+  @protected
+  Network sse_decode_network(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return Network.values[inner];
+  }
+
+  @protected
+  String? sse_decode_opt_String(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_String(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  ChainSwapDirection? sse_decode_opt_box_autoadd_chain_swap_direction(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_chain_swap_direction(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  ElectrumSettings? sse_decode_opt_box_autoadd_electrum_settings(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_electrum_settings(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  PsetInput? sse_decode_opt_box_autoadd_pset_input(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_pset_input(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  PsetOutput? sse_decode_opt_box_autoadd_pset_output(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_pset_output(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  Side? sse_decode_opt_box_autoadd_side(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_side(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  Transaction? sse_decode_opt_box_autoadd_transaction(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_transaction(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  TxInput? sse_decode_opt_box_autoadd_tx_input(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_tx_input(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  TxOutput? sse_decode_opt_box_autoadd_tx_output(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_tx_output(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  int? sse_decode_opt_box_autoadd_u_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_u_32(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  BigInt? sse_decode_opt_box_autoadd_u_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_u_64(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  int? sse_decode_opt_box_autoadd_u_8(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_u_8(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  OutPoint sse_decode_out_point(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_txid = sse_decode_String(deserializer);
+    var var_vout = sse_decode_u_32(deserializer);
+    return OutPoint(txid: var_txid, vout: var_vout);
+  }
+
+  @protected
+  OutspendStatus sse_decode_outspend_status(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_kind = sse_decode_swap_tx_kind(deserializer);
+    var var_txid = sse_decode_opt_String(deserializer);
+    var var_timestamp = sse_decode_opt_box_autoadd_u_64(deserializer);
+    return OutspendStatus(
+      kind: var_kind,
+      txid: var_txid,
+      timestamp: var_timestamp,
+    );
+  }
+
+  @protected
+  PayjoinTx sse_decode_payjoin_tx(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_pset = sse_decode_String(deserializer);
+    var var_networkFee = sse_decode_u_64(deserializer);
+    var var_assetFee = sse_decode_u_64(deserializer);
+    var var_unblindedOutputs = sse_decode_list_tx_out_secrets(deserializer);
+    return PayjoinTx(
+      pset: var_pset,
+      networkFee: var_networkFee,
+      assetFee: var_assetFee,
+      unblindedOutputs: var_unblindedOutputs,
+    );
+  }
+
+  @protected
+  PreImage sse_decode_pre_image(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_value = sse_decode_String(deserializer);
+    var var_sha256 = sse_decode_String(deserializer);
+    var var_hash160 = sse_decode_String(deserializer);
+    return PreImage(value: var_value, sha256: var_sha256, hash160: var_hash160);
+  }
+
+  @protected
+  PsetAmounts sse_decode_pset_amounts(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_absoluteFees = sse_decode_u_64(deserializer);
+    var var_balances = sse_decode_list_balance(deserializer);
+    return PsetAmounts(absoluteFees: var_absoluteFees, balances: var_balances);
+  }
+
+  @protected
+  PsetInput sse_decode_pset_input(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_witnessUtxoScript = sse_decode_opt_String(deserializer);
+    var var_witnessUtxoAmount = sse_decode_opt_box_autoadd_u_64(deserializer);
+    var var_witnessUtxoAsset = sse_decode_opt_String(deserializer);
+    return PsetInput(
+      witnessUtxoScript: var_witnessUtxoScript,
+      witnessUtxoAmount: var_witnessUtxoAmount,
+      witnessUtxoAsset: var_witnessUtxoAsset,
+    );
+  }
+
+  @protected
+  PsetOutput sse_decode_pset_output(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_scriptPubkey = sse_decode_String(deserializer);
+    var var_amount = sse_decode_opt_box_autoadd_u_64(deserializer);
+    var var_asset = sse_decode_opt_String(deserializer);
+    var var_blindingKey = sse_decode_opt_String(deserializer);
+    return PsetOutput(
+      scriptPubkey: var_scriptPubkey,
+      amount: var_amount,
+      asset: var_asset,
+      blindingKey: var_blindingKey,
+    );
+  }
+
+  @protected
+  RevSwapFees sse_decode_rev_swap_fees(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_percentage = sse_decode_f_64(deserializer);
+    var var_minerFees = sse_decode_miner_fees(deserializer);
+    return RevSwapFees(percentage: var_percentage, minerFees: var_minerFees);
+  }
+
+  @protected
+  ReverseFeesAndLimits sse_decode_reverse_fees_and_limits(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_btcLimits = sse_decode_swap_limits(deserializer);
+    var var_lbtcLimits = sse_decode_swap_limits(deserializer);
+    var var_btcFees = sse_decode_rev_swap_fees(deserializer);
+    var var_lbtcFees = sse_decode_rev_swap_fees(deserializer);
+    return ReverseFeesAndLimits(
+      btcLimits: var_btcLimits,
+      lbtcLimits: var_lbtcLimits,
+      btcFees: var_btcFees,
+      lbtcFees: var_lbtcFees,
+    );
+  }
+
+  @protected
+  Side sse_decode_side(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return Side.values[inner];
+  }
+
+  @protected
+  SizeAndFees sse_decode_size_and_fees(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_discountedVsize = sse_decode_usize(deserializer);
+    var var_discountedWeight = sse_decode_usize(deserializer);
+    var var_absoluteFees = sse_decode_list_balance(deserializer);
+    return SizeAndFees(
+      discountedVsize: var_discountedVsize,
+      discountedWeight: var_discountedWeight,
+      absoluteFees: var_absoluteFees,
+    );
+  }
+
+  @protected
+  SubSwapFees sse_decode_sub_swap_fees(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_percentage = sse_decode_f_64(deserializer);
+    var var_minerFees = sse_decode_u_64(deserializer);
+    return SubSwapFees(percentage: var_percentage, minerFees: var_minerFees);
+  }
+
+  @protected
+  SubmarineFeesAndLimits sse_decode_submarine_fees_and_limits(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_btcLimits = sse_decode_swap_limits(deserializer);
+    var var_lbtcLimits = sse_decode_swap_limits(deserializer);
+    var var_btcFees = sse_decode_sub_swap_fees(deserializer);
+    var var_lbtcFees = sse_decode_sub_swap_fees(deserializer);
+    return SubmarineFeesAndLimits(
+      btcLimits: var_btcLimits,
+      lbtcLimits: var_lbtcLimits,
+      btcFees: var_btcFees,
+      lbtcFees: var_lbtcFees,
+    );
+  }
+
+  @protected
+  SwapLimits sse_decode_swap_limits(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_minimal = sse_decode_u_64(deserializer);
+    var var_maximal = sse_decode_u_64(deserializer);
+    return SwapLimits(minimal: var_minimal, maximal: var_maximal);
+  }
+
+  @protected
+  SwapStatus sse_decode_swap_status(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return SwapStatus.values[inner];
+  }
+
+  @protected
+  SwapStatusResponse sse_decode_swap_status_response(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_status = sse_decode_swap_status(deserializer);
+    var var_transaction = sse_decode_opt_box_autoadd_transaction(deserializer);
+    var var_failureReason = sse_decode_opt_String(deserializer);
+    var var_error = sse_decode_opt_String(deserializer);
+    return SwapStatusResponse(
+      status: var_status,
+      transaction: var_transaction,
+      failureReason: var_failureReason,
+      error: var_error,
+    );
+  }
+
+  @protected
+  SwapStreamStatus sse_decode_swap_stream_status(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_String(deserializer);
+    var var_status = sse_decode_swap_status(deserializer);
+    var var_error = sse_decode_opt_String(deserializer);
+    var var_transaction = sse_decode_opt_box_autoadd_transaction(deserializer);
+    return SwapStreamStatus(
+      id: var_id,
+      status: var_status,
+      error: var_error,
+      transaction: var_transaction,
+    );
+  }
+
+  @protected
+  SwapTxKind sse_decode_swap_tx_kind(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return SwapTxKind.values[inner];
+  }
+
+  @protected
+  SwapType sse_decode_swap_type(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return SwapType.values[inner];
+  }
+
+  @protected
+  Transaction sse_decode_transaction(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_String(deserializer);
+    var var_hex = sse_decode_String(deserializer);
+    var var_eta = sse_decode_opt_box_autoadd_u_32(deserializer);
+    return Transaction(id: var_id, hex: var_hex, eta: var_eta);
+  }
+
+  @protected
+  Tx sse_decode_tx(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_timestamp = sse_decode_opt_box_autoadd_u_32(deserializer);
+    var var_kind = sse_decode_String(deserializer);
+    var var_balances = sse_decode_list_balance(deserializer);
+    var var_txid = sse_decode_String(deserializer);
+    var var_outputs = sse_decode_list_tx_out(deserializer);
+    var var_inputs = sse_decode_list_tx_out(deserializer);
+    var var_fee = sse_decode_u_64(deserializer);
+    var var_height = sse_decode_opt_box_autoadd_u_32(deserializer);
+    var var_unblindedUrl = sse_decode_String(deserializer);
+    var var_vsize = sse_decode_usize(deserializer);
+    return Tx(
+      timestamp: var_timestamp,
+      kind: var_kind,
+      balances: var_balances,
+      txid: var_txid,
+      outputs: var_outputs,
+      inputs: var_inputs,
+      fee: var_fee,
+      height: var_height,
+      unblindedUrl: var_unblindedUrl,
+      vsize: var_vsize,
+    );
+  }
+
+  @protected
+  TxFee sse_decode_tx_fee(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        var var_field0 = sse_decode_u_64(deserializer);
+        return TxFee_Absolute(var_field0);
+      case 1:
+        var var_field0 = sse_decode_f_64(deserializer);
+        return TxFee_Relative(var_field0);
+      default:
+        throw UnimplementedError('');
+    }
+  }
+
+  @protected
+  TxInput sse_decode_tx_input(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_txid = sse_decode_String(deserializer);
+    var var_vout = sse_decode_u_32(deserializer);
+    var var_scriptSig = sse_decode_String(deserializer);
+    var var_sequence = sse_decode_u_32(deserializer);
+    var var_witness = sse_decode_list_String(deserializer);
+    var var_isPegin = sse_decode_bool(deserializer);
+    return TxInput(
+      txid: var_txid,
+      vout: var_vout,
+      scriptSig: var_scriptSig,
+      sequence: var_sequence,
+      witness: var_witness,
+      isPegin: var_isPegin,
+    );
+  }
+
+  @protected
+  TxOut sse_decode_tx_out(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_scriptPubkey = sse_decode_String(deserializer);
+    var var_outpoint = sse_decode_out_point(deserializer);
+    var var_height = sse_decode_opt_box_autoadd_u_32(deserializer);
+    var var_unblinded = sse_decode_tx_out_secrets(deserializer);
+    var var_isSpent = sse_decode_bool(deserializer);
+    var var_address = sse_decode_address(deserializer);
+    return TxOut(
+      scriptPubkey: var_scriptPubkey,
+      outpoint: var_outpoint,
+      height: var_height,
+      unblinded: var_unblinded,
+      isSpent: var_isSpent,
+      address: var_address,
+    );
+  }
+
+  @protected
+  TxOutSecrets sse_decode_tx_out_secrets(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_value = sse_decode_u_64(deserializer);
+    var var_valueBf = sse_decode_String(deserializer);
+    var var_asset = sse_decode_String(deserializer);
+    var var_assetBf = sse_decode_String(deserializer);
+    return TxOutSecrets(
+      value: var_value,
+      valueBf: var_valueBf,
+      asset: var_asset,
+      assetBf: var_assetBf,
+    );
+  }
+
+  @protected
+  TxOutput sse_decode_tx_output(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_scriptPubkey = sse_decode_String(deserializer);
+    var var_asset = sse_decode_opt_String(deserializer);
+    var var_value = sse_decode_opt_box_autoadd_u_64(deserializer);
+    var var_nonce = sse_decode_opt_String(deserializer);
+    return TxOutput(
+      scriptPubkey: var_scriptPubkey,
+      asset: var_asset,
+      value: var_value,
+      nonce: var_nonce,
+    );
+  }
+
+  @protected
+  int sse_decode_u_32(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getUint32();
+  }
+
+  @protected
+  BigInt sse_decode_u_64(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return deserializer.buffer.getBigUint64();
   }
 
   @protected
@@ -190,21 +7981,772 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  int sse_decode_i_32(SseDeserializer deserializer) {
+  BigInt sse_decode_usize(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return deserializer.buffer.getInt32();
+    return deserializer.buffer.getBigUint64();
   }
 
   @protected
-  bool sse_decode_bool(SseDeserializer deserializer) {
+  int
+  cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+    LiquidTransaction raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    // ignore: invalid_use_of_internal_member
+    return (raw as LiquidTransactionImpl).frbInternalCstEncode(move: true);
+  }
+
+  @protected
+  int
+  cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+    PartiallySignedElementsTransaction raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    // ignore: invalid_use_of_internal_member
+    return (raw as PartiallySignedElementsTransactionImpl).frbInternalCstEncode(
+      move: true,
+    );
+  }
+
+  @protected
+  int
+  cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+    Wallet raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    // ignore: invalid_use_of_internal_member
+    return (raw as WalletImpl).frbInternalCstEncode(move: true);
+  }
+
+  @protected
+  int
+  cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+    LiquidTransaction raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    // ignore: invalid_use_of_internal_member
+    return (raw as LiquidTransactionImpl).frbInternalCstEncode(move: false);
+  }
+
+  @protected
+  int
+  cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+    PartiallySignedElementsTransaction raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    // ignore: invalid_use_of_internal_member
+    return (raw as PartiallySignedElementsTransactionImpl).frbInternalCstEncode(
+      move: false,
+    );
+  }
+
+  @protected
+  int
+  cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+    Wallet raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    // ignore: invalid_use_of_internal_member
+    return (raw as WalletImpl).frbInternalCstEncode(move: false);
+  }
+
+  @protected
+  int
+  cst_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+    LiquidTransaction raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    // ignore: invalid_use_of_internal_member
+    return (raw as LiquidTransactionImpl).frbInternalCstEncode();
+  }
+
+  @protected
+  int
+  cst_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+    PartiallySignedElementsTransaction raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    // ignore: invalid_use_of_internal_member
+    return (raw as PartiallySignedElementsTransactionImpl)
+        .frbInternalCstEncode();
+  }
+
+  @protected
+  int
+  cst_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+    Wallet raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    // ignore: invalid_use_of_internal_member
+    return (raw as WalletImpl).frbInternalCstEncode();
+  }
+
+  @protected
+  bool cst_encode_bool(bool raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  int cst_encode_chain(Chain raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_i_32(raw.index);
+  }
+
+  @protected
+  int cst_encode_chain_swap_direction(ChainSwapDirection raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_i_32(raw.index);
+  }
+
+  @protected
+  double cst_encode_f_32(double raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  double cst_encode_f_64(double raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  int cst_encode_i_32(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  int cst_encode_network(Network raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_i_32(raw.index);
+  }
+
+  @protected
+  int cst_encode_side(Side raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_i_32(raw.index);
+  }
+
+  @protected
+  int cst_encode_swap_status(SwapStatus raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_i_32(raw.index);
+  }
+
+  @protected
+  int cst_encode_swap_tx_kind(SwapTxKind raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_i_32(raw.index);
+  }
+
+  @protected
+  int cst_encode_swap_type(SwapType raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_i_32(raw.index);
+  }
+
+  @protected
+  int cst_encode_u_32(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  int cst_encode_u_8(int raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  void cst_encode_unit(void raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw;
+  }
+
+  @protected
+  void
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+    LiquidTransaction self,
+    SseSerializer serializer,
+  ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    return deserializer.buffer.getUint8() != 0;
+    sse_encode_usize(
+      (self as LiquidTransactionImpl).frbInternalSseEncode(move: true),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+    PartiallySignedElementsTransaction self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as PartiallySignedElementsTransactionImpl).frbInternalSseEncode(
+        move: true,
+      ),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+    Wallet self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as WalletImpl).frbInternalSseEncode(move: true),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+    LiquidTransaction self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as LiquidTransactionImpl).frbInternalSseEncode(move: false),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+    PartiallySignedElementsTransaction self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as PartiallySignedElementsTransactionImpl).frbInternalSseEncode(
+        move: false,
+      ),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+    Wallet self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as WalletImpl).frbInternalSseEncode(move: false),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
+    LiquidTransaction self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as LiquidTransactionImpl).frbInternalSseEncode(move: null),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+    PartiallySignedElementsTransaction self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as PartiallySignedElementsTransactionImpl).frbInternalSseEncode(
+        move: null,
+      ),
+      serializer,
+    );
+  }
+
+  @protected
+  void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+    Wallet self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(
+      (self as WalletImpl).frbInternalSseEncode(move: null),
+      serializer,
+    );
   }
 
   @protected
   void sse_encode_String(String self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_list_prim_u_8_strict(utf8.encoder.convert(self), serializer);
+  }
+
+  @protected
+  void sse_encode_address(Address self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.standard, serializer);
+    sse_encode_String(self.confidential, serializer);
+    sse_encode_opt_box_autoadd_u_32(self.index, serializer);
+    sse_encode_opt_String(self.blindingKey, serializer);
+  }
+
+  @protected
+  void sse_encode_balance(Balance self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.assetId, serializer);
+    sse_encode_i_64(self.value, serializer);
+  }
+
+  @protected
+  void sse_encode_blockchain(Blockchain self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+  }
+
+  @protected
+  void sse_encode_boltz_error(BoltzError self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.kind, serializer);
+    sse_encode_String(self.message, serializer);
+  }
+
+  @protected
+  void sse_encode_bool(bool self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putUint8(self ? 1 : 0);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_blockchain(
+    Blockchain self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_blockchain(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_boltz_error(
+    BoltzError self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_boltz_error(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_btc_ln_swap(
+    BtcLnSwap self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_btc_ln_swap(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_btc_swap_script_str(
+    BtcSwapScriptStr self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_btc_swap_script_str(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_chain_swap(
+    ChainSwap self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_chain_swap(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_chain_swap_direction(
+    ChainSwapDirection self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_chain_swap_direction(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_descriptor(
+    Descriptor self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_descriptor(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_electrum_settings(
+    ElectrumSettings self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_electrum_settings(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_fees(Fees self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_fees(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_key_pair(KeyPair self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_key_pair(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_l_btc_swap_script_str(
+    LBtcSwapScriptStr self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_l_btc_swap_script_str(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_lbtc_ln_swap(
+    LbtcLnSwap self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_lbtc_ln_swap(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_lnurl(Lnurl self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_lnurl(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_pre_image(
+    PreImage self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_pre_image(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_pset_input(
+    PsetInput self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_pset_input(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_pset_output(
+    PsetOutput self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_pset_output(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_side(Side self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_side(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_transaction(
+    Transaction self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_transaction(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_tx_fee(TxFee self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_tx_fee(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_tx_input(TxInput self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_tx_input(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_tx_output(
+    TxOutput self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_tx_output(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_u_32(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_32(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_u_64(BigInt self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_64(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_u_8(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_8(self, serializer);
+  }
+
+  @protected
+  void sse_encode_btc_ln_swap(BtcLnSwap self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.id, serializer);
+    sse_encode_swap_type(self.kind, serializer);
+    sse_encode_chain(self.network, serializer);
+    sse_encode_key_pair(self.keys, serializer);
+    sse_encode_u_64(self.keyIndex, serializer);
+    sse_encode_pre_image(self.preimage, serializer);
+    sse_encode_btc_swap_script_str(self.swapScript, serializer);
+    sse_encode_String(self.invoice, serializer);
+    sse_encode_String(self.scriptAddress, serializer);
+    sse_encode_u_64(self.outAmount, serializer);
+    sse_encode_String(self.electrumUrl, serializer);
+    sse_encode_String(self.boltzUrl, serializer);
+    sse_encode_opt_String(self.referralId, serializer);
+  }
+
+  @protected
+  void sse_encode_btc_swap_script_str(
+    BtcSwapScriptStr self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_swap_type(self.swapType, serializer);
+    sse_encode_opt_String(self.fundingAddrs, serializer);
+    sse_encode_String(self.hashlock, serializer);
+    sse_encode_String(self.receiverPubkey, serializer);
+    sse_encode_u_32(self.locktime, serializer);
+    sse_encode_String(self.senderPubkey, serializer);
+    sse_encode_opt_box_autoadd_side(self.side, serializer);
+  }
+
+  @protected
+  void sse_encode_chain(Chain self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_chain_fees_and_limits(
+    ChainFeesAndLimits self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_swap_limits(self.btcLimits, serializer);
+    sse_encode_swap_limits(self.lbtcLimits, serializer);
+    sse_encode_chain_swap_fees(self.btcFees, serializer);
+    sse_encode_chain_swap_fees(self.lbtcFees, serializer);
+  }
+
+  @protected
+  void sse_encode_chain_swap(ChainSwap self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.id, serializer);
+    sse_encode_bool(self.isTestnet, serializer);
+    sse_encode_chain_swap_direction(self.direction, serializer);
+    sse_encode_key_pair(self.refundKeys, serializer);
+    sse_encode_u_64(self.refundIndex, serializer);
+    sse_encode_key_pair(self.claimKeys, serializer);
+    sse_encode_u_64(self.claimIndex, serializer);
+    sse_encode_pre_image(self.preimage, serializer);
+    sse_encode_btc_swap_script_str(self.btcScriptStr, serializer);
+    sse_encode_l_btc_swap_script_str(self.lbtcScriptStr, serializer);
+    sse_encode_String(self.scriptAddress, serializer);
+    sse_encode_u_64(self.outAmount, serializer);
+    sse_encode_String(self.btcElectrumUrl, serializer);
+    sse_encode_String(self.lbtcElectrumUrl, serializer);
+    sse_encode_String(self.boltzUrl, serializer);
+    sse_encode_opt_String(self.referralId, serializer);
+    sse_encode_String(self.blindingKey, serializer);
+  }
+
+  @protected
+  void sse_encode_chain_swap_direction(
+    ChainSwapDirection self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_chain_swap_fees(
+    ChainSwapFees self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_f_64(self.percentage, serializer);
+    sse_encode_u_64(self.userLockup, serializer);
+    sse_encode_u_64(self.userClaim, serializer);
+    sse_encode_u_64(self.server, serializer);
+  }
+
+  @protected
+  void sse_encode_decoded_invoice(
+    DecodedInvoice self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_64(self.msats, serializer);
+    sse_encode_u_64(self.expiry, serializer);
+    sse_encode_u_64(self.expiresIn, serializer);
+    sse_encode_u_64(self.expiresAt, serializer);
+    sse_encode_bool(self.isExpired, serializer);
+    sse_encode_String(self.network, serializer);
+    sse_encode_u_64(self.cltvExpDelta, serializer);
+    sse_encode_opt_String(self.bip21, serializer);
+    sse_encode_String(self.preimageHash, serializer);
+    sse_encode_String(self.description, serializer);
+  }
+
+  @protected
+  void sse_encode_descriptor(Descriptor self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.ctDescriptor, serializer);
+  }
+
+  @protected
+  void sse_encode_electrum_settings(
+    ElectrumSettings self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.url, serializer);
+    sse_encode_bool(self.validateDomain, serializer);
+    sse_encode_bool(self.tls, serializer);
+    sse_encode_u_8(self.timeout, serializer);
+  }
+
+  @protected
+  void sse_encode_f_32(double self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putFloat32(self);
+  }
+
+  @protected
+  void sse_encode_f_64(double self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putFloat64(self);
+  }
+
+  @protected
+  void sse_encode_fees(Fees self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.boltzUrl, serializer);
+  }
+
+  @protected
+  void sse_encode_i_32(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putInt32(self);
+  }
+
+  @protected
+  void sse_encode_i_64(PlatformInt64 self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putPlatformInt64(self);
+  }
+
+  @protected
+  void sse_encode_key_pair(KeyPair self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.secretKey, serializer);
+    sse_encode_String(self.publicKey, serializer);
+  }
+
+  @protected
+  void sse_encode_l_btc_swap_script_str(
+    LBtcSwapScriptStr self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_swap_type(self.swapType, serializer);
+    sse_encode_opt_String(self.fundingAddrs, serializer);
+    sse_encode_String(self.hashlock, serializer);
+    sse_encode_String(self.receiverPubkey, serializer);
+    sse_encode_u_32(self.locktime, serializer);
+    sse_encode_String(self.senderPubkey, serializer);
+    sse_encode_String(self.blindingKey, serializer);
+    sse_encode_opt_box_autoadd_side(self.side, serializer);
+  }
+
+  @protected
+  void sse_encode_lbtc_ln_swap(LbtcLnSwap self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.id, serializer);
+    sse_encode_swap_type(self.kind, serializer);
+    sse_encode_chain(self.network, serializer);
+    sse_encode_key_pair(self.keys, serializer);
+    sse_encode_u_64(self.keyIndex, serializer);
+    sse_encode_pre_image(self.preimage, serializer);
+    sse_encode_l_btc_swap_script_str(self.swapScript, serializer);
+    sse_encode_String(self.invoice, serializer);
+    sse_encode_u_64(self.outAmount, serializer);
+    sse_encode_String(self.scriptAddress, serializer);
+    sse_encode_String(self.blindingKey, serializer);
+    sse_encode_String(self.electrumUrl, serializer);
+    sse_encode_String(self.boltzUrl, serializer);
+    sse_encode_opt_String(self.referralId, serializer);
+  }
+
+  @protected
+  void sse_encode_list_String(List<String> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_String(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_balance(List<Balance> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_balance(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_prim_u_8_loose(
+    List<int> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    serializer.buffer.putUint8List(
+      self is Uint8List ? self : Uint8List.fromList(self),
+    );
   }
 
   @protected
@@ -215,6 +8757,495 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
     serializer.buffer.putUint8List(self);
+  }
+
+  @protected
+  void sse_encode_list_pset_input(
+    List<PsetInput> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_pset_input(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_pset_output(
+    List<PsetOutput> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_pset_output(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_tx(List<Tx> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_tx(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_tx_input(List<TxInput> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_tx_input(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_tx_out(List<TxOut> self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_tx_out(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_tx_out_secrets(
+    List<TxOutSecrets> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_tx_out_secrets(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_tx_output(
+    List<TxOutput> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_tx_output(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_lnurl(Lnurl self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.value, serializer);
+  }
+
+  @protected
+  void sse_encode_lwk_error(LwkError self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.msg, serializer);
+  }
+
+  @protected
+  void sse_encode_miner_fees(MinerFees self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_64(self.lockup, serializer);
+    sse_encode_u_64(self.claim, serializer);
+  }
+
+  @protected
+  void sse_encode_network(Network self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_opt_String(String? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_String(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_chain_swap_direction(
+    ChainSwapDirection? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_chain_swap_direction(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_electrum_settings(
+    ElectrumSettings? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_electrum_settings(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_pset_input(
+    PsetInput? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_pset_input(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_pset_output(
+    PsetOutput? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_pset_output(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_side(Side? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_side(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_transaction(
+    Transaction? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_transaction(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_tx_input(
+    TxInput? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_tx_input(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_tx_output(
+    TxOutput? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_tx_output(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_32(int? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_u_32(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_64(BigInt? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_u_64(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_box_autoadd_u_8(int? self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_u_8(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_out_point(OutPoint self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.txid, serializer);
+    sse_encode_u_32(self.vout, serializer);
+  }
+
+  @protected
+  void sse_encode_outspend_status(
+    OutspendStatus self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_swap_tx_kind(self.kind, serializer);
+    sse_encode_opt_String(self.txid, serializer);
+    sse_encode_opt_box_autoadd_u_64(self.timestamp, serializer);
+  }
+
+  @protected
+  void sse_encode_payjoin_tx(PayjoinTx self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.pset, serializer);
+    sse_encode_u_64(self.networkFee, serializer);
+    sse_encode_u_64(self.assetFee, serializer);
+    sse_encode_list_tx_out_secrets(self.unblindedOutputs, serializer);
+  }
+
+  @protected
+  void sse_encode_pre_image(PreImage self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.value, serializer);
+    sse_encode_String(self.sha256, serializer);
+    sse_encode_String(self.hash160, serializer);
+  }
+
+  @protected
+  void sse_encode_pset_amounts(PsetAmounts self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_64(self.absoluteFees, serializer);
+    sse_encode_list_balance(self.balances, serializer);
+  }
+
+  @protected
+  void sse_encode_pset_input(PsetInput self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_opt_String(self.witnessUtxoScript, serializer);
+    sse_encode_opt_box_autoadd_u_64(self.witnessUtxoAmount, serializer);
+    sse_encode_opt_String(self.witnessUtxoAsset, serializer);
+  }
+
+  @protected
+  void sse_encode_pset_output(PsetOutput self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.scriptPubkey, serializer);
+    sse_encode_opt_box_autoadd_u_64(self.amount, serializer);
+    sse_encode_opt_String(self.asset, serializer);
+    sse_encode_opt_String(self.blindingKey, serializer);
+  }
+
+  @protected
+  void sse_encode_rev_swap_fees(RevSwapFees self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_f_64(self.percentage, serializer);
+    sse_encode_miner_fees(self.minerFees, serializer);
+  }
+
+  @protected
+  void sse_encode_reverse_fees_and_limits(
+    ReverseFeesAndLimits self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_swap_limits(self.btcLimits, serializer);
+    sse_encode_swap_limits(self.lbtcLimits, serializer);
+    sse_encode_rev_swap_fees(self.btcFees, serializer);
+    sse_encode_rev_swap_fees(self.lbtcFees, serializer);
+  }
+
+  @protected
+  void sse_encode_side(Side self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_size_and_fees(SizeAndFees self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_usize(self.discountedVsize, serializer);
+    sse_encode_usize(self.discountedWeight, serializer);
+    sse_encode_list_balance(self.absoluteFees, serializer);
+  }
+
+  @protected
+  void sse_encode_sub_swap_fees(SubSwapFees self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_f_64(self.percentage, serializer);
+    sse_encode_u_64(self.minerFees, serializer);
+  }
+
+  @protected
+  void sse_encode_submarine_fees_and_limits(
+    SubmarineFeesAndLimits self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_swap_limits(self.btcLimits, serializer);
+    sse_encode_swap_limits(self.lbtcLimits, serializer);
+    sse_encode_sub_swap_fees(self.btcFees, serializer);
+    sse_encode_sub_swap_fees(self.lbtcFees, serializer);
+  }
+
+  @protected
+  void sse_encode_swap_limits(SwapLimits self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_64(self.minimal, serializer);
+    sse_encode_u_64(self.maximal, serializer);
+  }
+
+  @protected
+  void sse_encode_swap_status(SwapStatus self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_swap_status_response(
+    SwapStatusResponse self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_swap_status(self.status, serializer);
+    sse_encode_opt_box_autoadd_transaction(self.transaction, serializer);
+    sse_encode_opt_String(self.failureReason, serializer);
+    sse_encode_opt_String(self.error, serializer);
+  }
+
+  @protected
+  void sse_encode_swap_stream_status(
+    SwapStreamStatus self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.id, serializer);
+    sse_encode_swap_status(self.status, serializer);
+    sse_encode_opt_String(self.error, serializer);
+    sse_encode_opt_box_autoadd_transaction(self.transaction, serializer);
+  }
+
+  @protected
+  void sse_encode_swap_tx_kind(SwapTxKind self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_swap_type(SwapType self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_transaction(Transaction self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.id, serializer);
+    sse_encode_String(self.hex, serializer);
+    sse_encode_opt_box_autoadd_u_32(self.eta, serializer);
+  }
+
+  @protected
+  void sse_encode_tx(Tx self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_opt_box_autoadd_u_32(self.timestamp, serializer);
+    sse_encode_String(self.kind, serializer);
+    sse_encode_list_balance(self.balances, serializer);
+    sse_encode_String(self.txid, serializer);
+    sse_encode_list_tx_out(self.outputs, serializer);
+    sse_encode_list_tx_out(self.inputs, serializer);
+    sse_encode_u_64(self.fee, serializer);
+    sse_encode_opt_box_autoadd_u_32(self.height, serializer);
+    sse_encode_String(self.unblindedUrl, serializer);
+    sse_encode_usize(self.vsize, serializer);
+  }
+
+  @protected
+  void sse_encode_tx_fee(TxFee self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case TxFee_Absolute(field0: final field0):
+        sse_encode_i_32(0, serializer);
+        sse_encode_u_64(field0, serializer);
+      case TxFee_Relative(field0: final field0):
+        sse_encode_i_32(1, serializer);
+        sse_encode_f_64(field0, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_tx_input(TxInput self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.txid, serializer);
+    sse_encode_u_32(self.vout, serializer);
+    sse_encode_String(self.scriptSig, serializer);
+    sse_encode_u_32(self.sequence, serializer);
+    sse_encode_list_String(self.witness, serializer);
+    sse_encode_bool(self.isPegin, serializer);
+  }
+
+  @protected
+  void sse_encode_tx_out(TxOut self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.scriptPubkey, serializer);
+    sse_encode_out_point(self.outpoint, serializer);
+    sse_encode_opt_box_autoadd_u_32(self.height, serializer);
+    sse_encode_tx_out_secrets(self.unblinded, serializer);
+    sse_encode_bool(self.isSpent, serializer);
+    sse_encode_address(self.address, serializer);
+  }
+
+  @protected
+  void sse_encode_tx_out_secrets(TxOutSecrets self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_64(self.value, serializer);
+    sse_encode_String(self.valueBf, serializer);
+    sse_encode_String(self.asset, serializer);
+    sse_encode_String(self.assetBf, serializer);
+  }
+
+  @protected
+  void sse_encode_tx_output(TxOutput self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.scriptPubkey, serializer);
+    sse_encode_opt_String(self.asset, serializer);
+    sse_encode_opt_box_autoadd_u_64(self.value, serializer);
+    sse_encode_opt_String(self.nonce, serializer);
+  }
+
+  @protected
+  void sse_encode_u_32(int self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putUint32(self);
+  }
+
+  @protected
+  void sse_encode_u_64(BigInt self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    serializer.buffer.putBigUint64(self);
   }
 
   @protected
@@ -229,14 +9260,356 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_i_32(int self, SseSerializer serializer) {
+  void sse_encode_usize(BigInt self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-    serializer.buffer.putInt32(self);
+    serializer.buffer.putBigUint64(self);
   }
+}
 
-  @protected
-  void sse_encode_bool(bool self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    serializer.buffer.putUint8(self ? 1 : 0);
-  }
+@sealed
+class LiquidTransactionImpl extends RustOpaque implements LiquidTransaction {
+  // Not to be used by end users
+  LiquidTransactionImpl.frbInternalDcoDecode(List<dynamic> wire)
+    : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  LiquidTransactionImpl.frbInternalSseDecode(
+    BigInt ptr,
+    int externalSizeOnNative,
+  ) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        BullSdk.instance.api.rust_arc_increment_strong_count_LiquidTransaction,
+    rustArcDecrementStrongCount:
+        BullSdk.instance.api.rust_arc_decrement_strong_count_LiquidTransaction,
+    rustArcDecrementStrongCountPtr: BullSdk
+        .instance
+        .api
+        .rust_arc_decrement_strong_count_LiquidTransactionPtr,
+  );
+
+  BigInt fee() =>
+      BullSdk.instance.api.lwkApiTransactionLiquidTransactionFee(that: this);
+
+  TxInput? getInput({required BigInt index}) => BullSdk.instance.api
+      .lwkApiTransactionLiquidTransactionGetInput(that: this, index: index);
+
+  List<TxInput> getInputs() => BullSdk.instance.api
+      .lwkApiTransactionLiquidTransactionGetInputs(that: this);
+
+  TxOutput? getOutput({required BigInt index}) => BullSdk.instance.api
+      .lwkApiTransactionLiquidTransactionGetOutput(that: this, index: index);
+
+  String? getOutputAsset({required BigInt index}) =>
+      BullSdk.instance.api.lwkApiTransactionLiquidTransactionGetOutputAsset(
+        that: this,
+        index: index,
+      );
+
+  String? getOutputNonce({required BigInt index}) =>
+      BullSdk.instance.api.lwkApiTransactionLiquidTransactionGetOutputNonce(
+        that: this,
+        index: index,
+      );
+
+  String? getOutputScriptPubkey({required BigInt index}) => BullSdk.instance.api
+      .lwkApiTransactionLiquidTransactionGetOutputScriptPubkey(
+        that: this,
+        index: index,
+      );
+
+  BigInt? getOutputValue({required BigInt index}) =>
+      BullSdk.instance.api.lwkApiTransactionLiquidTransactionGetOutputValue(
+        that: this,
+        index: index,
+      );
+
+  List<TxOutput> getOutputs() => BullSdk.instance.api
+      .lwkApiTransactionLiquidTransactionGetOutputs(that: this);
+
+  BigInt inputCount() => BullSdk.instance.api
+      .lwkApiTransactionLiquidTransactionInputCount(that: this);
+
+  bool isCoinbase() => BullSdk.instance.api
+      .lwkApiTransactionLiquidTransactionIsCoinbase(that: this);
+
+  int lockTime() => BullSdk.instance.api
+      .lwkApiTransactionLiquidTransactionLockTime(that: this);
+
+  BigInt outputCount() => BullSdk.instance.api
+      .lwkApiTransactionLiquidTransactionOutputCount(that: this);
+
+  Uint8List toBytes() => BullSdk.instance.api
+      .lwkApiTransactionLiquidTransactionToBytes(that: this);
+
+  String txid() =>
+      BullSdk.instance.api.lwkApiTransactionLiquidTransactionTxid(that: this);
+
+  int version() => BullSdk.instance.api
+      .lwkApiTransactionLiquidTransactionVersion(that: this);
+
+  BigInt vsize() =>
+      BullSdk.instance.api.lwkApiTransactionLiquidTransactionVsize(that: this);
+
+  BigInt weight() =>
+      BullSdk.instance.api.lwkApiTransactionLiquidTransactionWeight(that: this);
+}
+
+@sealed
+class PartiallySignedElementsTransactionImpl extends RustOpaque
+    implements PartiallySignedElementsTransaction {
+  // Not to be used by end users
+  PartiallySignedElementsTransactionImpl.frbInternalDcoDecode(
+    List<dynamic> wire,
+  ) : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  PartiallySignedElementsTransactionImpl.frbInternalSseDecode(
+    BigInt ptr,
+    int externalSizeOnNative,
+  ) : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount: BullSdk
+        .instance
+        .api
+        .rust_arc_increment_strong_count_PartiallySignedElementsTransaction,
+    rustArcDecrementStrongCount: BullSdk
+        .instance
+        .api
+        .rust_arc_decrement_strong_count_PartiallySignedElementsTransaction,
+    rustArcDecrementStrongCountPtr: BullSdk
+        .instance
+        .api
+        .rust_arc_decrement_strong_count_PartiallySignedElementsTransactionPtr,
+  );
+
+  LiquidTransaction extractTx() => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionExtractTx(that: this);
+
+  PsetInput? getInput({required BigInt index}) => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionGetInput(
+        that: this,
+        index: index,
+      );
+
+  BigInt? getInputUtxoAmount({required BigInt index}) => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoAmount(
+        that: this,
+        index: index,
+      );
+
+  String? getInputUtxoAsset({required BigInt index}) => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoAsset(
+        that: this,
+        index: index,
+      );
+
+  String? getInputUtxoScript({required BigInt index}) => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionGetInputUtxoScript(
+        that: this,
+        index: index,
+      );
+
+  List<PsetInput> getInputs() => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionGetInputs(that: this);
+
+  PsetOutput? getOutput({required BigInt index}) => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionGetOutput(
+        that: this,
+        index: index,
+      );
+
+  BigInt? getOutputAmount({required BigInt index}) => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionGetOutputAmount(
+        that: this,
+        index: index,
+      );
+
+  String? getOutputAsset({required BigInt index}) => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionGetOutputAsset(
+        that: this,
+        index: index,
+      );
+
+  String? getOutputBlindingKey({required BigInt index}) => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionGetOutputBlindingKey(
+        that: this,
+        index: index,
+      );
+
+  String? getOutputScript({required BigInt index}) => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionGetOutputScript(
+        that: this,
+        index: index,
+      );
+
+  List<PsetOutput> getOutputs() => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionGetOutputs(
+        that: this,
+      );
+
+  BigInt inputCount() => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionInputCount(
+        that: this,
+      );
+
+  int? lockTime() => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionLockTime(that: this);
+
+  BigInt outputCount() => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionOutputCount(
+        that: this,
+      );
+
+  String toString() => BullSdk.instance.api
+      .lwkApiTransactionPartiallySignedElementsTransactionToString(that: this);
+}
+
+@sealed
+class WalletImpl extends RustOpaque implements Wallet {
+  // Not to be used by end users
+  WalletImpl.frbInternalDcoDecode(List<dynamic> wire)
+    : super.frbInternalDcoDecode(wire, _kStaticData);
+
+  // Not to be used by end users
+  WalletImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
+    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
+
+  static final _kStaticData = RustArcStaticData(
+    rustArcIncrementStrongCount:
+        BullSdk.instance.api.rust_arc_increment_strong_count_Wallet,
+    rustArcDecrementStrongCount:
+        BullSdk.instance.api.rust_arc_decrement_strong_count_Wallet,
+    rustArcDecrementStrongCountPtr:
+        BullSdk.instance.api.rust_arc_decrement_strong_count_WalletPtr,
+  );
+
+  /// Get an address from a specific index
+  Future<Address> address({required int index}) =>
+      BullSdk.instance.api.lwkApiWalletWalletAddress(that: this, index: index);
+
+  /// Get the last unused address from the wallet
+  Future<Address> addressLastUnused() =>
+      BullSdk.instance.api.lwkApiWalletWalletAddressLastUnused(that: this);
+
+  /// Get balances for a wallet.
+  Future<List<Balance>> balances() =>
+      BullSdk.instance.api.lwkApiWalletWalletBalances(that: this);
+
+  /// Get the blinding key string for the wallet
+  Future<String> blindingKey() =>
+      BullSdk.instance.api.lwkApiWalletWalletBlindingKey(that: this);
+
+  /// Build a transaction for a specific asset
+  Future<String> buildAssetTx({
+    required BigInt sats,
+    required String outAddress,
+    required double feeRate,
+    required String asset,
+  }) => BullSdk.instance.api.lwkApiWalletWalletBuildAssetTx(
+    that: this,
+    sats: sats,
+    outAddress: outAddress,
+    feeRate: feeRate,
+    asset: asset,
+  );
+
+  /// Build a LBTC transaction
+  Future<String> buildLbtcTx({
+    required BigInt sats,
+    required String outAddress,
+    required double feeRate,
+    required bool drain,
+  }) => BullSdk.instance.api.lwkApiWalletWalletBuildLbtcTx(
+    that: this,
+    sats: sats,
+    outAddress: outAddress,
+    feeRate: feeRate,
+    drain: drain,
+  );
+
+  /// Build a PayJoin transaction for a specific asset, even if the wallet does not contain L-BTC UTXOs.
+  /// The asset must be one of the assets supported by SideSwap, such as USDt or DePix.
+  /// This creates a coin-join PSET. The PSET includes the asset wallet inputs and change,
+  /// and the asset output to `out_address`, the L-BTC server's input and change and the asset fee output to the server.
+  /// The server fee is included in the return value for the user to review.
+  ///
+  /// To make a PayJoin transaction:
+  /// - call build_payjoin_tx
+  /// - review server fee
+  /// - call signed_pset_with_extra_details, extract_tx and broadcast_tx.
+  /// See the `test_payjoin` test for an example of how to use it:
+  Future<PayjoinTx> buildPayjoinTx({
+    required BigInt sats,
+    required String outAddress,
+    required String asset,
+    required Network network,
+    String? baseUrl,
+    required bool isSendAll,
+  }) => BullSdk.instance.api.lwkApiWalletWalletBuildPayjoinTx(
+    that: this,
+    sats: sats,
+    outAddress: outAddress,
+    asset: asset,
+    network: network,
+    baseUrl: baseUrl,
+    isSendAll: isSendAll,
+  );
+
+  /// Decode a transaction given a PSET
+  Future<PsetAmounts> decodeTx({required String pset}) =>
+      BullSdk.instance.api.lwkApiWalletWalletDecodeTx(that: this, pset: pset);
+
+  /// Get the descriptor string for the wallet
+  Future<String> descriptor() =>
+      BullSdk.instance.api.lwkApiWalletWalletDescriptor(that: this);
+
+  /// Sign a wallet transaction, returns (pset, signed_bytes)
+  Future<String> signTx({
+    required Network network,
+    required String pset,
+    required String mnemonic,
+  }) => BullSdk.instance.api.lwkApiWalletWalletSignTx(
+    that: this,
+    network: network,
+    pset: pset,
+    mnemonic: mnemonic,
+  );
+
+  /// Sign a pset with extra details (used for asset transactions)
+  Future<String> signedPsetWithExtraDetails({
+    required Network network,
+    required String pset,
+    required String mnemonic,
+  }) => BullSdk.instance.api.lwkApiWalletWalletSignedPsetWithExtraDetails(
+    that: this,
+    network: network,
+    pset: pset,
+    mnemonic: mnemonic,
+  );
+
+  /// Syncs the wallet db with its latest state fetched from the electrum server
+  /// Using None for stop_at_index will sync normally with a stop gap of 20
+  Future<void> sync_({
+    required String electrumUrl,
+    required bool validateDomain,
+    int? stopAtIndex,
+    int? timeout,
+  }) => BullSdk.instance.api.lwkApiWalletWalletSync(
+    that: this,
+    electrumUrl: electrumUrl,
+    validateDomain: validateDomain,
+    stopAtIndex: stopAtIndex,
+    timeout: timeout,
+  );
+
+  /// Get the transaction history of the wallet
+  Future<List<Tx>> txs() =>
+      BullSdk.instance.api.lwkApiWalletWalletTxs(that: this);
+
+  /// Get utxos of the wallet
+  Future<List<TxOut>> utxos() =>
+      BullSdk.instance.api.lwkApiWalletWalletUtxos(that: this);
 }

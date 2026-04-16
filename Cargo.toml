@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "packages/bull_sdk/rust",
+    "packages/boltz/rust",
+    "packages/lwk/rust",
+]
+resolver = "2"
