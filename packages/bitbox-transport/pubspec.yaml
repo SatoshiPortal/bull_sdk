@@ -10,7 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
   bull_sdk:
-    path: ../bull_sdk
+    git:
+      url: https://github.com/ethicnology/bull_sdk
+      ref: main
+      path: packages/bull_sdk
   universal_ble: ^1.2.0
 
 dev_dependencies:
