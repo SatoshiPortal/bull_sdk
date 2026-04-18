@@ -23,6 +23,7 @@ import 'third_party/bbqr/file_type.dart';
 import 'third_party/bbqr/join.dart';
 import 'third_party/bbqr/qr.dart';
 import 'third_party/bbqr/split.dart';
+import 'third_party/bitbox/api.dart';
 import 'third_party/boltz/api/btc_ln.dart';
 import 'third_party/boltz/api/chain_swap.dart';
 import 'third_party/boltz/api/error.dart';
@@ -83,7 +84,9 @@ class BullSdk extends BaseEntrypoint<BullSdkApi, BullSdkApiImpl, BullSdkWire> {
       BullSdkWire.fromExternalLibrary;
 
   @override
-  Future<void> executeRustInitializers() async {}
+  Future<void> executeRustInitializers() async {
+    await api.bitboxApiInitApp();
+  }
 
   @override
   ExternalLibraryLoaderConfig get defaultExternalLibraryLoaderConfig =>
@@ -93,7 +96,7 @@ class BullSdk extends BaseEntrypoint<BullSdkApi, BullSdkApiImpl, BullSdkWire> {
   String get codegenVersion => '2.11.1';
 
   @override
-  int get rustContentHash => 1683105466;
+  int get rustContentHash => 1662695056;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -667,6 +670,12 @@ abstract class BullSdkApi extends BaseApi {
     ChainSwapDirection? chainSwapDirection,
   });
 
+  Future<void> bitboxApiCloseDevice({required String serialNumber});
+
+  Future<void> bitboxApiCloseUsbChannel({required String serialNumber});
+
+  Future<bool> bitboxApiConfirmPairing({required String serialNumber});
+
   Future<DecodedInvoice> boltzApiTypesDecodedInvoiceFromString({
     required String s,
     String? boltzUrl,
@@ -708,6 +717,14 @@ abstract class BullSdkApi extends BaseApi {
     required String assetId,
   });
 
+  Future<String> bitboxApiGetBtcXpub({
+    required String serialNumber,
+    required String keypath,
+    required String xpubType,
+  });
+
+  Future<DeviceInfo> bitboxApiGetDeviceInfo({required String serialNumber});
+
   String lwkApiTypesGetLbtcAssetId();
 
   PlatformInt64 lwkApiTypesGetLbtcBalance({required List<Balance> balances});
@@ -716,9 +733,15 @@ abstract class BullSdkApi extends BaseApi {
 
   PlatformInt64 lwkApiTypesGetLtestBalance({required List<Balance> balances});
 
+  Future<String> bitboxApiGetRootFingerprint({required String serialNumber});
+
   Future<SizeAndFees> lwkApiTransactionGetSizeAndAbsoluteFees({
     required String pset,
   });
+
+  Uint8List? bitboxApiGetUsbWriteDataWrapper({required String serialNumber});
+
+  Future<void> bitboxApiInitApp();
 
   Future<Joined> bbqrJoinJoinedFrbOverrideTryFromParts({
     required List<String> parts,
@@ -870,6 +893,17 @@ abstract class BullSdkApi extends BaseApi {
     required String hash160,
   });
 
+  void bitboxApiSetUsbReadDataWrapper({
+    required String serialNumber,
+    required List<int> data,
+  });
+
+  Future<String> bitboxApiSignPsbt({
+    required String serialNumber,
+    required String psbtStr,
+    required bool testnet,
+  });
+
   Future<Split> bbqrSplitSplitFrbOverrideTryFromData({
     required List<int> bytes,
     required FileType fileType,
@@ -877,6 +911,8 @@ abstract class BullSdkApi extends BaseApi {
   });
 
   Future<SplitOptions> bbqrSplitSplitOptionsDefault();
+
+  Future<String?> bitboxApiStartPairing({required String serialNumber});
 
   String boltzApiSwapStatusSwapStatusAsString({required SwapStatus that});
 
@@ -909,6 +945,13 @@ abstract class BullSdkApi extends BaseApi {
   bool arkWalletArkUtilsUtilsIsArk({required String address});
 
   bool arkWalletArkUtilsUtilsIsBtc({required String address});
+
+  Future<String> bitboxApiVerifyAddress({
+    required String serialNumber,
+    required String keypath,
+    required bool testnet,
+    String? scriptType,
+  });
 
   Future<BigInt> bbqrQrVersionDataCapacity({required Version that});
 
@@ -5080,6 +5123,78 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       );
 
   @override
+  Future<void> bitboxApiCloseDevice({required String serialNumber}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(serialNumber);
+          return wire.wire__bitbox__api__close_device(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_unit,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+        constMeta: kBitboxApiCloseDeviceConstMeta,
+        argValues: [serialNumber],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiCloseDeviceConstMeta => const TaskConstMeta(
+    debugName: "close_device",
+    argNames: ["serialNumber"],
+  );
+
+  @override
+  Future<void> bitboxApiCloseUsbChannel({required String serialNumber}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(serialNumber);
+          return wire.wire__bitbox__api__close_usb_channel(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_unit,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+        constMeta: kBitboxApiCloseUsbChannelConstMeta,
+        argValues: [serialNumber],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiCloseUsbChannelConstMeta => const TaskConstMeta(
+    debugName: "close_usb_channel",
+    argNames: ["serialNumber"],
+  );
+
+  @override
+  Future<bool> bitboxApiConfirmPairing({required String serialNumber}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(serialNumber);
+          return wire.wire__bitbox__api__confirm_pairing(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_bool,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+        constMeta: kBitboxApiConfirmPairingConstMeta,
+        argValues: [serialNumber],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiConfirmPairingConstMeta => const TaskConstMeta(
+    debugName: "confirm_pairing",
+    argNames: ["serialNumber"],
+  );
+
+  @override
   Future<DecodedInvoice> boltzApiTypesDecodedInvoiceFromString({
     required String s,
     String? boltzUrl,
@@ -5459,6 +5574,60 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       );
 
   @override
+  Future<String> bitboxApiGetBtcXpub({
+    required String serialNumber,
+    required String keypath,
+    required String xpubType,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(serialNumber);
+          var arg1 = cst_encode_String(keypath);
+          var arg2 = cst_encode_String(xpubType);
+          return wire.wire__bitbox__api__get_btc_xpub(port_, arg0, arg1, arg2);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+        constMeta: kBitboxApiGetBtcXpubConstMeta,
+        argValues: [serialNumber, keypath, xpubType],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiGetBtcXpubConstMeta => const TaskConstMeta(
+    debugName: "get_btc_xpub",
+    argNames: ["serialNumber", "keypath", "xpubType"],
+  );
+
+  @override
+  Future<DeviceInfo> bitboxApiGetDeviceInfo({required String serialNumber}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(serialNumber);
+          return wire.wire__bitbox__api__get_device_info(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_device_info,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+        constMeta: kBitboxApiGetDeviceInfoConstMeta,
+        argValues: [serialNumber],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiGetDeviceInfoConstMeta => const TaskConstMeta(
+    debugName: "get_device_info",
+    argNames: ["serialNumber"],
+  );
+
+  @override
   String lwkApiTypesGetLbtcAssetId() {
     return handler.executeSync(
       SyncTask(
@@ -5549,6 +5718,31 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   );
 
   @override
+  Future<String> bitboxApiGetRootFingerprint({required String serialNumber}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(serialNumber);
+          return wire.wire__bitbox__api__get_root_fingerprint(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+        constMeta: kBitboxApiGetRootFingerprintConstMeta,
+        argValues: [serialNumber],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiGetRootFingerprintConstMeta =>
+      const TaskConstMeta(
+        debugName: "get_root_fingerprint",
+        argNames: ["serialNumber"],
+      );
+
+  @override
   Future<SizeAndFees> lwkApiTransactionGetSizeAndAbsoluteFees({
     required String pset,
   }) {
@@ -5577,6 +5771,52 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         debugName: "get_size_and_absolute_fees",
         argNames: ["pset"],
       );
+
+  @override
+  Uint8List? bitboxApiGetUsbWriteDataWrapper({required String serialNumber}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 = cst_encode_String(serialNumber);
+          return wire.wire__bitbox__api__get_usb_write_data_wrapper(arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_list_prim_u_8_strict,
+          decodeErrorData: null,
+        ),
+        constMeta: kBitboxApiGetUsbWriteDataWrapperConstMeta,
+        argValues: [serialNumber],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiGetUsbWriteDataWrapperConstMeta =>
+      const TaskConstMeta(
+        debugName: "get_usb_write_data_wrapper",
+        argNames: ["serialNumber"],
+      );
+
+  @override
+  Future<void> bitboxApiInitApp() {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          return wire.wire__bitbox__api__init_app(port_);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_unit,
+          decodeErrorData: null,
+        ),
+        constMeta: kBitboxApiInitAppConstMeta,
+        argValues: [],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiInitAppConstMeta =>
+      const TaskConstMeta(debugName: "init_app", argNames: []);
 
   @override
   Future<Joined> bbqrJoinJoinedFrbOverrideTryFromParts({
@@ -6588,6 +6828,65 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   );
 
   @override
+  void bitboxApiSetUsbReadDataWrapper({
+    required String serialNumber,
+    required List<int> data,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 = cst_encode_String(serialNumber);
+          var arg1 = cst_encode_list_prim_u_8_loose(data);
+          return wire.wire__bitbox__api__set_usb_read_data_wrapper(arg0, arg1);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_unit,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+        constMeta: kBitboxApiSetUsbReadDataWrapperConstMeta,
+        argValues: [serialNumber, data],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiSetUsbReadDataWrapperConstMeta =>
+      const TaskConstMeta(
+        debugName: "set_usb_read_data_wrapper",
+        argNames: ["serialNumber", "data"],
+      );
+
+  @override
+  Future<String> bitboxApiSignPsbt({
+    required String serialNumber,
+    required String psbtStr,
+    required bool testnet,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(serialNumber);
+          var arg1 = cst_encode_String(psbtStr);
+          var arg2 = cst_encode_bool(testnet);
+          return wire.wire__bitbox__api__sign_psbt(port_, arg0, arg1, arg2);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+        constMeta: kBitboxApiSignPsbtConstMeta,
+        argValues: [serialNumber, psbtStr, testnet],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiSignPsbtConstMeta => const TaskConstMeta(
+    debugName: "sign_psbt",
+    argNames: ["serialNumber", "psbtStr", "testnet"],
+  );
+
+  @override
   Future<Split> bbqrSplitSplitFrbOverrideTryFromData({
     required List<int> bytes,
     required FileType fileType,
@@ -6643,6 +6942,30 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
 
   TaskConstMeta get kBbqrSplitSplitOptionsDefaultConstMeta =>
       const TaskConstMeta(debugName: "split_options_default", argNames: []);
+
+  @override
+  Future<String?> bitboxApiStartPairing({required String serialNumber}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(serialNumber);
+          return wire.wire__bitbox__api__start_pairing(port_, arg0);
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_opt_String,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+        constMeta: kBitboxApiStartPairingConstMeta,
+        argValues: [serialNumber],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiStartPairingConstMeta => const TaskConstMeta(
+    debugName: "start_pairing",
+    argNames: ["serialNumber"],
+  );
 
   @override
   String boltzApiSwapStatusSwapStatusAsString({required SwapStatus that}) {
@@ -6939,6 +7262,44 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
 
   TaskConstMeta get kArkWalletArkUtilsUtilsIsBtcConstMeta =>
       const TaskConstMeta(debugName: "utils_is_btc", argNames: ["address"]);
+
+  @override
+  Future<String> bitboxApiVerifyAddress({
+    required String serialNumber,
+    required String keypath,
+    required bool testnet,
+    String? scriptType,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(serialNumber);
+          var arg1 = cst_encode_String(keypath);
+          var arg2 = cst_encode_bool(testnet);
+          var arg3 = cst_encode_opt_String(scriptType);
+          return wire.wire__bitbox__api__verify_address(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+        constMeta: kBitboxApiVerifyAddressConstMeta,
+        argValues: [serialNumber, keypath, testnet, scriptType],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiVerifyAddressConstMeta => const TaskConstMeta(
+    debugName: "verify_address",
+    argNames: ["serialNumber", "keypath", "testnet", "scriptType"],
+  );
 
   @override
   Future<BigInt> bbqrQrVersionDataCapacity({required Version that}) {
@@ -7703,6 +8064,19 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  DeviceInfo dco_decode_device_info(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return DeviceInfo(
+      name: dco_decode_String(arr[0]),
+      version: dco_decode_String(arr[1]),
+      initialized: dco_decode_bool(arr[2]),
+    );
+  }
+
+  @protected
   ElectrumSettings dco_decode_electrum_settings(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -8028,6 +8402,12 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   int? dco_decode_opt_box_autoadd_u_8(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_u_8(raw);
+  }
+
+  @protected
+  Uint8List? dco_decode_opt_list_prim_u_8_strict(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null ? null : dco_decode_list_prim_u_8_strict(raw);
   }
 
   @protected
@@ -9238,6 +9618,19 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  DeviceInfo sse_decode_device_info(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_name = sse_decode_String(deserializer);
+    var var_version = sse_decode_String(deserializer);
+    var var_initialized = sse_decode_bool(deserializer);
+    return DeviceInfo(
+      name: var_name,
+      version: var_version,
+      initialized: var_initialized,
+    );
+  }
+
+  @protected
   ElectrumSettings sse_decode_electrum_settings(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_url = sse_decode_String(deserializer);
@@ -9715,6 +10108,17 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
 
     if (sse_decode_bool(deserializer)) {
       return (sse_decode_box_autoadd_u_8(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
+  Uint8List? sse_decode_opt_list_prim_u_8_strict(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_list_prim_u_8_strict(deserializer));
     } else {
       return null;
     }
@@ -11262,6 +11666,14 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  void sse_encode_device_info(DeviceInfo self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.name, serializer);
+    sse_encode_String(self.version, serializer);
+    sse_encode_bool(self.initialized, serializer);
+  }
+
+  @protected
   void sse_encode_electrum_settings(
     ElectrumSettings self,
     SseSerializer serializer,
@@ -11694,6 +12106,19 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     sse_encode_bool(self != null, serializer);
     if (self != null) {
       sse_encode_box_autoadd_u_8(self, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_opt_list_prim_u_8_strict(
+    Uint8List? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_list_prim_u_8_strict(self, serializer);
     }
   }
 

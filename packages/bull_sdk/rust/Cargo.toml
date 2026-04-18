@@ -9,6 +9,7 @@ crate-type = ["cdylib", "staticlib"]
 [dependencies]
 flutter_rust_bridge = "=2.11.1"
 ark_wallet = { path = "../../ark-wallet/rust", features = ["bull_sdk"] }
+bitbox = { path = "../../bitbox/rust", features = ["bull_sdk"] }
 bbqr = { git = "https://github.com/SatoshiPortal/bbqr-rust.git", rev = "2296a713beb58a175eb620a087f7da6826dc6f70", default-features = false }
 dart_bbqr = { path = "../../bbqr/rust", features = ["bull_sdk"] }
 boltz = { path = "../../boltz/rust", features = ["bull_sdk"] }

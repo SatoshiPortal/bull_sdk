@@ -22,6 +22,7 @@ import 'third_party/bbqr/file_type.dart';
 import 'third_party/bbqr/join.dart';
 import 'third_party/bbqr/qr.dart';
 import 'third_party/bbqr/split.dart';
+import 'third_party/bitbox/api.dart';
 import 'third_party/boltz/api/btc_ln.dart';
 import 'third_party/boltz/api/chain_swap.dart';
 import 'third_party/boltz/api/error.dart';
@@ -371,6 +372,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   Descriptor dco_decode_descriptor(dynamic raw);
 
   @protected
+  DeviceInfo dco_decode_device_info(dynamic raw);
+
+  @protected
   ElectrumSettings dco_decode_electrum_settings(dynamic raw);
 
   @protected
@@ -500,6 +504,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int? dco_decode_opt_box_autoadd_u_8(dynamic raw);
+
+  @protected
+  Uint8List? dco_decode_opt_list_prim_u_8_strict(dynamic raw);
 
   @protected
   OutPoint dco_decode_out_point(dynamic raw);
@@ -912,6 +919,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   Descriptor sse_decode_descriptor(SseDeserializer deserializer);
 
   @protected
+  DeviceInfo sse_decode_device_info(SseDeserializer deserializer);
+
+  @protected
   ElectrumSettings sse_decode_electrum_settings(SseDeserializer deserializer);
 
   @protected
@@ -1055,6 +1065,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int? sse_decode_opt_box_autoadd_u_8(SseDeserializer deserializer);
+
+  @protected
+  Uint8List? sse_decode_opt_list_prim_u_8_strict(SseDeserializer deserializer);
 
   @protected
   OutPoint sse_decode_out_point(SseDeserializer deserializer);
@@ -1691,6 +1704,13 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_list_prim_u_8_strict>
+  cst_encode_opt_list_prim_u_8_strict(Uint8List? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null ? ffi.nullptr : cst_encode_list_prim_u_8_strict(raw);
+  }
+
+  @protected
   int cst_encode_u_64(BigInt raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw.toSigned(64).toInt();
@@ -2086,6 +2106,16 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     wire_cst_descriptor wireObj,
   ) {
     wireObj.ct_descriptor = cst_encode_String(apiObj.ctDescriptor);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_device_info(
+    DeviceInfo apiObj,
+    wire_cst_device_info wireObj,
+  ) {
+    wireObj.name = cst_encode_String(apiObj.name);
+    wireObj.version = cst_encode_String(apiObj.version);
+    wireObj.initialized = cst_encode_bool(apiObj.initialized);
   }
 
   @protected
@@ -3050,6 +3080,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void sse_encode_descriptor(Descriptor self, SseSerializer serializer);
 
   @protected
+  void sse_encode_device_info(DeviceInfo self, SseSerializer serializer);
+
+  @protected
   void sse_encode_electrum_settings(
     ElectrumSettings self,
     SseSerializer serializer,
@@ -3228,6 +3261,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void sse_encode_opt_box_autoadd_u_8(int? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_list_prim_u_8_strict(
+    Uint8List? self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_out_point(OutPoint self, SseSerializer serializer);
@@ -6276,6 +6315,72 @@ class BullSdkWire implements BaseWire {
             )
           >();
 
+  void wire__bitbox__api__close_device(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+  ) {
+    return _wire__bitbox__api__close_device(port_, serial_number);
+  }
+
+  late final _wire__bitbox__api__close_devicePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__close_device');
+  late final _wire__bitbox__api__close_device =
+      _wire__bitbox__api__close_devicePtr
+          .asFunction<
+            void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>)
+          >();
+
+  void wire__bitbox__api__close_usb_channel(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+  ) {
+    return _wire__bitbox__api__close_usb_channel(port_, serial_number);
+  }
+
+  late final _wire__bitbox__api__close_usb_channelPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__close_usb_channel');
+  late final _wire__bitbox__api__close_usb_channel =
+      _wire__bitbox__api__close_usb_channelPtr
+          .asFunction<
+            void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>)
+          >();
+
+  void wire__bitbox__api__confirm_pairing(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+  ) {
+    return _wire__bitbox__api__confirm_pairing(port_, serial_number);
+  }
+
+  late final _wire__bitbox__api__confirm_pairingPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__confirm_pairing');
+  late final _wire__bitbox__api__confirm_pairing =
+      _wire__bitbox__api__confirm_pairingPtr
+          .asFunction<
+            void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>)
+          >();
+
   void wire__boltz__api__types__decoded_invoice_from_string(
     int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> s,
@@ -6542,6 +6647,64 @@ class BullSdkWire implements BaseWire {
             )
           >();
 
+  void wire__bitbox__api__get_btc_xpub(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> keypath,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> xpub_type,
+  ) {
+    return _wire__bitbox__api__get_btc_xpub(
+      port_,
+      serial_number,
+      keypath,
+      xpub_type,
+    );
+  }
+
+  late final _wire__bitbox__api__get_btc_xpubPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__get_btc_xpub');
+  late final _wire__bitbox__api__get_btc_xpub =
+      _wire__bitbox__api__get_btc_xpubPtr
+          .asFunction<
+            void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            )
+          >();
+
+  void wire__bitbox__api__get_device_info(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+  ) {
+    return _wire__bitbox__api__get_device_info(port_, serial_number);
+  }
+
+  late final _wire__bitbox__api__get_device_infoPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__get_device_info');
+  late final _wire__bitbox__api__get_device_info =
+      _wire__bitbox__api__get_device_infoPtr
+          .asFunction<
+            void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>)
+          >();
+
   WireSyncRust2DartDco wire__lwk__api__types__get_lbtc_asset_id() {
     return _wire__lwk__api__types__get_lbtc_asset_id();
   }
@@ -6602,6 +6765,28 @@ class BullSdkWire implements BaseWire {
             WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_list_balance>)
           >();
 
+  void wire__bitbox__api__get_root_fingerprint(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+  ) {
+    return _wire__bitbox__api__get_root_fingerprint(port_, serial_number);
+  }
+
+  late final _wire__bitbox__api__get_root_fingerprintPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__get_root_fingerprint');
+  late final _wire__bitbox__api__get_root_fingerprint =
+      _wire__bitbox__api__get_root_fingerprintPtr
+          .asFunction<
+            void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>)
+          >();
+
   void wire__lwk__api__transaction__get_size_and_absolute_fees(
     int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> pset,
@@ -6628,6 +6813,39 @@ class BullSdkWire implements BaseWire {
           .asFunction<
             void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>)
           >();
+
+  WireSyncRust2DartDco wire__bitbox__api__get_usb_write_data_wrapper(
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+  ) {
+    return _wire__bitbox__api__get_usb_write_data_wrapper(serial_number);
+  }
+
+  late final _wire__bitbox__api__get_usb_write_data_wrapperPtr =
+      _lookup<
+        ffi.NativeFunction<
+          WireSyncRust2DartDco Function(
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__get_usb_write_data_wrapper');
+  late final _wire__bitbox__api__get_usb_write_data_wrapper =
+      _wire__bitbox__api__get_usb_write_data_wrapperPtr
+          .asFunction<
+            WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            )
+          >();
+
+  void wire__bitbox__api__init_app(int port_) {
+    return _wire__bitbox__api__init_app(port_);
+  }
+
+  late final _wire__bitbox__api__init_appPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+        'frbgen_bull_sdk_wire__bitbox__api__init_app',
+      );
+  late final _wire__bitbox__api__init_app = _wire__bitbox__api__init_appPtr
+      .asFunction<void Function(int)>();
 
   void wire__bbqr__join__joined_frb_override_try_from_parts(
     int port_,
@@ -7468,6 +7686,66 @@ class BullSdkWire implements BaseWire {
             )
           >();
 
+  WireSyncRust2DartDco wire__bitbox__api__set_usb_read_data_wrapper(
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+    ffi.Pointer<wire_cst_list_prim_u_8_loose> data,
+  ) {
+    return _wire__bitbox__api__set_usb_read_data_wrapper(serial_number, data);
+  }
+
+  late final _wire__bitbox__api__set_usb_read_data_wrapperPtr =
+      _lookup<
+        ffi.NativeFunction<
+          WireSyncRust2DartDco Function(
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_loose>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__set_usb_read_data_wrapper');
+  late final _wire__bitbox__api__set_usb_read_data_wrapper =
+      _wire__bitbox__api__set_usb_read_data_wrapperPtr
+          .asFunction<
+            WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_loose>,
+            )
+          >();
+
+  void wire__bitbox__api__sign_psbt(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> psbt_str,
+    bool testnet,
+  ) {
+    return _wire__bitbox__api__sign_psbt(
+      port_,
+      serial_number,
+      psbt_str,
+      testnet,
+    );
+  }
+
+  late final _wire__bitbox__api__sign_psbtPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Bool,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__sign_psbt');
+  late final _wire__bitbox__api__sign_psbt = _wire__bitbox__api__sign_psbtPtr
+      .asFunction<
+        void Function(
+          int,
+          ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          bool,
+        )
+      >();
+
   void wire__bbqr__split__split_frb_override_try_from_data(
     int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_loose> bytes,
@@ -7515,6 +7793,28 @@ class BullSdkWire implements BaseWire {
   late final _wire__bbqr__split__split_options_default =
       _wire__bbqr__split__split_options_defaultPtr
           .asFunction<void Function(int)>();
+
+  void wire__bitbox__api__start_pairing(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+  ) {
+    return _wire__bitbox__api__start_pairing(port_, serial_number);
+  }
+
+  late final _wire__bitbox__api__start_pairingPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__start_pairing');
+  late final _wire__bitbox__api__start_pairing =
+      _wire__bitbox__api__start_pairingPtr
+          .asFunction<
+            void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>)
+          >();
 
   WireSyncRust2DartDco wire__boltz__api__swap_status__swap_status_as_string(
     int that,
@@ -7748,6 +8048,46 @@ class BullSdkWire implements BaseWire {
       _wire__ark_wallet__ark__utils__utils_is_btcPtr
           .asFunction<
             WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            )
+          >();
+
+  void wire__bitbox__api__verify_address(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> keypath,
+    bool testnet,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> script_type,
+  ) {
+    return _wire__bitbox__api__verify_address(
+      port_,
+      serial_number,
+      keypath,
+      testnet,
+      script_type,
+    );
+  }
+
+  late final _wire__bitbox__api__verify_addressPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Bool,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__verify_address');
+  late final _wire__bitbox__api__verify_address =
+      _wire__bitbox__api__verify_addressPtr
+          .asFunction<
+            void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              bool,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             )
           >();
@@ -9188,6 +9528,15 @@ final class wire_cst_decoded_invoice extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> preimage_hash;
 
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> description;
+}
+
+final class wire_cst_device_info extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> name;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> version;
+
+  @ffi.Bool()
+  external bool initialized;
 }
 
 final class wire_cst_joined extends ffi.Struct {

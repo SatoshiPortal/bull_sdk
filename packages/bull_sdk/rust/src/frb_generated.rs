@@ -46,7 +46,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.11.1";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1683105466;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1662695056;
 
 // Section: executor
 
@@ -4029,6 +4029,78 @@ fn wire__boltz__api__transactions__check_vout_0_outspend_impl(
         },
     )
 }
+fn wire__bitbox__api__close_device_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    serial_number: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "close_device",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let output_ok = bitbox::api::close_device(api_serial_number).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__bitbox__api__close_usb_channel_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    serial_number: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "close_usb_channel",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let output_ok = bitbox::api::close_usb_channel(api_serial_number).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__bitbox__api__confirm_pairing_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    serial_number: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "confirm_pairing",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let output_ok = bitbox::api::confirm_pairing(api_serial_number).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
 fn wire__boltz__api__types__decoded_invoice_from_string_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     s: impl CstDecode<String>,
@@ -4376,6 +4448,63 @@ fn wire__lwk__api__types__get_balance_by_asset_id_impl(
         },
     )
 }
+fn wire__bitbox__api__get_btc_xpub_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    serial_number: impl CstDecode<String>,
+    keypath: impl CstDecode<String>,
+    xpub_type: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "get_btc_xpub",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            let api_keypath = keypath.cst_decode();
+            let api_xpub_type = xpub_type.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let output_ok = bitbox::api::get_btc_xpub(
+                            api_serial_number,
+                            api_keypath,
+                            api_xpub_type,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__bitbox__api__get_device_info_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    serial_number: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "get_device_info",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let output_ok = bitbox::api::get_device_info(api_serial_number).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
 fn wire__lwk__api__types__get_lbtc_asset_id_impl(
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
@@ -4446,6 +4575,31 @@ fn wire__lwk__api__types__get_ltest_balance_impl(
         },
     )
 }
+fn wire__bitbox__api__get_root_fingerprint_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    serial_number: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "get_root_fingerprint",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let output_ok =
+                            bitbox::api::get_root_fingerprint(api_serial_number).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
 fn wire__lwk__api__transaction__get_size_and_absolute_fees_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     pset: impl CstDecode<String>,
@@ -4463,6 +4617,45 @@ fn wire__lwk__api__transaction__get_size_and_absolute_fees_impl(
                     let output_ok = lwk::api::transaction::get_size_and_absolute_fees(api_pset)?;
                     Ok(output_ok)
                 })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__bitbox__api__get_usb_write_data_wrapper_impl(
+    serial_number: impl CstDecode<String>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "get_usb_write_data_wrapper",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok = Result::<_, ()>::Ok(bitbox::api::get_usb_write_data_wrapper(
+                    api_serial_number,
+                ))?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__bitbox__api__init_app_impl(port_: flutter_rust_bridge::for_generated::MessagePort) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "init_app",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok = Result::<_, ()>::Ok({
+                        bitbox::api::init_app();
+                    })?;
+                    Ok(output_ok)
+                })())
             }
         },
     )
@@ -5256,6 +5449,59 @@ fn wire__boltz__api__types__pre_image_new_impl(
         },
     )
 }
+fn wire__bitbox__api__set_usb_read_data_wrapper_impl(
+    serial_number: impl CstDecode<String>,
+    data: impl CstDecode<Vec<u8>>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "set_usb_read_data_wrapper",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            let api_data = data.cst_decode();
+            transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
+                (move || {
+                    let output_ok =
+                        bitbox::api::set_usb_read_data_wrapper(api_serial_number, api_data)?;
+                    Ok(output_ok)
+                })(),
+            )
+        },
+    )
+}
+fn wire__bitbox__api__sign_psbt_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    serial_number: impl CstDecode<String>,
+    psbt_str: impl CstDecode<String>,
+    testnet: impl CstDecode<bool>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "sign_psbt",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            let api_psbt_str = psbt_str.cst_decode();
+            let api_testnet = testnet.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let output_ok =
+                            bitbox::api::sign_psbt(api_serial_number, api_psbt_str, api_testnet)
+                                .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
 fn wire__bbqr__split__split_frb_override_try_from_data_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     bytes: impl CstDecode<Vec<u8>>,
@@ -5300,6 +5546,30 @@ fn wire__bbqr__split__split_options_default_impl(
                     let output_ok = Result::<_, ()>::Ok(bbqr::split::SplitOptions::default())?;
                     Ok(output_ok)
                 })())
+            }
+        },
+    )
+}
+fn wire__bitbox__api__start_pairing_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    serial_number: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "start_pairing",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let output_ok = bitbox::api::start_pairing(api_serial_number).await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
             }
         },
     )
@@ -5507,6 +5777,42 @@ fn wire__ark_wallet__ark__utils__utils_is_btc_impl(
         },
     )
 }
+fn wire__bitbox__api__verify_address_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    serial_number: impl CstDecode<String>,
+    keypath: impl CstDecode<String>,
+    testnet: impl CstDecode<bool>,
+    script_type: impl CstDecode<Option<String>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "verify_address",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            let api_keypath = keypath.cst_decode();
+            let api_testnet = testnet.cst_decode();
+            let api_script_type = script_type.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let output_ok = bitbox::api::verify_address(
+                            api_serial_number,
+                            api_keypath,
+                            api_testnet,
+                            api_script_type,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
 fn wire__bbqr__qr__version_data_capacity_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<bbqr::qr::Version>,
@@ -5652,6 +5958,12 @@ const _: fn() = || {
     {
         let Descriptor = None::<lwk::api::descriptor::Descriptor>.unwrap();
         let _: String = Descriptor.ct_descriptor;
+    }
+    {
+        let DeviceInfo = None::<bitbox::api::DeviceInfo>.unwrap();
+        let _: String = DeviceInfo.name;
+        let _: String = DeviceInfo.version;
+        let _: bool = DeviceInfo.initialized;
     }
     {
         let ElectrumSettings = None::<boltz::api::types::ElectrumSettings>.unwrap();
@@ -6636,6 +6948,20 @@ impl SseDecode for lwk::api::descriptor::Descriptor {
     }
 }
 
+impl SseDecode for bitbox::api::DeviceInfo {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_name = <String>::sse_decode(deserializer);
+        let mut var_version = <String>::sse_decode(deserializer);
+        let mut var_initialized = <bool>::sse_decode(deserializer);
+        return bitbox::api::DeviceInfo {
+            name: var_name,
+            version: var_version,
+            initialized: var_initialized,
+        };
+    }
+}
+
 impl SseDecode for boltz::api::types::ElectrumSettings {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -7147,6 +7473,17 @@ impl SseDecode for Option<u8> {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
             return Some(<u8>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<Vec<u8>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<Vec<u8>>::sse_decode(deserializer));
         } else {
             return None;
         }
@@ -8320,6 +8657,28 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::descriptor::Descript
     for lwk::api::descriptor::Descriptor
 {
     fn into_into_dart(self) -> FrbWrapper<lwk::api::descriptor::Descriptor> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<bitbox::api::DeviceInfo> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.name.into_into_dart().into_dart(),
+            self.0.version.into_into_dart().into_dart(),
+            self.0.initialized.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<bitbox::api::DeviceInfo>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<bitbox::api::DeviceInfo>>
+    for bitbox::api::DeviceInfo
+{
+    fn into_into_dart(self) -> FrbWrapper<bitbox::api::DeviceInfo> {
         self.into()
     }
 }
@@ -9752,6 +10111,15 @@ impl SseEncode for lwk::api::descriptor::Descriptor {
     }
 }
 
+impl SseEncode for bitbox::api::DeviceInfo {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.name, serializer);
+        <String>::sse_encode(self.version, serializer);
+        <bool>::sse_encode(self.initialized, serializer);
+    }
+}
+
 impl SseEncode for boltz::api::types::ElectrumSettings {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -10178,6 +10546,16 @@ impl SseEncode for Option<u8> {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
             <u8>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<Vec<u8>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <Vec<u8>>::sse_encode(value, serializer);
         }
     }
 }
@@ -11290,6 +11668,16 @@ mod io {
             }
         }
     }
+    impl CstDecode<bitbox::api::DeviceInfo> for wire_cst_device_info {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> bitbox::api::DeviceInfo {
+            bitbox::api::DeviceInfo {
+                name: self.name.cst_decode(),
+                version: self.version.cst_decode(),
+                initialized: self.initialized.cst_decode(),
+            }
+        }
+    }
     impl CstDecode<boltz::api::types::ElectrumSettings> for wire_cst_electrum_settings {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> boltz::api::types::ElectrumSettings {
@@ -12038,6 +12426,20 @@ mod io {
         }
     }
     impl Default for wire_cst_descriptor {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_device_info {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                name: core::ptr::null_mut(),
+                version: core::ptr::null_mut(),
+                initialized: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_device_info {
         fn default() -> Self {
             Self::new_with_null_ptr()
         }
@@ -13765,6 +14167,30 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__close_device(
+        port_: i64,
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__bitbox__api__close_device_impl(port_, serial_number)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__close_usb_channel(
+        port_: i64,
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__bitbox__api__close_usb_channel_impl(port_, serial_number)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__confirm_pairing(
+        port_: i64,
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__bitbox__api__confirm_pairing_impl(port_, serial_number)
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__types__decoded_invoice_from_string(
         port_: i64,
         s: *mut wire_cst_list_prim_u_8_strict,
@@ -13881,6 +14307,24 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__get_btc_xpub(
+        port_: i64,
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+        keypath: *mut wire_cst_list_prim_u_8_strict,
+        xpub_type: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__bitbox__api__get_btc_xpub_impl(port_, serial_number, keypath, xpub_type)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__get_device_info(
+        port_: i64,
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__bitbox__api__get_device_info_impl(port_, serial_number)
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__types__get_lbtc_asset_id(
     ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
         wire__lwk__api__types__get_lbtc_asset_id_impl()
@@ -13907,11 +14351,31 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__get_root_fingerprint(
+        port_: i64,
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__bitbox__api__get_root_fingerprint_impl(port_, serial_number)
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__transaction__get_size_and_absolute_fees(
         port_: i64,
         pset: *mut wire_cst_list_prim_u_8_strict,
     ) {
         wire__lwk__api__transaction__get_size_and_absolute_fees_impl(port_, pset)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__get_usb_write_data_wrapper(
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__bitbox__api__get_usb_write_data_wrapper_impl(serial_number)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__init_app(port_: i64) {
+        wire__bitbox__api__init_app_impl(port_)
     }
 
     #[unsafe(no_mangle)]
@@ -14251,6 +14715,24 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__set_usb_read_data_wrapper(
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+        data: *mut wire_cst_list_prim_u_8_loose,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__bitbox__api__set_usb_read_data_wrapper_impl(serial_number, data)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__sign_psbt(
+        port_: i64,
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+        psbt_str: *mut wire_cst_list_prim_u_8_strict,
+        testnet: bool,
+    ) {
+        wire__bitbox__api__sign_psbt_impl(port_, serial_number, psbt_str, testnet)
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__bbqr__split__split_frb_override_try_from_data(
         port_: i64,
         bytes: *mut wire_cst_list_prim_u_8_loose,
@@ -14263,6 +14745,14 @@ mod io {
     #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__bbqr__split__split_options_default(port_: i64) {
         wire__bbqr__split__split_options_default_impl(port_)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__start_pairing(
+        port_: i64,
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__bitbox__api__start_pairing_impl(port_, serial_number)
     }
 
     #[unsafe(no_mangle)]
@@ -14340,6 +14830,17 @@ mod io {
         address: *mut wire_cst_list_prim_u_8_strict,
     ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
         wire__ark_wallet__ark__utils__utils_is_btc_impl(address)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__verify_address(
+        port_: i64,
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+        keypath: *mut wire_cst_list_prim_u_8_strict,
+        testnet: bool,
+        script_type: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__bitbox__api__verify_address_impl(port_, serial_number, keypath, testnet, script_type)
     }
 
     #[unsafe(no_mangle)]
@@ -15013,6 +15514,13 @@ mod io {
     #[derive(Clone, Copy)]
     pub struct wire_cst_descriptor {
         ct_descriptor: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_device_info {
+        name: *mut wire_cst_list_prim_u_8_strict,
+        version: *mut wire_cst_list_prim_u_8_strict,
+        initialized: bool,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
