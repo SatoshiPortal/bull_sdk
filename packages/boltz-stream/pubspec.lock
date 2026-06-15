@@ -28,11 +28,9 @@ packages:
   bull_sdk:
     dependency: "direct main"
     description:
-      path: "packages/bull_sdk"
-      ref: main
-      resolved-ref: "6b8f54fcd7b7b7d02ef32cbcaf56943625970555"
-      url: "https://github.com/SatoshiPortal/bull_sdk"
-    source: git
+      path: "../bull_sdk"
+      relative: true
+    source: path
     version: "1.0.0+1"
   characters:
     dependency: transitive
@@ -130,11 +128,9 @@ packages:
   rust_lib_bull_sdk:
     dependency: transitive
     description:
-      path: "packages/bull_sdk/rust_builder"
-      ref: "6b8f54fcd7b7b7d02ef32cbcaf56943625970555"
-      resolved-ref: "6b8f54fcd7b7b7d02ef32cbcaf56943625970555"
-      url: "https://github.com/SatoshiPortal/bull_sdk"
-    source: git
+      path: "../bull_sdk/rust_builder"
+      relative: true
+    source: path
     version: "0.0.1"
   sky_engine:
     dependency: transitive

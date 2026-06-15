@@ -8,8 +8,5 @@ environment:
 
 dependencies:
   bull_sdk:
-    git:
-      url: https://github.com/SatoshiPortal/bull_sdk
-      ref: main
-      path: packages/bull_sdk
+    path: ../bull_sdk
   web_socket_channel: ^3.0.1
