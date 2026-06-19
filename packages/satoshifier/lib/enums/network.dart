@@ -8,18 +8,14 @@ enum Network {
   bitcoinSignet,
   bitcoinRegtest,
   liquidMainnet,
-  liquidTestnet,
-  liquidRegtest;
+  liquidTestnet;
 
   bool get isBitcoin =>
       this == bitcoinMainnet ||
       this == bitcoinTestnet ||
       this == bitcoinSignet ||
       this == bitcoinRegtest;
-  bool get isLiquid =>
-      this == liquidMainnet ||
-      this == liquidTestnet ||
-      this == liquidRegtest;
+  bool get isLiquid => this == liquidMainnet || this == liquidTestnet;
 
   bdk.Network get toBdk {
     switch (this) {
@@ -50,14 +46,12 @@ enum Network {
     }
   }
 
-  static Network fromLwkNetwork(lwk.Network lwkNetwork) {
+  static Network fromLwkNetwork(lwk.LiquidNetwork lwkNetwork) {
     switch (lwkNetwork) {
-      case lwk.Network.mainnet:
+      case lwk.LiquidNetwork.mainnet:
         return Network.liquidMainnet;
-      case lwk.Network.testnet:
+      case lwk.LiquidNetwork.testnet:
         return Network.liquidTestnet;
-      case lwk.Network.regtest:
-        return Network.liquidRegtest;
     }
   }
 
@@ -85,8 +79,6 @@ enum Network {
       case Network.liquidMainnet:
         return false;
       case Network.bitcoinRegtest:
-        return false;
-      case Network.liquidRegtest:
         return false;
       case Network.bitcoinTestnet:
         return true;

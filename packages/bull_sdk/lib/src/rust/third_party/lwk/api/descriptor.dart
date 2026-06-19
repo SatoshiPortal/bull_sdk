@@ -4,9 +4,9 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../../../frb_generated.dart';
-import '../../boltz/api/types.dart';
 import 'error.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+import 'types.dart';
 
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `fmt`
 
@@ -18,7 +18,7 @@ class Descriptor {
 
   /// Createa new wpkh confidential descriptor based on Slip77 blinding key derivation
   static Future<Descriptor> newConfidential({
-    required Network network,
+    required LiquidNetwork network,
     required String mnemonic,
   }) => BullSdk.instance.api.lwkApiDescriptorDescriptorNewConfidential(
     network: network,

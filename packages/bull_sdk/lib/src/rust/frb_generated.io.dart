@@ -417,6 +417,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   LbtcLnSwap dco_decode_lbtc_ln_swap(dynamic raw);
 
   @protected
+  LiquidNetwork dco_decode_liquid_network(dynamic raw);
+
+  @protected
   List<String> dco_decode_list_String(dynamic raw);
 
   @protected
@@ -445,6 +448,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   List<PsetOutput> dco_decode_list_pset_output(dynamic raw);
+
+  @protected
+  List<RestoredSwapSummary> dco_decode_list_restored_swap_summary(dynamic raw);
 
   @protected
   List<Tx> dco_decode_list_tx(dynamic raw);
@@ -543,6 +549,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   PsetOutput dco_decode_pset_output(dynamic raw);
+
+  @protected
+  RestoredSwapSummary dco_decode_restored_swap_summary(dynamic raw);
 
   @protected
   RevSwapFees dco_decode_rev_swap_fees(dynamic raw);
@@ -983,6 +992,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   LbtcLnSwap sse_decode_lbtc_ln_swap(SseDeserializer deserializer);
 
   @protected
+  LiquidNetwork sse_decode_liquid_network(SseDeserializer deserializer);
+
+  @protected
   List<String> sse_decode_list_String(SseDeserializer deserializer);
 
   @protected
@@ -1013,6 +1025,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   List<PsetOutput> sse_decode_list_pset_output(SseDeserializer deserializer);
+
+  @protected
+  List<RestoredSwapSummary> sse_decode_list_restored_swap_summary(
+    SseDeserializer deserializer,
+  );
 
   @protected
   List<Tx> sse_decode_list_tx(SseDeserializer deserializer);
@@ -1121,6 +1138,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   PsetOutput sse_decode_pset_output(SseDeserializer deserializer);
+
+  @protected
+  RestoredSwapSummary sse_decode_restored_swap_summary(
+    SseDeserializer deserializer,
+  );
 
   @protected
   RevSwapFees sse_decode_rev_swap_fees(SseDeserializer deserializer);
@@ -1615,6 +1637,17 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     final ans = wire.cst_new_list_pset_output(raw.length);
     for (var i = 0; i < raw.length; ++i) {
       cst_api_fill_to_wire_pset_output(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_restored_swap_summary>
+  cst_encode_list_restored_swap_summary(List<RestoredSwapSummary> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_restored_swap_summary(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_restored_swap_summary(raw[i], ans.ref.ptr[i]);
     }
     return ans;
   }
@@ -2389,6 +2422,21 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_restored_swap_summary(
+    RestoredSwapSummary apiObj,
+    wire_cst_restored_swap_summary wireObj,
+  ) {
+    wireObj.id = cst_encode_String(apiObj.id);
+    wireObj.kind = cst_encode_swap_type(apiObj.kind);
+    wireObj.status = cst_encode_String(apiObj.status);
+    wireObj.created_at = cst_encode_u_64(apiObj.createdAt);
+    wireObj.from = cst_encode_String(apiObj.from);
+    wireObj.to = cst_encode_String(apiObj.to);
+    wireObj.amount = cst_encode_u_64(apiObj.amount);
+    wireObj.recoverable = cst_encode_bool(apiObj.recoverable);
+  }
+
+  @protected
   void cst_api_fill_to_wire_rev_swap_fees(
     RevSwapFees apiObj,
     wire_cst_rev_swap_fees wireObj,
@@ -2785,6 +2833,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int cst_encode_i_32(int raw);
+
+  @protected
+  int cst_encode_liquid_network(LiquidNetwork raw);
 
   @protected
   int cst_encode_network(Network raw);
@@ -3250,6 +3301,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void sse_encode_lbtc_ln_swap(LbtcLnSwap self, SseSerializer serializer);
 
   @protected
+  void sse_encode_liquid_network(LiquidNetwork self, SseSerializer serializer);
+
+  @protected
   void sse_encode_list_String(List<String> self, SseSerializer serializer);
 
   @protected
@@ -3297,6 +3351,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   void sse_encode_list_pset_output(
     List<PsetOutput> self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_list_restored_swap_summary(
+    List<RestoredSwapSummary> self,
     SseSerializer serializer,
   );
 
@@ -3434,6 +3494,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void sse_encode_pset_output(PsetOutput self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_restored_swap_summary(
+    RestoredSwapSummary self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_rev_swap_fees(RevSwapFees self, SseSerializer serializer);
@@ -7865,6 +7931,70 @@ class BullSdkWire implements BaseWire {
             )
           >();
 
+  void wire__boltz__api__restore__restore_swap_index(
+    int port_,
+    ffi.Pointer<wire_cst_swap_master_key> swap_master_key,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> boltz_url,
+  ) {
+    return _wire__boltz__api__restore__restore_swap_index(
+      port_,
+      swap_master_key,
+      boltz_url,
+    );
+  }
+
+  late final _wire__boltz__api__restore__restore_swap_indexPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_swap_master_key>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__boltz__api__restore__restore_swap_index');
+  late final _wire__boltz__api__restore__restore_swap_index =
+      _wire__boltz__api__restore__restore_swap_indexPtr
+          .asFunction<
+            void Function(
+              int,
+              ffi.Pointer<wire_cst_swap_master_key>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            )
+          >();
+
+  void wire__boltz__api__restore__restore_swap_summaries(
+    int port_,
+    ffi.Pointer<wire_cst_swap_master_key> swap_master_key,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> boltz_url,
+  ) {
+    return _wire__boltz__api__restore__restore_swap_summaries(
+      port_,
+      swap_master_key,
+      boltz_url,
+    );
+  }
+
+  late final _wire__boltz__api__restore__restore_swap_summariesPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_swap_master_key>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__boltz__api__restore__restore_swap_summaries');
+  late final _wire__boltz__api__restore__restore_swap_summaries =
+      _wire__boltz__api__restore__restore_swap_summariesPtr
+          .asFunction<
+            void Function(
+              int,
+              ffi.Pointer<wire_cst_swap_master_key>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            )
+          >();
+
   WireSyncRust2DartDco wire__bitbox__api__set_usb_read_data_wrapper(
     ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
     ffi.Pointer<wire_cst_list_prim_u_8_loose> data,
@@ -9094,6 +9224,23 @@ class BullSdkWire implements BaseWire {
   late final _cst_new_list_pset_output = _cst_new_list_pset_outputPtr
       .asFunction<ffi.Pointer<wire_cst_list_pset_output> Function(int)>();
 
+  ffi.Pointer<wire_cst_list_restored_swap_summary>
+  cst_new_list_restored_swap_summary(int len) {
+    return _cst_new_list_restored_swap_summary(len);
+  }
+
+  late final _cst_new_list_restored_swap_summaryPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_restored_swap_summary> Function(ffi.Int32)
+        >
+      >('frbgen_bull_sdk_cst_new_list_restored_swap_summary');
+  late final _cst_new_list_restored_swap_summary =
+      _cst_new_list_restored_swap_summaryPtr
+          .asFunction<
+            ffi.Pointer<wire_cst_list_restored_swap_summary> Function(int)
+          >();
+
   ffi.Pointer<wire_cst_list_tx> cst_new_list_tx(int len) {
     return _cst_new_list_tx(len);
   }
@@ -9619,6 +9766,35 @@ final class wire_cst_list_pset_input extends ffi.Struct {
 
 final class wire_cst_list_pset_output extends ffi.Struct {
   external ffi.Pointer<wire_cst_pset_output> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_restored_swap_summary extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> id;
+
+  @ffi.Int32()
+  external int kind;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> status;
+
+  @ffi.Uint64()
+  external int created_at;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> from;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> to;
+
+  @ffi.Uint64()
+  external int amount;
+
+  @ffi.Bool()
+  external bool recoverable;
+}
+
+final class wire_cst_list_restored_swap_summary extends ffi.Struct {
+  external ffi.Pointer<wire_cst_restored_swap_summary> ptr;
 
   @ffi.Int32()
   external int len;

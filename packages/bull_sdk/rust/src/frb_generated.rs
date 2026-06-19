@@ -47,7 +47,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.12.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1463321419;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 2124457774;
 
 // Section: executor
 
@@ -673,7 +673,7 @@ fn wire__ark_wallet__ark__client__ArkWallet_transaction_history_impl(
                         let output_ok = ark_wallet::ark::client::ArkWallet::transaction_history(
                             &*api_that_guard,
                         )
-                        .await?;
+                        .await.map(|v| v.into_iter().map(|t| -> crate::api::simple::ArkTransaction { t.into() }).collect::<Vec<_>>())?;
                         Ok(output_ok)
                     })()
                     .await,
@@ -900,10 +900,10 @@ fn wire__lwk__api__transaction__LiquidTransaction_from_bytes_impl(
         },
         move || {
             let api_tx_bytes = tx_bytes.cst_decode();
-            transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                 let output_ok = lwk::api::transaction::LiquidTransaction::from_bytes(api_tx_bytes)?;
                 Ok(output_ok)
-            })())
+            })().map_err(FrbWrapper))
         },
     )
 }
@@ -918,11 +918,11 @@ fn wire__lwk__api__transaction__LiquidTransaction_from_pset_impl(
         },
         move || {
             let api_pset_string = pset_string.cst_decode();
-            transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                 let output_ok =
                     lwk::api::transaction::LiquidTransaction::from_pset(api_pset_string)?;
                 Ok(output_ok)
-            })())
+            })().map_err(FrbWrapper))
         },
     )
 }
@@ -1583,7 +1583,7 @@ fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_extract_tx_im
         },
         move || {
             let api_that = that.cst_decode();
-            transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                 let mut api_that_guard = None;
                 let decode_indices_ =
                     flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -1603,7 +1603,7 @@ fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_extract_tx_im
                         &*api_that_guard,
                     )?;
                 Ok(output_ok)
-            })())
+            })().map_err(FrbWrapper))
         },
     )
 }
@@ -1618,13 +1618,13 @@ fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_from_string_i
         },
         move || {
             let api_pset_string = pset_string.cst_decode();
-            transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                 let output_ok =
                     lwk::api::transaction::PartiallySignedElementsTransaction::from_string(
                         api_pset_string,
                     )?;
                 Ok(output_ok)
-            })())
+            })().map_err(FrbWrapper))
         },
     )
 }
@@ -2237,7 +2237,7 @@ fn wire__lwk__api__wallet__Wallet_address_impl(
             let api_that = that.cst_decode();
             let api_index = index.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2254,7 +2254,7 @@ fn wire__lwk__api__wallet__Wallet_address_impl(
                     let api_that_guard = api_that_guard.unwrap();
                     let output_ok = lwk::api::wallet::Wallet::address(&*api_that_guard, api_index)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2272,7 +2272,7 @@ fn wire__lwk__api__wallet__Wallet_address_last_unused_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2290,7 +2290,7 @@ fn wire__lwk__api__wallet__Wallet_address_last_unused_impl(
                     let output_ok =
                         lwk::api::wallet::Wallet::address_last_unused(&*api_that_guard)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2308,7 +2308,7 @@ fn wire__lwk__api__wallet__Wallet_balances_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2325,7 +2325,7 @@ fn wire__lwk__api__wallet__Wallet_balances_impl(
                     let api_that_guard = api_that_guard.unwrap();
                     let output_ok = lwk::api::wallet::Wallet::balances(&*api_that_guard)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2343,7 +2343,7 @@ fn wire__lwk__api__wallet__Wallet_blinding_key_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2360,7 +2360,7 @@ fn wire__lwk__api__wallet__Wallet_blinding_key_impl(
                     let api_that_guard = api_that_guard.unwrap();
                     let output_ok = lwk::api::wallet::Wallet::blinding_key(&*api_that_guard)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2386,7 +2386,7 @@ fn wire__lwk__api__wallet__Wallet_build_asset_tx_impl(
             let api_fee_rate = fee_rate.cst_decode();
             let api_asset = asset.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2409,7 +2409,7 @@ fn wire__lwk__api__wallet__Wallet_build_asset_tx_impl(
                         api_asset,
                     )?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2435,7 +2435,7 @@ fn wire__lwk__api__wallet__Wallet_build_lbtc_tx_impl(
             let api_fee_rate = fee_rate.cst_decode();
             let api_drain = drain.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2458,7 +2458,7 @@ fn wire__lwk__api__wallet__Wallet_build_lbtc_tx_impl(
                         api_drain,
                     )?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2469,7 +2469,7 @@ fn wire__lwk__api__wallet__Wallet_build_payjoin_tx_impl(
     sats: impl CstDecode<u64>,
     out_address: impl CstDecode<String>,
     asset: impl CstDecode<String>,
-    network: impl CstDecode<boltz::api::types::Network>,
+    network: impl CstDecode<lwk::api::types::LiquidNetwork>,
     base_url: impl CstDecode<Option<String>>,
     is_send_all: impl CstDecode<bool>,
 ) {
@@ -2488,7 +2488,7 @@ fn wire__lwk__api__wallet__Wallet_build_payjoin_tx_impl(
             let api_base_url = base_url.cst_decode();
             let api_is_send_all = is_send_all.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2513,7 +2513,7 @@ fn wire__lwk__api__wallet__Wallet_build_payjoin_tx_impl(
                         api_is_send_all,
                     )?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2533,7 +2533,7 @@ fn wire__lwk__api__wallet__Wallet_decode_tx_impl(
             let api_that = that.cst_decode();
             let api_pset = pset.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2551,7 +2551,7 @@ fn wire__lwk__api__wallet__Wallet_decode_tx_impl(
                     let output_ok =
                         lwk::api::wallet::Wallet::decode_tx(&*api_that_guard, api_pset)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2569,7 +2569,7 @@ fn wire__lwk__api__wallet__Wallet_descriptor_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2586,14 +2586,14 @@ fn wire__lwk__api__wallet__Wallet_descriptor_impl(
                     let api_that_guard = api_that_guard.unwrap();
                     let output_ok = lwk::api::wallet::Wallet::descriptor(&*api_that_guard)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
 }
 fn wire__lwk__api__wallet__Wallet_init_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    network: impl CstDecode<boltz::api::types::Network>,
+    network: impl CstDecode<lwk::api::types::LiquidNetwork>,
     dbpath: impl CstDecode<String>,
     descriptor: impl CstDecode<lwk::api::descriptor::Descriptor>,
 ) {
@@ -2608,11 +2608,11 @@ fn wire__lwk__api__wallet__Wallet_init_impl(
             let api_dbpath = dbpath.cst_decode();
             let api_descriptor = descriptor.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let output_ok =
                         lwk::api::wallet::Wallet::init(api_network, api_dbpath, api_descriptor)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2620,7 +2620,7 @@ fn wire__lwk__api__wallet__Wallet_init_impl(
 fn wire__lwk__api__wallet__Wallet_sign_tx_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
-    network: impl CstDecode<boltz::api::types::Network>,
+    network: impl CstDecode<lwk::api::types::LiquidNetwork>,
     pset: impl CstDecode<String>,
     mnemonic: impl CstDecode<String>,
 ) {
@@ -2636,7 +2636,7 @@ fn wire__lwk__api__wallet__Wallet_sign_tx_impl(
             let api_pset = pset.cst_decode();
             let api_mnemonic = mnemonic.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2658,7 +2658,7 @@ fn wire__lwk__api__wallet__Wallet_sign_tx_impl(
                         api_mnemonic,
                     )?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2666,7 +2666,7 @@ fn wire__lwk__api__wallet__Wallet_sign_tx_impl(
 fn wire__lwk__api__wallet__Wallet_signed_pset_with_extra_details_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
-    network: impl CstDecode<boltz::api::types::Network>,
+    network: impl CstDecode<lwk::api::types::LiquidNetwork>,
     pset: impl CstDecode<String>,
     mnemonic: impl CstDecode<String>,
 ) {
@@ -2682,7 +2682,7 @@ fn wire__lwk__api__wallet__Wallet_signed_pset_with_extra_details_impl(
             let api_pset = pset.cst_decode();
             let api_mnemonic = mnemonic.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2704,7 +2704,7 @@ fn wire__lwk__api__wallet__Wallet_signed_pset_with_extra_details_impl(
                         api_mnemonic,
                     )?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2730,7 +2730,7 @@ fn wire__lwk__api__wallet__Wallet_sync_impl(
             let api_stop_at_index = stop_at_index.cst_decode();
             let api_timeout = timeout.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2753,7 +2753,7 @@ fn wire__lwk__api__wallet__Wallet_sync_impl(
                         api_timeout,
                     )?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2771,7 +2771,7 @@ fn wire__lwk__api__wallet__Wallet_txs_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2788,7 +2788,7 @@ fn wire__lwk__api__wallet__Wallet_txs_impl(
                     let api_that_guard = api_that_guard.unwrap();
                     let output_ok = lwk::api::wallet::Wallet::txs(&*api_that_guard)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2806,7 +2806,7 @@ fn wire__lwk__api__wallet__Wallet_utxos_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2823,14 +2823,14 @@ fn wire__lwk__api__wallet__Wallet_utxos_impl(
                     let api_that_guard = api_that_guard.unwrap();
                     let output_ok = lwk::api::wallet::Wallet::utxos(&*api_that_guard)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
 }
 fn wire__lwk__api__types__address_address_from_script_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    network: impl CstDecode<boltz::api::types::Network>,
+    network: impl CstDecode<lwk::api::types::LiquidNetwork>,
     script: impl CstDecode<String>,
     blinding_key: impl CstDecode<Option<String>>,
 ) {
@@ -2845,14 +2845,14 @@ fn wire__lwk__api__types__address_address_from_script_impl(
             let api_script = script.cst_decode();
             let api_blinding_key = blinding_key.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let output_ok = lwk::api::types::Address::address_from_script(
                         api_network,
                         api_script,
                         api_blinding_key,
                     )?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2870,10 +2870,10 @@ fn wire__lwk__api__types__address_validate_impl(
         move || {
             let api_address_string = address_string.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let output_ok = lwk::api::types::Address::validate(api_address_string)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2893,13 +2893,13 @@ fn wire__lwk__api__blockchain__blockchain_broadcast_signed_pset_impl(
             let api_electrum_url = electrum_url.cst_decode();
             let api_signed_pset = signed_pset.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let output_ok = lwk::api::blockchain::Blockchain::broadcast_signed_pset(
                         api_electrum_url,
                         api_signed_pset,
                     )?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2919,13 +2919,13 @@ fn wire__lwk__api__blockchain__blockchain_broadcast_tx_bytes_impl(
             let api_electrum_url = electrum_url.cst_decode();
             let api_tx_bytes = tx_bytes.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let output_ok = lwk::api::blockchain::Blockchain::broadcast_tx_bytes(
                         api_electrum_url,
                         api_tx_bytes,
                     )?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -2945,11 +2945,11 @@ fn wire__lwk__api__blockchain__blockchain_test_impl(
             let api_that = that.cst_decode();
             let api_electrum_url = electrum_url.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let output_ok =
                         lwk::api::blockchain::Blockchain::test(&api_that, api_electrum_url)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -3018,7 +3018,7 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_broadcast_boltz_impl(
             let api_that = that.cst_decode();
             let api_signed_hex = signed_hex.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::btc_ln::BtcLnSwap::broadcast_boltz(
                             &api_that,
@@ -3050,7 +3050,7 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_broadcast_local_impl(
             let api_signed_hex = signed_hex.cst_decode();
             let api_electrum_settings = electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::btc_ln::BtcLnSwap::broadcast_local(
                             &api_that,
@@ -3087,12 +3087,12 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_claim_impl(
             let api_try_cooperate = try_cooperate.cst_decode();
             let api_electrum_settings = electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::btc_ln::BtcLnSwap::claim(
                             &api_that,
                             api_out_address,
-                            api_miner_fee,
+                            api_miner_fee.into(),
                             api_try_cooperate,
                             api_electrum_settings,
                         )
@@ -3122,7 +3122,7 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_claim_tx_size_impl(
             let api_is_cooperative = is_cooperative.cst_decode();
             let api_electrum_settings = electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::btc_ln::BtcLnSwap::claim_tx_size(
                             &api_that,
@@ -3151,7 +3151,7 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_coop_close_submarine_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok =
                             boltz::api::btc_ln::BtcLnSwap::coop_close_submarine(&api_that).await?;
@@ -3176,10 +3176,10 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_from_json_impl(
         move || {
             let api_json_str = json_str.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
                     let output_ok = boltz::api::btc_ln::BtcLnSwap::from_json(&api_json_str)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -3197,7 +3197,7 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_get_completed_submarine_preimage_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok =
                             boltz::api::btc_ln::BtcLnSwap::get_completed_submarine_preimage(
@@ -3225,7 +3225,7 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_get_preimage_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok =
                             boltz::api::btc_ln::BtcLnSwap::get_preimage(&api_that).await?;
@@ -3325,7 +3325,7 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_new_reverse_impl(
             let api_description = description.cst_decode();
             let api_referral_id = referral_id.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::btc_ln::BtcLnSwap::new_reverse(
                             api_swap_master_key,
@@ -3372,7 +3372,7 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_new_submarine_impl(
             let api_boltz_url = boltz_url.cst_decode();
             let api_referral_id = referral_id.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::btc_ln::BtcLnSwap::new_submarine(
                             api_swap_master_key,
@@ -3413,12 +3413,12 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_refund_impl(
             let api_try_cooperate = try_cooperate.cst_decode();
             let api_electrum_settings = electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::btc_ln::BtcLnSwap::refund(
                             &api_that,
                             api_out_address,
-                            api_miner_fee,
+                            api_miner_fee.into(),
                             api_try_cooperate,
                             api_electrum_settings,
                         )
@@ -3448,7 +3448,7 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_refund_tx_size_impl(
             let api_is_cooperative = is_cooperative.cst_decode();
             let api_electrum_settings = electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::btc_ln::BtcLnSwap::refund_tx_size(
                             &api_that,
@@ -3477,10 +3477,10 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_to_json_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
                     let output_ok = boltz::api::btc_ln::BtcLnSwap::to_json(&api_that)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -3543,7 +3543,7 @@ fn wire__boltz__api__chain_swap__chain_swap_broadcast_boltz_impl(
             let api_signed_hex = signed_hex.cst_decode();
             let api_kind = kind.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::chain_swap::ChainSwap::broadcast_boltz(
                             &api_that,
@@ -3578,7 +3578,7 @@ fn wire__boltz__api__chain_swap__chain_swap_broadcast_local_impl(
             let api_kind = kind.cst_decode();
             let api_electrum_settings = electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::chain_swap::ChainSwap::broadcast_local(
                             &api_that,
@@ -3618,12 +3618,12 @@ fn wire__boltz__api__chain_swap__chain_swap_claim_impl(
             let api_btc_electrum_settings = btc_electrum_settings.cst_decode();
             let api_lbtc_electrum_settings = lbtc_electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::chain_swap::ChainSwap::claim(
                             &api_that,
                             api_out_address,
-                            api_miner_fee,
+                            api_miner_fee.into(),
                             api_try_cooperate,
                             api_btc_electrum_settings,
                             api_lbtc_electrum_settings,
@@ -3658,7 +3658,7 @@ fn wire__boltz__api__chain_swap__chain_swap_claim_tx_size_impl(
             let api_btc_electrum_settings = btc_electrum_settings.cst_decode();
             let api_lbtc_electrum_settings = lbtc_electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::chain_swap::ChainSwap::claim_tx_size(
                             &api_that,
@@ -3689,7 +3689,7 @@ fn wire__boltz__api__chain_swap__chain_swap_from_json_impl(
         move || {
             let api_json_str = json_str.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok =
                             boltz::api::chain_swap::ChainSwap::from_json(&api_json_str).await?;
@@ -3714,7 +3714,7 @@ fn wire__boltz__api__chain_swap__chain_swap_get_server_lockup_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok =
                             boltz::api::chain_swap::ChainSwap::get_server_lockup(&api_that).await?;
@@ -3739,7 +3739,7 @@ fn wire__boltz__api__chain_swap__chain_swap_get_user_lockup_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok =
                             boltz::api::chain_swap::ChainSwap::get_user_lockup(&api_that).await?;
@@ -3851,7 +3851,7 @@ fn wire__boltz__api__chain_swap__chain_swap_new_swap_impl(
             let api_boltz_url = boltz_url.cst_decode();
             let api_referral_id = referral_id.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::chain_swap::ChainSwap::new_swap(
                             api_direction,
@@ -3896,12 +3896,12 @@ fn wire__boltz__api__chain_swap__chain_swap_refund_impl(
             let api_btc_electrum_settings = btc_electrum_settings.cst_decode();
             let api_lbtc_electrum_settings = lbtc_electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::chain_swap::ChainSwap::refund(
                             &api_that,
                             api_refund_address,
-                            api_miner_fee,
+                            api_miner_fee.into(),
                             api_try_cooperate,
                             api_btc_electrum_settings,
                             api_lbtc_electrum_settings,
@@ -3936,7 +3936,7 @@ fn wire__boltz__api__chain_swap__chain_swap_refund_tx_size_impl(
             let api_btc_electrum_settings = btc_electrum_settings.cst_decode();
             let api_lbtc_electrum_settings = lbtc_electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::chain_swap::ChainSwap::refund_tx_size(
                             &api_that,
@@ -3967,7 +3967,7 @@ fn wire__boltz__api__chain_swap__chain_swap_to_json_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok =
                             boltz::api::chain_swap::ChainSwap::to_json(&api_that).await?;
@@ -4002,7 +4002,7 @@ fn wire__boltz__api__transactions__check_vout_0_outspend_impl(
             let api_boltz_url = boltz_url.cst_decode();
             let api_chain_swap_direction = chain_swap_direction.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::transactions::check_vout_0_outspend(
                             &api_swap_id,
@@ -4108,7 +4108,7 @@ fn wire__boltz__api__invoice__decoded_invoice_from_string_impl(
             let api_s = s.cst_decode();
             let api_boltz_url = boltz_url.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok =
                             boltz::api::invoice::DecodedInvoice::from_string(api_s, api_boltz_url)
@@ -4123,7 +4123,7 @@ fn wire__boltz__api__invoice__decoded_invoice_from_string_impl(
 }
 fn wire__lwk__api__descriptor__descriptor_new_confidential_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    network: impl CstDecode<boltz::api::types::Network>,
+    network: impl CstDecode<lwk::api::types::LiquidNetwork>,
     mnemonic: impl CstDecode<String>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
@@ -4136,13 +4136,13 @@ fn wire__lwk__api__descriptor__descriptor_new_confidential_impl(
             let api_network = network.cst_decode();
             let api_mnemonic = mnemonic.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let output_ok = lwk::api::descriptor::Descriptor::new_confidential(
                         api_network,
                         api_mnemonic,
                     )?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -4248,10 +4248,10 @@ fn wire__lwk__api__transaction__extract_tx_bytes_impl(
         move || {
             let api_pset = pset.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let output_ok = lwk::api::transaction::extract_tx_bytes(api_pset)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -4269,7 +4269,7 @@ fn wire__boltz__api__fees__fees_chain_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::fees::Fees::chain(&api_that).await?;
                         Ok(output_ok)
@@ -4315,7 +4315,7 @@ fn wire__boltz__api__fees__fees_reverse_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::fees::Fees::reverse(&api_that).await?;
                         Ok(output_ok)
@@ -4339,7 +4339,7 @@ fn wire__boltz__api__fees__fees_submarine_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::fees::Fees::submarine(&api_that).await?;
                         Ok(output_ok)
@@ -4605,10 +4605,10 @@ fn wire__lwk__api__transaction__get_size_and_absolute_fees_impl(
         move || {
             let api_pset = pset.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, lwk::api::error::LwkError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
                     let output_ok = lwk::api::transaction::get_size_and_absolute_fees(api_pset)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -4733,7 +4733,7 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_broadcast_boltz_impl(
             let api_that = that.cst_decode();
             let api_signed_hex = signed_hex.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::broadcast_boltz(
                             &api_that,
@@ -4765,7 +4765,7 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_broadcast_local_impl(
             let api_signed_hex = signed_hex.cst_decode();
             let api_electrum_settings = electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::broadcast_local(
                             &api_that,
@@ -4802,12 +4802,12 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_claim_impl(
             let api_try_cooperate = try_cooperate.cst_decode();
             let api_electrum_settings = electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::claim(
                             &api_that,
                             api_out_address,
-                            api_miner_fee,
+                            api_miner_fee.into(),
                             api_try_cooperate,
                             api_electrum_settings,
                         )
@@ -4837,7 +4837,7 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_claim_tx_size_impl(
             let api_is_cooperative = is_cooperative.cst_decode();
             let api_electrum_settings = electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::claim_tx_size(
                             &api_that,
@@ -4866,7 +4866,7 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_coop_close_submarine_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok =
                             boltz::api::lbtc_ln::LbtcLnSwap::coop_close_submarine(&api_that)
@@ -4892,10 +4892,10 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_from_json_impl(
         move || {
             let api_json_str = json_str.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
                     let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::from_json(&api_json_str)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -4913,7 +4913,7 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_get_completed_submarine_preimage_impl
         move || {
             let api_that = that.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok =
                             boltz::api::lbtc_ln::LbtcLnSwap::get_completed_submarine_preimage(
@@ -4941,7 +4941,7 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_get_preimage_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok =
                             boltz::api::lbtc_ln::LbtcLnSwap::get_preimage(&api_that).await?;
@@ -5044,7 +5044,7 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_new_reverse_impl(
             let api_description = description.cst_decode();
             let api_referral_id = referral_id.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::new_reverse(
                             api_swap_master_key,
@@ -5091,7 +5091,7 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_new_submarine_impl(
             let api_boltz_url = boltz_url.cst_decode();
             let api_referral_id = referral_id.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::new_submarine(
                             api_swap_master_key,
@@ -5132,12 +5132,12 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_refund_impl(
             let api_try_cooperate = try_cooperate.cst_decode();
             let api_electrum_settings = electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::refund(
                             &api_that,
                             api_out_address,
-                            api_miner_fee,
+                            api_miner_fee.into(),
                             api_try_cooperate,
                             api_electrum_settings,
                         )
@@ -5167,7 +5167,7 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_refund_tx_size_impl(
             let api_is_cooperative = is_cooperative.cst_decode();
             let api_electrum_settings = electrum_settings.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::refund_tx_size(
                             &api_that,
@@ -5196,10 +5196,10 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_to_json_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
                     let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::to_json(&api_that)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -5219,7 +5219,7 @@ fn wire__boltz__api__lnurl__lnurl_fetch_invoice_impl(
             let api_that = that.cst_decode();
             let api_msats = msats.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok =
                             boltz::api::lnurl::Lnurl::fetch_invoice(&api_that, api_msats).await?;
@@ -5244,7 +5244,7 @@ fn wire__boltz__api__lnurl__lnurl_get_voucher_max_amount_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok =
                             boltz::api::lnurl::Lnurl::get_voucher_max_amount(&api_that).await?;
@@ -5314,7 +5314,7 @@ fn wire__boltz__api__lnurl__lnurl_withdraw_impl(
             let api_that = that.cst_decode();
             let api_invoice = invoice.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok =
                             boltz::api::lnurl::Lnurl::withdraw(&api_that, api_invoice).await?;
@@ -5339,10 +5339,10 @@ fn wire__boltz__api__secrets__pre_image_from_invoice_str_impl(
         move || {
             let api_invoice = invoice.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
                     let output_ok = boltz::api::secrets::PreImage::from_invoice_str(&api_invoice)?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -5395,7 +5395,7 @@ fn wire__boltz__api__restore__restore_chain_swaps_impl(
             let api_lbtc_electrum_url = lbtc_electrum_url.cst_decode();
             let api_boltz_url = boltz_url.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::restore::restore_chain_swaps(
                             api_swap_master_key,
@@ -5429,7 +5429,7 @@ fn wire__boltz__api__restore__restore_ln_btc_swaps_impl(
             let api_electrum_url = electrum_url.cst_decode();
             let api_boltz_url = boltz_url.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::restore::restore_ln_btc_swaps(
                             api_swap_master_key,
@@ -5462,11 +5462,71 @@ fn wire__boltz__api__restore__restore_ln_lbtc_swaps_impl(
             let api_electrum_url = electrum_url.cst_decode();
             let api_boltz_url = boltz_url.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>(
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
                     (move || async move {
                         let output_ok = boltz::api::restore::restore_ln_lbtc_swaps(
                             api_swap_master_key,
                             api_electrum_url,
+                            api_boltz_url,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__restore__restore_swap_index_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    swap_master_key: impl CstDecode<boltz::api::secrets::SwapMasterKey>,
+    boltz_url: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "restore_swap_index",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_swap_master_key = swap_master_key.cst_decode();
+            let api_boltz_url = boltz_url.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::restore::restore_swap_index(
+                            api_swap_master_key,
+                            api_boltz_url,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__boltz__api__restore__restore_swap_summaries_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    swap_master_key: impl CstDecode<boltz::api::secrets::SwapMasterKey>,
+    boltz_url: impl CstDecode<String>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "restore_swap_summaries",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_swap_master_key = swap_master_key.cst_decode();
+            let api_boltz_url = boltz_url.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::restore::restore_swap_summaries(
+                            api_swap_master_key,
                             api_boltz_url,
                         )
                         .await?;
@@ -5620,14 +5680,14 @@ fn wire__boltz__api__secrets__swap_master_key_create_impl(
             let api_wallet_passphrase = wallet_passphrase.cst_decode();
             let api_network = network.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, boltz::api::error::BoltzError>((move || {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
                     let output_ok = boltz::api::secrets::SwapMasterKey::create(
                         api_wallet_mnemonic,
                         api_wallet_passphrase,
                         api_network,
                     )?;
                     Ok(output_ok)
-                })())
+                })().map_err(FrbWrapper))
             }
         },
     )
@@ -6129,6 +6189,17 @@ const _: fn() = || {
         let _: Option<String> = PsetOutput.blinding_key;
     }
     {
+        let RestoredSwapSummary = None::<boltz::api::restore::RestoredSwapSummary>.unwrap();
+        let _: String = RestoredSwapSummary.id;
+        let _: boltz::api::types::SwapType = RestoredSwapSummary.kind;
+        let _: String = RestoredSwapSummary.status;
+        let _: u64 = RestoredSwapSummary.created_at;
+        let _: String = RestoredSwapSummary.from;
+        let _: String = RestoredSwapSummary.to;
+        let _: u64 = RestoredSwapSummary.amount;
+        let _: bool = RestoredSwapSummary.recoverable;
+    }
+    {
         let RevSwapFees = None::<boltz::api::fees::RevSwapFees>.unwrap();
         let _: f64 = RevSwapFees.percentage;
         let _: boltz::api::fees::MinerFees = RevSwapFees.miner_fees;
@@ -6351,6 +6422,16 @@ impl CstDecode<i64> for i64 {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> i64 {
         self
+    }
+}
+impl CstDecode<lwk::api::types::LiquidNetwork> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> lwk::api::types::LiquidNetwork {
+        match self {
+            0 => lwk::api::types::LiquidNetwork::Mainnet,
+            1 => lwk::api::types::LiquidNetwork::Testnet,
+            _ => unreachable!("Invalid variant for LiquidNetwork: {}", self),
+        }
     }
 }
 impl CstDecode<boltz::api::types::Network> for i32 {
@@ -7199,6 +7280,18 @@ impl SseDecode for boltz::api::lbtc_ln::LbtcLnSwap {
     }
 }
 
+impl SseDecode for lwk::api::types::LiquidNetwork {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => lwk::api::types::LiquidNetwork::Mainnet,
+            1 => lwk::api::types::LiquidNetwork::Testnet,
+            _ => unreachable!("Invalid variant for LiquidNetwork: {}", inner),
+        };
+    }
+}
+
 impl SseDecode for Vec<String> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -7306,6 +7399,20 @@ impl SseDecode for Vec<lwk::api::transaction::PsetOutput> {
         let mut ans_ = Vec::with_capacity(len_ as usize);
         for idx_ in 0..len_ {
             ans_.push(<lwk::api::transaction::PsetOutput>::sse_decode(
+                deserializer,
+            ));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<boltz::api::restore::RestoredSwapSummary> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = Vec::with_capacity(len_ as usize);
+        for idx_ in 0..len_ {
+            ans_.push(<boltz::api::restore::RestoredSwapSummary>::sse_decode(
                 deserializer,
             ));
         }
@@ -7693,6 +7800,30 @@ impl SseDecode for lwk::api::transaction::PsetOutput {
             amount: var_amount,
             asset: var_asset,
             blinding_key: var_blindingKey,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::restore::RestoredSwapSummary {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_id = <String>::sse_decode(deserializer);
+        let mut var_kind = <boltz::api::types::SwapType>::sse_decode(deserializer);
+        let mut var_status = <String>::sse_decode(deserializer);
+        let mut var_createdAt = <u64>::sse_decode(deserializer);
+        let mut var_from = <String>::sse_decode(deserializer);
+        let mut var_to = <String>::sse_decode(deserializer);
+        let mut var_amount = <u64>::sse_decode(deserializer);
+        let mut var_recoverable = <bool>::sse_decode(deserializer);
+        return boltz::api::restore::RestoredSwapSummary {
+            id: var_id,
+            kind: var_kind,
+            status: var_status,
+            created_at: var_createdAt,
+            from: var_from,
+            to: var_to,
+            amount: var_amount,
+            recoverable: var_recoverable,
         };
     }
 }
@@ -9000,6 +9131,27 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::lbtc_ln::LbtcLnSwa
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::LiquidNetwork> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            lwk::api::types::LiquidNetwork::Mainnet => 0.into_dart(),
+            lwk::api::types::LiquidNetwork::Testnet => 1.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::LiquidNetwork>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::LiquidNetwork>>
+    for lwk::api::types::LiquidNetwork
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::LiquidNetwork> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::lnurl::Lnurl> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [self.0.value.into_into_dart().into_dart()].into_dart()
@@ -9227,6 +9379,33 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::transaction::PsetOut
     for lwk::api::transaction::PsetOutput
 {
     fn into_into_dart(self) -> FrbWrapper<lwk::api::transaction::PsetOutput> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::restore::RestoredSwapSummary> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.id.into_into_dart().into_dart(),
+            self.0.kind.into_into_dart().into_dart(),
+            self.0.status.into_into_dart().into_dart(),
+            self.0.created_at.into_into_dart().into_dart(),
+            self.0.from.into_into_dart().into_dart(),
+            self.0.to.into_into_dart().into_dart(),
+            self.0.amount.into_into_dart().into_dart(),
+            self.0.recoverable.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::restore::RestoredSwapSummary>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::restore::RestoredSwapSummary>>
+    for boltz::api::restore::RestoredSwapSummary
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::restore::RestoredSwapSummary> {
         self.into()
     }
 }
@@ -10409,6 +10588,22 @@ impl SseEncode for boltz::api::lbtc_ln::LbtcLnSwap {
     }
 }
 
+impl SseEncode for lwk::api::types::LiquidNetwork {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                lwk::api::types::LiquidNetwork::Mainnet => 0,
+                lwk::api::types::LiquidNetwork::Testnet => 1,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
 impl SseEncode for Vec<String> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -10495,6 +10690,16 @@ impl SseEncode for Vec<lwk::api::transaction::PsetOutput> {
         <i32>::sse_encode(self.len() as _, serializer);
         for item in self {
             <lwk::api::transaction::PsetOutput>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<boltz::api::restore::RestoredSwapSummary> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <boltz::api::restore::RestoredSwapSummary>::sse_encode(item, serializer);
         }
     }
 }
@@ -10808,6 +11013,20 @@ impl SseEncode for lwk::api::transaction::PsetOutput {
         <Option<u64>>::sse_encode(self.amount, serializer);
         <Option<String>>::sse_encode(self.asset, serializer);
         <Option<String>>::sse_encode(self.blinding_key, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::restore::RestoredSwapSummary {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.id, serializer);
+        <boltz::api::types::SwapType>::sse_encode(self.kind, serializer);
+        <String>::sse_encode(self.status, serializer);
+        <u64>::sse_encode(self.created_at, serializer);
+        <String>::sse_encode(self.from, serializer);
+        <String>::sse_encode(self.to, serializer);
+        <u64>::sse_encode(self.amount, serializer);
+        <bool>::sse_encode(self.recoverable, serializer);
     }
 }
 
@@ -12058,6 +12277,18 @@ mod io {
             vec.into_iter().map(CstDecode::cst_decode).collect()
         }
     }
+    impl CstDecode<Vec<boltz::api::restore::RestoredSwapSummary>>
+        for *mut wire_cst_list_restored_swap_summary
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<boltz::api::restore::RestoredSwapSummary> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
     impl CstDecode<Vec<lwk::api::types::Tx>> for *mut wire_cst_list_tx {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> Vec<lwk::api::types::Tx> {
@@ -12200,6 +12431,21 @@ mod io {
                 amount: self.amount.cst_decode(),
                 asset: self.asset.cst_decode(),
                 blinding_key: self.blinding_key.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::restore::RestoredSwapSummary> for wire_cst_restored_swap_summary {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::restore::RestoredSwapSummary {
+            boltz::api::restore::RestoredSwapSummary {
+                id: self.id.cst_decode(),
+                kind: self.kind.cst_decode(),
+                status: self.status.cst_decode(),
+                created_at: self.created_at.cst_decode(),
+                from: self.from.cst_decode(),
+                to: self.to.cst_decode(),
+                amount: self.amount.cst_decode(),
+                recoverable: self.recoverable.cst_decode(),
             }
         }
     }
@@ -12925,6 +13171,25 @@ mod io {
         }
     }
     impl Default for wire_cst_pset_output {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_restored_swap_summary {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                id: core::ptr::null_mut(),
+                kind: Default::default(),
+                status: core::ptr::null_mut(),
+                created_at: Default::default(),
+                from: core::ptr::null_mut(),
+                to: core::ptr::null_mut(),
+                amount: Default::default(),
+                recoverable: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_restored_swap_summary {
         fn default() -> Self {
             Self::new_with_null_ptr()
         }
@@ -15002,6 +15267,24 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__restore__restore_swap_index(
+        port_: i64,
+        swap_master_key: *mut wire_cst_swap_master_key,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__restore__restore_swap_index_impl(port_, swap_master_key, boltz_url)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__restore__restore_swap_summaries(
+        port_: i64,
+        swap_master_key: *mut wire_cst_swap_master_key,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__boltz__api__restore__restore_swap_summaries_impl(port_, swap_master_key, boltz_url)
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__set_usb_read_data_wrapper(
         serial_number: *mut wire_cst_list_prim_u_8_strict,
         data: *mut wire_cst_list_prim_u_8_loose,
@@ -15634,6 +15917,20 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_restored_swap_summary(
+        len: i32,
+    ) -> *mut wire_cst_list_restored_swap_summary {
+        let wrap = wire_cst_list_restored_swap_summary {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_restored_swap_summary>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_cst_new_list_tx(len: i32) -> *mut wire_cst_list_tx {
         let wrap = wire_cst_list_tx {
             ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
@@ -15992,6 +16289,12 @@ mod io {
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
+    pub struct wire_cst_list_restored_swap_summary {
+        ptr: *mut wire_cst_restored_swap_summary,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
     pub struct wire_cst_list_tx {
         ptr: *mut wire_cst_tx,
         len: i32,
@@ -16084,6 +16387,18 @@ mod io {
         amount: *mut u64,
         asset: *mut wire_cst_list_prim_u_8_strict,
         blinding_key: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_restored_swap_summary {
+        id: *mut wire_cst_list_prim_u_8_strict,
+        kind: i32,
+        status: *mut wire_cst_list_prim_u_8_strict,
+        created_at: u64,
+        from: *mut wire_cst_list_prim_u_8_strict,
+        to: *mut wire_cst_list_prim_u_8_strict,
+        amount: u64,
+        recoverable: bool,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]

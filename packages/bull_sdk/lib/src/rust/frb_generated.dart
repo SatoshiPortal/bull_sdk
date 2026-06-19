@@ -99,7 +99,7 @@ class BullSdk extends BaseEntrypoint<BullSdkApi, BullSdkApiImpl, BullSdkWire> {
   String get codegenVersion => '2.12.0';
 
   @override
-  int get rustContentHash => 1463321419;
+  int get rustContentHash => 2124457774;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -394,7 +394,7 @@ abstract class BullSdkApi extends BaseApi {
     required BigInt sats,
     required String outAddress,
     required String asset,
-    required Network network,
+    required LiquidNetwork network,
     String? baseUrl,
     required bool isSendAll,
   });
@@ -407,21 +407,21 @@ abstract class BullSdkApi extends BaseApi {
   Future<String> lwkApiWalletWalletDescriptor({required Wallet that});
 
   Future<Wallet> lwkApiWalletWalletInit({
-    required Network network,
+    required LiquidNetwork network,
     required String dbpath,
     required Descriptor descriptor,
   });
 
   Future<String> lwkApiWalletWalletSignTx({
     required Wallet that,
-    required Network network,
+    required LiquidNetwork network,
     required String pset,
     required String mnemonic,
   });
 
   Future<String> lwkApiWalletWalletSignedPsetWithExtraDetails({
     required Wallet that,
-    required Network network,
+    required LiquidNetwork network,
     required String pset,
     required String mnemonic,
   });
@@ -439,12 +439,14 @@ abstract class BullSdkApi extends BaseApi {
   Future<List<TxOut>> lwkApiWalletWalletUtxos({required Wallet that});
 
   Future<Address> lwkApiTypesAddressAddressFromScript({
-    required Network network,
+    required LiquidNetwork network,
     required String script,
     String? blindingKey,
   });
 
-  Future<Network> lwkApiTypesAddressValidate({required String addressString});
+  Future<LiquidNetwork> lwkApiTypesAddressValidate({
+    required String addressString,
+  });
 
   Future<String> lwkApiBlockchainBlockchainBroadcastSignedPset({
     required String electrumUrl,
@@ -683,7 +685,7 @@ abstract class BullSdkApi extends BaseApi {
   });
 
   Future<Descriptor> lwkApiDescriptorDescriptorNewConfidential({
-    required Network network,
+    required LiquidNetwork network,
     required String mnemonic,
   });
 
@@ -897,6 +899,16 @@ abstract class BullSdkApi extends BaseApi {
   Future<List<LbtcLnSwap>> boltzApiRestoreRestoreLnLbtcSwaps({
     required SwapMasterKey swapMasterKey,
     required String electrumUrl,
+    required String boltzUrl,
+  });
+
+  Future<PlatformInt64> boltzApiRestoreRestoreSwapIndex({
+    required SwapMasterKey swapMasterKey,
+    required String boltzUrl,
+  });
+
+  Future<List<RestoredSwapSummary>> boltzApiRestoreRestoreSwapSummaries({
+    required SwapMasterKey swapMasterKey,
     required String boltzUrl,
   });
 
@@ -3200,7 +3212,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     required BigInt sats,
     required String outAddress,
     required String asset,
-    required Network network,
+    required LiquidNetwork network,
     String? baseUrl,
     required bool isSendAll,
   }) {
@@ -3214,7 +3226,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           var arg1 = cst_encode_u_64(sats);
           var arg2 = cst_encode_String(outAddress);
           var arg3 = cst_encode_String(asset);
-          var arg4 = cst_encode_network(network);
+          var arg4 = cst_encode_liquid_network(network);
           var arg5 = cst_encode_opt_String(baseUrl);
           var arg6 = cst_encode_bool(isSendAll);
           return wire.wire__lwk__api__wallet__Wallet_build_payjoin_tx(
@@ -3315,14 +3327,14 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
 
   @override
   Future<Wallet> lwkApiWalletWalletInit({
-    required Network network,
+    required LiquidNetwork network,
     required String dbpath,
     required Descriptor descriptor,
   }) {
     return handler.executeNormal(
       NormalTask(
         callFfi: (port_) {
-          var arg0 = cst_encode_network(network);
+          var arg0 = cst_encode_liquid_network(network);
           var arg1 = cst_encode_String(dbpath);
           var arg2 = cst_encode_box_autoadd_descriptor(descriptor);
           return wire.wire__lwk__api__wallet__Wallet_init(
@@ -3352,7 +3364,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   @override
   Future<String> lwkApiWalletWalletSignTx({
     required Wallet that,
-    required Network network,
+    required LiquidNetwork network,
     required String pset,
     required String mnemonic,
   }) {
@@ -3363,7 +3375,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
               cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
                 that,
               );
-          var arg1 = cst_encode_network(network);
+          var arg1 = cst_encode_liquid_network(network);
           var arg2 = cst_encode_String(pset);
           var arg3 = cst_encode_String(mnemonic);
           return wire.wire__lwk__api__wallet__Wallet_sign_tx(
@@ -3393,7 +3405,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   @override
   Future<String> lwkApiWalletWalletSignedPsetWithExtraDetails({
     required Wallet that,
-    required Network network,
+    required LiquidNetwork network,
     required String pset,
     required String mnemonic,
   }) {
@@ -3404,7 +3416,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
               cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
                 that,
               );
-          var arg1 = cst_encode_network(network);
+          var arg1 = cst_encode_liquid_network(network);
           var arg2 = cst_encode_String(pset);
           var arg3 = cst_encode_String(mnemonic);
           return wire
@@ -3535,14 +3547,14 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
 
   @override
   Future<Address> lwkApiTypesAddressAddressFromScript({
-    required Network network,
+    required LiquidNetwork network,
     required String script,
     String? blindingKey,
   }) {
     return handler.executeNormal(
       NormalTask(
         callFfi: (port_) {
-          var arg0 = cst_encode_network(network);
+          var arg0 = cst_encode_liquid_network(network);
           var arg1 = cst_encode_String(script);
           var arg2 = cst_encode_opt_String(blindingKey);
           return wire.wire__lwk__api__types__address_address_from_script(
@@ -3570,7 +3582,9 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       );
 
   @override
-  Future<Network> lwkApiTypesAddressValidate({required String addressString}) {
+  Future<LiquidNetwork> lwkApiTypesAddressValidate({
+    required String addressString,
+  }) {
     return handler.executeNormal(
       NormalTask(
         callFfi: (port_) {
@@ -3578,7 +3592,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           return wire.wire__lwk__api__types__address_validate(port_, arg0);
         },
         codec: DcoCodec(
-          decodeSuccessData: dco_decode_network,
+          decodeSuccessData: dco_decode_liquid_network,
           decodeErrorData: dco_decode_lwk_error,
         ),
         constMeta: kLwkApiTypesAddressValidateConstMeta,
@@ -5227,13 +5241,13 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
 
   @override
   Future<Descriptor> lwkApiDescriptorDescriptorNewConfidential({
-    required Network network,
+    required LiquidNetwork network,
     required String mnemonic,
   }) {
     return handler.executeNormal(
       NormalTask(
         callFfi: (port_) {
-          var arg0 = cst_encode_network(network);
+          var arg0 = cst_encode_liquid_network(network);
           var arg1 = cst_encode_String(mnemonic);
           return wire.wire__lwk__api__descriptor__descriptor_new_confidential(
             port_,
@@ -6871,6 +6885,72 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       );
 
   @override
+  Future<PlatformInt64> boltzApiRestoreRestoreSwapIndex({
+    required SwapMasterKey swapMasterKey,
+    required String boltzUrl,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_swap_master_key(swapMasterKey);
+          var arg1 = cst_encode_String(boltzUrl);
+          return wire.wire__boltz__api__restore__restore_swap_index(
+            port_,
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_i_64,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiRestoreRestoreSwapIndexConstMeta,
+        argValues: [swapMasterKey, boltzUrl],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiRestoreRestoreSwapIndexConstMeta =>
+      const TaskConstMeta(
+        debugName: "restore_swap_index",
+        argNames: ["swapMasterKey", "boltzUrl"],
+      );
+
+  @override
+  Future<List<RestoredSwapSummary>> boltzApiRestoreRestoreSwapSummaries({
+    required SwapMasterKey swapMasterKey,
+    required String boltzUrl,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_box_autoadd_swap_master_key(swapMasterKey);
+          var arg1 = cst_encode_String(boltzUrl);
+          return wire.wire__boltz__api__restore__restore_swap_summaries(
+            port_,
+            arg0,
+            arg1,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_list_restored_swap_summary,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiRestoreRestoreSwapSummariesConstMeta,
+        argValues: [swapMasterKey, boltzUrl],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiRestoreRestoreSwapSummariesConstMeta =>
+      const TaskConstMeta(
+        debugName: "restore_swap_summaries",
+        argNames: ["swapMasterKey", "boltzUrl"],
+      );
+
+  @override
   void bitboxApiSetUsbReadDataWrapper({
     required String serialNumber,
     required List<int> data,
@@ -8288,6 +8368,12 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  LiquidNetwork dco_decode_liquid_network(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return LiquidNetwork.values[raw as int];
+  }
+
+  @protected
   List<String> dco_decode_list_String(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_String).toList();
@@ -8345,6 +8431,14 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   List<PsetOutput> dco_decode_list_pset_output(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_pset_output).toList();
+  }
+
+  @protected
+  List<RestoredSwapSummary> dco_decode_list_restored_swap_summary(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>)
+        .map(dco_decode_restored_swap_summary)
+        .toList();
   }
 
   @protected
@@ -8601,6 +8695,24 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       amount: dco_decode_opt_box_autoadd_u_64(arr[1]),
       asset: dco_decode_opt_String(arr[2]),
       blindingKey: dco_decode_opt_String(arr[3]),
+    );
+  }
+
+  @protected
+  RestoredSwapSummary dco_decode_restored_swap_summary(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 8)
+      throw Exception('unexpected arr length: expect 8 but see ${arr.length}');
+    return RestoredSwapSummary(
+      id: dco_decode_String(arr[0]),
+      kind: dco_decode_swap_type(arr[1]),
+      status: dco_decode_String(arr[2]),
+      createdAt: dco_decode_u_64(arr[3]),
+      from: dco_decode_String(arr[4]),
+      to: dco_decode_String(arr[5]),
+      amount: dco_decode_u_64(arr[6]),
+      recoverable: dco_decode_bool(arr[7]),
     );
   }
 
@@ -9900,6 +10012,13 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  LiquidNetwork sse_decode_liquid_network(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return LiquidNetwork.values[inner];
+  }
+
+  @protected
   List<String> sse_decode_list_String(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -10007,6 +10126,20 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     var ans_ = <PsetOutput>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
       ans_.add(sse_decode_pset_output(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<RestoredSwapSummary> sse_decode_list_restored_swap_summary(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <RestoredSwapSummary>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_restored_swap_summary(deserializer));
     }
     return ans_;
   }
@@ -10366,6 +10499,31 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       amount: var_amount,
       asset: var_asset,
       blindingKey: var_blindingKey,
+    );
+  }
+
+  @protected
+  RestoredSwapSummary sse_decode_restored_swap_summary(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_String(deserializer);
+    var var_kind = sse_decode_swap_type(deserializer);
+    var var_status = sse_decode_String(deserializer);
+    var var_createdAt = sse_decode_u_64(deserializer);
+    var var_from = sse_decode_String(deserializer);
+    var var_to = sse_decode_String(deserializer);
+    var var_amount = sse_decode_u_64(deserializer);
+    var var_recoverable = sse_decode_bool(deserializer);
+    return RestoredSwapSummary(
+      id: var_id,
+      kind: var_kind,
+      status: var_status,
+      createdAt: var_createdAt,
+      from: var_from,
+      to: var_to,
+      amount: var_amount,
+      recoverable: var_recoverable,
     );
   }
 
@@ -11025,6 +11183,12 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   int cst_encode_i_32(int raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw;
+  }
+
+  @protected
+  int cst_encode_liquid_network(LiquidNetwork raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_i_32(raw.index);
   }
 
   @protected
@@ -11975,6 +12139,12 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  void sse_encode_liquid_network(LiquidNetwork self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
   void sse_encode_list_String(List<String> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
@@ -12083,6 +12253,18 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
       sse_encode_pset_output(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_restored_swap_summary(
+    List<RestoredSwapSummary> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_restored_swap_summary(item, serializer);
     }
   }
 
@@ -12412,6 +12594,22 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     sse_encode_opt_box_autoadd_u_64(self.amount, serializer);
     sse_encode_opt_String(self.asset, serializer);
     sse_encode_opt_String(self.blindingKey, serializer);
+  }
+
+  @protected
+  void sse_encode_restored_swap_summary(
+    RestoredSwapSummary self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.id, serializer);
+    sse_encode_swap_type(self.kind, serializer);
+    sse_encode_String(self.status, serializer);
+    sse_encode_u_64(self.createdAt, serializer);
+    sse_encode_String(self.from, serializer);
+    sse_encode_String(self.to, serializer);
+    sse_encode_u_64(self.amount, serializer);
+    sse_encode_bool(self.recoverable, serializer);
   }
 
   @protected
@@ -13153,7 +13351,7 @@ class WalletImpl extends RustOpaque implements Wallet {
     required BigInt sats,
     required String outAddress,
     required String asset,
-    required Network network,
+    required LiquidNetwork network,
     String? baseUrl,
     required bool isSendAll,
   }) => BullSdk.instance.api.lwkApiWalletWalletBuildPayjoinTx(
@@ -13176,7 +13374,7 @@ class WalletImpl extends RustOpaque implements Wallet {
 
   /// Sign a wallet transaction, returns (pset, signed_bytes)
   Future<String> signTx({
-    required Network network,
+    required LiquidNetwork network,
     required String pset,
     required String mnemonic,
   }) => BullSdk.instance.api.lwkApiWalletWalletSignTx(
@@ -13188,7 +13386,7 @@ class WalletImpl extends RustOpaque implements Wallet {
 
   /// Sign a pset with extra details (used for asset transactions)
   Future<String> signedPsetWithExtraDetails({
-    required Network network,
+    required LiquidNetwork network,
     required String pset,
     required String mnemonic,
   }) => BullSdk.instance.api.lwkApiWalletWalletSignedPsetWithExtraDetails(

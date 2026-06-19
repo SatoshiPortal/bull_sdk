@@ -4,12 +4,11 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../../../frb_generated.dart';
-import '../../boltz/api/types.dart';
 import 'error.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `AssetIdBTreeMapInt`, `AssetIdBTreeMapUInt`, `AssetIdHashMapInt`, `AssetIdHashMapUInt`
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `eq`, `eq`, `eq`, `eq`, `eq`, `eq`, `eq`, `eq`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `into`, `try_from`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `eq`, `eq`, `eq`, `eq`, `eq`, `eq`, `eq`, `eq`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `from`, `into`, `try_from`
 
 /// Get balance value for a specific asset ID from a list of balances
 PlatformInt64 getBalanceByAssetId({
@@ -50,7 +49,7 @@ class Address {
 
   /// Create an address from a scriptpubkey. Always returns 0 as the index is only for wallet generated addresses
   static Future<Address> addressFromScript({
-    required Network network,
+    required LiquidNetwork network,
     required String script,
     String? blindingKey,
   }) => BullSdk.instance.api.lwkApiTypesAddressAddressFromScript(
@@ -60,10 +59,10 @@ class Address {
   );
 
   /// Validate the address string and return the network
-  static Future<Network> validate({required String addressString}) => BullSdk
-      .instance
-      .api
-      .lwkApiTypesAddressValidate(addressString: addressString);
+  static Future<LiquidNetwork> validate({required String addressString}) =>
+      BullSdk.instance.api.lwkApiTypesAddressValidate(
+        addressString: addressString,
+      );
 
   @override
   int get hashCode =>
@@ -102,6 +101,8 @@ class Balance {
           value == other.value;
 }
 
+enum LiquidNetwork { mainnet, testnet }
+
 class OutPoint {
   final String txid;
   final int vout;
@@ -124,7 +125,7 @@ class PayjoinTx {
   /// Partially signed transaction
   final String pset;
 
-  /// Network fee
+  /// LiquidNetwork fee
   final BigInt networkFee;
 
   /// Asset fee amount paid to the server
