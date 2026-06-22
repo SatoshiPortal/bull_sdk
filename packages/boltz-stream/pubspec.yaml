@@ -3,8 +3,8 @@ description: BoltzWebSocket stream for Boltz swap status updates
 version: 0.1.0
 
 environment:
-  sdk: "3.12.1"
-  flutter: "3.44.1"
+  sdk: "3.12.2"
+  flutter: "3.44.2"
 
 dependencies:
   bull_sdk:
