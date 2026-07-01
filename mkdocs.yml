@@ -104,6 +104,19 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/SatoshiPortal/bull_sdk
+  alternate:
+    - name: English
+      link: /bull_sdk/
+      lang: en
+    - name: Español
+      link: /bull_sdk/es/
+      lang: es
+    - name: Italiano
+      link: /bull_sdk/it/
+      lang: it
+    - name: Português
+      link: /bull_sdk/pt/
+      lang: pt
 
 markdown_extensions:
   - pymdownx.highlight:
