@@ -10,14 +10,10 @@ theme:
   favicon: assets/images/bull-logo.png
   palette:
     - scheme: default
-      primary: red
-      accent: red
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - scheme: slate
-      primary: red
-      accent: red
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
@@ -46,12 +42,60 @@ plugins:
         - locale: es
           default: false
           name: Español
+          nav_translations:
+            Home: Inicio
+            Getting Started: Primeros Pasos
+            Installation: Instalación
+            Quick Start: Inicio Rápido
+            Architecture: Arquitectura
+            API Reference: Referencia API
+            Overview: Resumen
+            Boltz (Atomic Swaps): Boltz (Swaps Atómicos)
+            LWK (Liquid Wallet): LWK (Billetera Liquid)
+            Ark (Ark Protocol): Ark (Protocolo Ark)
+            BBQr (QR Encoding): BBQr (Codificación QR)
+            Bitbox (Hardware Wallet): Bitbox (Billetera de Hardware)
+            Development: Desarrollo
+            FRB Codegen: Código FRB
+            Troubleshooting: Solución de Problemas
         - locale: it
           default: false
           name: Italiano
+          nav_translations:
+            Home: Home
+            Getting Started: Per Iniziare
+            Installation: Installazione
+            Quick Start: Quick Start
+            Architecture: Architettura
+            API Reference: Riferimento API
+            Overview: Panoramica
+            Boltz (Atomic Swaps): Boltz (Swap Atomici)
+            LWK (Liquid Wallet): LWK (Wallet Liquid)
+            Ark (Ark Protocol): Ark (Protocollo Ark)
+            BBQr (QR Encoding): BBQr (Codifica QR)
+            Bitbox (Hardware Wallet): Bitbox (Wallet Hardware)
+            Development: Sviluppo
+            FRB Codegen: Codice FRB
+            Troubleshooting: Risoluzione Problemi
         - locale: pt
           default: false
           name: Português
+          nav_translations:
+            Home: Início
+            Getting Started: Primeiros Passos
+            Installation: Instalação
+            Quick Start: Início Rápido
+            Architecture: Arquitetura
+            API Reference: Referência da API
+            Overview: Visão Geral
+            Boltz (Atomic Swaps): Boltz (Swaps Atômicos)
+            LWK (Liquid Wallet): LWK (Carteira Liquid)
+            Ark (Ark Protocol): Ark (Protocolo Ark)
+            BBQr (QR Encoding): BBQr (Codificação QR)
+            Bitbox (Hardware Wallet): Bitbox (Carteira de Hardware)
+            Development: Desenvolvimento
+            FRB Codegen: Código FRB
+            Troubleshooting: Solução de Problemas
 
 extra_css:
   - assets/stylesheets/branding.css

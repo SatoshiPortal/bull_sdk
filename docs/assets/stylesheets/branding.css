@@ -10,13 +10,27 @@ h1, h2, h3, h4, h5, h6,
   font-weight: 900 !important;
 }
 
-/* ── Primary red accent ── */
+/* ── Primary red accent — Bull Bitcoin #e30613 ── */
 :root {
-  --md-primary-fg-color: #e30613;
-  --md-primary-fg-color--light: #ff1a2d;
-  --md-primary-fg-color--dark: #b8050f;
-  --md-accent-fg-color: #e30613;
-  --md-accent-fg-color--transparent: rgba(227, 6, 19, 0.1);
+  --md-primary-fg-color: #cc0000 !important;
+  --md-primary-fg-color--light: #e60000 !important;
+  --md-primary-fg-color--dark: #990000 !important;
+  --md-accent-fg-color: #cc0000 !important;
+  --md-accent-fg-color--transparent: rgba(204, 0, 0, 0.15) !important;
+  --md-accent-fg-color--light: #e60000 !important;
+}
+
+/* Force header to use deep red */
+.md-header {
+  background-color: #cc0000 !important;
+}
+
+.md-header .md-nav__link {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.md-header .md-nav__link:hover {
+  color: #ffffff !important;
 }
 
 /* ── Light mode: white bg, black text ── */
@@ -58,25 +72,25 @@ h1, h2, h3, h4, h5, h6,
 
 /* ── Sidebar active link ── */
 .md-nav__link--active {
-  color: #e30613 !important;
+  color: #cc0000 !important;
 }
 
 /* ── Admonitions ── */
 .md-typeset .admonition,
 .md-typeset details {
-  border-left-color: #e30613;
+  border-left-color: #cc0000;
 }
 
 .md-typeset .note > .admonition-title,
 .md-typeset .note > summary {
-  background-color: rgba(227, 6, 19, 0.05);
-  border-left-color: #e30613;
+  background-color: rgba(204, 0, 0, 0.05);
+  border-left-color: #cc0000;
 }
 
 .md-typeset .warning > .admonition-title,
 .md-typeset .warning > summary {
-  background-color: rgba(227, 6, 19, 0.08);
-  border-left-color: #e30613;
+  background-color: rgba(204, 0, 0, 0.08);
+  border-left-color: #cc0000;
 }
 
 /* ── Code blocks ── */
@@ -91,7 +105,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .md-footer__link {
-  color: #e30613;
+  color: #cc0000;
 }
 
 /* ── Table styling ── */
@@ -100,7 +114,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .md-typeset table:not([class]) th {
-  background-color: rgba(227, 6, 19, 0.05);
+  background-color: rgba(204, 0, 0, 0.05);
   font-family: 'Satoshi', sans-serif;
   font-weight: 900;
 }
@@ -115,7 +129,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #e30613;
+  background: #cc0000;
   border-radius: 4px;
 }
 
