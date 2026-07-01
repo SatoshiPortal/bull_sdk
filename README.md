@@ -1,6 +1,8 @@
-# bull_sdk
+# Bull SDK
 
 Unified flutter_rust_bridge bindings for Bitcoin and Liquid wallet operations.
+
+> **AI Agent?** This repo includes [`AGENTS.md`](AGENTS.md) with setup commands, architecture, gotchas, and everything you need to work here. Read it first.
 
 ## Why
 
@@ -40,24 +42,43 @@ This produces **one native library** containing all the Rust code, with **one FR
 
 ```
 bull-sdk/
-├── Cargo.toml                          # Cargo workspace
+├── AGENTS.md                             # AI agent instructions
+├── Cargo.toml                            # Cargo workspace
 ├── packages/
-│   ├── bull_sdk/                       # Unified FRB package (single native library)
+│   ├── bull_sdk/                         # Unified FRB package (single native library)
 │   │   ├── flutter_rust_bridge.yaml
-│   │   ├── fix_frb_generated.sh        # Post-processing script
-│   │   ├── rust/                       # Bridge crate
+│   │   ├── fix_frb_generated.sh          # Post-processing script
+│   │   ├── rust/                         # Bridge crate
 │   │   └── lib/
-│   │       ├── bull_sdk.dart           # BullSdk.init()
-│   │       ├── ark.dart                # Ark wallet types
-│   │       ├── bbqr.dart               # BBQr types
-│   │       ├── boltz.dart              # Boltz swap types
-│   │       └── lwk.dart                # Liquid Wallet Kit types
-│   ├── ark-wallet/                     # git submodule → SatoshiPortal/ark-wallet-dart
-│   ├── bbqr/                           # git submodule → SatoshiPortal/bbqr-dart
-│   ├── boltz/                          # git submodule → SatoshiPortal/boltz-dart
-│   ├── lwk/                            # git submodule → SatoshiPortal/lwk-dart
-│   ├── boltz-stream/                   # Pure Dart — BoltzWebSocket (depends on bull_sdk)
-│   └── satoshifier/                    # git submodule → SatoshiPortal/dart-satoshifier
+│   │       ├── bull_sdk.dart             # BullSdk.init()
+│   │       ├── ark.dart                  # Ark wallet types
+│   │       ├── bbqr.dart                 # BBQr types
+│   │       ├── boltz.dart                # Boltz swap types
+│   │       └── lwk.dart                  # Liquid Wallet Kit types
+│   ├── ark-wallet/                       # git submodule → SatoshiPortal/ark-wallet-dart
+│   ├── bbqr/                             # git submodule → SatoshiPortal/bbqr-dart
+│   ├── boltz/                            # git submodule → SatoshiPortal/boltz-dart
+│   ├── lwk/                              # git submodule → SatoshiPortal/lwk-dart
+│   ├── boltz-stream/                     # Pure Dart — BoltzWebSocket (depends on bull_sdk)
+│   └── satoshifier/                      # git submodule → SatoshiPortal/dart-satoshifier
+├── skills/
+│   ├── agent-init/                       # Reusable repo onboarding skill
+│   └── frb-codegen/                      # FRB codegen workflow + troubleshooting
+└── docs/                                 # MkDocs site (EN/ES/IT/PT)
+```
+
+## Quick start
+
+```bash
+# 1. Initialize submodules
+git submodule update --init --recursive
+
+# 2. Install dependencies
+fvm flutter pub get && cargo fetch
+
+# 3. Build
+cd packages/bull_sdk
+cargo check -p rust_lib_bull_sdk
 ```
 
 ## Regenerating bindings
@@ -70,6 +91,18 @@ cargo check -p rust_lib_bull_sdk
 ```
 
 Always run `fix_frb_generated.sh` after codegen — it patches error type wrapping and mirror type conversions that FRB cannot handle automatically for external crate types.
+
+## Documentation
+
+Full docs at **https://lassetrwa-ship-it.github.io/bull_sdk/**
+
+- [Installation](https://lassetrwa-ship-it.github.io/bull_sdk/getting-started/installation/)
+- [Quick Start](https://lassetrwa-ship-it.github.io/bull_sdk/getting-started/quickstart/)
+- [Architecture](https://lassetrwa-ship-it.github.io/bull_sdk/architecture/)
+- [API Reference](https://lassetrwa-ship-it.github.io/bull_sdk/api-reference/)
+- [Troubleshooting](https://lassetrwa-ship-it.github.io/bull_sdk/development/troubleshooting/)
+
+Available in: [English](/) | [Español](/es/) | [Italiano](/it/) | [Português](/pt/)
 
 ## Usage
 

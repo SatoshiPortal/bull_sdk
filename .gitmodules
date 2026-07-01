@@ -1,15 +1,15 @@
 [submodule "packages/boltz"]
 	path = packages/boltz
-	url = git@github.com:SatoshiPortal/boltz-dart.git
+	url = https://github.com/SatoshiPortal/boltz-dart.git
 [submodule "packages/lwk"]
 	path = packages/lwk
-	url = git@github.com:SatoshiPortal/lwk-dart.git
+	url = https://github.com/SatoshiPortal/lwk-dart.git
 [submodule "packages/bbqr"]
 	path = packages/bbqr
-	url = git@github.com:SatoshiPortal/bbqr-dart.git
+	url = https://github.com/SatoshiPortal/bbqr-dart.git
 [submodule "packages/ark-wallet"]
 	path = packages/ark-wallet
-	url = git@github.com:SatoshiPortal/ark-wallet-dart.git
+	url = https://github.com/SatoshiPortal/ark-wallet-dart.git
 [submodule "packages/bitbox"]
 	path = packages/bitbox
-	url = git@github.com:SatoshiPortal/bitbox-dart.git
+	url = https://github.com/SatoshiPortal/bitbox-dart.git

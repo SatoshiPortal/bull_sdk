@@ -1,0 +1,139 @@
+/* Bull SDK — MkDocs Branding */
+
+/* ── Satoshi Bold for headings ── */
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900&display=swap');
+
+h1, h2, h3, h4, h5, h6,
+.md-header__title,
+.md-nav__link--active {
+  font-family: 'Satoshi', 'Roboto', sans-serif !important;
+  font-weight: 900 !important;
+}
+
+/* ── Primary red accent — Bull Bitcoin #e30613 ── */
+:root {
+  --md-primary-fg-color: #cc0000 !important;
+  --md-primary-fg-color--light: #e60000 !important;
+  --md-primary-fg-color--dark: #990000 !important;
+  --md-accent-fg-color: #cc0000 !important;
+  --md-accent-fg-color--transparent: rgba(204, 0, 0, 0.15) !important;
+  --md-accent-fg-color--light: #e60000 !important;
+}
+
+/* Force header to use deep red */
+.md-header {
+  background-color: #cc0000 !important;
+}
+
+.md-header .md-nav__link {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.md-header .md-nav__link:hover {
+  color: #ffffff !important;
+}
+
+/* ── Light mode: white bg, black text ── */
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: #ffffff;
+  --md-default-fg-color: #000000;
+  --md-default-fg-color--light: #333333;
+  --md-default-fg-color--lighter: #666666;
+  --md-default-fg-color--lightest: #999999;
+}
+
+/* ── Header ── */
+.md-header {
+  background-color: #ffffff;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.md-header__inner {
+  max-width: 100%;
+  padding: 0 16px;
+}
+
+.md-header__title {
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 900;
+  font-size: 1.2rem;
+  color: #000000;
+}
+
+/* ── Logo in header ── */
+.md-header__button.md-logo {
+  margin-right: 8px;
+}
+
+.md-header__button.md-logo img {
+  height: 28px;
+  width: auto;
+}
+
+/* ── Sidebar active link ── */
+.md-nav__link--active {
+  color: #cc0000 !important;
+}
+
+/* ── Admonitions ── */
+.md-typeset .admonition,
+.md-typeset details {
+  border-left-color: #cc0000;
+}
+
+.md-typeset .note > .admonition-title,
+.md-typeset .note > summary {
+  background-color: rgba(204, 0, 0, 0.05);
+  border-left-color: #cc0000;
+}
+
+.md-typeset .warning > .admonition-title,
+.md-typeset .warning > summary {
+  background-color: rgba(204, 0, 0, 0.08);
+  border-left-color: #cc0000;
+}
+
+/* ── Code blocks ── */
+.md-typeset code {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.85em;
+}
+
+/* ── Footer ── */
+.md-footer {
+  background-color: #f5f5f5;
+}
+
+.md-footer__link {
+  color: #cc0000;
+}
+
+/* ── Table styling ── */
+.md-typeset table:not([class]) {
+  font-size: 0.85rem;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: rgba(204, 0, 0, 0.05);
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 900;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cc0000;
+  border-radius: 4px;
+}
+
+/* ── Content max width ── */
+.md-grid {
+  max-width: 1200px;
+}

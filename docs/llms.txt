@@ -1,0 +1,40 @@
+# llms.txt — Bull SDK
+
+> Unified flutter_rust_bridge bindings for Bitcoin and Liquid wallet operations.
+> Merges Ark, BBQr, Boltz, LWK, and Bitbox into a single native library.
+
+## What is Bull SDK?
+
+Bull SDK is a Flutter package that provides unified Dart bindings for five Rust Bitcoin/Liquid libraries through a single native library. It uses flutter_rust_bridge to generate FFI bindings, eliminating duplicate compilation and reducing binary size.
+
+## Modules
+
+- **Boltz** — Lightning ↔ onchain atomic swaps via Boltz Exchange. Classes: BtcLnSwap, LBtcLnSwap, ChainSwap.
+- **LWK** — Liquid Wallet Kit for Liquid network operations. Classes: Wallet, Descriptor, Tx. Supports addresses, transactions, balances, PayJoin.
+- **Ark** — Ark protocol for offchain payments. Classes: ArkWallet, ArkTransaction. Supports onchain/offchain sends and settlements.
+- **BBQr** — Animated QR code encoding/decoding for PSBTs and large data. Functions: split, join, generateQr.
+- **Bitbox** — Hardware wallet integration for Bitbox devices.
+
+## Quick Start
+
+```dart
+import 'package:bull_sdk/bull_sdk.dart';
+await BullSdk.init();
+```
+
+## API Reference
+
+All API details are in the documentation pages:
+- /api-reference/boltz/
+- /api-reference/lwk/
+- /api-reference/ark/
+- /api-reference/bbqr/
+- /api-reference/bitbox/
+
+## Source Code
+
+https://github.com/SatoshiPortal/bull_sdk
+
+## License
+
+MIT
