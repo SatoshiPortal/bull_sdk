@@ -1,0 +1,92 @@
+site_name: Bull SDK
+site_description: Unified flutter_rust_bridge bindings for Bitcoin and Liquid wallet operations
+site_url: https://bullsdk.dev
+repo_url: https://github.com/SatoshiPortal/bull_sdk
+repo_name: SatoshiPortal/bull_sdk
+
+theme:
+  name: material
+  logo: assets/images/bull-logo.png
+  favicon: assets/images/bull-logo.png
+  palette:
+    - scheme: default
+      primary: red
+      accent: red
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: red
+      accent: red
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - toc.follow
+
+plugins:
+  - i18n:
+      default_language: en
+      fallback_to_default: true
+      languages:
+        - locale: en
+          default: true
+          name: English
+        - locale: es
+          default: false
+          name: Español
+        - locale: it
+          default: false
+          name: Italiano
+        - locale: pt
+          default: false
+          name: Português
+
+extra_css:
+  - assets/stylesheets/branding.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/SatoshiPortal/bull_sdk
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quickstart.md
+  - Architecture: architecture.md
+  - API Reference:
+    - Overview: api-reference/index.md
+    - Boltz (Atomic Swaps): api-reference/boltz.md
+    - LWK (Liquid Wallet): api-reference/lwk.md
+    - Ark (Ark Protocol): api-reference/ark.md
+    - BBQr (QR Encoding): api-reference/bbqr.md
+    - Bitbox (Hardware Wallet): api-reference/bitbox.md
+  - Development:
+    - FRB Codegen: development/frb-codegen.md
+    - Troubleshooting: development/troubleshooting.md

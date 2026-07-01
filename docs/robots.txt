@@ -1,0 +1,27 @@
+# robots.txt — Bull SDK
+# Agent-aware directives for AI crawlers
+
+User-agent: *
+Allow: /
+
+# AI-specific directives
+User-agent: GPTBot
+Allow: /
+Disallow: /assets/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /assets/
+
+User-agent: Anthropic-AI
+Allow: /
+Disallow: /assets/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /assets/
+
+User-agent: CCBot
+Disallow: /
+
+Sitemap: https://bullsdk.dev/sitemap.xml
