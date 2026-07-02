@@ -2,9 +2,12 @@
 # Post-process frb_generated.rs to wrap external crate error types in FrbWrapper
 FILE="rust/src/frb_generated.rs"
 
+# Portable in-place sed (works on both GNU/Linux and BSD/macOS)
+sedi() { sed -i.bak "$@" && rm -f "${@: -1}.bak"; }
+
 # Step 1: Change type parameter from Error to FrbWrapper<Error>
-sed -i '' 's/transform_result_dco::<_, _, lwk::api::error::LwkError>/transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>/g' "$FILE"
-sed -i '' 's/transform_result_dco::<_, _, boltz::api::error::BoltzError>/transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>/g' "$FILE"
+sedi 's/transform_result_dco::<_, _, lwk::api::error::LwkError>/transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>/g' "$FILE"
+sedi 's/transform_result_dco::<_, _, boltz::api::error::BoltzError>/transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>/g' "$FILE"
 
 # Step 2: For those calls, the closure result needs .map_err(FrbWrapper)
 # The pattern is })()) at the end of the transform_result_dco block
@@ -50,7 +53,7 @@ with open('$FILE', 'w') as f:
 "
 
 # Step 3: Convert mirrored TxFee to boltz::TxFee via .into()
-sed -i '' 's/api_miner_fee,/api_miner_fee.into(),/g' "$FILE"
+sedi 's/api_miner_fee,/api_miner_fee.into(),/g' "$FILE"
 
 # Step 4: Convert Vec<ark Transaction> to Vec<mirror Transaction> for transaction_history
 python3 -c "
