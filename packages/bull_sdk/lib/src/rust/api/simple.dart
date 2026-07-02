@@ -8,7 +8,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 part 'simple.freezed.dart';
 
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`, `from`, `from`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`, `from`
 
 @freezed
 sealed class ArkTransaction with _$ArkTransaction {
@@ -30,12 +30,4 @@ sealed class ArkTransaction with _$ArkTransaction {
     required bool isSettled,
     required PlatformInt64 createdAt,
   }) = ArkTransaction_Redeem;
-}
-
-@freezed
-sealed class TxFee with _$TxFee {
-  const TxFee._();
-
-  const factory TxFee.absolute(BigInt field0) = TxFee_Absolute;
-  const factory TxFee.relative(double field0) = TxFee_Relative;
 }
