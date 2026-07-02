@@ -12,8 +12,8 @@ ark_wallet = { git = "https://github.com/SatoshiPortal/ark-wallet-dart", branch 
 bitbox = { git = "https://github.com/SatoshiPortal/bitbox-dart", branch = "migrate-to-bull-sdk", features = ["bull_sdk"] }
 bbqr = { git = "https://github.com/SatoshiPortal/bbqr-rust.git", rev = "2296a713beb58a175eb620a087f7da6826dc6f70", default-features = false }
 dart_bbqr = { git = "https://github.com/SatoshiPortal/bbqr-dart", branch = "migrate-to-bull-sdk", features = ["bull_sdk"] }
-boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", branch = "new-swap-secrets", features = ["bull_sdk"] }
-lwk = { git = "https://github.com/SatoshiPortal/lwk-dart", branch = "develop", features = ["bull_sdk"] }
+boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", tag = "v0.5.0", features = ["bull_sdk"] }
+lwk = { git = "https://github.com/SatoshiPortal/lwk-dart", tag = "v0.5.0", features = ["bull_sdk"] }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }
