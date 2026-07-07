@@ -371,7 +371,7 @@ dependencies = [
 [[package]]
 name = "ark_wallet"
 version = "0.1.0"
-source = "git+https://github.com/SatoshiPortal/ark-wallet-dart?branch=migrate-to-bull-sdk#e1f0a42b0fbae9a3442819698d6de4fefb7b229a"
+source = "git+https://github.com/SatoshiPortal/ark-wallet-dart?rev=52961f968385717ebce440a8cba54681f92e0736#52961f968385717ebce440a8cba54681f92e0736"
 dependencies = [
  "anyhow",
  "ark-bdk-wallet",
@@ -710,7 +710,7 @@ dependencies = [
 [[package]]
 name = "bitbox"
 version = "0.2.0"
-source = "git+https://github.com/SatoshiPortal/bitbox-dart?branch=migrate-to-bull-sdk#c110af7517707ce3ab847bff32762375703d42c3"
+source = "git+https://github.com/SatoshiPortal/bitbox-dart?rev=c110af7517707ce3ab847bff32762375703d42c3#c110af7517707ce3ab847bff32762375703d42c3"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -911,8 +911,8 @@ dependencies = [
 
 [[package]]
 name = "boltz"
-version = "0.5.0"
-source = "git+https://github.com/SatoshiPortal/boltz-dart?tag=v0.5.0#f169f9b1668ea9b8ac14709f4c4db72a3a425ac7"
+version = "0.5.1"
+source = "git+https://github.com/SatoshiPortal/boltz-dart?tag=v0.5.1#2a94c9b0219b7aa81aa4b219f37c4dd654fce4cf"
 dependencies = [
  "anyhow",
  "boltz-client",
@@ -921,6 +921,7 @@ dependencies = [
  "hex",
  "openssl",
  "reqwest 0.12.28",
+ "rustls",
  "serde",
  "serde_json",
 ]
@@ -1550,7 +1551,7 @@ dependencies = [
 [[package]]
 name = "dart_bbqr"
 version = "0.1.0"
-source = "git+https://github.com/SatoshiPortal/bbqr-dart?branch=migrate-to-bull-sdk#50b2397a708aa8083c22ae80a49e4dd0d503632e"
+source = "git+https://github.com/SatoshiPortal/bbqr-dart?rev=50b2397a708aa8083c22ae80a49e4dd0d503632e#50b2397a708aa8083c22ae80a49e4dd0d503632e"
 dependencies = [
  "anyhow",
  "bbqr",
@@ -1865,7 +1866,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -2766,7 +2767,7 @@ dependencies = [
  "libc",
  "percent-encoding",
  "pin-project-lite",
- "socket2 0.5.10",
+ "socket2 0.6.4",
  "system-configuration 0.7.0",
  "tokio",
  "tower-service",
@@ -3107,7 +3108,7 @@ checksum = "3640c1c38b8e4e43584d8df18be5fc6b0aa314ce6ebf51b53313d4306cca8e46"
 dependencies = [
  "hermit-abi",
  "libc",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -3654,12 +3655,6 @@ name = "multimap"
 version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e5ce46fe64a9d73be07dcbe690a38ce1b293be448fd8ce1e6c1b8062c9f72c6a"
-
-[[package]]
-name = "multimap"
-version = "0.10.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1d87ecb2933e8aeadb3e3a02b828fed80a7528047e68b4f424523a0981a3a084"
 
 [[package]]
 name = "native-tls"
@@ -4234,7 +4229,7 @@ dependencies = [
  "itertools 0.10.5",
  "lazy_static",
  "log",
- "multimap 0.8.3",
+ "multimap",
  "petgraph 0.6.5",
  "prettyplease 0.1.25",
  "prost 0.11.9",
@@ -4254,7 +4249,7 @@ dependencies = [
  "heck 0.5.0",
  "itertools 0.14.0",
  "log",
- "multimap 0.10.1",
+ "multimap",
  "petgraph 0.8.3",
  "prettyplease 0.2.37",
  "prost 0.14.4",
@@ -4374,7 +4369,7 @@ dependencies = [
  "quinn-udp",
  "rustc-hash 2.1.2",
  "rustls",
- "socket2 0.5.10",
+ "socket2 0.6.4",
  "thiserror 2.0.18",
  "tokio",
  "tracing",
@@ -4411,7 +4406,7 @@ dependencies = [
  "cfg_aliases",
  "libc",
  "once_cell",
- "socket2 0.5.10",
+ "socket2 0.6.4",
  "tracing",
  "windows-sys 0.59.0",
 ]
@@ -4823,7 +4818,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys 0.12.1",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -5830,7 +5825,7 @@ dependencies = [
  "getrandom 0.4.3",
  "once_cell",
  "rustix 1.1.4",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -6690,7 +6685,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
