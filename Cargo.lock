@@ -371,7 +371,7 @@ dependencies = [
 [[package]]
 name = "ark_wallet"
 version = "0.1.0"
-source = "git+https://github.com/SatoshiPortal/ark-wallet-dart?branch=migrate-to-bull-sdk#e1f0a42b0fbae9a3442819698d6de4fefb7b229a"
+source = "git+https://github.com/SatoshiPortal/ark-wallet-dart?rev=e1f0a42b0fbae9a3442819698d6de4fefb7b229a#e1f0a42b0fbae9a3442819698d6de4fefb7b229a"
 dependencies = [
  "anyhow",
  "ark-bdk-wallet",
@@ -710,7 +710,7 @@ dependencies = [
 [[package]]
 name = "bitbox"
 version = "0.2.0"
-source = "git+https://github.com/SatoshiPortal/bitbox-dart?branch=migrate-to-bull-sdk#c110af7517707ce3ab847bff32762375703d42c3"
+source = "git+https://github.com/SatoshiPortal/bitbox-dart?rev=c110af7517707ce3ab847bff32762375703d42c3#c110af7517707ce3ab847bff32762375703d42c3"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1550,7 +1550,7 @@ dependencies = [
 [[package]]
 name = "dart_bbqr"
 version = "0.1.0"
-source = "git+https://github.com/SatoshiPortal/bbqr-dart?branch=migrate-to-bull-sdk#50b2397a708aa8083c22ae80a49e4dd0d503632e"
+source = "git+https://github.com/SatoshiPortal/bbqr-dart?rev=50b2397a708aa8083c22ae80a49e4dd0d503632e#50b2397a708aa8083c22ae80a49e4dd0d503632e"
 dependencies = [
  "anyhow",
  "bbqr",

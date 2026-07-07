@@ -1,5 +1,12 @@
 cargo:
   debug:
     toolchain: stable
+    # Fail loud instead of silently re-resolving if Cargo.toml and the
+    # committed Cargo.lock ever drift out of sync (e.g. a dependency bump
+    # that forgot to regenerate/commit the lockfile) — without --locked,
+    # cargo build would pick newer compatible crate versions instead of
+    # erroring, breaking reproducibility invisibly.
+    extra_flags: ["--locked"]
   release:
     toolchain: stable
+    extra_flags: ["--locked"]
