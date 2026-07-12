@@ -55,9 +55,203 @@ with open('$FILE', 'w') as f:
 # Step 3: Convert mirrored TxFee to boltz::TxFee via .into()
 sedi 's/api_miner_fee,/api_miner_fee.into(),/g' "$FILE"
 
+# Step 4: dart_bwk SpAccount::init takes a StreamSink<SpNotification> (element
+# type dart_bwk::api::types::SpNotification under the bull_sdk feature). The
+# mirror enum makes codegen emit the aggregator's StreamSinkBase reconstruction
+# with the bare/mirror element type, which does not match init's signature. The
+# dependency crate cannot name the aggregator's wrapper, so we bridge the
+# boundary here: reconstruct a StreamSinkBase typed with dart_bwk's own
+# SpNotification (wire-identical — dart_bwk provides a matching IntoDart). This
+# is the same role Steps 1-3 play for other capability crates.
+python3 -c "
+with open('$FILE', 'r') as f:
+    content = f.read()
+old_sig = ('    sink: impl CstDecode<\n'
+           '        StreamSink<\n'
+           '            crate::api::simple::SpNotification,\n'
+           '            flutter_rust_bridge::for_generated::DcoCodec,\n'
+           '        >,\n'
+           '    >,')
+new_sig = '    sink: impl CstDecode<String>,'
+old_dec = '            let api_sink = sink.cst_decode();'
+new_dec = ('            let api_sink = flutter_rust_bridge::for_generated::StreamSinkBase::<\n'
+           '                dart_bwk::api::types::SpNotification,\n'
+           '                flutter_rust_bridge::for_generated::DcoCodec,\n'
+           '            >::deserialize(sink.cst_decode());')
+marker = 'fn wire__dart_bwk__api__sp_account__SpAccount_init_impl('
+idx = content.find(marker)
+if idx != -1:
+    head, tail = content[:idx], content[idx:]
+    tail = tail.replace(old_sig, new_sig, 1)
+    tail = tail.replace(old_dec, new_dec, 1)
+    content = head + tail
+    with open('$FILE', 'w') as f:
+        f.write(content)
+"
+
+# Step 5: RecipientView is an INPUT (Dart->Rust) enum that we mirror in the
+# primary crate; prepare_psbt takes dart_bwk's own Vec<RecipientView>. The wire
+# decodes the mirror Vec, so convert it before passing to the real function.
+python3 -c "
+with open('$FILE', 'r') as f:
+    content = f.read()
+marker = 'fn wire__dart_bwk__api__sp_account__SpAccount_prepare_psbt_impl('
+idx = content.find(marker)
+if idx != -1:
+    head, tail = content[:idx], content[idx:]
+    tail = tail.replace(
+        '            let api_recipients = recipients.cst_decode();',
+        '            let api_recipients: Vec<crate::api::simple::RecipientView> = recipients.cst_decode();\n'
+        '            let api_recipients: Vec<dart_bwk::api::types::RecipientView> =\n'
+        '                api_recipients.into_iter().map(Into::into).collect();',
+        1,
+    )
+    content = head + tail
+    with open('$FILE', 'w') as f:
+        f.write(content)
+"
+
+# Step 6: TxSimulation is a real (concrete) dart_bwk struct whose 'outputs' field
+# is Vec<dart_bwk RecipientView>, but the mirror makes codegen reference
+# Vec<crate::api::simple::RecipientView> at TxSimulation's codec call sites.
+# Bridge those exact sites with .into() conversions (mirror <-> dart_bwk).
+python3 -c "
+with open('$FILE', 'r') as f:
+    content = f.read()
+
+# 6a: SseDecode for TxSimulation — decoded mirror Vec must be converted to the
+# dart_bwk field type before constructing the struct.
+content = content.replace(
+    '        let mut var_outputs = <Vec<crate::api::simple::RecipientView>>::sse_decode(deserializer);\n'
+    '        let mut var_feeSat = <u64>::sse_decode(deserializer);\n'
+    '        let mut var_changeSat = <u64>::sse_decode(deserializer);\n'
+    '        return dart_bwk::api::types::TxSimulation {\n'
+    '            inputs: var_inputs,\n'
+    '            outputs: var_outputs,',
+    '        let mut var_outputs = <Vec<crate::api::simple::RecipientView>>::sse_decode(deserializer);\n'
+    '        let mut var_feeSat = <u64>::sse_decode(deserializer);\n'
+    '        let mut var_changeSat = <u64>::sse_decode(deserializer);\n'
+    '        return dart_bwk::api::types::TxSimulation {\n'
+    '            inputs: var_inputs,\n'
+    '            outputs: var_outputs.into_iter().map(Into::into).collect::<Vec<dart_bwk::api::types::RecipientView>>(),',
+    1,
+)
+
+# 6b: SseEncode for TxSimulation — convert dart_bwk field to mirror before encode.
+content = content.replace(
+    '        <Vec<crate::api::simple::RecipientView>>::sse_encode(self.outputs, serializer);',
+    '        <Vec<crate::api::simple::RecipientView>>::sse_encode(\n'
+    '            self.outputs.into_iter().map(Into::into).collect::<Vec<crate::api::simple::RecipientView>>(),\n'
+    '            serializer,\n'
+    '        );',
+    1,
+)
+
+# 6c: IntoDart for FrbWrapper<TxSimulation> — convert dart_bwk field to mirror.
+content = content.replace(
+    '        [\n'
+    '            self.0.inputs.into_into_dart().into_dart(),\n'
+    '            self.0.outputs.into_into_dart().into_dart(),\n'
+    '            self.0.fee_sat.into_into_dart().into_dart(),\n'
+    '            self.0.change_sat.into_into_dart().into_dart(),\n'
+    '        ]',
+    '        [\n'
+    '            self.0.inputs.into_into_dart().into_dart(),\n'
+    '            self.0.outputs.into_iter().map(|o| -> crate::api::simple::RecipientView { o.into() }).collect::<Vec<_>>().into_into_dart().into_dart(),\n'
+    '            self.0.fee_sat.into_into_dart().into_dart(),\n'
+    '            self.0.change_sat.into_into_dart().into_dart(),\n'
+    '        ]',
+    1,
+)
+
+# 7d: CstDecode for wire_cst_tx_simulation — convert mirror Vec to dart_bwk field.
+content = content.replace(
+    '            dart_bwk::api::types::TxSimulation {\n'
+    '                inputs: self.inputs.cst_decode(),\n'
+    '                outputs: self.outputs.cst_decode(),',
+    '            dart_bwk::api::types::TxSimulation {\n'
+    '                inputs: self.inputs.cst_decode(),\n'
+    '                outputs: { let __m: Vec<crate::api::simple::RecipientView> = self.outputs.cst_decode(); __m.into_iter().map(Into::into).collect::<Vec<dart_bwk::api::types::RecipientView>>() },',
+    1,
+)
+
+# 7e: dead-code type-assert block uses the mirror type for the real field.
+content = content.replace(
+    '        let _: Vec<crate::api::simple::RecipientView> = TxSimulation.outputs;',
+    '        let _: Vec<dart_bwk::api::types::RecipientView> = TxSimulation.outputs;',
+    1,
+)
+
+with open('$FILE', 'w') as f:
+    f.write(content)
+"
+
+# Step 7: FRB 2.12 may emit the same call sites on compact single lines.
+python3 -c "
+with open('$FILE', 'r') as f:
+    content = f.read()
+
+content = content.replace(
+    'let output_ok = ark_wallet::ark::client::ArkWallet::transaction_history(&*api_that_guard).await?;   Ok(output_ok)',
+    'let output_ok = ark_wallet::ark::client::ArkWallet::transaction_history(&*api_that_guard).await.map(|v| v.into_iter().map(|t| -> crate::api::simple::ArkTransaction { t.into() }).collect::<Vec<_>>())?;   Ok(output_ok)',
+    1,
+)
+
+content = content.replace(
+    'sink: impl CstDecode<StreamSink<crate::api::simple::SpNotification,flutter_rust_bridge::for_generated::DcoCodec>>) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco',
+    'sink: impl CstDecode<String>) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco',
+    1,
+)
+
+content = content.replace(
+    'let api_that = that.cst_decode();let api_sink = sink.cst_decode();\n                transform_result_dco::<_, _, String>((move || {',
+    'let api_that = that.cst_decode();let api_sink = flutter_rust_bridge::for_generated::StreamSinkBase::<dart_bwk::api::types::SpNotification,flutter_rust_bridge::for_generated::DcoCodec>::deserialize(sink.cst_decode());\n                transform_result_dco::<_, _, String>((move || {',
+    1,
+)
+
+content = content.replace(
+    'let api_that = that.cst_decode();let api_recipients = recipients.cst_decode();let api_feerate_sat_vb = feerate_sat_vb.cst_decode(); move |context|  {',
+    'let api_that = that.cst_decode();let api_recipients: Vec<crate::api::simple::RecipientView> = recipients.cst_decode();let api_recipients: Vec<dart_bwk::api::types::RecipientView> = api_recipients.into_iter().map(Into::into).collect();let api_feerate_sat_vb = feerate_sat_vb.cst_decode(); move |context|  {',
+    1,
+)
+
+content = content.replace(
+    'return dart_bwk::api::types::TxSimulation{inputs: var_inputs, outputs: var_outputs, fee_sat: var_feeSat, change_sat: var_changeSat};}',
+    'return dart_bwk::api::types::TxSimulation{inputs: var_inputs, outputs: var_outputs.into_iter().map(Into::into).collect::<Vec<dart_bwk::api::types::RecipientView>>(), fee_sat: var_feeSat, change_sat: var_changeSat};}',
+    1,
+)
+
+content = content.replace(
+    'self.0.inputs.into_into_dart().into_dart(),\nself.0.outputs.into_into_dart().into_dart(),',
+    'self.0.inputs.into_into_dart().into_dart(),\nself.0.outputs.into_iter().map(|o| -> crate::api::simple::RecipientView { o.into() }).collect::<Vec<_>>().into_into_dart().into_dart(),',
+    1,
+)
+
+content = content.replace(
+    'let _: Vec<crate::api::simple::RecipientView> = TxSimulation.outputs;',
+    'let _: Vec<dart_bwk::api::types::RecipientView> = TxSimulation.outputs;',
+    1,
+)
+
+content = content.replace(
+    '<Vec<crate::api::simple::RecipientView>>::sse_encode(self.outputs, serializer);',
+    '<Vec<crate::api::simple::RecipientView>>::sse_encode(self.outputs.into_iter().map(Into::into).collect::<Vec<crate::api::simple::RecipientView>>(), serializer);',
+    1,
+)
+
+content = content.replace(
+    'dart_bwk::api::types::TxSimulation{inputs:  self.inputs.cst_decode(),outputs:  self.outputs.cst_decode(),fee_sat:  self.fee_sat.cst_decode(),change_sat:  self.change_sat.cst_decode()}',
+    'dart_bwk::api::types::TxSimulation{inputs:  self.inputs.cst_decode(),outputs:  { let outputs: Vec<crate::api::simple::RecipientView> = self.outputs.cst_decode(); outputs.into_iter().map(Into::into).collect::<Vec<dart_bwk::api::types::RecipientView>>() },fee_sat:  self.fee_sat.cst_decode(),change_sat:  self.change_sat.cst_decode()}',
+    1,
+)
+
+with open('$FILE', 'w') as f:
+    f.write(content)
+"
+
 echo "Post-processed $FILE"
 
-# Step 4: Bound the unsigned 64-bit encoders on the Dart side.
+# Step 8: Bound the unsigned 64-bit encoders on the Dart side.
 # FRB emits toSigned(64).toInt(), which wraps modulo 2^64 rather than failing,
 # so an out-of-range amount reached Rust as a different number. Rust cannot
 # detect this: the wrapping happens before the call.

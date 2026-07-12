@@ -15,3 +15,196 @@ impl From<TxFee> for boltz::api::fees::TxFee {
         }
     }
 }
+
+// dart_bwk SP enums carrying associated data render as opaque through the
+// aggregator unless the primary crate (bull_sdk) declares mirrors. CoinSource
+// is field-less and already rendered concretely, so it is identity-mapped.
+#[flutter_rust_bridge::frb(mirror(dart_bwk::api::types::SpNotification))]
+pub enum SpNotification {
+    ScanStarted {
+        from: u32,
+        to: u32,
+    },
+    ScanReceiveProgress {
+        current: u32,
+        end: u32,
+    },
+    ScanCompleted,
+    ScanStopped,
+    ScanFailed {
+        message: String,
+    },
+    NewOutput {
+        outpoint: String,
+        amount_sat: u64,
+    },
+    OutputSpent {
+        outpoint: String,
+    },
+    BackendOffline,
+    ElectrumTx {
+        kind: dart_bwk::api::types::CoinSource,
+        txid: String,
+        amount_sat: u64,
+        height: Option<u32>,
+    },
+    ScanSpendProgress {
+        current: u32,
+        end: u32,
+    },
+}
+
+impl From<dart_bwk::api::types::SpNotification> for SpNotification {
+    fn from(val: dart_bwk::api::types::SpNotification) -> SpNotification {
+        match val {
+            dart_bwk::api::types::SpNotification::ScanStarted { from, to } => {
+                SpNotification::ScanStarted { from, to }
+            }
+            dart_bwk::api::types::SpNotification::ScanReceiveProgress { current, end } => {
+                SpNotification::ScanReceiveProgress { current, end }
+            }
+            dart_bwk::api::types::SpNotification::ScanSpendProgress { current, end } => {
+                SpNotification::ScanSpendProgress { current, end }
+            }
+            dart_bwk::api::types::SpNotification::ScanCompleted => SpNotification::ScanCompleted,
+            dart_bwk::api::types::SpNotification::ScanStopped => SpNotification::ScanStopped,
+            dart_bwk::api::types::SpNotification::ScanFailed { message } => {
+                SpNotification::ScanFailed { message }
+            }
+            dart_bwk::api::types::SpNotification::NewOutput {
+                outpoint,
+                amount_sat,
+            } => SpNotification::NewOutput {
+                outpoint,
+                amount_sat,
+            },
+            dart_bwk::api::types::SpNotification::OutputSpent { outpoint } => {
+                SpNotification::OutputSpent { outpoint }
+            }
+            dart_bwk::api::types::SpNotification::BackendOffline => SpNotification::BackendOffline,
+            dart_bwk::api::types::SpNotification::ElectrumTx {
+                kind,
+                txid,
+                amount_sat,
+                height,
+            } => SpNotification::ElectrumTx {
+                kind,
+                txid,
+                amount_sat,
+                height,
+            },
+        }
+    }
+}
+
+impl From<SpNotification> for dart_bwk::api::types::SpNotification {
+    fn from(val: SpNotification) -> dart_bwk::api::types::SpNotification {
+        match val {
+            SpNotification::ScanStarted { from, to } => {
+                dart_bwk::api::types::SpNotification::ScanStarted { from, to }
+            }
+            SpNotification::ScanReceiveProgress { current, end } => {
+                dart_bwk::api::types::SpNotification::ScanReceiveProgress { current, end }
+            }
+            SpNotification::ScanSpendProgress { current, end } => {
+                dart_bwk::api::types::SpNotification::ScanSpendProgress { current, end }
+            }
+            SpNotification::ScanCompleted => dart_bwk::api::types::SpNotification::ScanCompleted,
+            SpNotification::ScanStopped => dart_bwk::api::types::SpNotification::ScanStopped,
+            SpNotification::ScanFailed { message } => {
+                dart_bwk::api::types::SpNotification::ScanFailed { message }
+            }
+            SpNotification::NewOutput {
+                outpoint,
+                amount_sat,
+            } => dart_bwk::api::types::SpNotification::NewOutput {
+                outpoint,
+                amount_sat,
+            },
+            SpNotification::OutputSpent { outpoint } => {
+                dart_bwk::api::types::SpNotification::OutputSpent { outpoint }
+            }
+            SpNotification::BackendOffline => dart_bwk::api::types::SpNotification::BackendOffline,
+            SpNotification::ElectrumTx {
+                kind,
+                txid,
+                amount_sat,
+                height,
+            } => dart_bwk::api::types::SpNotification::ElectrumTx {
+                kind,
+                txid,
+                amount_sat,
+                height,
+            },
+        }
+    }
+}
+
+#[flutter_rust_bridge::frb(mirror(dart_bwk::api::types::RecipientView))]
+pub enum RecipientView {
+    Sp {
+        address: String,
+        amount_sat: u64,
+        label: Option<u32>,
+        is_max: bool,
+    },
+    Standard {
+        address: String,
+        amount_sat: u64,
+        is_max: bool,
+    },
+}
+
+impl From<dart_bwk::api::types::RecipientView> for RecipientView {
+    fn from(val: dart_bwk::api::types::RecipientView) -> RecipientView {
+        match val {
+            dart_bwk::api::types::RecipientView::Sp {
+                address,
+                amount_sat,
+                label,
+                is_max,
+            } => RecipientView::Sp {
+                address,
+                amount_sat,
+                label,
+                is_max,
+            },
+            dart_bwk::api::types::RecipientView::Standard {
+                address,
+                amount_sat,
+                is_max,
+            } => RecipientView::Standard {
+                address,
+                amount_sat,
+                is_max,
+            },
+        }
+    }
+}
+
+impl From<RecipientView> for dart_bwk::api::types::RecipientView {
+    fn from(val: RecipientView) -> dart_bwk::api::types::RecipientView {
+        match val {
+            RecipientView::Sp {
+                address,
+                amount_sat,
+                label,
+                is_max,
+            } => dart_bwk::api::types::RecipientView::Sp {
+                address,
+                amount_sat,
+                label,
+                is_max,
+            },
+            RecipientView::Standard {
+                address,
+                amount_sat,
+                is_max,
+            } => dart_bwk::api::types::RecipientView::Standard {
+                address,
+                amount_sat,
+                is_max,
+            },
+        }
+    }
+}

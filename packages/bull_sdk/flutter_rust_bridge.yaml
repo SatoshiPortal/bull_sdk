@@ -1,4 +1,4 @@
-rust_input: crate::api, bbqr::continuous_join, bbqr::encode, bbqr::file_type, bbqr::join, bbqr::qr, bbqr::split, bitbox::api, dart_bbqr::api, boltz::api, lwk::api
+rust_input: crate::api, bbqr::continuous_join, bbqr::encode, bbqr::file_type, bbqr::join, bbqr::qr, bbqr::split, bitbox::api, dart_bbqr::api, boltz::api, lwk::api, dart_bwk::api
 rust_root: rust/
 dart_output: lib/src/rust
 dart_entrypoint_class_name: BullSdk
@@ -6,3 +6,5 @@ enable_lifetime: true
 full_dep: true
 dart3: true
 web: false
+# NOTE: codegen requires libclang for ffigen. Provide it per-developer via the
+# LLVM_PATH env var (or PATH), not a committed machine-specific path.

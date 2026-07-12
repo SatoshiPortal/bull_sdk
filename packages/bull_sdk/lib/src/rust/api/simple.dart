@@ -4,11 +4,64 @@
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
 import '../frb_generated.dart';
+import '../third_party/dart_bwk/api/types.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 part 'simple.freezed.dart';
 
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`, `from`, `from`, `from`, `from`
+
+@freezed
+sealed class RecipientView with _$RecipientView {
+  const RecipientView._();
+
+  const factory RecipientView.sp({
+    required String address,
+    required BigInt amountSat,
+    int? label,
+    required bool isMax,
+  }) = RecipientView_Sp;
+  const factory RecipientView.standard({
+    required String address,
+    required BigInt amountSat,
+    required bool isMax,
+  }) = RecipientView_Standard;
+}
+
+@freezed
+sealed class SpNotification with _$SpNotification {
+  const SpNotification._();
+
+  const factory SpNotification.scanStarted({
+    required int from,
+    required int to,
+  }) = SpNotification_ScanStarted;
+  const factory SpNotification.scanReceiveProgress({
+    required int current,
+    required int end,
+  }) = SpNotification_ScanReceiveProgress;
+  const factory SpNotification.scanCompleted() = SpNotification_ScanCompleted;
+  const factory SpNotification.scanStopped() = SpNotification_ScanStopped;
+  const factory SpNotification.scanFailed({required String message}) =
+      SpNotification_ScanFailed;
+  const factory SpNotification.newOutput({
+    required String outpoint,
+    required BigInt amountSat,
+  }) = SpNotification_NewOutput;
+  const factory SpNotification.outputSpent({required String outpoint}) =
+      SpNotification_OutputSpent;
+  const factory SpNotification.backendOffline() = SpNotification_BackendOffline;
+  const factory SpNotification.electrumTx({
+    required CoinSource kind,
+    required String txid,
+    required BigInt amountSat,
+    int? height,
+  }) = SpNotification_ElectrumTx;
+  const factory SpNotification.scanSpendProgress({
+    required int current,
+    required int end,
+  }) = SpNotification_ScanSpendProgress;
+}
 
 @freezed
 sealed class TxFee with _$TxFee {
