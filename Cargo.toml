@@ -33,3 +33,6 @@ opt-level = "z"
 lto = true
 codegen-units = 1
 panic = "abort"
+
+[patch."https://github.com/pythcoiner/bwk-dart"]
+dart_bwk = { path = "/home/pyth/bwk-dart/rust" }

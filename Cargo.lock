@@ -757,7 +757,7 @@ checksum = "72f5acc6cb2ba439de613abc23857ec3d78374d8ed5ac84e9d11336e87da8649"
 [[package]]
 name = "bwk"
 version = "0.0.8"
-source = "git+https://github.com/pythcoiner/bwk.git?rev=a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d#a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d"
+source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
 dependencies = [
  "bip39",
  "bwk-backoff",
@@ -780,7 +780,7 @@ dependencies = [
 [[package]]
 name = "bwk-backoff"
 version = "0.0.3"
-source = "git+https://github.com/pythcoiner/bwk.git?rev=a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d#a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d"
+source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
 dependencies = [
  "rand 0.9.4",
 ]
@@ -788,7 +788,7 @@ dependencies = [
 [[package]]
 name = "bwk-descriptor"
 version = "0.0.1"
-source = "git+https://github.com/pythcoiner/bwk.git?rev=a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d#a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d"
+source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
 dependencies = [
  "bwk-keys",
  "miniscript",
@@ -798,7 +798,7 @@ dependencies = [
 [[package]]
 name = "bwk-electrum"
 version = "0.0.4"
-source = "git+https://github.com/pythcoiner/bwk.git?rev=a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d#a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d"
+source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
 dependencies = [
  "bitcoin_slices",
  "bwk-backoff",
@@ -815,7 +815,7 @@ dependencies = [
 [[package]]
 name = "bwk-keys"
 version = "0.0.1"
-source = "git+https://github.com/pythcoiner/bwk.git?rev=a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d#a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d"
+source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
 dependencies = [
  "bip39",
  "bitcoin",
@@ -826,7 +826,7 @@ dependencies = [
 [[package]]
 name = "bwk-persist"
 version = "0.0.1"
-source = "git+https://github.com/pythcoiner/bwk.git?rev=a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d#a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d"
+source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
 dependencies = [
  "fs2",
  "log",
@@ -839,7 +839,7 @@ dependencies = [
 [[package]]
 name = "bwk-sign"
 version = "0.0.1"
-source = "git+https://github.com/pythcoiner/bwk.git?rev=a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d#a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d"
+source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
 dependencies = [
  "bip39",
  "bwk-descriptor",
@@ -856,7 +856,7 @@ dependencies = [
 [[package]]
 name = "bwk-sp"
 version = "0.1.0"
-source = "git+https://github.com/pythcoiner/bwk.git?rev=a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d#a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d"
+source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
 dependencies = [
  "bech32 0.9.1",
  "bimap",
@@ -866,6 +866,7 @@ dependencies = [
  "bwk",
  "bwk-sign",
  "bwk-tx",
+ "bwk-utils",
  "crossbeam",
  "getrandom 0.2.17",
  "hex",
@@ -882,7 +883,7 @@ dependencies = [
 [[package]]
 name = "bwk-tx"
 version = "0.0.1"
-source = "git+https://github.com/pythcoiner/bwk.git?rev=a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d#a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d"
+source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
 dependencies = [
  "bitcoin",
  "bwk-descriptor",
@@ -895,13 +896,14 @@ dependencies = [
 [[package]]
 name = "bwk-utils"
 version = "0.0.1"
-source = "git+https://github.com/pythcoiner/bwk.git?rev=a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d#a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d"
+source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
 dependencies = [
  "bitcoin",
  "env_logger",
  "log",
  "miniscript",
  "rand 0.9.4",
+ "ureq 3.4.0",
 ]
 
 [[package]]
@@ -1436,7 +1438,6 @@ dependencies = [
 [[package]]
 name = "dart_bwk"
 version = "0.1.0"
-source = "git+https://github.com/pythcoiner/bwk-dart?rev=323f993ca98f92634156b2541b1150db09211a86#323f993ca98f92634156b2541b1150db09211a86"
 dependencies = [
  "bitcoin",
  "bwk",
@@ -4411,7 +4412,7 @@ dependencies = [
 [[package]]
 name = "secp256k1_spscan-sys"
 version = "0.1.0"
-source = "git+https://github.com/pythcoiner/bwk.git?rev=a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d#a820a24a54651f6b9bc5df0a07463e9bc8b6ae3d"
+source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
 dependencies = [
  "cc",
 ]

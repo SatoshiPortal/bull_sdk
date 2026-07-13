@@ -10,10 +10,9 @@ import 'types.dart';
 
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `drop`
 
-/// Test a blindbit URL by fetching its current block height. Returns the height
-/// on success, an error string otherwise. Standalone (no live account); async so
-/// the HTTP GET runs off the Dart UI isolate.
-Future<int> testBlindbitUrl({required String url}) =>
+/// Test a blindbit URL by fetching its current block height. Standalone (no live
+/// account); async so the HTTP GET runs off the Dart UI isolate.
+Future<void> testBlindbitUrl({required String url}) =>
     BullSdk.instance.api.dartBwkApiSpAccountTestBlindbitUrl(url: url);
 
 /// Test an electrum URL by connecting and requesting `server.version`. Standalone;
@@ -27,15 +26,12 @@ abstract class SpAccount implements RustOpaqueInterface {
 
   int blockHeight();
 
-  /// Broadcast a signed transaction to the network via Electrum.
+  /// Start broadcasting a signed transaction to the network via Electrum.
   /// tx_hex: hex-encoded raw transaction bytes (hex::encode the sign_psbt result).
-  /// Returns the transaction ID (txid) as a hex string on success.
-  /// Async on the Dart side; FRB dispatches it on a worker thread, so it is
-  /// safe to await from the UI isolate while the TCP handshake completes.
-  /// Broadcast a signed tx. `change_sat` is the SP change output value in this
-  /// tx (0 for a sweep); bwk uses it to net the unconfirmed send amount so the
-  /// history shows sent + fee before the change is scanned back in.
-  Future<String> broadcast({required String txHex, required BigInt changeSat});
+  /// Completion is delivered as Broadcasted or BroadcastFailed notification.
+  Future<void> broadcast({required String txHex});
+
+  Future<void> clearScanState();
 
   List<SpCoinView> coins();
 
@@ -64,6 +60,31 @@ abstract class SpAccount implements RustOpaqueInterface {
     birthdayHeight: birthdayHeight,
     dustLimit: dustLimit,
   );
+
+  static SpAccount createFromMnemonicWithScanRuntime({
+    required String name,
+    required SpNetwork network,
+    required String mnemonic,
+    required String blindbitUrl,
+    required String electrumUrl,
+    required String dataDir,
+    int? birthdayHeight,
+    BigInt? dustLimit,
+    int? fetchConcurrencyFactor,
+    int? matchConcurrencyFactor,
+  }) => BullSdk.instance.api
+      .dartBwkApiSpAccountSpAccountCreateFromMnemonicWithScanRuntime(
+        name: name,
+        network: network,
+        mnemonic: mnemonic,
+        blindbitUrl: blindbitUrl,
+        electrumUrl: electrumUrl,
+        dataDir: dataDir,
+        birthdayHeight: birthdayHeight,
+        dustLimit: dustLimit,
+        fetchConcurrencyFactor: fetchConcurrencyFactor,
+        matchConcurrencyFactor: matchConcurrencyFactor,
+      );
 
   /// Cooperatively stop the notification thread and release the inner
   /// Account (and its sqlite handle). Safe to call multiple times; the

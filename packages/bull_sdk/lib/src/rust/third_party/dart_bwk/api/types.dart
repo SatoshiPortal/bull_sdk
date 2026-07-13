@@ -7,9 +7,11 @@ import '../../../api/simple.dart';
 import '../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_fields_are_eq`, `assert_fields_are_eq`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `eq`, `eq`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`
 
 enum CoinSource { sp, segwit, taproot, other }
+
+enum HeaderProgressPhase { replay, initialSync }
 
 class RegtestDefaults {
   final bool isOk;
@@ -114,9 +116,17 @@ enum SpNetwork { bitcoin, signet, testnet, regtest }
 /// it exhaustively instead of string-comparing.
 enum SpPaymentDirection { receive, send, selfSend }
 
+enum SpPaymentStatus {
+  unconfirmed,
+  confirmedUnverified,
+  verified,
+  verifyFailed,
+}
+
 class SpPaymentView {
   final String txid;
   final SpPaymentDirection direction;
+  final SpPaymentStatus status;
   final BigInt amountSat;
   final BigInt? feeSat;
   final int? height;
@@ -126,6 +136,7 @@ class SpPaymentView {
   const SpPaymentView({
     required this.txid,
     required this.direction,
+    required this.status,
     required this.amountSat,
     this.feeSat,
     this.height,
@@ -137,6 +148,7 @@ class SpPaymentView {
   int get hashCode =>
       txid.hashCode ^
       direction.hashCode ^
+      status.hashCode ^
       amountSat.hashCode ^
       feeSat.hashCode ^
       height.hashCode ^
@@ -150,6 +162,7 @@ class SpPaymentView {
           runtimeType == other.runtimeType &&
           txid == other.txid &&
           direction == other.direction &&
+          status == other.status &&
           amountSat == other.amountSat &&
           feeSat == other.feeSat &&
           height == other.height &&
