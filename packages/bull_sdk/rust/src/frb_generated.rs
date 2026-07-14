@@ -45,7 +45,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.12.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1108971365;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1777038934;
 
 // Section: executor
 
@@ -1580,7 +1580,6 @@ fn wire__dart_bwk__api__sp_account__SpAccount_broadcast_impl(
         RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<SpAccount>>,
     >,
     tx_hex: impl CstDecode<String>,
-    change_sat: impl CstDecode<u64>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -1591,7 +1590,6 @@ fn wire__dart_bwk__api__sp_account__SpAccount_broadcast_impl(
         move || {
             let api_that = that.cst_decode();
             let api_tx_hex = tx_hex.cst_decode();
-            let api_change_sat = change_sat.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, String>((move || {
                     let mut api_that_guard = None;
@@ -1611,8 +1609,45 @@ fn wire__dart_bwk__api__sp_account__SpAccount_broadcast_impl(
                     let output_ok = dart_bwk::api::sp_account::SpAccount::broadcast(
                         &*api_that_guard,
                         api_tx_hex,
-                        api_change_sat,
                     )?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__dart_bwk__api__sp_account__SpAccount_clear_scan_state_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<SpAccount>>,
+    >,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "SpAccount_clear_scan_state",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, String>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok =
+                        dart_bwk::api::sp_account::SpAccount::clear_scan_state(&*api_that_guard)?;
                     Ok(output_ok)
                 })())
             }
@@ -1724,6 +1759,54 @@ fn wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_impl(
                     api_birthday_height,
                     api_dust_limit,
                 )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
+fn wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime_impl(
+    name: impl CstDecode<String>,
+    network: impl CstDecode<dart_bwk::api::types::SpNetwork>,
+    mnemonic: impl CstDecode<String>,
+    blindbit_url: impl CstDecode<String>,
+    electrum_url: impl CstDecode<String>,
+    data_dir: impl CstDecode<String>,
+    birthday_height: impl CstDecode<Option<u32>>,
+    dust_limit: impl CstDecode<Option<u64>>,
+    fetch_concurrency_factor: impl CstDecode<Option<u32>>,
+    match_concurrency_factor: impl CstDecode<Option<u32>>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "SpAccount_create_from_mnemonic_with_scan_runtime",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_name = name.cst_decode();
+            let api_network = network.cst_decode();
+            let api_mnemonic = mnemonic.cst_decode();
+            let api_blindbit_url = blindbit_url.cst_decode();
+            let api_electrum_url = electrum_url.cst_decode();
+            let api_data_dir = data_dir.cst_decode();
+            let api_birthday_height = birthday_height.cst_decode();
+            let api_dust_limit = dust_limit.cst_decode();
+            let api_fetch_concurrency_factor = fetch_concurrency_factor.cst_decode();
+            let api_match_concurrency_factor = match_concurrency_factor.cst_decode();
+            transform_result_dco::<_, _, String>((move || {
+                let output_ok =
+                    dart_bwk::api::sp_account::SpAccount::create_from_mnemonic_with_scan_runtime(
+                        api_name,
+                        api_network,
+                        api_mnemonic,
+                        api_blindbit_url,
+                        api_electrum_url,
+                        api_data_dir,
+                        api_birthday_height,
+                        api_dust_limit,
+                        api_fetch_concurrency_factor,
+                        api_match_concurrency_factor,
+                    )?;
                 Ok(output_ok)
             })())
         },
@@ -5210,6 +5293,25 @@ fn wire__bitbox__api__init_app_impl(port_: flutter_rust_bridge::for_generated::M
         },
     )
 }
+fn wire__crate__api__simple__init_app_impl(port_: flutter_rust_bridge::for_generated::MessagePort) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "init_app",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok = Result::<_, ()>::Ok({
+                        crate::api::simple::init_app();
+                    })?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
 fn wire__bitbox__api__is_wallet_policy_registered_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     serial_number: impl CstDecode<String>,
@@ -6970,6 +7072,7 @@ const _: fn() = || {
         let SpPaymentView = None::<dart_bwk::api::types::SpPaymentView>.unwrap();
         let _: String = SpPaymentView.txid;
         let _: dart_bwk::api::types::SpPaymentDirection = SpPaymentView.direction;
+        let _: dart_bwk::api::types::SpPaymentStatus = SpPaymentView.status;
         let _: u64 = SpPaymentView.amount_sat;
         let _: Option<u64> = SpPaymentView.fee_sat;
         let _: Option<u32> = SpPaymentView.height;
@@ -7208,6 +7311,16 @@ impl CstDecode<bbqr::file_type::FileType> for i32 {
         }
     }
 }
+impl CstDecode<dart_bwk::api::types::HeaderProgressPhase> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> dart_bwk::api::types::HeaderProgressPhase {
+        match self {
+            0 => dart_bwk::api::types::HeaderProgressPhase::Replay,
+            1 => dart_bwk::api::types::HeaderProgressPhase::InitialSync,
+            _ => unreachable!("Invalid variant for HeaderProgressPhase: {}", self),
+        }
+    }
+}
 impl CstDecode<i32> for i32 {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> i32 {
@@ -7271,6 +7384,18 @@ impl CstDecode<dart_bwk::api::types::SpPaymentDirection> for i32 {
             1 => dart_bwk::api::types::SpPaymentDirection::Send,
             2 => dart_bwk::api::types::SpPaymentDirection::SelfSend,
             _ => unreachable!("Invalid variant for SpPaymentDirection: {}", self),
+        }
+    }
+}
+impl CstDecode<dart_bwk::api::types::SpPaymentStatus> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> dart_bwk::api::types::SpPaymentStatus {
+        match self {
+            0 => dart_bwk::api::types::SpPaymentStatus::Unconfirmed,
+            1 => dart_bwk::api::types::SpPaymentStatus::ConfirmedUnverified,
+            2 => dart_bwk::api::types::SpPaymentStatus::Verified,
+            3 => dart_bwk::api::types::SpPaymentStatus::VerifyFailed,
+            _ => unreachable!("Invalid variant for SpPaymentStatus: {}", self),
         }
     }
 }
@@ -7925,6 +8050,18 @@ impl SseDecode for bbqr::file_type::FileType {
             6 => bbqr::file_type::FileType::KeyTeleportSender,
             7 => bbqr::file_type::FileType::KeyTeleportPsbt,
             _ => unreachable!("Invalid variant for FileType: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for dart_bwk::api::types::HeaderProgressPhase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => dart_bwk::api::types::HeaderProgressPhase::Replay,
+            1 => dart_bwk::api::types::HeaderProgressPhase::InitialSync,
+            _ => unreachable!("Invalid variant for HeaderProgressPhase: {}", inner),
         };
     }
 }
@@ -8963,12 +9100,27 @@ impl SseDecode for dart_bwk::api::types::SpPaymentDirection {
     }
 }
 
+impl SseDecode for dart_bwk::api::types::SpPaymentStatus {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => dart_bwk::api::types::SpPaymentStatus::Unconfirmed,
+            1 => dart_bwk::api::types::SpPaymentStatus::ConfirmedUnverified,
+            2 => dart_bwk::api::types::SpPaymentStatus::Verified,
+            3 => dart_bwk::api::types::SpPaymentStatus::VerifyFailed,
+            _ => unreachable!("Invalid variant for SpPaymentStatus: {}", inner),
+        };
+    }
+}
+
 impl SseDecode for dart_bwk::api::types::SpPaymentView {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_txid = <String>::sse_decode(deserializer);
         let mut var_direction =
             <dart_bwk::api::types::SpPaymentDirection>::sse_decode(deserializer);
+        let mut var_status = <dart_bwk::api::types::SpPaymentStatus>::sse_decode(deserializer);
         let mut var_amountSat = <u64>::sse_decode(deserializer);
         let mut var_feeSat = <Option<u64>>::sse_decode(deserializer);
         let mut var_height = <Option<u32>>::sse_decode(deserializer);
@@ -8977,6 +9129,7 @@ impl SseDecode for dart_bwk::api::types::SpPaymentView {
         return dart_bwk::api::types::SpPaymentView {
             txid: var_txid,
             direction: var_direction,
+            status: var_status,
             amount_sat: var_amountSat,
             fee_sat: var_feeSat,
             height: var_height,
@@ -10083,6 +10236,27 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<bbqr::file_type::FileType>>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<dart_bwk::api::types::HeaderProgressPhase> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            dart_bwk::api::types::HeaderProgressPhase::Replay => 0.into_dart(),
+            dart_bwk::api::types::HeaderProgressPhase::InitialSync => 1.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<dart_bwk::api::types::HeaderProgressPhase>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<dart_bwk::api::types::HeaderProgressPhase>>
+    for dart_bwk::api::types::HeaderProgressPhase
+{
+    fn into_into_dart(self) -> FrbWrapper<dart_bwk::api::types::HeaderProgressPhase> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<bbqr::join::Joined> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -10865,11 +11039,35 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<dart_bwk::api::types::SpPaymen
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<dart_bwk::api::types::SpPaymentStatus> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            dart_bwk::api::types::SpPaymentStatus::Unconfirmed => 0.into_dart(),
+            dart_bwk::api::types::SpPaymentStatus::ConfirmedUnverified => 1.into_dart(),
+            dart_bwk::api::types::SpPaymentStatus::Verified => 2.into_dart(),
+            dart_bwk::api::types::SpPaymentStatus::VerifyFailed => 3.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<dart_bwk::api::types::SpPaymentStatus>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<dart_bwk::api::types::SpPaymentStatus>>
+    for dart_bwk::api::types::SpPaymentStatus
+{
+    fn into_into_dart(self) -> FrbWrapper<dart_bwk::api::types::SpPaymentStatus> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<dart_bwk::api::types::SpPaymentView> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
             self.0.txid.into_into_dart().into_dart(),
             self.0.direction.into_into_dart().into_dart(),
+            self.0.status.into_into_dart().into_dart(),
             self.0.amount_sat.into_into_dart().into_dart(),
             self.0.fee_sat.into_into_dart().into_dart(),
             self.0.height.into_into_dart().into_dart(),
@@ -11960,6 +12158,22 @@ impl SseEncode for bbqr::file_type::FileType {
     }
 }
 
+impl SseEncode for dart_bwk::api::types::HeaderProgressPhase {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                dart_bwk::api::types::HeaderProgressPhase::Replay => 0,
+                dart_bwk::api::types::HeaderProgressPhase::InitialSync => 1,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
 impl SseEncode for i32 {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -12775,11 +12989,30 @@ impl SseEncode for dart_bwk::api::types::SpPaymentDirection {
     }
 }
 
+impl SseEncode for dart_bwk::api::types::SpPaymentStatus {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                dart_bwk::api::types::SpPaymentStatus::Unconfirmed => 0,
+                dart_bwk::api::types::SpPaymentStatus::ConfirmedUnverified => 1,
+                dart_bwk::api::types::SpPaymentStatus::Verified => 2,
+                dart_bwk::api::types::SpPaymentStatus::VerifyFailed => 3,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
 impl SseEncode for dart_bwk::api::types::SpPaymentView {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <String>::sse_encode(self.txid, serializer);
         <dart_bwk::api::types::SpPaymentDirection>::sse_encode(self.direction, serializer);
+        <dart_bwk::api::types::SpPaymentStatus>::sse_encode(self.status, serializer);
         <u64>::sse_encode(self.amount_sat, serializer);
         <Option<u64>>::sse_encode(self.fee_sat, serializer);
         <Option<u32>>::sse_encode(self.height, serializer);
@@ -14403,6 +14636,7 @@ mod io {
             dart_bwk::api::types::SpPaymentView {
                 txid: self.txid.cst_decode(),
                 direction: self.direction.cst_decode(),
+                status: self.status.cst_decode(),
                 amount_sat: self.amount_sat.cst_decode(),
                 fee_sat: self.fee_sat.cst_decode(),
                 height: self.height.cst_decode(),
@@ -15266,6 +15500,7 @@ mod io {
             Self {
                 txid: core::ptr::null_mut(),
                 direction: Default::default(),
+                status: Default::default(),
                 amount_sat: Default::default(),
                 fee_sat: core::ptr::null_mut(),
                 height: core::ptr::null_mut(),
@@ -15916,9 +16151,16 @@ mod io {
         port_: i64,
         that: usize,
         tx_hex: *mut wire_cst_list_prim_u_8_strict,
-        change_sat: u64,
     ) {
-        wire__dart_bwk__api__sp_account__SpAccount_broadcast_impl(port_, that, tx_hex, change_sat)
+        wire__dart_bwk__api__sp_account__SpAccount_broadcast_impl(port_, that, tx_hex)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_clear_scan_state(
+        port_: i64,
+        that: usize,
+    ) {
+        wire__dart_bwk__api__sp_account__SpAccount_clear_scan_state_impl(port_, that)
     }
 
     #[unsafe(no_mangle)]
@@ -15955,6 +16197,33 @@ mod io {
             data_dir,
             birthday_height,
             dust_limit,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime(
+        name: *mut wire_cst_list_prim_u_8_strict,
+        network: i32,
+        mnemonic: *mut wire_cst_list_prim_u_8_strict,
+        blindbit_url: *mut wire_cst_list_prim_u_8_strict,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        data_dir: *mut wire_cst_list_prim_u_8_strict,
+        birthday_height: *mut u32,
+        dust_limit: *mut u64,
+        fetch_concurrency_factor: *mut u32,
+        match_concurrency_factor: *mut u32,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime_impl(
+            name,
+            network,
+            mnemonic,
+            blindbit_url,
+            electrum_url,
+            data_dir,
+            birthday_height,
+            dust_limit,
+            fetch_concurrency_factor,
+            match_concurrency_factor,
         )
     }
 
@@ -17144,6 +17413,11 @@ mod io {
     #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__init_app(port_: i64) {
         wire__bitbox__api__init_app_impl(port_)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__crate__api__simple__init_app(port_: i64) {
+        wire__crate__api__simple__init_app_impl(port_)
     }
 
     #[unsafe(no_mangle)]
@@ -18948,6 +19222,7 @@ mod io {
     pub struct wire_cst_sp_payment_view {
         txid: *mut wire_cst_list_prim_u_8_strict,
         direction: i32,
+        status: i32,
         amount_sat: u64,
         fee_sat: *mut u64,
         height: *mut u32,

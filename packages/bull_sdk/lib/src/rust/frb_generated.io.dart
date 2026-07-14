@@ -357,6 +357,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   FileType dco_decode_file_type(dynamic raw);
 
   @protected
+  HeaderProgressPhase dco_decode_header_progress_phase(dynamic raw);
+
+  @protected
   int dco_decode_i_32(dynamic raw);
 
   @protected
@@ -576,6 +579,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   SpPaymentDirection dco_decode_sp_payment_direction(dynamic raw);
+
+  @protected
+  SpPaymentStatus dco_decode_sp_payment_status(dynamic raw);
 
   @protected
   SpPaymentView dco_decode_sp_payment_view(dynamic raw);
@@ -971,6 +977,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   FileType sse_decode_file_type(SseDeserializer deserializer);
 
   @protected
+  HeaderProgressPhase sse_decode_header_progress_phase(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   int sse_decode_i_32(SseDeserializer deserializer);
 
   @protected
@@ -1232,6 +1243,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   SpPaymentDirection sse_decode_sp_payment_direction(
     SseDeserializer deserializer,
   );
+
+  @protected
+  SpPaymentStatus sse_decode_sp_payment_status(SseDeserializer deserializer);
 
   @protected
   SpPaymentView sse_decode_sp_payment_view(SseDeserializer deserializer);
@@ -2794,6 +2808,7 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   ) {
     wireObj.txid = cst_encode_String(apiObj.txid);
     wireObj.direction = cst_encode_sp_payment_direction(apiObj.direction);
+    wireObj.status = cst_encode_sp_payment_status(apiObj.status);
     wireObj.amount_sat = cst_encode_u_64(apiObj.amountSat);
     wireObj.fee_sat = cst_encode_opt_box_autoadd_u_64(apiObj.feeSat);
     wireObj.height = cst_encode_opt_box_autoadd_u_32(apiObj.height);
@@ -3161,6 +3176,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   int cst_encode_file_type(FileType raw);
 
   @protected
+  int cst_encode_header_progress_phase(HeaderProgressPhase raw);
+
+  @protected
   int cst_encode_i_32(int raw);
 
   @protected
@@ -3177,6 +3195,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int cst_encode_sp_payment_direction(SpPaymentDirection raw);
+
+  @protected
+  int cst_encode_sp_payment_status(SpPaymentStatus raw);
 
   @protected
   int cst_encode_sub_account_kind(SubAccountKind raw);
@@ -3583,6 +3604,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void sse_encode_file_type(FileType self, SseSerializer serializer);
 
   @protected
+  void sse_encode_header_progress_phase(
+    HeaderProgressPhase self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_i_32(int self, SseSerializer serializer);
 
   @protected
@@ -3909,6 +3936,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   void sse_encode_sp_payment_direction(
     SpPaymentDirection self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_sp_payment_status(
+    SpPaymentStatus self,
     SseSerializer serializer,
   );
 
@@ -4853,13 +4886,11 @@ class BullSdkWire implements BaseWire {
     int port_,
     int that,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> tx_hex,
-    int change_sat,
   ) {
     return _wire__dart_bwk__api__sp_account__SpAccount_broadcast(
       port_,
       that,
       tx_hex,
-      change_sat,
     );
   }
 
@@ -4870,20 +4901,32 @@ class BullSdkWire implements BaseWire {
             ffi.Int64,
             ffi.UintPtr,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            ffi.Uint64,
           )
         >
       >('frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_broadcast');
   late final _wire__dart_bwk__api__sp_account__SpAccount_broadcast =
       _wire__dart_bwk__api__sp_account__SpAccount_broadcastPtr
           .asFunction<
-            void Function(
-              int,
-              int,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              int,
-            )
+            void Function(int, int, ffi.Pointer<wire_cst_list_prim_u_8_strict>)
           >();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_clear_scan_state(
+    int port_,
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_clear_scan_state(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_clear_scan_statePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_clear_scan_state',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_clear_scan_state =
+      _wire__dart_bwk__api__sp_account__SpAccount_clear_scan_statePtr
+          .asFunction<void Function(int, int)>();
 
   WireSyncRust2DartDco wire__dart_bwk__api__sp_account__SpAccount_coins(
     int that,
@@ -4964,6 +5007,69 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               ffi.Pointer<ffi.Uint32>,
               ffi.Pointer<ffi.Uint64>,
+            )
+          >();
+
+  WireSyncRust2DartDco
+  wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime(
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> name,
+    int network,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> mnemonic,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> blindbit_url,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> electrum_url,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> data_dir,
+    ffi.Pointer<ffi.Uint32> birthday_height,
+    ffi.Pointer<ffi.Uint64> dust_limit,
+    ffi.Pointer<ffi.Uint32> fetch_concurrency_factor,
+    ffi.Pointer<ffi.Uint32> match_concurrency_factor,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime(
+      name,
+      network,
+      mnemonic,
+      blindbit_url,
+      electrum_url,
+      data_dir,
+      birthday_height,
+      dust_limit,
+      fetch_concurrency_factor,
+      match_concurrency_factor,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtimePtr =
+      _lookup<
+        ffi.NativeFunction<
+          WireSyncRust2DartDco Function(
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Int32,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<ffi.Uint64>,
+            ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<ffi.Uint32>,
+          )
+        >
+      >(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime =
+      _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtimePtr
+          .asFunction<
+            WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Pointer<ffi.Uint64>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Pointer<ffi.Uint32>,
             )
           >();
 
@@ -7875,6 +7981,17 @@ class BullSdkWire implements BaseWire {
       );
   late final _wire__bitbox__api__init_app = _wire__bitbox__api__init_appPtr
       .asFunction<void Function(int)>();
+
+  void wire__crate__api__simple__init_app(int port_) {
+    return _wire__crate__api__simple__init_app(port_);
+  }
+
+  late final _wire__crate__api__simple__init_appPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+        'frbgen_bull_sdk_wire__crate__api__simple__init_app',
+      );
+  late final _wire__crate__api__simple__init_app =
+      _wire__crate__api__simple__init_appPtr.asFunction<void Function(int)>();
 
   void wire__bitbox__api__is_wallet_policy_registered(
     int port_,
@@ -10965,6 +11082,9 @@ final class wire_cst_sp_payment_view extends ffi.Struct {
 
   @ffi.Int32()
   external int direction;
+
+  @ffi.Int32()
+  external int status;
 
   @ffi.Uint64()
   external int amount_sat;
