@@ -2775,8 +2775,20 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
       wireObj.kind.OutputSpent.outpoint = pre_outpoint;
       return;
     }
-    if (apiObj is SpNotification_BackendOffline) {
+    if (apiObj is SpNotification_Broadcasted) {
+      var pre_txid = cst_encode_String(apiObj.txid);
       wireObj.tag = 7;
+      wireObj.kind.Broadcasted.txid = pre_txid;
+      return;
+    }
+    if (apiObj is SpNotification_BroadcastFailed) {
+      var pre_message = cst_encode_String(apiObj.message);
+      wireObj.tag = 8;
+      wireObj.kind.BroadcastFailed.message = pre_message;
+      return;
+    }
+    if (apiObj is SpNotification_BackendOffline) {
+      wireObj.tag = 9;
       return;
     }
     if (apiObj is SpNotification_ElectrumTx) {
@@ -2784,7 +2796,7 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
       var pre_txid = cst_encode_String(apiObj.txid);
       var pre_amount_sat = cst_encode_u_64(apiObj.amountSat);
       var pre_height = cst_encode_opt_box_autoadd_u_32(apiObj.height);
-      wireObj.tag = 8;
+      wireObj.tag = 10;
       wireObj.kind.ElectrumTx.kind = pre_kind;
       wireObj.kind.ElectrumTx.txid = pre_txid;
       wireObj.kind.ElectrumTx.amount_sat = pre_amount_sat;
@@ -2794,7 +2806,7 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     if (apiObj is SpNotification_ScanSpendProgress) {
       var pre_current = cst_encode_u_32(apiObj.current);
       var pre_end = cst_encode_u_32(apiObj.end);
-      wireObj.tag = 9;
+      wireObj.tag = 11;
       wireObj.kind.ScanSpendProgress.current = pre_current;
       wireObj.kind.ScanSpendProgress.end = pre_end;
       return;
@@ -2803,7 +2815,7 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
       var pre_phase = cst_encode_header_progress_phase(apiObj.phase);
       var pre_start = cst_encode_u_32(apiObj.start);
       var pre_end = cst_encode_u_32(apiObj.end);
-      wireObj.tag = 10;
+      wireObj.tag = 12;
       wireObj.kind.HeaderProgressStarted.phase = pre_phase;
       wireObj.kind.HeaderProgressStarted.start = pre_start;
       wireObj.kind.HeaderProgressStarted.end = pre_end;
@@ -2813,7 +2825,7 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
       var pre_phase = cst_encode_header_progress_phase(apiObj.phase);
       var pre_current = cst_encode_u_32(apiObj.current);
       var pre_end = cst_encode_u_32(apiObj.end);
-      wireObj.tag = 11;
+      wireObj.tag = 13;
       wireObj.kind.HeaderProgress.phase = pre_phase;
       wireObj.kind.HeaderProgress.current = pre_current;
       wireObj.kind.HeaderProgress.end = pre_end;
@@ -2821,18 +2833,18 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     }
     if (apiObj is SpNotification_HeaderProgressCompleted) {
       var pre_phase = cst_encode_header_progress_phase(apiObj.phase);
-      wireObj.tag = 12;
+      wireObj.tag = 14;
       wireObj.kind.HeaderProgressCompleted.phase = pre_phase;
       return;
     }
     if (apiObj is SpNotification_HeaderProgressFailed) {
       var pre_phase = cst_encode_header_progress_phase(apiObj.phase);
-      wireObj.tag = 13;
+      wireObj.tag = 15;
       wireObj.kind.HeaderProgressFailed.phase = pre_phase;
       return;
     }
     if (apiObj is SpNotification_PaymentHistoryUpdated) {
-      wireObj.tag = 14;
+      wireObj.tag = 16;
       return;
     }
   }
@@ -11476,6 +11488,14 @@ final class wire_cst_SpNotification_OutputSpent extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> outpoint;
 }
 
+final class wire_cst_SpNotification_Broadcasted extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> txid;
+}
+
+final class wire_cst_SpNotification_BroadcastFailed extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> message;
+}
+
 final class wire_cst_SpNotification_ElectrumTx extends ffi.Struct {
   @ffi.Int32()
   external int kind;
@@ -11538,6 +11558,10 @@ final class SpNotificationKind extends ffi.Union {
   external wire_cst_SpNotification_NewOutput NewOutput;
 
   external wire_cst_SpNotification_OutputSpent OutputSpent;
+
+  external wire_cst_SpNotification_Broadcasted Broadcasted;
+
+  external wire_cst_SpNotification_BroadcastFailed BroadcastFailed;
 
   external wire_cst_SpNotification_ElectrumTx ElectrumTx;
 

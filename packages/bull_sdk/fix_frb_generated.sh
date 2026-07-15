@@ -262,6 +262,22 @@ old = '''impl flutter_rust_bridge::IntoDart for FrbWrapper<dart_bwk::api::types:
         [
             self.0.txid.into_into_dart().into_dart(),
             self.0.direction.into_into_dart().into_dart(),
+            self.0.status.into_into_dart().into_dart(),
+            self.0.amount_sat.into_into_dart().into_dart(),
+            self.0.fee_sat.into_into_dart().into_dart(),
+            self.0.height.into_into_dart().into_dart(),
+            self.0.timestamp.into_into_dart().into_dart(),
+            self.0.label.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}'''
+
+legacy_old = '''impl flutter_rust_bridge::IntoDart for FrbWrapper<dart_bwk::api::types::SpPaymentView> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.txid.into_into_dart().into_dart(),
+            self.0.direction.into_into_dart().into_dart(),
             self.0.amount_sat.into_into_dart().into_dart(),
             self.0.fee_sat.into_into_dart().into_dart(),
             self.0.height.into_into_dart().into_dart(),
@@ -297,6 +313,7 @@ new = '''impl flutter_rust_bridge::IntoDart for FrbWrapper<dart_bwk::api::types:
 }'''
 
 content = content.replace(old, new, 1)
+content = content.replace(legacy_old, new, 1)
 if 'payment_status_idx(self.0.status).into_dart()' not in content:
     raise SystemExit('SpPaymentView DCO encoder still lacks status')
 

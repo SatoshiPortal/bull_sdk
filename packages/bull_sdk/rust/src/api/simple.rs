@@ -47,6 +47,12 @@ pub enum SpNotification {
     OutputSpent {
         outpoint: String,
     },
+    Broadcasted {
+        txid: String,
+    },
+    BroadcastFailed {
+        message: String,
+    },
     BackendOffline,
     ElectrumTx {
         kind: dart_bwk::api::types::CoinSource,
@@ -103,6 +109,12 @@ impl From<dart_bwk::api::types::SpNotification> for SpNotification {
             },
             dart_bwk::api::types::SpNotification::OutputSpent { outpoint } => {
                 SpNotification::OutputSpent { outpoint }
+            }
+            dart_bwk::api::types::SpNotification::Broadcasted { txid } => {
+                SpNotification::Broadcasted { txid }
+            }
+            dart_bwk::api::types::SpNotification::BroadcastFailed { message } => {
+                SpNotification::BroadcastFailed { message }
             }
             dart_bwk::api::types::SpNotification::BackendOffline => SpNotification::BackendOffline,
             dart_bwk::api::types::SpNotification::ElectrumTx {
@@ -167,6 +179,12 @@ impl From<SpNotification> for dart_bwk::api::types::SpNotification {
             },
             SpNotification::OutputSpent { outpoint } => {
                 dart_bwk::api::types::SpNotification::OutputSpent { outpoint }
+            }
+            SpNotification::Broadcasted { txid } => {
+                dart_bwk::api::types::SpNotification::Broadcasted { txid }
+            }
+            SpNotification::BroadcastFailed { message } => {
+                dart_bwk::api::types::SpNotification::BroadcastFailed { message }
             }
             SpNotification::BackendOffline => dart_bwk::api::types::SpNotification::BackendOffline,
             SpNotification::ElectrumTx {

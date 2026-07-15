@@ -50,6 +50,10 @@ sealed class SpNotification with _$SpNotification {
   }) = SpNotification_NewOutput;
   const factory SpNotification.outputSpent({required String outpoint}) =
       SpNotification_OutputSpent;
+  const factory SpNotification.broadcasted({required String txid}) =
+      SpNotification_Broadcasted;
+  const factory SpNotification.broadcastFailed({required String message}) =
+      SpNotification_BroadcastFailed;
   const factory SpNotification.backendOffline() = SpNotification_BackendOffline;
   const factory SpNotification.electrumTx({
     required CoinSource kind,

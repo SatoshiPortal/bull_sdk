@@ -11,6 +11,8 @@ export 'src/rust/api/simple.dart'
         SpNotification_ScanFailed,
         SpNotification_NewOutput,
         SpNotification_OutputSpent,
+        SpNotification_Broadcasted,
+        SpNotification_BroadcastFailed,
         SpNotification_BackendOffline,
         SpNotification_ElectrumTx,
         SpNotification_HeaderProgressStarted,
