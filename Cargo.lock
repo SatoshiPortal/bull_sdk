@@ -1438,7 +1438,7 @@ dependencies = [
 [[package]]
 name = "dart_bwk"
 version = "0.1.0"
-source = "git+https://github.com/pythcoiner/bwk-dart?branch=master#58b5bab17fa81cdef93194a0f113ebc3b085b4cc"
+source = "git+https://github.com/pythcoiner/bwk-dart?rev=58b5bab17fa81cdef93194a0f113ebc3b085b4cc#58b5bab17fa81cdef93194a0f113ebc3b085b4cc"
 dependencies = [
  "bitcoin",
  "bwk",
