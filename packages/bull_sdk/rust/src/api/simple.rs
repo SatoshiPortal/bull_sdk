@@ -58,6 +58,23 @@ pub enum SpNotification {
         current: u32,
         end: u32,
     },
+    HeaderProgressStarted {
+        phase: dart_bwk::api::types::HeaderProgressPhase,
+        start: u32,
+        end: u32,
+    },
+    HeaderProgress {
+        phase: dart_bwk::api::types::HeaderProgressPhase,
+        current: u32,
+        end: u32,
+    },
+    HeaderProgressCompleted {
+        phase: dart_bwk::api::types::HeaderProgressPhase,
+    },
+    HeaderProgressFailed {
+        phase: dart_bwk::api::types::HeaderProgressPhase,
+    },
+    PaymentHistoryUpdated,
 }
 
 impl From<dart_bwk::api::types::SpNotification> for SpNotification {
@@ -99,6 +116,27 @@ impl From<dart_bwk::api::types::SpNotification> for SpNotification {
                 amount_sat,
                 height,
             },
+            dart_bwk::api::types::SpNotification::HeaderProgressStarted { phase, start, end } => {
+                SpNotification::HeaderProgressStarted { phase, start, end }
+            }
+            dart_bwk::api::types::SpNotification::HeaderProgress {
+                phase,
+                current,
+                end,
+            } => SpNotification::HeaderProgress {
+                phase,
+                current,
+                end,
+            },
+            dart_bwk::api::types::SpNotification::HeaderProgressCompleted { phase } => {
+                SpNotification::HeaderProgressCompleted { phase }
+            }
+            dart_bwk::api::types::SpNotification::HeaderProgressFailed { phase } => {
+                SpNotification::HeaderProgressFailed { phase }
+            }
+            dart_bwk::api::types::SpNotification::PaymentHistoryUpdated => {
+                SpNotification::PaymentHistoryUpdated
+            }
         }
     }
 }
@@ -142,6 +180,27 @@ impl From<SpNotification> for dart_bwk::api::types::SpNotification {
                 amount_sat,
                 height,
             },
+            SpNotification::HeaderProgressStarted { phase, start, end } => {
+                dart_bwk::api::types::SpNotification::HeaderProgressStarted { phase, start, end }
+            }
+            SpNotification::HeaderProgress {
+                phase,
+                current,
+                end,
+            } => dart_bwk::api::types::SpNotification::HeaderProgress {
+                phase,
+                current,
+                end,
+            },
+            SpNotification::HeaderProgressCompleted { phase } => {
+                dart_bwk::api::types::SpNotification::HeaderProgressCompleted { phase }
+            }
+            SpNotification::HeaderProgressFailed { phase } => {
+                dart_bwk::api::types::SpNotification::HeaderProgressFailed { phase }
+            }
+            SpNotification::PaymentHistoryUpdated => {
+                dart_bwk::api::types::SpNotification::PaymentHistoryUpdated
+            }
         }
     }
 }

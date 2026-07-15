@@ -9080,6 +9080,45 @@ impl SseDecode for crate::api::simple::SpNotification {
                     end: var_end,
                 };
             }
+            10 => {
+                let mut var_phase =
+                    <dart_bwk::api::types::HeaderProgressPhase>::sse_decode(deserializer);
+                let mut var_start = <u32>::sse_decode(deserializer);
+                let mut var_end = <u32>::sse_decode(deserializer);
+                return crate::api::simple::SpNotification::HeaderProgressStarted {
+                    phase: var_phase,
+                    start: var_start,
+                    end: var_end,
+                };
+            }
+            11 => {
+                let mut var_phase =
+                    <dart_bwk::api::types::HeaderProgressPhase>::sse_decode(deserializer);
+                let mut var_current = <u32>::sse_decode(deserializer);
+                let mut var_end = <u32>::sse_decode(deserializer);
+                return crate::api::simple::SpNotification::HeaderProgress {
+                    phase: var_phase,
+                    current: var_current,
+                    end: var_end,
+                };
+            }
+            12 => {
+                let mut var_phase =
+                    <dart_bwk::api::types::HeaderProgressPhase>::sse_decode(deserializer);
+                return crate::api::simple::SpNotification::HeaderProgressCompleted {
+                    phase: var_phase,
+                };
+            }
+            13 => {
+                let mut var_phase =
+                    <dart_bwk::api::types::HeaderProgressPhase>::sse_decode(deserializer);
+                return crate::api::simple::SpNotification::HeaderProgressFailed {
+                    phase: var_phase,
+                };
+            }
+            14 => {
+                return crate::api::simple::SpNotification::PaymentHistoryUpdated;
+            }
             _ => {
                 unimplemented!("");
             }
@@ -10999,6 +11038,33 @@ impl flutter_rust_bridge::IntoDart for crate::api::simple::SpNotification {
                 end.into_into_dart().into_dart(),
             ]
             .into_dart(),
+            crate::api::simple::SpNotification::HeaderProgressStarted { phase, start, end } => [
+                10.into_dart(),
+                phase.into_into_dart().into_dart(),
+                start.into_into_dart().into_dart(),
+                end.into_into_dart().into_dart(),
+            ]
+            .into_dart(),
+            crate::api::simple::SpNotification::HeaderProgress {
+                phase,
+                current,
+                end,
+            } => [
+                11.into_dart(),
+                phase.into_into_dart().into_dart(),
+                current.into_into_dart().into_dart(),
+                end.into_into_dart().into_dart(),
+            ]
+            .into_dart(),
+            crate::api::simple::SpNotification::HeaderProgressCompleted { phase } => {
+                [12.into_dart(), phase.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::simple::SpNotification::HeaderProgressFailed { phase } => {
+                [13.into_dart(), phase.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::simple::SpNotification::PaymentHistoryUpdated => {
+                [14.into_dart()].into_dart()
+            }
             _ => {
                 unimplemented!("");
             }
@@ -12965,6 +13031,33 @@ impl SseEncode for crate::api::simple::SpNotification {
                 <u32>::sse_encode(current, serializer);
                 <u32>::sse_encode(end, serializer);
             }
+            crate::api::simple::SpNotification::HeaderProgressStarted { phase, start, end } => {
+                <i32>::sse_encode(10, serializer);
+                <dart_bwk::api::types::HeaderProgressPhase>::sse_encode(phase, serializer);
+                <u32>::sse_encode(start, serializer);
+                <u32>::sse_encode(end, serializer);
+            }
+            crate::api::simple::SpNotification::HeaderProgress {
+                phase,
+                current,
+                end,
+            } => {
+                <i32>::sse_encode(11, serializer);
+                <dart_bwk::api::types::HeaderProgressPhase>::sse_encode(phase, serializer);
+                <u32>::sse_encode(current, serializer);
+                <u32>::sse_encode(end, serializer);
+            }
+            crate::api::simple::SpNotification::HeaderProgressCompleted { phase } => {
+                <i32>::sse_encode(12, serializer);
+                <dart_bwk::api::types::HeaderProgressPhase>::sse_encode(phase, serializer);
+            }
+            crate::api::simple::SpNotification::HeaderProgressFailed { phase } => {
+                <i32>::sse_encode(13, serializer);
+                <dart_bwk::api::types::HeaderProgressPhase>::sse_encode(phase, serializer);
+            }
+            crate::api::simple::SpNotification::PaymentHistoryUpdated => {
+                <i32>::sse_encode(14, serializer);
+            }
             _ => {
                 unimplemented!("");
             }
@@ -14626,6 +14719,35 @@ mod io {
                         end: ans.end.cst_decode(),
                     }
                 }
+                10 => {
+                    let ans = unsafe { self.kind.HeaderProgressStarted };
+                    crate::api::simple::SpNotification::HeaderProgressStarted {
+                        phase: ans.phase.cst_decode(),
+                        start: ans.start.cst_decode(),
+                        end: ans.end.cst_decode(),
+                    }
+                }
+                11 => {
+                    let ans = unsafe { self.kind.HeaderProgress };
+                    crate::api::simple::SpNotification::HeaderProgress {
+                        phase: ans.phase.cst_decode(),
+                        current: ans.current.cst_decode(),
+                        end: ans.end.cst_decode(),
+                    }
+                }
+                12 => {
+                    let ans = unsafe { self.kind.HeaderProgressCompleted };
+                    crate::api::simple::SpNotification::HeaderProgressCompleted {
+                        phase: ans.phase.cst_decode(),
+                    }
+                }
+                13 => {
+                    let ans = unsafe { self.kind.HeaderProgressFailed };
+                    crate::api::simple::SpNotification::HeaderProgressFailed {
+                        phase: ans.phase.cst_decode(),
+                    }
+                }
+                14 => crate::api::simple::SpNotification::PaymentHistoryUpdated,
                 _ => unreachable!(),
             }
         }
@@ -19173,6 +19295,10 @@ mod io {
         OutputSpent: wire_cst_SpNotification_OutputSpent,
         ElectrumTx: wire_cst_SpNotification_ElectrumTx,
         ScanSpendProgress: wire_cst_SpNotification_ScanSpendProgress,
+        HeaderProgressStarted: wire_cst_SpNotification_HeaderProgressStarted,
+        HeaderProgress: wire_cst_SpNotification_HeaderProgress,
+        HeaderProgressCompleted: wire_cst_SpNotification_HeaderProgressCompleted,
+        HeaderProgressFailed: wire_cst_SpNotification_HeaderProgressFailed,
         nil__: (),
     }
     #[repr(C)]
@@ -19216,6 +19342,30 @@ mod io {
     pub struct wire_cst_SpNotification_ScanSpendProgress {
         current: u32,
         end: u32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SpNotification_HeaderProgressStarted {
+        phase: i32,
+        start: u32,
+        end: u32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SpNotification_HeaderProgress {
+        phase: i32,
+        current: u32,
+        end: u32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SpNotification_HeaderProgressCompleted {
+        phase: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SpNotification_HeaderProgressFailed {
+        phase: i32,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]

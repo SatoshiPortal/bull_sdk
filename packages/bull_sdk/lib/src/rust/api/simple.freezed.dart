@@ -390,7 +390,7 @@ extension SpNotificationPatterns on SpNotification {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SpNotification_ScanStarted value)?  scanStarted,TResult Function( SpNotification_ScanReceiveProgress value)?  scanReceiveProgress,TResult Function( SpNotification_ScanCompleted value)?  scanCompleted,TResult Function( SpNotification_ScanStopped value)?  scanStopped,TResult Function( SpNotification_ScanFailed value)?  scanFailed,TResult Function( SpNotification_NewOutput value)?  newOutput,TResult Function( SpNotification_OutputSpent value)?  outputSpent,TResult Function( SpNotification_BackendOffline value)?  backendOffline,TResult Function( SpNotification_ElectrumTx value)?  electrumTx,TResult Function( SpNotification_ScanSpendProgress value)?  scanSpendProgress,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SpNotification_ScanStarted value)?  scanStarted,TResult Function( SpNotification_ScanReceiveProgress value)?  scanReceiveProgress,TResult Function( SpNotification_ScanCompleted value)?  scanCompleted,TResult Function( SpNotification_ScanStopped value)?  scanStopped,TResult Function( SpNotification_ScanFailed value)?  scanFailed,TResult Function( SpNotification_NewOutput value)?  newOutput,TResult Function( SpNotification_OutputSpent value)?  outputSpent,TResult Function( SpNotification_BackendOffline value)?  backendOffline,TResult Function( SpNotification_ElectrumTx value)?  electrumTx,TResult Function( SpNotification_ScanSpendProgress value)?  scanSpendProgress,TResult Function( SpNotification_HeaderProgressStarted value)?  headerProgressStarted,TResult Function( SpNotification_HeaderProgress value)?  headerProgress,TResult Function( SpNotification_HeaderProgressCompleted value)?  headerProgressCompleted,TResult Function( SpNotification_HeaderProgressFailed value)?  headerProgressFailed,TResult Function( SpNotification_PaymentHistoryUpdated value)?  paymentHistoryUpdated,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case SpNotification_ScanStarted() when scanStarted != null:
@@ -403,7 +403,12 @@ return newOutput(_that);case SpNotification_OutputSpent() when outputSpent != nu
 return outputSpent(_that);case SpNotification_BackendOffline() when backendOffline != null:
 return backendOffline(_that);case SpNotification_ElectrumTx() when electrumTx != null:
 return electrumTx(_that);case SpNotification_ScanSpendProgress() when scanSpendProgress != null:
-return scanSpendProgress(_that);case _:
+return scanSpendProgress(_that);case SpNotification_HeaderProgressStarted() when headerProgressStarted != null:
+return headerProgressStarted(_that);case SpNotification_HeaderProgress() when headerProgress != null:
+return headerProgress(_that);case SpNotification_HeaderProgressCompleted() when headerProgressCompleted != null:
+return headerProgressCompleted(_that);case SpNotification_HeaderProgressFailed() when headerProgressFailed != null:
+return headerProgressFailed(_that);case SpNotification_PaymentHistoryUpdated() when paymentHistoryUpdated != null:
+return paymentHistoryUpdated(_that);case _:
   return orElse();
 
 }
@@ -421,7 +426,7 @@ return scanSpendProgress(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SpNotification_ScanStarted value)  scanStarted,required TResult Function( SpNotification_ScanReceiveProgress value)  scanReceiveProgress,required TResult Function( SpNotification_ScanCompleted value)  scanCompleted,required TResult Function( SpNotification_ScanStopped value)  scanStopped,required TResult Function( SpNotification_ScanFailed value)  scanFailed,required TResult Function( SpNotification_NewOutput value)  newOutput,required TResult Function( SpNotification_OutputSpent value)  outputSpent,required TResult Function( SpNotification_BackendOffline value)  backendOffline,required TResult Function( SpNotification_ElectrumTx value)  electrumTx,required TResult Function( SpNotification_ScanSpendProgress value)  scanSpendProgress,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SpNotification_ScanStarted value)  scanStarted,required TResult Function( SpNotification_ScanReceiveProgress value)  scanReceiveProgress,required TResult Function( SpNotification_ScanCompleted value)  scanCompleted,required TResult Function( SpNotification_ScanStopped value)  scanStopped,required TResult Function( SpNotification_ScanFailed value)  scanFailed,required TResult Function( SpNotification_NewOutput value)  newOutput,required TResult Function( SpNotification_OutputSpent value)  outputSpent,required TResult Function( SpNotification_BackendOffline value)  backendOffline,required TResult Function( SpNotification_ElectrumTx value)  electrumTx,required TResult Function( SpNotification_ScanSpendProgress value)  scanSpendProgress,required TResult Function( SpNotification_HeaderProgressStarted value)  headerProgressStarted,required TResult Function( SpNotification_HeaderProgress value)  headerProgress,required TResult Function( SpNotification_HeaderProgressCompleted value)  headerProgressCompleted,required TResult Function( SpNotification_HeaderProgressFailed value)  headerProgressFailed,required TResult Function( SpNotification_PaymentHistoryUpdated value)  paymentHistoryUpdated,}){
 final _that = this;
 switch (_that) {
 case SpNotification_ScanStarted():
@@ -434,7 +439,12 @@ return newOutput(_that);case SpNotification_OutputSpent():
 return outputSpent(_that);case SpNotification_BackendOffline():
 return backendOffline(_that);case SpNotification_ElectrumTx():
 return electrumTx(_that);case SpNotification_ScanSpendProgress():
-return scanSpendProgress(_that);}
+return scanSpendProgress(_that);case SpNotification_HeaderProgressStarted():
+return headerProgressStarted(_that);case SpNotification_HeaderProgress():
+return headerProgress(_that);case SpNotification_HeaderProgressCompleted():
+return headerProgressCompleted(_that);case SpNotification_HeaderProgressFailed():
+return headerProgressFailed(_that);case SpNotification_PaymentHistoryUpdated():
+return paymentHistoryUpdated(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -448,7 +458,7 @@ return scanSpendProgress(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SpNotification_ScanStarted value)?  scanStarted,TResult? Function( SpNotification_ScanReceiveProgress value)?  scanReceiveProgress,TResult? Function( SpNotification_ScanCompleted value)?  scanCompleted,TResult? Function( SpNotification_ScanStopped value)?  scanStopped,TResult? Function( SpNotification_ScanFailed value)?  scanFailed,TResult? Function( SpNotification_NewOutput value)?  newOutput,TResult? Function( SpNotification_OutputSpent value)?  outputSpent,TResult? Function( SpNotification_BackendOffline value)?  backendOffline,TResult? Function( SpNotification_ElectrumTx value)?  electrumTx,TResult? Function( SpNotification_ScanSpendProgress value)?  scanSpendProgress,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SpNotification_ScanStarted value)?  scanStarted,TResult? Function( SpNotification_ScanReceiveProgress value)?  scanReceiveProgress,TResult? Function( SpNotification_ScanCompleted value)?  scanCompleted,TResult? Function( SpNotification_ScanStopped value)?  scanStopped,TResult? Function( SpNotification_ScanFailed value)?  scanFailed,TResult? Function( SpNotification_NewOutput value)?  newOutput,TResult? Function( SpNotification_OutputSpent value)?  outputSpent,TResult? Function( SpNotification_BackendOffline value)?  backendOffline,TResult? Function( SpNotification_ElectrumTx value)?  electrumTx,TResult? Function( SpNotification_ScanSpendProgress value)?  scanSpendProgress,TResult? Function( SpNotification_HeaderProgressStarted value)?  headerProgressStarted,TResult? Function( SpNotification_HeaderProgress value)?  headerProgress,TResult? Function( SpNotification_HeaderProgressCompleted value)?  headerProgressCompleted,TResult? Function( SpNotification_HeaderProgressFailed value)?  headerProgressFailed,TResult? Function( SpNotification_PaymentHistoryUpdated value)?  paymentHistoryUpdated,}){
 final _that = this;
 switch (_that) {
 case SpNotification_ScanStarted() when scanStarted != null:
@@ -461,7 +471,12 @@ return newOutput(_that);case SpNotification_OutputSpent() when outputSpent != nu
 return outputSpent(_that);case SpNotification_BackendOffline() when backendOffline != null:
 return backendOffline(_that);case SpNotification_ElectrumTx() when electrumTx != null:
 return electrumTx(_that);case SpNotification_ScanSpendProgress() when scanSpendProgress != null:
-return scanSpendProgress(_that);case _:
+return scanSpendProgress(_that);case SpNotification_HeaderProgressStarted() when headerProgressStarted != null:
+return headerProgressStarted(_that);case SpNotification_HeaderProgress() when headerProgress != null:
+return headerProgress(_that);case SpNotification_HeaderProgressCompleted() when headerProgressCompleted != null:
+return headerProgressCompleted(_that);case SpNotification_HeaderProgressFailed() when headerProgressFailed != null:
+return headerProgressFailed(_that);case SpNotification_PaymentHistoryUpdated() when paymentHistoryUpdated != null:
+return paymentHistoryUpdated(_that);case _:
   return null;
 
 }
@@ -478,7 +493,7 @@ return scanSpendProgress(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int from,  int to)?  scanStarted,TResult Function( int current,  int end)?  scanReceiveProgress,TResult Function()?  scanCompleted,TResult Function()?  scanStopped,TResult Function( String message)?  scanFailed,TResult Function( String outpoint,  BigInt amountSat)?  newOutput,TResult Function( String outpoint)?  outputSpent,TResult Function()?  backendOffline,TResult Function( CoinSource kind,  String txid,  BigInt amountSat,  int? height)?  electrumTx,TResult Function( int current,  int end)?  scanSpendProgress,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int from,  int to)?  scanStarted,TResult Function( int current,  int end)?  scanReceiveProgress,TResult Function()?  scanCompleted,TResult Function()?  scanStopped,TResult Function( String message)?  scanFailed,TResult Function( String outpoint,  BigInt amountSat)?  newOutput,TResult Function( String outpoint)?  outputSpent,TResult Function()?  backendOffline,TResult Function( CoinSource kind,  String txid,  BigInt amountSat,  int? height)?  electrumTx,TResult Function( int current,  int end)?  scanSpendProgress,TResult Function( HeaderProgressPhase phase,  int start,  int end)?  headerProgressStarted,TResult Function( HeaderProgressPhase phase,  int current,  int end)?  headerProgress,TResult Function( HeaderProgressPhase phase)?  headerProgressCompleted,TResult Function( HeaderProgressPhase phase)?  headerProgressFailed,TResult Function()?  paymentHistoryUpdated,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case SpNotification_ScanStarted() when scanStarted != null:
 return scanStarted(_that.from,_that.to);case SpNotification_ScanReceiveProgress() when scanReceiveProgress != null:
@@ -490,7 +505,12 @@ return newOutput(_that.outpoint,_that.amountSat);case SpNotification_OutputSpent
 return outputSpent(_that.outpoint);case SpNotification_BackendOffline() when backendOffline != null:
 return backendOffline();case SpNotification_ElectrumTx() when electrumTx != null:
 return electrumTx(_that.kind,_that.txid,_that.amountSat,_that.height);case SpNotification_ScanSpendProgress() when scanSpendProgress != null:
-return scanSpendProgress(_that.current,_that.end);case _:
+return scanSpendProgress(_that.current,_that.end);case SpNotification_HeaderProgressStarted() when headerProgressStarted != null:
+return headerProgressStarted(_that.phase,_that.start,_that.end);case SpNotification_HeaderProgress() when headerProgress != null:
+return headerProgress(_that.phase,_that.current,_that.end);case SpNotification_HeaderProgressCompleted() when headerProgressCompleted != null:
+return headerProgressCompleted(_that.phase);case SpNotification_HeaderProgressFailed() when headerProgressFailed != null:
+return headerProgressFailed(_that.phase);case SpNotification_PaymentHistoryUpdated() when paymentHistoryUpdated != null:
+return paymentHistoryUpdated();case _:
   return orElse();
 
 }
@@ -508,7 +528,7 @@ return scanSpendProgress(_that.current,_that.end);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int from,  int to)  scanStarted,required TResult Function( int current,  int end)  scanReceiveProgress,required TResult Function()  scanCompleted,required TResult Function()  scanStopped,required TResult Function( String message)  scanFailed,required TResult Function( String outpoint,  BigInt amountSat)  newOutput,required TResult Function( String outpoint)  outputSpent,required TResult Function()  backendOffline,required TResult Function( CoinSource kind,  String txid,  BigInt amountSat,  int? height)  electrumTx,required TResult Function( int current,  int end)  scanSpendProgress,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int from,  int to)  scanStarted,required TResult Function( int current,  int end)  scanReceiveProgress,required TResult Function()  scanCompleted,required TResult Function()  scanStopped,required TResult Function( String message)  scanFailed,required TResult Function( String outpoint,  BigInt amountSat)  newOutput,required TResult Function( String outpoint)  outputSpent,required TResult Function()  backendOffline,required TResult Function( CoinSource kind,  String txid,  BigInt amountSat,  int? height)  electrumTx,required TResult Function( int current,  int end)  scanSpendProgress,required TResult Function( HeaderProgressPhase phase,  int start,  int end)  headerProgressStarted,required TResult Function( HeaderProgressPhase phase,  int current,  int end)  headerProgress,required TResult Function( HeaderProgressPhase phase)  headerProgressCompleted,required TResult Function( HeaderProgressPhase phase)  headerProgressFailed,required TResult Function()  paymentHistoryUpdated,}) {final _that = this;
 switch (_that) {
 case SpNotification_ScanStarted():
 return scanStarted(_that.from,_that.to);case SpNotification_ScanReceiveProgress():
@@ -520,7 +540,12 @@ return newOutput(_that.outpoint,_that.amountSat);case SpNotification_OutputSpent
 return outputSpent(_that.outpoint);case SpNotification_BackendOffline():
 return backendOffline();case SpNotification_ElectrumTx():
 return electrumTx(_that.kind,_that.txid,_that.amountSat,_that.height);case SpNotification_ScanSpendProgress():
-return scanSpendProgress(_that.current,_that.end);}
+return scanSpendProgress(_that.current,_that.end);case SpNotification_HeaderProgressStarted():
+return headerProgressStarted(_that.phase,_that.start,_that.end);case SpNotification_HeaderProgress():
+return headerProgress(_that.phase,_that.current,_that.end);case SpNotification_HeaderProgressCompleted():
+return headerProgressCompleted(_that.phase);case SpNotification_HeaderProgressFailed():
+return headerProgressFailed(_that.phase);case SpNotification_PaymentHistoryUpdated():
+return paymentHistoryUpdated();}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -534,7 +559,7 @@ return scanSpendProgress(_that.current,_that.end);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int from,  int to)?  scanStarted,TResult? Function( int current,  int end)?  scanReceiveProgress,TResult? Function()?  scanCompleted,TResult? Function()?  scanStopped,TResult? Function( String message)?  scanFailed,TResult? Function( String outpoint,  BigInt amountSat)?  newOutput,TResult? Function( String outpoint)?  outputSpent,TResult? Function()?  backendOffline,TResult? Function( CoinSource kind,  String txid,  BigInt amountSat,  int? height)?  electrumTx,TResult? Function( int current,  int end)?  scanSpendProgress,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int from,  int to)?  scanStarted,TResult? Function( int current,  int end)?  scanReceiveProgress,TResult? Function()?  scanCompleted,TResult? Function()?  scanStopped,TResult? Function( String message)?  scanFailed,TResult? Function( String outpoint,  BigInt amountSat)?  newOutput,TResult? Function( String outpoint)?  outputSpent,TResult? Function()?  backendOffline,TResult? Function( CoinSource kind,  String txid,  BigInt amountSat,  int? height)?  electrumTx,TResult? Function( int current,  int end)?  scanSpendProgress,TResult? Function( HeaderProgressPhase phase,  int start,  int end)?  headerProgressStarted,TResult? Function( HeaderProgressPhase phase,  int current,  int end)?  headerProgress,TResult? Function( HeaderProgressPhase phase)?  headerProgressCompleted,TResult? Function( HeaderProgressPhase phase)?  headerProgressFailed,TResult? Function()?  paymentHistoryUpdated,}) {final _that = this;
 switch (_that) {
 case SpNotification_ScanStarted() when scanStarted != null:
 return scanStarted(_that.from,_that.to);case SpNotification_ScanReceiveProgress() when scanReceiveProgress != null:
@@ -546,7 +571,12 @@ return newOutput(_that.outpoint,_that.amountSat);case SpNotification_OutputSpent
 return outputSpent(_that.outpoint);case SpNotification_BackendOffline() when backendOffline != null:
 return backendOffline();case SpNotification_ElectrumTx() when electrumTx != null:
 return electrumTx(_that.kind,_that.txid,_that.amountSat,_that.height);case SpNotification_ScanSpendProgress() when scanSpendProgress != null:
-return scanSpendProgress(_that.current,_that.end);case _:
+return scanSpendProgress(_that.current,_that.end);case SpNotification_HeaderProgressStarted() when headerProgressStarted != null:
+return headerProgressStarted(_that.phase,_that.start,_that.end);case SpNotification_HeaderProgress() when headerProgress != null:
+return headerProgress(_that.phase,_that.current,_that.end);case SpNotification_HeaderProgressCompleted() when headerProgressCompleted != null:
+return headerProgressCompleted(_that.phase);case SpNotification_HeaderProgressFailed() when headerProgressFailed != null:
+return headerProgressFailed(_that.phase);case SpNotification_PaymentHistoryUpdated() when paymentHistoryUpdated != null:
+return paymentHistoryUpdated();case _:
   return null;
 
 }
@@ -1125,6 +1155,310 @@ as int,
 
 
 }
+
+/// @nodoc
+
+
+class SpNotification_HeaderProgressStarted extends SpNotification {
+  const SpNotification_HeaderProgressStarted({required this.phase, required this.start, required this.end}): super._();
+  
+
+ final  HeaderProgressPhase phase;
+ final  int start;
+ final  int end;
+
+/// Create a copy of SpNotification
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SpNotification_HeaderProgressStartedCopyWith<SpNotification_HeaderProgressStarted> get copyWith => _$SpNotification_HeaderProgressStartedCopyWithImpl<SpNotification_HeaderProgressStarted>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpNotification_HeaderProgressStarted&&(identical(other.phase, phase) || other.phase == phase)&&(identical(other.start, start) || other.start == start)&&(identical(other.end, end) || other.end == end));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,phase,start,end);
+
+@override
+String toString() {
+  return 'SpNotification.headerProgressStarted(phase: $phase, start: $start, end: $end)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SpNotification_HeaderProgressStartedCopyWith<$Res> implements $SpNotificationCopyWith<$Res> {
+  factory $SpNotification_HeaderProgressStartedCopyWith(SpNotification_HeaderProgressStarted value, $Res Function(SpNotification_HeaderProgressStarted) _then) = _$SpNotification_HeaderProgressStartedCopyWithImpl;
+@useResult
+$Res call({
+ HeaderProgressPhase phase, int start, int end
+});
+
+
+
+
+}
+/// @nodoc
+class _$SpNotification_HeaderProgressStartedCopyWithImpl<$Res>
+    implements $SpNotification_HeaderProgressStartedCopyWith<$Res> {
+  _$SpNotification_HeaderProgressStartedCopyWithImpl(this._self, this._then);
+
+  final SpNotification_HeaderProgressStarted _self;
+  final $Res Function(SpNotification_HeaderProgressStarted) _then;
+
+/// Create a copy of SpNotification
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? phase = null,Object? start = null,Object? end = null,}) {
+  return _then(SpNotification_HeaderProgressStarted(
+phase: null == phase ? _self.phase : phase // ignore: cast_nullable_to_non_nullable
+as HeaderProgressPhase,start: null == start ? _self.start : start // ignore: cast_nullable_to_non_nullable
+as int,end: null == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class SpNotification_HeaderProgress extends SpNotification {
+  const SpNotification_HeaderProgress({required this.phase, required this.current, required this.end}): super._();
+  
+
+ final  HeaderProgressPhase phase;
+ final  int current;
+ final  int end;
+
+/// Create a copy of SpNotification
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SpNotification_HeaderProgressCopyWith<SpNotification_HeaderProgress> get copyWith => _$SpNotification_HeaderProgressCopyWithImpl<SpNotification_HeaderProgress>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpNotification_HeaderProgress&&(identical(other.phase, phase) || other.phase == phase)&&(identical(other.current, current) || other.current == current)&&(identical(other.end, end) || other.end == end));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,phase,current,end);
+
+@override
+String toString() {
+  return 'SpNotification.headerProgress(phase: $phase, current: $current, end: $end)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SpNotification_HeaderProgressCopyWith<$Res> implements $SpNotificationCopyWith<$Res> {
+  factory $SpNotification_HeaderProgressCopyWith(SpNotification_HeaderProgress value, $Res Function(SpNotification_HeaderProgress) _then) = _$SpNotification_HeaderProgressCopyWithImpl;
+@useResult
+$Res call({
+ HeaderProgressPhase phase, int current, int end
+});
+
+
+
+
+}
+/// @nodoc
+class _$SpNotification_HeaderProgressCopyWithImpl<$Res>
+    implements $SpNotification_HeaderProgressCopyWith<$Res> {
+  _$SpNotification_HeaderProgressCopyWithImpl(this._self, this._then);
+
+  final SpNotification_HeaderProgress _self;
+  final $Res Function(SpNotification_HeaderProgress) _then;
+
+/// Create a copy of SpNotification
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? phase = null,Object? current = null,Object? end = null,}) {
+  return _then(SpNotification_HeaderProgress(
+phase: null == phase ? _self.phase : phase // ignore: cast_nullable_to_non_nullable
+as HeaderProgressPhase,current: null == current ? _self.current : current // ignore: cast_nullable_to_non_nullable
+as int,end: null == end ? _self.end : end // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class SpNotification_HeaderProgressCompleted extends SpNotification {
+  const SpNotification_HeaderProgressCompleted({required this.phase}): super._();
+  
+
+ final  HeaderProgressPhase phase;
+
+/// Create a copy of SpNotification
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SpNotification_HeaderProgressCompletedCopyWith<SpNotification_HeaderProgressCompleted> get copyWith => _$SpNotification_HeaderProgressCompletedCopyWithImpl<SpNotification_HeaderProgressCompleted>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpNotification_HeaderProgressCompleted&&(identical(other.phase, phase) || other.phase == phase));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,phase);
+
+@override
+String toString() {
+  return 'SpNotification.headerProgressCompleted(phase: $phase)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SpNotification_HeaderProgressCompletedCopyWith<$Res> implements $SpNotificationCopyWith<$Res> {
+  factory $SpNotification_HeaderProgressCompletedCopyWith(SpNotification_HeaderProgressCompleted value, $Res Function(SpNotification_HeaderProgressCompleted) _then) = _$SpNotification_HeaderProgressCompletedCopyWithImpl;
+@useResult
+$Res call({
+ HeaderProgressPhase phase
+});
+
+
+
+
+}
+/// @nodoc
+class _$SpNotification_HeaderProgressCompletedCopyWithImpl<$Res>
+    implements $SpNotification_HeaderProgressCompletedCopyWith<$Res> {
+  _$SpNotification_HeaderProgressCompletedCopyWithImpl(this._self, this._then);
+
+  final SpNotification_HeaderProgressCompleted _self;
+  final $Res Function(SpNotification_HeaderProgressCompleted) _then;
+
+/// Create a copy of SpNotification
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? phase = null,}) {
+  return _then(SpNotification_HeaderProgressCompleted(
+phase: null == phase ? _self.phase : phase // ignore: cast_nullable_to_non_nullable
+as HeaderProgressPhase,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class SpNotification_HeaderProgressFailed extends SpNotification {
+  const SpNotification_HeaderProgressFailed({required this.phase}): super._();
+  
+
+ final  HeaderProgressPhase phase;
+
+/// Create a copy of SpNotification
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SpNotification_HeaderProgressFailedCopyWith<SpNotification_HeaderProgressFailed> get copyWith => _$SpNotification_HeaderProgressFailedCopyWithImpl<SpNotification_HeaderProgressFailed>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpNotification_HeaderProgressFailed&&(identical(other.phase, phase) || other.phase == phase));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,phase);
+
+@override
+String toString() {
+  return 'SpNotification.headerProgressFailed(phase: $phase)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SpNotification_HeaderProgressFailedCopyWith<$Res> implements $SpNotificationCopyWith<$Res> {
+  factory $SpNotification_HeaderProgressFailedCopyWith(SpNotification_HeaderProgressFailed value, $Res Function(SpNotification_HeaderProgressFailed) _then) = _$SpNotification_HeaderProgressFailedCopyWithImpl;
+@useResult
+$Res call({
+ HeaderProgressPhase phase
+});
+
+
+
+
+}
+/// @nodoc
+class _$SpNotification_HeaderProgressFailedCopyWithImpl<$Res>
+    implements $SpNotification_HeaderProgressFailedCopyWith<$Res> {
+  _$SpNotification_HeaderProgressFailedCopyWithImpl(this._self, this._then);
+
+  final SpNotification_HeaderProgressFailed _self;
+  final $Res Function(SpNotification_HeaderProgressFailed) _then;
+
+/// Create a copy of SpNotification
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? phase = null,}) {
+  return _then(SpNotification_HeaderProgressFailed(
+phase: null == phase ? _self.phase : phase // ignore: cast_nullable_to_non_nullable
+as HeaderProgressPhase,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class SpNotification_PaymentHistoryUpdated extends SpNotification {
+  const SpNotification_PaymentHistoryUpdated(): super._();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpNotification_PaymentHistoryUpdated);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'SpNotification.paymentHistoryUpdated()';
+}
+
+
+}
+
+
+
 
 /// @nodoc
 mixin _$TxFee {

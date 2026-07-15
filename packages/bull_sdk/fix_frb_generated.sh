@@ -249,9 +249,64 @@ with open('$FILE', 'w') as f:
     f.write(content)
 "
 
+# Step 8: The DCO encoder for dart_bwk SpPaymentView is generated through the
+# external-type wrapper and can miss newly-added fields. Keep it in lock-step
+# with the Dart decoder and SSE codec: txid, direction, status, amount, fee,
+# height, timestamp, label.
+python3 -c "
+with open('$FILE', 'r') as f:
+    content = f.read()
+
+old = '''impl flutter_rust_bridge::IntoDart for FrbWrapper<dart_bwk::api::types::SpPaymentView> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.txid.into_into_dart().into_dart(),
+            self.0.direction.into_into_dart().into_dart(),
+            self.0.amount_sat.into_into_dart().into_dart(),
+            self.0.fee_sat.into_into_dart().into_dart(),
+            self.0.height.into_into_dart().into_dart(),
+            self.0.timestamp.into_into_dart().into_dart(),
+            self.0.label.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}'''
+
+new = '''impl flutter_rust_bridge::IntoDart for FrbWrapper<dart_bwk::api::types::SpPaymentView> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        fn payment_status_idx(status: dart_bwk::api::types::SpPaymentStatus) -> i32 {
+            match status {
+                dart_bwk::api::types::SpPaymentStatus::Unconfirmed => 0,
+                dart_bwk::api::types::SpPaymentStatus::ConfirmedUnverified => 1,
+                dart_bwk::api::types::SpPaymentStatus::Verified => 2,
+                dart_bwk::api::types::SpPaymentStatus::VerifyFailed => 3,
+            }
+        }
+        [
+            self.0.txid.into_into_dart().into_dart(),
+            self.0.direction.into_into_dart().into_dart(),
+            payment_status_idx(self.0.status).into_dart(),
+            self.0.amount_sat.into_into_dart().into_dart(),
+            self.0.fee_sat.into_into_dart().into_dart(),
+            self.0.height.into_into_dart().into_dart(),
+            self.0.timestamp.into_into_dart().into_dart(),
+            self.0.label.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}'''
+
+content = content.replace(old, new, 1)
+if 'payment_status_idx(self.0.status).into_dart()' not in content:
+    raise SystemExit('SpPaymentView DCO encoder still lacks status')
+
+with open('$FILE', 'w') as f:
+    f.write(content)
+"
+
 echo "Post-processed $FILE"
 
-# Step 8: Bound the unsigned 64-bit encoders on the Dart side.
+# Step 9: Bound the unsigned 64-bit encoders on the Dart side.
 # FRB emits toSigned(64).toInt(), which wraps modulo 2^64 rather than failing,
 # so an out-of-range amount reached Rust as a different number. Rust cannot
 # detect this: the wrapping happens before the call.

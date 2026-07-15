@@ -2799,6 +2799,42 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
       wireObj.kind.ScanSpendProgress.end = pre_end;
       return;
     }
+    if (apiObj is SpNotification_HeaderProgressStarted) {
+      var pre_phase = cst_encode_header_progress_phase(apiObj.phase);
+      var pre_start = cst_encode_u_32(apiObj.start);
+      var pre_end = cst_encode_u_32(apiObj.end);
+      wireObj.tag = 10;
+      wireObj.kind.HeaderProgressStarted.phase = pre_phase;
+      wireObj.kind.HeaderProgressStarted.start = pre_start;
+      wireObj.kind.HeaderProgressStarted.end = pre_end;
+      return;
+    }
+    if (apiObj is SpNotification_HeaderProgress) {
+      var pre_phase = cst_encode_header_progress_phase(apiObj.phase);
+      var pre_current = cst_encode_u_32(apiObj.current);
+      var pre_end = cst_encode_u_32(apiObj.end);
+      wireObj.tag = 11;
+      wireObj.kind.HeaderProgress.phase = pre_phase;
+      wireObj.kind.HeaderProgress.current = pre_current;
+      wireObj.kind.HeaderProgress.end = pre_end;
+      return;
+    }
+    if (apiObj is SpNotification_HeaderProgressCompleted) {
+      var pre_phase = cst_encode_header_progress_phase(apiObj.phase);
+      wireObj.tag = 12;
+      wireObj.kind.HeaderProgressCompleted.phase = pre_phase;
+      return;
+    }
+    if (apiObj is SpNotification_HeaderProgressFailed) {
+      var pre_phase = cst_encode_header_progress_phase(apiObj.phase);
+      wireObj.tag = 13;
+      wireObj.kind.HeaderProgressFailed.phase = pre_phase;
+      return;
+    }
+    if (apiObj is SpNotification_PaymentHistoryUpdated) {
+      wireObj.tag = 14;
+      return;
+    }
   }
 
   @protected
@@ -11460,6 +11496,38 @@ final class wire_cst_SpNotification_ScanSpendProgress extends ffi.Struct {
   external int end;
 }
 
+final class wire_cst_SpNotification_HeaderProgressStarted extends ffi.Struct {
+  @ffi.Int32()
+  external int phase;
+
+  @ffi.Uint32()
+  external int start;
+
+  @ffi.Uint32()
+  external int end;
+}
+
+final class wire_cst_SpNotification_HeaderProgress extends ffi.Struct {
+  @ffi.Int32()
+  external int phase;
+
+  @ffi.Uint32()
+  external int current;
+
+  @ffi.Uint32()
+  external int end;
+}
+
+final class wire_cst_SpNotification_HeaderProgressCompleted extends ffi.Struct {
+  @ffi.Int32()
+  external int phase;
+}
+
+final class wire_cst_SpNotification_HeaderProgressFailed extends ffi.Struct {
+  @ffi.Int32()
+  external int phase;
+}
+
 final class SpNotificationKind extends ffi.Union {
   external wire_cst_SpNotification_ScanStarted ScanStarted;
 
@@ -11474,6 +11542,15 @@ final class SpNotificationKind extends ffi.Union {
   external wire_cst_SpNotification_ElectrumTx ElectrumTx;
 
   external wire_cst_SpNotification_ScanSpendProgress ScanSpendProgress;
+
+  external wire_cst_SpNotification_HeaderProgressStarted HeaderProgressStarted;
+
+  external wire_cst_SpNotification_HeaderProgress HeaderProgress;
+
+  external wire_cst_SpNotification_HeaderProgressCompleted
+  HeaderProgressCompleted;
+
+  external wire_cst_SpNotification_HeaderProgressFailed HeaderProgressFailed;
 }
 
 final class wire_cst_sp_notification extends ffi.Struct {

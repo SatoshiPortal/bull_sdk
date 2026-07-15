@@ -61,6 +61,24 @@ sealed class SpNotification with _$SpNotification {
     required int current,
     required int end,
   }) = SpNotification_ScanSpendProgress;
+  const factory SpNotification.headerProgressStarted({
+    required HeaderProgressPhase phase,
+    required int start,
+    required int end,
+  }) = SpNotification_HeaderProgressStarted;
+  const factory SpNotification.headerProgress({
+    required HeaderProgressPhase phase,
+    required int current,
+    required int end,
+  }) = SpNotification_HeaderProgress;
+  const factory SpNotification.headerProgressCompleted({
+    required HeaderProgressPhase phase,
+  }) = SpNotification_HeaderProgressCompleted;
+  const factory SpNotification.headerProgressFailed({
+    required HeaderProgressPhase phase,
+  }) = SpNotification_HeaderProgressFailed;
+  const factory SpNotification.paymentHistoryUpdated() =
+      SpNotification_PaymentHistoryUpdated;
 }
 
 @freezed

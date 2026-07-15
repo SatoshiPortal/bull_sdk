@@ -9885,6 +9885,28 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           current: dco_decode_u_32(raw[1]),
           end: dco_decode_u_32(raw[2]),
         );
+      case 10:
+        return SpNotification_HeaderProgressStarted(
+          phase: dco_decode_header_progress_phase(raw[1]),
+          start: dco_decode_u_32(raw[2]),
+          end: dco_decode_u_32(raw[3]),
+        );
+      case 11:
+        return SpNotification_HeaderProgress(
+          phase: dco_decode_header_progress_phase(raw[1]),
+          current: dco_decode_u_32(raw[2]),
+          end: dco_decode_u_32(raw[3]),
+        );
+      case 12:
+        return SpNotification_HeaderProgressCompleted(
+          phase: dco_decode_header_progress_phase(raw[1]),
+        );
+      case 13:
+        return SpNotification_HeaderProgressFailed(
+          phase: dco_decode_header_progress_phase(raw[1]),
+        );
+      case 14:
+        return SpNotification_PaymentHistoryUpdated();
       default:
         throw Exception("unreachable");
     }
@@ -11949,6 +11971,32 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           current: var_current,
           end: var_end,
         );
+      case 10:
+        var var_phase = sse_decode_header_progress_phase(deserializer);
+        var var_start = sse_decode_u_32(deserializer);
+        var var_end = sse_decode_u_32(deserializer);
+        return SpNotification_HeaderProgressStarted(
+          phase: var_phase,
+          start: var_start,
+          end: var_end,
+        );
+      case 11:
+        var var_phase = sse_decode_header_progress_phase(deserializer);
+        var var_current = sse_decode_u_32(deserializer);
+        var var_end = sse_decode_u_32(deserializer);
+        return SpNotification_HeaderProgress(
+          phase: var_phase,
+          current: var_current,
+          end: var_end,
+        );
+      case 12:
+        var var_phase = sse_decode_header_progress_phase(deserializer);
+        return SpNotification_HeaderProgressCompleted(phase: var_phase);
+      case 13:
+        var var_phase = sse_decode_header_progress_phase(deserializer);
+        return SpNotification_HeaderProgressFailed(phase: var_phase);
+      case 14:
+        return SpNotification_PaymentHistoryUpdated();
       default:
         throw UnimplementedError('');
     }
@@ -14259,6 +14307,32 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         sse_encode_i_32(9, serializer);
         sse_encode_u_32(current, serializer);
         sse_encode_u_32(end, serializer);
+      case SpNotification_HeaderProgressStarted(
+        phase: final phase,
+        start: final start,
+        end: final end,
+      ):
+        sse_encode_i_32(10, serializer);
+        sse_encode_header_progress_phase(phase, serializer);
+        sse_encode_u_32(start, serializer);
+        sse_encode_u_32(end, serializer);
+      case SpNotification_HeaderProgress(
+        phase: final phase,
+        current: final current,
+        end: final end,
+      ):
+        sse_encode_i_32(11, serializer);
+        sse_encode_header_progress_phase(phase, serializer);
+        sse_encode_u_32(current, serializer);
+        sse_encode_u_32(end, serializer);
+      case SpNotification_HeaderProgressCompleted(phase: final phase):
+        sse_encode_i_32(12, serializer);
+        sse_encode_header_progress_phase(phase, serializer);
+      case SpNotification_HeaderProgressFailed(phase: final phase):
+        sse_encode_i_32(13, serializer);
+        sse_encode_header_progress_phase(phase, serializer);
+      case SpNotification_PaymentHistoryUpdated():
+        sse_encode_i_32(14, serializer);
     }
   }
 
