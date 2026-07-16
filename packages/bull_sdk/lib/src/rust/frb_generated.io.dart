@@ -234,6 +234,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   Address dco_decode_address(dynamic raw);
 
   @protected
+  AddressWithBlindingSecret dco_decode_address_with_blinding_secret(
+    dynamic raw,
+  );
+
+  @protected
   ArkBalance dco_decode_ark_balance(dynamic raw);
 
   @protected
@@ -783,6 +788,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   Address sse_decode_address(SseDeserializer deserializer);
+
+  @protected
+  AddressWithBlindingSecret sse_decode_address_with_blinding_secret(
+    SseDeserializer deserializer,
+  );
 
   @protected
   ArkBalance sse_decode_ark_balance(SseDeserializer deserializer);
@@ -1842,6 +1852,15 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     wireObj.confidential = cst_encode_String(apiObj.confidential);
     wireObj.index = cst_encode_opt_box_autoadd_u_32(apiObj.index);
     wireObj.blinding_key = cst_encode_opt_String(apiObj.blindingKey);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_address_with_blinding_secret(
+    AddressWithBlindingSecret apiObj,
+    wire_cst_address_with_blinding_secret wireObj,
+  ) {
+    cst_api_fill_to_wire_address(apiObj.address, wireObj.address);
+    wireObj.blinding_secret = cst_encode_String(apiObj.blindingSecret);
   }
 
   @protected
@@ -3029,6 +3048,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void sse_encode_address(Address self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_address_with_blinding_secret(
+    AddressWithBlindingSecret self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_ark_balance(ArkBalance self, SseSerializer serializer);
@@ -4800,6 +4825,30 @@ class BullSdkWire implements BaseWire {
   late final _wire__lwk__api__wallet__Wallet_address_last_unused =
       _wire__lwk__api__wallet__Wallet_address_last_unusedPtr
           .asFunction<void Function(int, int)>();
+
+  void wire__lwk__api__wallet__Wallet_address_with_blinding_secret(
+    int port_,
+    int that,
+    int index,
+  ) {
+    return _wire__lwk__api__wallet__Wallet_address_with_blinding_secret(
+      port_,
+      that,
+      index,
+    );
+  }
+
+  late final _wire__lwk__api__wallet__Wallet_address_with_blinding_secretPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.Uint32)
+        >
+      >(
+        'frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_address_with_blinding_secret',
+      );
+  late final _wire__lwk__api__wallet__Wallet_address_with_blinding_secret =
+      _wire__lwk__api__wallet__Wallet_address_with_blinding_secretPtr
+          .asFunction<void Function(int, int, int)>();
 
   void wire__lwk__api__wallet__Wallet_balances(int port_, int that) {
     return _wire__lwk__api__wallet__Wallet_balances(port_, that);
@@ -9900,6 +9949,12 @@ final class wire_cst_list_tx_output extends ffi.Struct {
 
   @ffi.Int32()
   external int len;
+}
+
+final class wire_cst_address_with_blinding_secret extends ffi.Struct {
+  external wire_cst_address address;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> blinding_secret;
 }
 
 final class wire_cst_ark_boarding extends ffi.Struct {
