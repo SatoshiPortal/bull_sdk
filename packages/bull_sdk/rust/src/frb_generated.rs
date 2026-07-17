@@ -47,7 +47,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.12.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1340504436;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 2124457774;
 
 // Section: executor
 
@@ -2289,46 +2289,6 @@ fn wire__lwk__api__wallet__Wallet_address_last_unused_impl(
                     let api_that_guard = api_that_guard.unwrap();
                     let output_ok =
                         lwk::api::wallet::Wallet::address_last_unused(&*api_that_guard)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
-            }
-        },
-    )
-}
-fn wire__lwk__api__wallet__Wallet_address_with_blinding_secret_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
-    index: impl CstDecode<u32>,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "Wallet_address_with_blinding_secret",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let api_that = that.cst_decode();
-            let api_index = index.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
-                        }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::address_with_blinding_secret(
-                        &*api_that_guard,
-                        api_index,
-                    )?;
                     Ok(output_ok)
                 })().map_err(FrbWrapper))
             }
@@ -6006,11 +5966,6 @@ const _: fn() = || {
         let _: Option<String> = Address.blinding_key;
     }
     {
-        let AddressWithBlindingSecret = None::<lwk::api::types::AddressWithBlindingSecret>.unwrap();
-        let _: lwk::api::types::Address = AddressWithBlindingSecret.address;
-        let _: String = AddressWithBlindingSecret.blinding_secret;
-    }
-    {
         let ArkBalance = None::<ark_wallet::ark::balance::ArkBalance>.unwrap();
         let _: i64 = ArkBalance.preconfirmed;
         let _: i64 = ArkBalance.settled;
@@ -6812,18 +6767,6 @@ impl SseDecode for lwk::api::types::Address {
             confidential: var_confidential,
             index: var_index,
             blinding_key: var_blindingKey,
-        };
-    }
-}
-
-impl SseDecode for lwk::api::types::AddressWithBlindingSecret {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut var_address = <lwk::api::types::Address>::sse_decode(deserializer);
-        let mut var_blindingSecret = <String>::sse_decode(deserializer);
-        return lwk::api::types::AddressWithBlindingSecret {
-            address: var_address,
-            blinding_secret: var_blindingSecret,
         };
     }
 }
@@ -8564,27 +8507,6 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::Address>>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::AddressWithBlindingSecret> {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        [
-            self.0.address.into_into_dart().into_dart(),
-            self.0.blinding_secret.into_into_dart().into_dart(),
-        ]
-        .into_dart()
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for FrbWrapper<lwk::api::types::AddressWithBlindingSecret>
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::AddressWithBlindingSecret>>
-    for lwk::api::types::AddressWithBlindingSecret
-{
-    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::AddressWithBlindingSecret> {
-        self.into()
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<ark_wallet::ark::balance::ArkBalance> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -10291,14 +10213,6 @@ impl SseEncode for lwk::api::types::Address {
     }
 }
 
-impl SseEncode for lwk::api::types::AddressWithBlindingSecret {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <lwk::api::types::Address>::sse_encode(self.address, serializer);
-        <String>::sse_encode(self.blinding_secret, serializer);
-    }
-}
-
 impl SseEncode for ark_wallet::ark::balance::ArkBalance {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -11772,17 +11686,6 @@ mod io {
             }
         }
     }
-    impl CstDecode<lwk::api::types::AddressWithBlindingSecret>
-        for wire_cst_address_with_blinding_secret
-    {
-        // Codec=Cst (C-struct based), see doc to use other codecs
-        fn cst_decode(self) -> lwk::api::types::AddressWithBlindingSecret {
-            lwk::api::types::AddressWithBlindingSecret {
-                address: self.address.cst_decode(),
-                blinding_secret: self.blinding_secret.cst_decode(),
-            }
-        }
-    }
     impl CstDecode<ark_wallet::ark::balance::ArkBalance> for wire_cst_ark_balance {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> ark_wallet::ark::balance::ArkBalance {
@@ -12793,19 +12696,6 @@ mod io {
         }
     }
     impl Default for wire_cst_address {
-        fn default() -> Self {
-            Self::new_with_null_ptr()
-        }
-    }
-    impl NewWithNullPtr for wire_cst_address_with_blinding_secret {
-        fn new_with_null_ptr() -> Self {
-            Self {
-                address: Default::default(),
-                blinding_secret: core::ptr::null_mut(),
-            }
-        }
-    }
-    impl Default for wire_cst_address_with_blinding_secret {
         fn default() -> Self {
             Self::new_with_null_ptr()
         }
@@ -14098,15 +13988,6 @@ mod io {
         that: usize,
     ) {
         wire__lwk__api__wallet__Wallet_address_last_unused_impl(port_, that)
-    }
-
-    #[unsafe(no_mangle)]
-    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_address_with_blinding_secret(
-        port_: i64,
-        that: usize,
-        index: u32,
-    ) {
-        wire__lwk__api__wallet__Wallet_address_with_blinding_secret_impl(port_, that, index)
     }
 
     #[unsafe(no_mangle)]
@@ -16122,12 +16003,6 @@ mod io {
         confidential: *mut wire_cst_list_prim_u_8_strict,
         index: *mut u32,
         blinding_key: *mut wire_cst_list_prim_u_8_strict,
-    }
-    #[repr(C)]
-    #[derive(Clone, Copy)]
-    pub struct wire_cst_address_with_blinding_secret {
-        address: wire_cst_address,
-        blinding_secret: *mut wire_cst_list_prim_u_8_strict,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
