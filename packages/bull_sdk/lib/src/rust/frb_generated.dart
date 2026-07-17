@@ -99,7 +99,7 @@ class BullSdk extends BaseEntrypoint<BullSdkApi, BullSdkApiImpl, BullSdkWire> {
   String get codegenVersion => '2.12.0';
 
   @override
-  int get rustContentHash => 2124457774;
+  int get rustContentHash => -1340504436;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -368,6 +368,12 @@ abstract class BullSdkApi extends BaseApi {
   });
 
   Future<Address> lwkApiWalletWalletAddressLastUnused({required Wallet that});
+
+  Future<AddressWithBlindingSecret>
+  lwkApiWalletWalletAddressWithBlindingSecret({
+    required Wallet that,
+    required int index,
+  });
 
   Future<List<Balance>> lwkApiWalletWalletBalances({required Wallet that});
 
@@ -3064,6 +3070,44 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       const TaskConstMeta(
         debugName: "Wallet_address_last_unused",
         argNames: ["that"],
+      );
+
+  @override
+  Future<AddressWithBlindingSecret>
+  lwkApiWalletWalletAddressWithBlindingSecret({
+    required Wallet that,
+    required int index,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          var arg1 = cst_encode_u_32(index);
+          return wire
+              .wire__lwk__api__wallet__Wallet_address_with_blinding_secret(
+                port_,
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_address_with_blinding_secret,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletAddressWithBlindingSecretConstMeta,
+        argValues: [that, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletAddressWithBlindingSecretConstMeta =>
+      const TaskConstMeta(
+        debugName: "Wallet_address_with_blinding_secret",
+        argNames: ["that", "index"],
       );
 
   @override
@@ -7797,6 +7841,20 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  AddressWithBlindingSecret dco_decode_address_with_blinding_secret(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return AddressWithBlindingSecret(
+      address: dco_decode_address(arr[0]),
+      blindingSecret: dco_decode_String(arr[1]),
+    );
+  }
+
+  @protected
   ArkBalance dco_decode_ark_balance(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -9356,6 +9414,19 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       confidential: var_confidential,
       index: var_index,
       blindingKey: var_blindingKey,
+    );
+  }
+
+  @protected
+  AddressWithBlindingSecret sse_decode_address_with_blinding_secret(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_address = sse_decode_address(deserializer);
+    var var_blindingSecret = sse_decode_String(deserializer);
+    return AddressWithBlindingSecret(
+      address: var_address,
+      blindingSecret: var_blindingSecret,
     );
   }
 
@@ -11562,6 +11633,16 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  void sse_encode_address_with_blinding_secret(
+    AddressWithBlindingSecret self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_address(self.address, serializer);
+    sse_encode_String(self.blindingSecret, serializer);
+  }
+
+  @protected
   void sse_encode_ark_balance(ArkBalance self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_64(self.preconfirmed, serializer);
@@ -13299,6 +13380,14 @@ class WalletImpl extends RustOpaque implements Wallet {
   /// Get the last unused address from the wallet
   Future<Address> addressLastUnused() =>
       BullSdk.instance.api.lwkApiWalletWalletAddressLastUnused(that: this);
+
+  /// Get an address and the secret blinding key derived specifically for it.
+  Future<AddressWithBlindingSecret> addressWithBlindingSecret({
+    required int index,
+  }) => BullSdk.instance.api.lwkApiWalletWalletAddressWithBlindingSecret(
+    that: this,
+    index: index,
+  );
 
   /// Get balances for a wallet.
   Future<List<Balance>> balances() =>
