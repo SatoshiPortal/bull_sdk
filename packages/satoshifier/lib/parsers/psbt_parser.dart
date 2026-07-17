@@ -1,4 +1,4 @@
-import 'package:bull_sdk/bdk.dart' as bdk;
+import 'package:bdk_dart/bdk.dart' as bdk;
 import 'package:satoshifier/satoshifier.dart';
 
 class PsbtParser {

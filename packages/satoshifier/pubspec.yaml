@@ -10,6 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  bdk_dart:
+    git:
+      url: https://github.com/bitcoindevkit/bdk-dart
+      ref: 1377091a42743761be71ff42e01b8ff65531fbd3
   bull_sdk:
     path: ../bull_sdk
   bip21_uri: ^2.1.3
