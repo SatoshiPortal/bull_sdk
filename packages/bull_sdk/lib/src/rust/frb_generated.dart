@@ -99,7 +99,7 @@ class BullSdk extends BaseEntrypoint<BullSdkApi, BullSdkApiImpl, BullSdkWire> {
   String get codegenVersion => '2.12.0';
 
   @override
-  int get rustContentHash => 2124457774;
+  int get rustContentHash => 410244455;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -381,6 +381,14 @@ abstract class BullSdkApi extends BaseApi {
     required String asset,
   });
 
+  Future<String> lwkApiWalletWalletBuildCustomTx({
+    required Wallet that,
+    required List<OutPoint> utxos,
+    required List<TxOutputSpec> outputs,
+    String? drainTo,
+    required double feeRate,
+  });
+
   Future<String> lwkApiWalletWalletBuildLbtcTx({
     required Wallet that,
     required BigInt sats,
@@ -397,6 +405,13 @@ abstract class BullSdkApi extends BaseApi {
     required LiquidNetwork network,
     String? baseUrl,
     required bool isSendAll,
+  });
+
+  Future<List<String>> lwkApiWalletWalletConsolidate({
+    required Wallet that,
+    required double feeRate,
+    int? highUtxoThreshold,
+    int? maximumInputs,
   });
 
   Future<PsetAmounts> lwkApiWalletWalletDecodeTx({
@@ -3162,6 +3177,51 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       );
 
   @override
+  Future<String> lwkApiWalletWalletBuildCustomTx({
+    required Wallet that,
+    required List<OutPoint> utxos,
+    required List<TxOutputSpec> outputs,
+    String? drainTo,
+    required double feeRate,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          var arg1 = cst_encode_list_out_point(utxos);
+          var arg2 = cst_encode_list_tx_output_spec(outputs);
+          var arg3 = cst_encode_opt_String(drainTo);
+          var arg4 = cst_encode_f_32(feeRate);
+          return wire.wire__lwk__api__wallet__Wallet_build_custom_tx(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletBuildCustomTxConstMeta,
+        argValues: [that, utxos, outputs, drainTo, feeRate],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletBuildCustomTxConstMeta =>
+      const TaskConstMeta(
+        debugName: "Wallet_build_custom_tx",
+        argNames: ["that", "utxos", "outputs", "drainTo", "feeRate"],
+      );
+
+  @override
   Future<String> lwkApiWalletWalletBuildLbtcTx({
     required Wallet that,
     required BigInt sats,
@@ -3263,6 +3323,48 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           "baseUrl",
           "isSendAll",
         ],
+      );
+
+  @override
+  Future<List<String>> lwkApiWalletWalletConsolidate({
+    required Wallet that,
+    required double feeRate,
+    int? highUtxoThreshold,
+    int? maximumInputs,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+                that,
+              );
+          var arg1 = cst_encode_f_32(feeRate);
+          var arg2 = cst_encode_opt_box_autoadd_u_32(highUtxoThreshold);
+          var arg3 = cst_encode_opt_box_autoadd_u_32(maximumInputs);
+          return wire.wire__lwk__api__wallet__Wallet_consolidate(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_list_String,
+          decodeErrorData: dco_decode_lwk_error,
+        ),
+        constMeta: kLwkApiWalletWalletConsolidateConstMeta,
+        argValues: [that, feeRate, highUtxoThreshold, maximumInputs],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kLwkApiWalletWalletConsolidateConstMeta =>
+      const TaskConstMeta(
+        debugName: "Wallet_consolidate",
+        argNames: ["that", "feeRate", "highUtxoThreshold", "maximumInputs"],
       );
 
   @override
@@ -8410,6 +8512,12 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  List<OutPoint> dco_decode_list_out_point(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_out_point).toList();
+  }
+
+  @protected
   List<int> dco_decode_list_prim_u_8_loose(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw as List<int>;
@@ -8469,6 +8577,12 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   List<TxOutput> dco_decode_list_tx_output(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_tx_output).toList();
+  }
+
+  @protected
+  List<TxOutputSpec> dco_decode_list_tx_output_spec(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_tx_output_spec).toList();
   }
 
   @protected
@@ -9018,6 +9132,19 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       asset: dco_decode_opt_String(arr[1]),
       value: dco_decode_opt_box_autoadd_u_64(arr[2]),
       nonce: dco_decode_opt_String(arr[3]),
+    );
+  }
+
+  @protected
+  TxOutputSpec dco_decode_tx_output_spec(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return TxOutputSpec(
+      address: dco_decode_String(arr[0]),
+      satoshi: dco_decode_u_64(arr[1]),
+      assetId: dco_decode_opt_String(arr[2]),
     );
   }
 
@@ -10093,6 +10220,18 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  List<OutPoint> sse_decode_list_out_point(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <OutPoint>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_out_point(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
   List<int> sse_decode_list_prim_u_8_loose(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var len_ = sse_decode_i_32(deserializer);
@@ -10202,6 +10341,20 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     var ans_ = <TxOutput>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
       ans_.add(sse_decode_tx_output(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<TxOutputSpec> sse_decode_list_tx_output_spec(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <TxOutputSpec>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_tx_output_spec(deserializer));
     }
     return ans_;
   }
@@ -10867,6 +11020,19 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       asset: var_asset,
       value: var_value,
       nonce: var_nonce,
+    );
+  }
+
+  @protected
+  TxOutputSpec sse_decode_tx_output_spec(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_address = sse_decode_String(deserializer);
+    var var_satoshi = sse_decode_u_64(deserializer);
+    var var_assetId = sse_decode_opt_String(deserializer);
+    return TxOutputSpec(
+      address: var_address,
+      satoshi: var_satoshi,
+      assetId: var_assetId,
     );
   }
 
@@ -12211,6 +12377,18 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  void sse_encode_list_out_point(
+    List<OutPoint> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_out_point(item, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_list_prim_u_8_loose(
     List<int> self,
     SseSerializer serializer,
@@ -12316,6 +12494,18 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
       sse_encode_tx_output(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_tx_output_spec(
+    List<TxOutputSpec> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_tx_output_spec(item, serializer);
     }
   }
 
@@ -12843,6 +13033,14 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  void sse_encode_tx_output_spec(TxOutputSpec self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.address, serializer);
+    sse_encode_u_64(self.satoshi, serializer);
+    sse_encode_opt_String(self.assetId, serializer);
+  }
+
+  @protected
   void sse_encode_u_32(int self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     serializer.buffer.putUint32(self);
@@ -13322,6 +13520,23 @@ class WalletImpl extends RustOpaque implements Wallet {
     asset: asset,
   );
 
+  /// Build a PSET spending `utxos`, paying `outputs`, with any leftover
+  /// L-BTC swept to `drain_to` if set.
+  ///
+  /// General-purpose builder for custom output shapes
+  Future<String> buildCustomTx({
+    required List<OutPoint> utxos,
+    required List<TxOutputSpec> outputs,
+    String? drainTo,
+    required double feeRate,
+  }) => BullSdk.instance.api.lwkApiWalletWalletBuildCustomTx(
+    that: this,
+    utxos: utxos,
+    outputs: outputs,
+    drainTo: drainTo,
+    feeRate: feeRate,
+  );
+
   /// Build a LBTC transaction
   Future<String> buildLbtcTx({
     required BigInt sats,
@@ -13362,6 +13577,25 @@ class WalletImpl extends RustOpaque implements Wallet {
     network: network,
     baseUrl: baseUrl,
     isSendAll: isSendAll,
+  );
+
+  /// Build N unsigned PSETs that consolidate the wallet's confirmed L-BTC UTXOs.
+  ///
+  /// Each PSET sweeps up to `maximum_inputs` coins into a single output, sent to
+  /// a fresh unused address (a different address is used for each batch).
+  /// Returns an empty vec if the UTXO count is <= `high_utxo_threshold`.
+  ///
+  /// Batches whose value doesn't cover the fee (dust batches) are skipped. If
+  /// every batch is dust, an error is returned.
+  Future<List<String>> consolidate({
+    required double feeRate,
+    int? highUtxoThreshold,
+    int? maximumInputs,
+  }) => BullSdk.instance.api.lwkApiWalletWalletConsolidate(
+    that: this,
+    feeRate: feeRate,
+    highUtxoThreshold: highUtxoThreshold,
+    maximumInputs: maximumInputs,
   );
 
   /// Decode a transaction given a PSET
