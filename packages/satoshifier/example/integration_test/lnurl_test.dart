@@ -18,5 +18,13 @@ void main() {
         expect(result, isNotNull);
       }
     });
+
+    test('strips the lightning scheme from an uppercase LNURL', () async {
+      final lnurl = TestValue.lnurlUppercase as String;
+      final result = await Satoshifier.parse('lightning:$lnurl');
+
+      expect(result, isA<Lnurl>());
+      expect((result as Lnurl).address, lnurl);
+    });
   });
 }
