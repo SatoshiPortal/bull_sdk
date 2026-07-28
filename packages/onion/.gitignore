@@ -1,0 +1,16 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+example/.flutter-plugins
+example/.flutter-plugins-dependencies
+
+# Rust
+rust/target/
+
+# IDE
+*.iml
+.idea/
+android/local.properties
