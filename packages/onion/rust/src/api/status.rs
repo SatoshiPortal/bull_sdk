@@ -104,6 +104,14 @@ pub struct TorStatus {
 }
 
 impl TorStatus {
+    pub(crate) fn stopped() -> Self {
+        Self {
+            fraction: 0.0,
+            ready_for_traffic: false,
+            blockage: None,
+        }
+    }
+
     /// Whether the client is stuck in a way consistent with censorship.
     #[frb(sync)]
     pub fn suggests_censorship(&self) -> bool {

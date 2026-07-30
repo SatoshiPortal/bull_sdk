@@ -1,12 +1,13 @@
 //! The service object: one Tor client plus its local SOCKS5 listener.
 
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 use std::time::{Duration, Instant};
 
 use arti_client::config::TorClientConfigBuilder;
 use arti_client::{BootstrapBehavior, HasKind as _, IntoTorAddr as _, TorClient};
 use futures::Stream;
 use futures::StreamExt as _;
+use tokio::sync::watch;
 use tokio::task::JoinHandle;
 use tor_rtcompat::tokio::TokioNativeTlsRuntime;
 use tracing::info;
@@ -26,9 +27,10 @@ use flutter_rust_bridge::frb;
 /// progress channel, which is why a censored network presented as an
 /// indefinite spinner followed by an unattributable Electrum error.
 pub struct TorService {
-    client: Arc<TorClient<TokioNativeTlsRuntime>>,
-    proxy_task: JoinHandle<TorResult<()>>,
+    client: Mutex<Option<Arc<TorClient<TokioNativeTlsRuntime>>>>,
+    proxy_task: Mutex<Option<JoinHandle<TorResult<()>>>>,
     socks_port: u16,
+    shutdown: watch::Sender<bool>,
 }
 
 impl TorService {
@@ -68,11 +70,13 @@ impl TorService {
         info!(port = bound_port, "socks listener bound");
 
         let proxy_task = tokio::spawn(socks::serve(listener, Arc::clone(&client)));
+        let (shutdown, _) = watch::channel(false);
 
         Ok(Self {
-            client,
-            proxy_task,
+            client: Mutex::new(Some(client)),
+            proxy_task: Mutex::new(Some(proxy_task)),
             socks_port: bound_port,
+            shutdown,
         })
     }
 
@@ -83,7 +87,9 @@ impl TorService {
 
     /// Current readiness snapshot.
     pub fn status(&self) -> TorStatus {
-        TorStatus::from(&self.client.bootstrap_status())
+        self.client()
+            .map(|client| TorStatus::from(&client.bootstrap_status()))
+            .unwrap_or_else(TorStatus::stopped)
     }
 
     /// A stream of readiness changes, for Rust callers and tests.
@@ -97,34 +103,77 @@ impl TorService {
     /// is the same data in the shape the generator understands.
     #[frb(ignore)]
     pub fn status_stream(&self) -> impl Stream<Item = TorStatus> + Send + 'static {
-        self.client.bootstrap_events().map(|s| TorStatus::from(&s))
+        self.client()
+            .expect("status stream requested after Tor service stopped")
+            .bootstrap_events()
+            .map(|s| TorStatus::from(&s))
     }
 
-    /// Push readiness changes to Dart until the subscription is cancelled.
+    /// Start forwarding readiness changes to Dart in a background task.
     ///
     /// Same data as [`TorService::status_stream`], expressed as a
     /// [`StreamSink`] because that is the only stream shape
-    /// `flutter_rust_bridge` generates for. Returns when the Dart side drops
-    /// the subscription or arti closes the channel.
-    pub async fn watch_status(&self, sink: StreamSink<TorStatus>) -> Result<(), TorFailure> {
-        let mut events = self.client.bootstrap_events();
-        while let Some(s) = events.next().await {
-            // An error here means Dart cancelled; that is a normal end, not a
-            // failure to report.
-            if sink.add(TorStatus::from(&s)).is_err() {
-                break;
+    /// `flutter_rust_bridge` generates for. The task ends when Dart drops the
+    /// subscription, arti closes the channel, or [`TorService::stop`] runs.
+    pub fn watch_status(&self, sink: StreamSink<TorStatus>) {
+        let Some(client) = self.client() else {
+            return;
+        };
+        let mut events = client.bootstrap_events();
+        let mut shutdown = self.shutdown.subscribe();
+        tokio::spawn(async move {
+            if *shutdown.borrow() {
+                return;
             }
-        }
-        Ok(())
+            loop {
+                tokio::select! {
+                    changed = shutdown.changed() => {
+                        if changed.is_err() || *shutdown.borrow() {
+                            break;
+                        }
+                    }
+                    event = events.next() => {
+                        let Some(status) = event else { break };
+                        // A send error means Dart cancelled; that is a normal
+                        // end, not a failure to report.
+                        if sink.add(TorStatus::from(&status)).is_err() {
+                            break;
+                        }
+                    }
+                }
+            }
+        });
     }
 
     /// Bootstrap, resolving when the client is usable.
     pub async fn bootstrap(&self) -> Result<(), TorFailure> {
-        self.client.bootstrap().await.map_err(|e| {
-            // The status snapshot carries `blockage`, which is what tells the
-            // user *why* — including `Filtering`, the censorship signature.
-            TorFailure::bootstrap(format!("{e}"))
-        })
+        const BOOTSTRAP_TIMEOUT: Duration = Duration::from_secs(120);
+        let client = self
+            .client()
+            .ok_or_else(|| TorFailure::not_running("service stopped before bootstrap"))?;
+        let mut shutdown = self.shutdown.subscribe();
+        if *shutdown.borrow() {
+            return Err(TorFailure::not_running("service stopped before bootstrap"));
+        }
+        let attempt = tokio::select! {
+            changed = shutdown.changed() => {
+                let _ = changed;
+                return Err(TorFailure::not_running("service stopped during bootstrap"));
+            }
+            result = tokio::time::timeout(BOOTSTRAP_TIMEOUT, client.bootstrap()) => result,
+        };
+        match attempt {
+            Err(_) => Err(TorFailure::timeout(format!(
+                "bootstrap exceeded {BOOTSTRAP_TIMEOUT:?}"
+            ))),
+            Ok(Err(e)) => {
+                // The status snapshot carries `blockage`, which is what tells
+                // the user *why* — including `Filtering`, the censorship
+                // signature.
+                Err(TorFailure::bootstrap(format!("{e}")))
+            }
+            Ok(Ok(())) => Ok(()),
+        }
     }
 
     /// Open and immediately close a circuit to `host:port`, returning how long
@@ -146,6 +195,9 @@ impl TorService {
     /// `socks::handle_conn` keeps destinations out of its errors for the same
     /// reason, so this must not be the one place that reintroduces them.
     pub async fn probe(&self, host: &str, port: u16, timeout_ms: u32) -> Result<u32, TorFailure> {
+        let client = self
+            .client()
+            .ok_or_else(|| TorFailure::not_running("service stopped before probe"))?;
         let timeout = Duration::from_millis(u64::from(timeout_ms));
         let target = (host, port)
             .into_tor_addr()
@@ -154,7 +206,7 @@ impl TorService {
             .map_err(|e| TorFailure::connect(format!("bad probe target: {}", e.kind())))?;
 
         let started = Instant::now();
-        let attempt = tokio::time::timeout(timeout, self.client.connect(target)).await;
+        let attempt = tokio::time::timeout(timeout, client.connect(target)).await;
 
         match attempt {
             Err(_elapsed) => Err(TorFailure::timeout(format!("probe exceeded {timeout:?}"))),
@@ -174,26 +226,51 @@ impl TorService {
     /// app would see unexplained connection failures from BDK and blame the
     /// network. Cheap enough to check before handing the port out.
     pub fn proxy_is_alive(&self) -> bool {
-        !self.proxy_task.is_finished()
+        !*self.shutdown.borrow()
+            && self
+                .proxy_task
+                .lock()
+                .expect("proxy task lock poisoned")
+                .as_ref()
+                .is_some_and(|task| !task.is_finished())
     }
 
     /// Put background activity to sleep, or wake it up.
     pub fn set_dormant(&self, dormant: bool) {
         use arti_client::DormantMode;
-        self.client.set_dormant(if dormant {
-            DormantMode::Soft
-        } else {
-            DormantMode::Normal
-        });
+        if let Some(client) = self.client() {
+            client.set_dormant(if dormant {
+                DormantMode::Soft
+            } else {
+                DormantMode::Normal
+            });
+        }
     }
 
-    /// Stop the proxy listener and drop the client.
+    /// Stop the proxy listener, bootstrap, and status-forwarding tasks.
     ///
-    /// Takes `self` by value: a stopped service is not reusable, and the type
-    /// system should say so rather than leaving a zombie handle around — which
-    /// is how the previous wrapper ended up with a dangling client pointer.
-    pub fn stop(self) {
-        self.proxy_task.abort();
+    /// Safe to call more than once. Keeping this as `&self` is required by the
+    /// FFI boundary: a status-stream task may briefly hold another opaque
+    /// reference, so consuming `self` could panic while decoding the call.
+    pub async fn stop(&self) {
+        self.shutdown.send_replace(true);
+        let proxy_task = self
+            .proxy_task
+            .lock()
+            .expect("proxy task lock poisoned")
+            .take();
+        if let Some(proxy_task) = proxy_task {
+            proxy_task.abort();
+            let _ = proxy_task.await;
+        }
+        self.client.lock().expect("Tor client lock poisoned").take();
+    }
+
+    fn client(&self) -> Option<Arc<TorClient<TokioNativeTlsRuntime>>> {
+        self.client
+            .lock()
+            .expect("Tor client lock poisoned")
+            .clone()
     }
 }
 
@@ -220,7 +297,7 @@ mod tests {
         assert!(!st.ready_for_traffic, "cannot be ready before bootstrap");
         assert!(!st.suggests_censorship(), "no blockage diagnosed yet");
 
-        svc.stop();
+        svc.stop().await;
     }
 
     #[tokio::test]
@@ -236,8 +313,8 @@ mod tests {
 
         assert_ne!(a.socks_port(), b.socks_port());
 
-        a.stop();
-        b.stop();
+        a.stop().await;
+        b.stop().await;
     }
 
     #[tokio::test]
@@ -259,7 +336,51 @@ mod tests {
                 | super::super::error::TorFailureKind::Connect
         ));
 
-        svc.stop();
+        svc.stop().await;
+    }
+
+    #[tokio::test]
+    async fn stop_cancels_bootstrap_and_is_idempotent() {
+        let dir = tempdir();
+        let svc = Arc::new(
+            TorService::start(&format!("{dir}/s"), &format!("{dir}/c"), 0)
+                .await
+                .expect("start"),
+        );
+        let worker = Arc::clone(&svc);
+        let bootstrap = tokio::spawn(async move { worker.bootstrap().await });
+
+        tokio::task::yield_now().await;
+        svc.stop().await;
+        svc.stop().await;
+
+        let result = tokio::time::timeout(Duration::from_secs(1), bootstrap)
+            .await
+            .expect("bootstrap cancellation must not hang")
+            .expect("bootstrap task must not panic");
+        let failure = result.expect_err("stopped bootstrap must fail");
+        assert_eq!(
+            failure.kind,
+            super::super::error::TorFailureKind::NotRunning
+        );
+        assert!(!svc.proxy_is_alive());
+    }
+
+    #[tokio::test]
+    async fn stop_releases_state_for_an_immediate_restart() {
+        let dir = tempdir();
+        let state = format!("{dir}/state");
+        let cache = format!("{dir}/cache");
+        let first = TorService::start(&state, &cache, 0)
+            .await
+            .expect("start first");
+
+        first.stop().await;
+
+        let second = TorService::start(&state, &cache, 0)
+            .await
+            .expect("restart with the same state directory");
+        second.stop().await;
     }
 
     /// Unique scratch directory per test, cleaned up by the OS.

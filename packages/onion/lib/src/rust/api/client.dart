@@ -8,6 +8,7 @@ import 'error.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'status.dart';
 
+// These functions are ignored because they are not marked as `pub`: `client`
 // These functions are ignored (category: IgnoreBecauseExplicitAttribute): `status_stream`
 
 // Rust type: RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<TorService>>
@@ -65,18 +66,18 @@ abstract class TorService implements RustOpaqueInterface {
   /// Current readiness snapshot.
   Future<TorStatus> status();
 
-  /// Stop the proxy listener and drop the client.
+  /// Stop the proxy listener, bootstrap, and status-forwarding tasks.
   ///
-  /// Takes `self` by value: a stopped service is not reusable, and the type
-  /// system should say so rather than leaving a zombie handle around — which
-  /// is how the previous wrapper ended up with a dangling client pointer.
+  /// Safe to call more than once. Keeping this as `&self` is required by the
+  /// FFI boundary: a status-stream task may briefly hold another opaque
+  /// reference, so consuming `self` could panic while decoding the call.
   Future<void> stop();
 
-  /// Push readiness changes to Dart until the subscription is cancelled.
+  /// Start forwarding readiness changes to Dart in a background task.
   ///
   /// Same data as [`TorService::status_stream`], expressed as a
   /// [`StreamSink`] because that is the only stream shape
-  /// `flutter_rust_bridge` generates for. Returns when the Dart side drops
-  /// the subscription or arti closes the channel.
+  /// `flutter_rust_bridge` generates for. The task ends when Dart drops the
+  /// subscription, arti closes the channel, or [`TorService::stop`] runs.
   Stream<TorStatus> watchStatus();
 }

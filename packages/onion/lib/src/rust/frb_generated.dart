@@ -378,7 +378,7 @@ class OnionCoreApiImpl extends OnionCoreApiImplPlatform
       NormalTask(
         callFfi: (port_) {
           var arg0 =
-              cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTorService(
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTorService(
                 that,
               );
           return wire.wire__crate__api__client__TorService_stop(port_, arg0);
@@ -419,7 +419,7 @@ class OnionCoreApiImpl extends OnionCoreApiImplPlatform
           },
           codec: DcoCodec(
             decodeSuccessData: dco_decode_unit,
-            decodeErrorData: dco_decode_tor_failure,
+            decodeErrorData: null,
           ),
           constMeta: kCrateApiClientTorServiceWatchStatusConstMeta,
           argValues: [that, sink],
@@ -1221,20 +1221,20 @@ class TorServiceImpl extends RustOpaque implements TorService {
   Future<TorStatus> status() =>
       OnionCore.instance.api.crateApiClientTorServiceStatus(that: this);
 
-  /// Stop the proxy listener and drop the client.
+  /// Stop the proxy listener, bootstrap, and status-forwarding tasks.
   ///
-  /// Takes `self` by value: a stopped service is not reusable, and the type
-  /// system should say so rather than leaving a zombie handle around — which
-  /// is how the previous wrapper ended up with a dangling client pointer.
+  /// Safe to call more than once. Keeping this as `&self` is required by the
+  /// FFI boundary: a status-stream task may briefly hold another opaque
+  /// reference, so consuming `self` could panic while decoding the call.
   Future<void> stop() =>
       OnionCore.instance.api.crateApiClientTorServiceStop(that: this);
 
-  /// Push readiness changes to Dart until the subscription is cancelled.
+  /// Start forwarding readiness changes to Dart in a background task.
   ///
   /// Same data as [`TorService::status_stream`], expressed as a
   /// [`StreamSink`] because that is the only stream shape
-  /// `flutter_rust_bridge` generates for. Returns when the Dart side drops
-  /// the subscription or arti closes the channel.
+  /// `flutter_rust_bridge` generates for. The task ends when Dart drops the
+  /// subscription, arti closes the channel, or [`TorService::stop`] runs.
   Stream<TorStatus> watchStatus() =>
       OnionCore.instance.api.crateApiClientTorServiceWatchStatus(that: this);
 }

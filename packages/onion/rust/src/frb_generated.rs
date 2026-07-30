@@ -339,9 +339,11 @@ fn wire__crate__api__client__TorService_status_impl(
 }
 fn wire__crate__api__client__TorService_stop_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<TorService>,
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<TorService>>,
+    >,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "TorService_stop",
             port: Some(port_),
@@ -349,37 +351,8 @@ fn wire__crate__api__client__TorService_stop_impl(
         },
         move || {
             let api_that = that.cst_decode();
-            move |context| {
-                transform_result_dco::<_, _, ()>((move || {
-                    let output_ok = Result::<_, ()>::Ok({
-                        crate::api::client::TorService::stop(api_that);
-                    })?;
-                    Ok(output_ok)
-                })())
-            }
-        },
-    )
-}
-fn wire__crate__api__client__TorService_watch_status_impl(
-    port_: flutter_rust_bridge::for_generated::MessagePort,
-    that: impl CstDecode<
-        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<TorService>>,
-    >,
-    sink: impl CstDecode<
-        StreamSink<crate::api::status::TorStatus, flutter_rust_bridge::for_generated::DcoCodec>,
-    >,
-) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "TorService_watch_status",
-            port: Some(port_),
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
-        },
-        move || {
-            let api_that = that.cst_decode();
-            let api_sink = sink.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, crate::api::error::TorFailure>(
+                transform_result_dco::<_, _, ()>(
                     (move || async move {
                         let mut api_that_guard = None;
                         let decode_indices_ =
@@ -398,15 +371,56 @@ fn wire__crate__api__client__TorService_watch_status_impl(
                             }
                         }
                         let api_that_guard = api_that_guard.unwrap();
-                        let output_ok = crate::api::client::TorService::watch_status(
-                            &*api_that_guard,
-                            api_sink,
-                        )
-                        .await?;
+                        let output_ok = Result::<_, ()>::Ok({
+                            crate::api::client::TorService::stop(&*api_that_guard).await;
+                        })?;
                         Ok(output_ok)
                     })()
                     .await,
                 )
+            }
+        },
+    )
+}
+fn wire__crate__api__client__TorService_watch_status_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<TorService>>,
+    >,
+    sink: impl CstDecode<
+        StreamSink<crate::api::status::TorStatus, flutter_rust_bridge::for_generated::DcoCodec>,
+    >,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "TorService_watch_status",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_sink = sink.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = Result::<_, ()>::Ok({
+                        crate::api::client::TorService::watch_status(&*api_that_guard, api_sink);
+                    })?;
+                    Ok(output_ok)
+                })())
             }
         },
     )

@@ -80,7 +80,7 @@ async fn bootstraps_and_reports_progress() {
         st.blockage
     );
 
-    svc.stop();
+    svc.stop().await;
 }
 
 /// The canary: a successful probe means Tor genuinely carries traffic.
@@ -111,7 +111,7 @@ async fn probe_succeeds_through_tor() {
         "a failed destination must not mark Tor itself unhealthy"
     );
 
-    svc.stop();
+    svc.stop().await;
 }
 
 /// Drive a real SOCKS5 CONNECT through our hand-written front end and read a
@@ -186,7 +186,7 @@ async fn socks5_connect_relays_http() {
         "expected an HTTP response through the tunnel"
     );
 
-    svc.stop();
+    svc.stop().await;
 }
 
 /// Commands we do not serve must terminate promptly rather than hang, and
@@ -257,5 +257,5 @@ async fn socks5_declines_commands_we_do_not_serve() {
     assert_eq!(head[0], 0x05, "reply version");
     assert_ne!(head[1], 0x00, "RESOLVE must not be reported as succeeded");
 
-    svc.stop();
+    svc.stop().await;
 }

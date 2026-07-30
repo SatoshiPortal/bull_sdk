@@ -34,6 +34,7 @@ use std::sync::Arc;
 use arti_client::{HasKind as _, IntoTorAddr as _, TorClient};
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream};
+use tokio::task::JoinSet;
 use tor_rtcompat::tokio::TokioNativeTlsRuntime;
 use tor_socksproto::{
     Buffer, Handshake as _, NextStep, SocksCmd, SocksProxyHandshake, SocksRequest, SocksStatus,
@@ -68,25 +69,36 @@ pub(crate) async fn serve(
     listener: TcpListener,
     client: Arc<TorClient<TokioNativeTlsRuntime>>,
 ) -> TorResult<()> {
+    let mut connections = JoinSet::new();
     loop {
-        let (stream, peer) = match listener.accept().await {
-            Ok(v) => v,
-            Err(e) => {
-                // The proxy is now dead. Every later SOCKS connection will be
-                // refused with no explanation, so this must not be silent.
-                tracing::error!(error = %e, "socks accept loop terminated");
-                return Err(TorFailure::listener_bind(format!("accept: {e}")));
-            }
-        };
+        tokio::select! {
+            accepted = listener.accept() => {
+                let (stream, peer) = match accepted {
+                    Ok(v) => v,
+                    Err(e) => {
+                        // The proxy is now dead. Every later SOCKS connection
+                        // will be refused with no explanation, so this must not
+                        // be silent.
+                        tracing::error!(error = %e, "socks accept loop terminated");
+                        return Err(TorFailure::listener_bind(format!("accept: {e}")));
+                    }
+                };
 
-        let client = Arc::clone(&client);
-        tokio::spawn(async move {
-            if let Err(e) = handle_conn(stream, client).await {
-                // Deliberately not `warn!` with the target address: that would
-                // put the user's browsing destinations in the log.
-                debug!(%peer, error = %e, "socks connection ended with an error");
+                let client = Arc::clone(&client);
+                connections.spawn(async move {
+                    if let Err(e) = handle_conn(stream, client).await {
+                        // Deliberately not `warn!` with the target address: that
+                        // would put the user's browsing destinations in the log.
+                        debug!(%peer, error = %e, "socks connection ended with an error");
+                    }
+                });
             }
-        });
+            completed = connections.join_next(), if !connections.is_empty() => {
+                if let Some(Err(e)) = completed {
+                    debug!(error = %e, "socks connection task failed");
+                }
+            }
+        }
     }
 }
 
