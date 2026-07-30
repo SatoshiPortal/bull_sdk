@@ -3,10 +3,8 @@
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
-use arti_client::config::CfgPath;
-use arti_client::{
-    BootstrapBehavior, HasKind as _, IntoTorAddr as _, TorClient, TorClientConfig,
-};
+use arti_client::config::TorClientConfigBuilder;
+use arti_client::{BootstrapBehavior, HasKind as _, IntoTorAddr as _, TorClient};
 use futures::Stream;
 use futures::StreamExt as _;
 use tokio::task::JoinHandle;
@@ -46,10 +44,10 @@ impl TorService {
         let runtime = TokioNativeTlsRuntime::current()
             .map_err(|e| TorFailure::configuration(format!("no tokio runtime: {e}")))?;
 
-        let mut cfg = TorClientConfig::builder();
-        cfg.storage()
-            .state_dir(CfgPath::new(state_dir.to_owned()))
-            .cache_dir(CfgPath::new(cache_dir.to_owned()));
+        // Besides state and cache, this derives Arti's keystore location from
+        // the state directory. Setting storage fields manually leaves the
+        // keystore at its unrelated default path.
+        let mut cfg = TorClientConfigBuilder::from_directories(state_dir, cache_dir);
         // Required for .onion targets to be routable through the proxy.
         cfg.address_filter().allow_onion_addrs(true);
         let cfg = cfg
