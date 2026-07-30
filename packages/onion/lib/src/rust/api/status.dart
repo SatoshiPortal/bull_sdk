@@ -6,8 +6,8 @@
 import '../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-// These functions are ignored because they are not marked as `pub`: `stopped`
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_fields_are_eq`, `assert_fields_are_eq`, `clone`, `clone`, `clone`, `eq`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `from`, `from`
+// These functions are ignored because they are not marked as `pub`: `from_bootstrap`, `stopped`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `clone`, `clone`, `clone`, `clone`, `eq`, `eq`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `fmt`, `from`
 
 /// A blockage: a machine-readable kind plus arti's human-readable detail.
 class Blockage {
@@ -96,10 +96,17 @@ class TorStatus {
   /// Present when arti believes it is stuck.
   final Blockage? blockage;
 
+  /// Route configured for this client.
+  ///
+  /// This does not by itself mean that Snowflake connected. Consumers must
+  /// also require [`TorStatus::ready_for_traffic`] before claiming that.
+  final TorTransport transport;
+
   const TorStatus({
     required this.fraction,
     required this.readyForTraffic,
     this.blockage,
+    required this.transport,
   });
 
   /// Whether the client is stuck in a way consistent with censorship.
@@ -108,7 +115,10 @@ class TorStatus {
 
   @override
   int get hashCode =>
-      fraction.hashCode ^ readyForTraffic.hashCode ^ blockage.hashCode;
+      fraction.hashCode ^
+      readyForTraffic.hashCode ^
+      blockage.hashCode ^
+      transport.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -117,5 +127,15 @@ class TorStatus {
           runtimeType == other.runtimeType &&
           fraction == other.fraction &&
           readyForTraffic == other.readyForTraffic &&
-          blockage == other.blockage;
+          blockage == other.blockage &&
+          transport == other.transport;
+}
+
+/// Network transport configured for this Tor client.
+enum TorTransport {
+  /// Connect to Tor relays directly.
+  direct,
+
+  /// Reach a Tor bridge through the Snowflake pluggable transport.
+  snowflake,
 }

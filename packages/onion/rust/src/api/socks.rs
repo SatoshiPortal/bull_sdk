@@ -15,11 +15,9 @@
 //!
 //! # Why a SOCKS proxy at all
 //!
-//! It is not a convenience for the Dart HTTP client. The port is the
-//! integration point between two independent native libraries: the app hands
-//! `127.0.0.1:<port>` to BDK, which drives its own Electrum connections from
-//! inside a different `.so`. Binding `TorClient::connect` directly would mean
-//! rewriting BDK's network path.
+//! The port is the integration point for application clients that already
+//! support a SOCKS5 endpoint. Binding `TorClient::connect` directly would
+//! require separate transports over Arti streams for every protocol.
 //!
 //! # Scope
 //!
@@ -30,6 +28,7 @@
 
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 use std::sync::Arc;
+use std::time::Duration;
 
 use arti_client::{HasKind as _, IntoTorAddr as _, TorClient};
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
@@ -42,6 +41,10 @@ use tor_socksproto::{
 use tracing::{debug, warn};
 
 use super::error::{TorFailure, TorResult};
+
+const MAX_CONNECTIONS: usize = 64;
+const HANDSHAKE_TIMEOUT: Duration = Duration::from_secs(10);
+const CONNECT_TIMEOUT: Duration = Duration::from_secs(60);
 
 /// Bind a SOCKS5 listener on loopback.
 ///
@@ -70,6 +73,7 @@ pub(crate) async fn serve(
     client: Arc<TorClient<TokioNativeTlsRuntime>>,
 ) -> TorResult<()> {
     let mut connections = JoinSet::new();
+    let permits = Arc::new(tokio::sync::Semaphore::new(MAX_CONNECTIONS));
     loop {
         tokio::select! {
             accepted = listener.accept() => {
@@ -84,8 +88,14 @@ pub(crate) async fn serve(
                     }
                 };
 
+                let Ok(permit) = Arc::clone(&permits).try_acquire_owned() else {
+                    debug!(%peer, "socks connection limit reached");
+                    drop(stream);
+                    continue;
+                };
                 let client = Arc::clone(&client);
                 connections.spawn(async move {
+                    let _permit = permit;
                     if let Err(e) = handle_conn(stream, client).await {
                         // Deliberately not `warn!` with the target address: that
                         // would put the user's browsing destinations in the log.
@@ -107,7 +117,9 @@ async fn handle_conn(
     mut sock: TcpStream,
     client: Arc<TorClient<TokioNativeTlsRuntime>>,
 ) -> TorResult<()> {
-    let request = negotiate(&mut sock).await?;
+    let request = tokio::time::timeout(HANDSHAKE_TIMEOUT, negotiate(&mut sock))
+        .await
+        .map_err(|_| TorFailure::unexpected("socks handshake timed out"))??;
 
     let addr = request.addr().to_string();
     let port = request.port();
@@ -118,14 +130,27 @@ async fn handle_conn(
         return Ok(());
     }
 
+    // This proxy exists only for Bull Bitcoin's hidden-service traffic. A
+    // loopback TCP port is host-local, not process-private, so accepting
+    // arbitrary destinations would expose a general-purpose Tor proxy to any
+    // local process that discovers the ephemeral port.
+    if !is_onion_host(&addr) {
+        reply(&mut sock, &request, SocksStatus::NOT_ALLOWED).await?;
+        return Ok(());
+    }
+
     // `e` here would name the destination; report only its kind.
     let target = (addr.as_str(), port)
         .into_tor_addr()
         .map_err(|e| TorFailure::connect(format!("rejected target address: {}", e.kind())))?;
 
-    let tor_stream = match client.connect(target).await {
-        Ok(s) => s,
-        Err(e) => {
+    let tor_stream = match tokio::time::timeout(CONNECT_TIMEOUT, client.connect(target)).await {
+        Err(_) => {
+            reply(&mut sock, &request, SocksStatus::HOST_UNREACHABLE).await?;
+            return Err(TorFailure::connect("tor connect timed out"));
+        }
+        Ok(Ok(s)) => s,
+        Ok(Err(e)) => {
             // Report the failure to the SOCKS client rather than dropping the
             // socket, so the caller sees a protocol-level refusal instead of a
             // bare connection reset it cannot attribute.
@@ -147,6 +172,12 @@ async fn handle_conn(
         .map_err(|e| TorFailure::connect(format!("relay: {e}")))?;
 
     Ok(())
+}
+
+fn is_onion_host(host: &str) -> bool {
+    host.trim_end_matches('.')
+        .to_ascii_lowercase()
+        .ends_with(".onion")
 }
 
 /// Drive the SOCKS handshake state machine to completion.
@@ -247,5 +278,14 @@ mod tests {
 
         let res = accept.await.expect("join");
         assert!(res.is_err(), "closing mid-handshake must be an error");
+    }
+
+    #[test]
+    fn only_onion_hosts_are_allowed_through_the_proxy() {
+        assert!(is_onion_host("examplehiddenservice.onion"));
+        assert!(is_onion_host("EXAMPLEHIDDENSERVICE.ONION."));
+        assert!(!is_onion_host("example.com"));
+        assert!(!is_onion_host("example.onion.invalid"));
+        assert!(!is_onion_host("127.0.0.1"));
     }
 }

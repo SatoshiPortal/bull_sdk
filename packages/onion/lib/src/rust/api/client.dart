@@ -6,9 +6,12 @@
 import '../frb_generated.dart';
 import 'error.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+import 'session.dart';
 import 'status.dart';
 
-// These functions are ignored because they are not marked as `pub`: `client`
+// These functions are ignored because they are not marked as `pub`: `begin_stop`, `client`, `configure_snowflake`, `start_with_transport`
+// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `SessionRegistry`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `drop`
 // These functions are ignored (category: IgnoreBecauseExplicitAttribute): `status_stream`
 
 // Rust type: RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<TorService>>
@@ -16,11 +19,19 @@ abstract class TorService implements RustOpaqueInterface {
   /// Bootstrap, resolving when the client is usable.
   Future<void> bootstrap();
 
+  /// Open another loopback SOCKS listener with separate Tor circuits.
+  ///
+  /// Sessions share the root client's configuration, directory state,
+  /// guards, channels, and transport. Their application streams never share
+  /// circuits with the default session or with one another.
+  Future<TorSession> openSession({required int socksPort});
+
   /// Open and immediately close a circuit to `host:port`, returning how long
   /// it took.
   ///
   /// This is the canary that separates "the Tor network is unreachable" from
-  /// "our Electrum server is down". It goes through `TorClient::connect`
+  /// "an application hidden service is down". It goes through
+  /// `TorClient::connect`
   /// directly, bypassing both the SOCKS listener and the application's
   /// servers, so a success here means Tor genuinely carries traffic.
   ///
@@ -39,7 +50,7 @@ abstract class TorService implements RustOpaqueInterface {
   ///
   /// It can die on its own — a listener error ends it — after which every
   /// connection to [`TorService::socks_port`] is refused. Without this, the
-  /// app would see unexplained connection failures from BDK and blame the
+  /// app would see unexplained transport failures and blame the
   /// network. Cheap enough to check before handing the port out.
   Future<bool> proxyIsAlive();
 
@@ -63,6 +74,22 @@ abstract class TorService implements RustOpaqueInterface {
     socksPort: socksPort,
   );
 
+  /// Create a client routed through an already-running Snowflake SOCKS proxy.
+  ///
+  /// The proxy is unmanaged: the native plugin owns its process-wide
+  /// lifecycle while Arti only receives its loopback port.
+  static Future<TorService> startWithSnowflake({
+    required String stateDir,
+    required String cacheDir,
+    required int socksPort,
+    required int snowflakePort,
+  }) => OnionCore.instance.api.crateApiClientTorServiceStartWithSnowflake(
+    stateDir: stateDir,
+    cacheDir: cacheDir,
+    socksPort: socksPort,
+    snowflakePort: snowflakePort,
+  );
+
   /// Current readiness snapshot.
   Future<TorStatus> status();
 
@@ -73,10 +100,10 @@ abstract class TorService implements RustOpaqueInterface {
   /// reference, so consuming `self` could panic while decoding the call.
   Future<void> stop();
 
-  /// Start forwarding readiness changes to Dart in a background task.
+  /// Forward readiness changes to Dart from the FRB async runtime.
   ///
   /// Same data as [`TorService::status_stream`], expressed as a
-  /// [`StreamSink`] because that is the only stream shape
+  /// `StreamSink` because that is the only stream shape
   /// `flutter_rust_bridge` generates for. The task ends when Dart drops the
   /// subscription, arti closes the channel, or [`TorService::stop`] runs.
   Stream<TorStatus> watchStatus();

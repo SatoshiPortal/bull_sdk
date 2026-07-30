@@ -30,7 +30,9 @@ arti-client = { version = "0.44.0", default-features = false, features = [
     "native-tls",
     "static",
     "compression",
+    "bridge-client",
     "onion-service-client",
+    "pt-client",
 ] }
 # The SOCKS5 wire protocol only. We deliberately do NOT depend on the `arti`
 # crate: since arti 2.0.0 every API it exposes is marked experimental and

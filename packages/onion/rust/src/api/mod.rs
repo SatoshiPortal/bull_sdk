@@ -1,8 +1,8 @@
 //! Public surface of `onion`.
 //!
-//! Phase 1 is plain Rust: no `flutter_rust_bridge` annotations yet, so the
-//! whole thing is testable with `cargo test` and carries no binding-layer
-//! risk. Phase 2 adds `#[frb]` on top of these same types.
+//! The domain and lifecycle remain plain Rust and are directly testable with
+//! `cargo test`. A small number of `flutter_rust_bridge` annotations select the
+//! generated entrypoint, stream shape, and synchronous predicates.
 //!
 //! Nothing from `arti_client` crosses this boundary. Every type here is ours,
 //! which is what lets the Dart side switch exhaustively and keeps an upstream
@@ -12,10 +12,12 @@
 
 pub mod client;
 pub mod error;
+pub mod session;
 pub mod status;
 
 mod socks;
 
 pub use client::TorService;
 pub use error::{TorFailure, TorFailureKind, TorResult};
-pub use status::{Blockage, BlockageKind, TorStatus};
+pub use session::TorSession;
+pub use status::{Blockage, BlockageKind, TorStatus, TorTransport};

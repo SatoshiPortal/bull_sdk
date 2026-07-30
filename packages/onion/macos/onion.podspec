@@ -4,26 +4,22 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'onion'
-  s.version          = '0.0.1'
-  s.summary          = 'A new Flutter FFI plugin project.'
+  s.version          = '0.1.0'
+  s.summary          = 'Embedded Tor client and loopback SOCKS5 proxy.'
   s.description      = <<-DESC
-A new Flutter FFI plugin project.
+Embedded Tor client and loopback SOCKS5 proxy for Bull Bitcoin, built on Arti.
                        DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'https://github.com/SatoshiPortal/bull_sdk'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Satoshi Portal' => 'https://bullbitcoin.com' }
   s.module_name      = 'onion'
 
-  # This will ensure the source files in Classes/ are included in the native
-  # builds of apps using this FFI plugin. Podspec does not support relative
-  # paths, so Classes contains a forwarder C file that relatively imports
-  # `../src/*` so that the C sources can be shared among all target platforms.
+  # The dummy C file makes CocoaPods create a framework for the Rust archive.
   s.source           = { :path => '.' }
   s.source_files     = 'Classes/**/*'
   s.dependency 'FlutterMacOS'
 
   s.platform = :osx, '10.11'
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
   s.swift_version = '5.0'
 
   s.script_phase = {
@@ -38,8 +34,6 @@ A new Flutter FFI plugin project.
   }
   s.pod_target_xcconfig = {
     'DEFINES_MODULE' => 'YES',
-    # Flutter.framework does not contain a i386 slice.
-    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386',
     'OTHER_LDFLAGS' => '-force_load ${PODS_CONFIGURATION_BUILD_DIR}/onion/libonion.a',
   }
 end

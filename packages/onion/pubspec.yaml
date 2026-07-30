@@ -5,7 +5,7 @@ repository: https://github.com/SatoshiPortal/bull_sdk
 
 environment:
   sdk: ^3.12.2
-  flutter: '>=3.3.0'
+  flutter: '>=3.44.2'
 
 dependencies:
   flutter:
@@ -27,8 +27,11 @@ flutter:
   plugin:
     platforms:
       android:
+        package: com.bullbitcoin.onion
+        pluginClass: OnionPlugin
         ffiPlugin: true
       ios:
+        pluginClass: OnionPlugin
         ffiPlugin: true
       linux:
         ffiPlugin: true

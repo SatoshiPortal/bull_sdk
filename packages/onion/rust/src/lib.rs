@@ -12,8 +12,8 @@
 //!   experimental since arti 2.0.0.
 //! - Exposes only types defined in this crate, so an upstream change is
 //!   absorbed here rather than in the app.
-//! - The SOCKS port is the integration point with other native libraries
-//!   (notably BDK's Electrum client), not a convenience for Dart's HTTP stack.
+//! - The SOCKS port is the integration point with RecoverBull's Dart HTTP
+//!   client, which already supports a SOCKS5 endpoint.
 
 #![warn(missing_docs)]
 

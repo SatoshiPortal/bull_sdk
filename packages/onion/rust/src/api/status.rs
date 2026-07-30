@@ -11,6 +11,15 @@
 use arti_client::status::{BlockageKind as ArtiBlockageKind, BootstrapStatus};
 use flutter_rust_bridge::frb;
 
+/// Network transport configured for this Tor client.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum TorTransport {
+    /// Connect to Tor relays directly.
+    Direct,
+    /// Reach a Tor bridge through the Snowflake pluggable transport.
+    Snowflake,
+}
+
 /// Why the client believes it cannot make progress.
 ///
 /// Maps [`arti_client::status::BlockageKind`], which is `#[non_exhaustive]`
@@ -101,14 +110,32 @@ pub struct TorStatus {
     pub ready_for_traffic: bool,
     /// Present when arti believes it is stuck.
     pub blockage: Option<Blockage>,
+    /// Route configured for this client.
+    ///
+    /// This does not by itself mean that Snowflake connected. Consumers must
+    /// also require [`TorStatus::ready_for_traffic`] before claiming that.
+    pub transport: TorTransport,
 }
 
 impl TorStatus {
-    pub(crate) fn stopped() -> Self {
+    pub(crate) fn stopped(transport: TorTransport) -> Self {
         Self {
             fraction: 0.0,
             ready_for_traffic: false,
             blockage: None,
+            transport,
+        }
+    }
+
+    pub(crate) fn from_bootstrap(s: &BootstrapStatus, transport: TorTransport) -> Self {
+        Self {
+            fraction: s.as_frac(),
+            ready_for_traffic: s.ready_for_traffic(),
+            blockage: s.blocked().map(|b| Blockage {
+                kind: b.kind().into(),
+                message: b.message().to_string(),
+            }),
+            transport,
         }
     }
 
@@ -118,19 +145,6 @@ impl TorStatus {
         self.blockage
             .as_ref()
             .is_some_and(|b| b.kind.suggests_censorship())
-    }
-}
-
-impl From<&BootstrapStatus> for TorStatus {
-    fn from(s: &BootstrapStatus) -> Self {
-        Self {
-            fraction: s.as_frac(),
-            ready_for_traffic: s.ready_for_traffic(),
-            blockage: s.blocked().map(|b| Blockage {
-                kind: b.kind().into(),
-                message: b.message().to_string(),
-            }),
-        }
     }
 }
 
@@ -188,6 +202,7 @@ mod tests {
             fraction: 1.0,
             ready_for_traffic: true,
             blockage: None,
+            transport: TorTransport::Direct,
         };
         assert!(!s.suggests_censorship());
     }
@@ -201,6 +216,7 @@ mod tests {
                 kind: BlockageKind::Filtering,
                 message: "Our internet connection seems filtered".into(),
             }),
+            transport: TorTransport::Direct,
         };
         assert!(s.suggests_censorship());
     }
@@ -208,8 +224,9 @@ mod tests {
     #[test]
     fn default_arti_status_maps_to_not_ready() {
         // `BootstrapStatus: Default` is arti's "nothing has happened yet".
-        let s = TorStatus::from(&BootstrapStatus::default());
+        let s = TorStatus::from_bootstrap(&BootstrapStatus::default(), TorTransport::Direct);
         assert!(!s.ready_for_traffic);
         assert!(s.fraction < 1.0);
+        assert_eq!(s.transport, TorTransport::Direct);
     }
 }

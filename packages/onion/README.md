@@ -10,9 +10,10 @@ Embedded Tor client and loopback SOCKS5 proxy for Bull Bitcoin Mobile, built on
 
 ## Status
 
-Phase 1 — plain Rust, no `flutter_rust_bridge` bindings yet. The whole surface
-is exercisable with `cargo test`, so the design risk is settled before any
-binding-layer decision is made.
+The Rust implementation, flutter_rust_bridge bindings, and mobile Snowflake
+transport are complete. The package is consumed through
+`package:bull_sdk/onion.dart`; its hermetic Rust suite exercises the lifecycle,
+bridge configuration, and SOCKS protocol without a device attached.
 
 ## Why this exists
 
@@ -27,7 +28,7 @@ depends on. That package works, but:
   captured once at startup. Everything arti knows about *why* it is stuck —
   including whether the connection is being filtered — is computed and then
   discarded at the FFI boundary. The failure resurfaces later as an
-  unattributable Electrum error.
+  unattributable RecoverBull transport error.
 - `tor_client_bootstrap` reconstructs a `Box` from the client pointer and never
   leaks it back, so the pointer Dart keeps is dangling afterwards. Not
   currently triggered — nothing calls `setClientDormant` — but it is armed.
@@ -41,11 +42,11 @@ expensive to upgrade. We speak SOCKS5 ourselves via `tor-socksproto`, a normal
 non-experimental crate, and keep `arti-client` as the only high-level
 dependency.
 
-**The SOCKS proxy is load-bearing, not a convenience.** The port is the
-integration point between two independent native libraries: the app passes
-`127.0.0.1:<port>` to BDK, which drives its own Electrum connections from
-inside a different `.so`. Binding `TorClient::connect` directly would mean
-rewriting BDK's network path.
+**The SOCKS proxy is load-bearing, not general-purpose.** RecoverBull's Dart
+HTTP client already accepts a SOCKS5 endpoint. Binding `TorClient::connect`
+directly would require a separate HTTP transport over Arti streams. The proxy
+therefore accepts only `.onion` destinations; it cannot accidentally route
+clearnet or IP traffic through this package.
 
 **`native-tls`, not `rustls`.** The bull_sdk aggregate already links both `ring`
 and `aws-lc-rs` transitively, which makes rustls 0.23 panic when it
@@ -60,6 +61,31 @@ to a consumer to remember.
 defined in this crate, so an upstream change is absorbed here instead of
 rippling into the app, and the Dart side can switch exhaustively.
 
+**Snowflake is native and unmanaged.** Android and iOS use the precompiled
+IPtProxy 5.5.1 mobile library. It binds a local SOCKS5 listener; Arti's
+`tor-ptmgr` connects to that listener as an unmanaged transport and never tries
+to launch a subprocess. Native process-wide leases keep one listener alive
+while multiple Flutter engines use it. The Android AAR and both iOS binary
+slices are SHA-256 verified during every native build. See
+[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md) for provenance and licensing.
+
+**Direct and Snowflake clients are separate.** `TorService::start()` remains
+the direct path. For Snowflake, acquire `SnowflakeTransport`, pass its port to
+`TorService::start_with_snowflake()`, and release the native lease after the Tor
+service stops. Selecting Snowflake does not prove it connected;
+`TorStatus::ready_for_traffic` must also be true before the UI says it is
+connected through Snowflake.
+
+**Every SOCKS session has circuit isolation.** The initial listener and each
+listener returned by `TorService::open_session()` use a distinct
+`TorClient::isolated_client()`. Arti guarantees that streams from two such
+clients never share circuits, including hidden-service directory,
+introduction, and rendezvous circuits. Sessions still share the root
+configuration, directory state, guards, channels, transport, and observable
+process/network timing; this is unlinkability between application streams, not
+protection from a global observer. Stopping one session leaves the others
+running. Stopping or dropping `TorService` stops every registered session.
+
 ## What it provides
 
 ```rust
@@ -67,7 +93,28 @@ let svc = TorService::start(state_dir, cache_dir, 0).await?;  // binds, does not
 let port = svc.socks_port();                                   // real bound port
 let mut events = svc.status_stream();                          // progress + blockage
 svc.bootstrap().await?;
+let electrum = svc.open_session(0).await?;                     // different circuits
 let rtt = svc.probe("check.torproject.org", 443, timeout).await?;
+electrum.stop().await;
+svc.stop().await;
+```
+
+On Android and iOS, the equivalent Snowflake setup from Dart is:
+
+```dart
+final snowflakePort = await SnowflakeTransport.start();
+final service = await TorService.startWithSnowflake(
+  stateDir: stateDir,
+  cacheDir: cacheDir,
+  socksPort: 0,
+  snowflakePort: snowflakePort,
+);
+try {
+  await service.bootstrap();
+} finally {
+  await service.stop();
+  await SnowflakeTransport.stop();
+}
 ```
 
 ### Status is not monotonic
@@ -108,7 +155,7 @@ succeeded". `probe()` opens and closes a real circuit through
 `TorClient::connect`, bypassing both the SOCKS listener and the app's servers.
 That is what separates the two failures the app currently cannot tell apart:
 
-| Probe | Electrum | Conclusion |
+| Probe | RecoverBull | Conclusion |
 |---|---|---|
 | ok | ok | healthy |
 | ok | fails | **the server** — Tor is fine |
@@ -116,20 +163,29 @@ That is what separates the two failures the app currently cannot tell apart:
 
 ### SOCKS scope
 
-`CONNECT` only. `RESOLVE`/`RESOLVE_PTR` are recognized by the protocol parser
-and answered with `COMMAND_NOT_SUPPORTED`: nothing in the app uses them, and a
-subtly wrong name-resolution path inside an anonymity system is worse than a
-clean refusal. `BIND`/`UDP_ASSOCIATE` are rejected by `tor-socksproto` before a
-request object exists, so the connection is closed without a SOCKS reply —
-the same behaviour as arti's own proxy.
+`CONNECT` to `.onion` hosts only. Clearnet and IP targets are answered with
+`NOT_ALLOWED`; the embedded proxy exists for Bull Bitcoin's hidden-service
+traffic, not as a general-purpose Tor proxy for other local processes. A
+maximum of 64 connections, a 10-second handshake deadline, and a 60-second Tor
+connection deadline per session bound local resource use. Session ports are
+loopback-only and distinct, but currently unauthenticated; callers must not log
+or expose them, and native SOCKS credentials remain future hardening.
+
+`RESOLVE`/`RESOLVE_PTR` are recognized by the protocol parser and answered with
+`COMMAND_NOT_SUPPORTED`: nothing in the app uses them, and a subtly wrong
+name-resolution path inside an anonymity system is worse than a clean refusal.
+`BIND`/`UDP_ASSOCIATE` are rejected by `tor-socksproto` before a request object
+exists, so the connection is closed without a SOCKS reply — the same behaviour
+as arti's own proxy.
 
 ## Testing
 
 ```sh
-cargo test                                                    # hermetic, no network
-cargo test --test live_network -- --ignored --nocapture       # real Tor network
-cargo clippy --all-targets -- -D warnings
+cargo test --all-targets --locked                             # hermetic, no network
+cargo test --locked --test live_network -- --ignored --nocapture # real Tor network
+cargo clippy --all-targets --locked -- -D warnings
 cargo fmt --check
+fvm flutter analyze --fatal-warnings --fatal-infos
 ```
 
 The live suite bootstraps for real, watches progress on the status stream,
@@ -147,9 +203,9 @@ package `libsqlite3-sys` links to the native library `sqlite3`, but it
 conflicts with a previous package which links to `sqlite3` as well
 ```
 
-- `ark_wallet` -> `ark-client 0.7.0` -> `sqlx 0.8` -> `libsqlite3-sys ^0.28`
+- `ark_wallet` -> `ark-client 0.7.0` -> `sqlx 0.8` -> `libsqlite3-sys 0.30`
 - `onion` -> `arti-client 0.44` -> `tor-dirmgr` -> `rusqlite >=0.36 <0.40` ->
-  `libsqlite3-sys 0.34`
+  `libsqlite3-sys 0.37`
 
 Only one package in a graph may declare `links = "sqlite3"`. `rusqlite` is a
 hard, non-optional dependency of `tor-dirmgr` — no feature turns it off — so
@@ -166,18 +222,17 @@ keeps its own release profile instead of joining a 661-crate fat-LTO link
 unit, and can follow arti's monthly releases without waiting for the
 aggregate.
 
-## Not yet done
+## Snowflake limitations
 
-- `flutter_rust_bridge` annotations and the `bull_sdk` wiring (Phase 2).
-- Bridges (`bridge-client`). Note the asymmetry: `Filtering`, the condition we
-  detect best, is DPI — and plain bridges speak the same protocol, so they do
-  not defeat it. That needs pluggable transports, and `tor-ptmgr` drives
-  **external PT binaries as subprocesses**, which is an open question on
-  modern Android. Treat it as a feasibility study, not a task.
-- Bridge distribution. arti takes bridge lines from `config::BridgesConfig`; it
-  has no BridgeDB/moat client, so the lines have to come from somewhere.
-- Whether bridges are among the settings `TorClient::reconfigure()` accepts at
-  runtime. If not, enabling them means tearing down and recreating the client.
+- The bridge parameters are the Fastly and AMP-cache configurations published
+  by Arti 0.44.0. Updating Arti requires reviewing these values against the
+  current official Snowflake configuration.
+- Arti has no BridgeDB/moat client. A future dynamic bridge distribution flow
+  would require a separate integration.
+- Changing between direct and Snowflake transport recreates the client; it is
+  not a live `TorClient::reconfigure()` operation.
+- IPtProxy bundles GPL-3.0 Lyrebird even though this package invokes only
+  Snowflake. Production distribution requires legal approval and compliance.
 
 ## Known upstream hazard
 
@@ -186,17 +241,21 @@ if it receives a network consensus document telling it that it is obsolete"
 (tracked as arti issue #1932). For a wallet this is a real operational risk and
 an argument for keeping the dependency current.
 
-## Phase 2 — how much binding code do we actually write?
+## Binding shape
 
-Measured, not estimated. Running `flutter_rust_bridge_codegen generate` (2.12.0,
-the version bull_sdk pins) against the Phase 1 crate produced a complete Dart
-API from **plain Rust, with no annotations at all**:
+Running `flutter_rust_bridge_codegen generate` (2.12.0, the version bull_sdk
+pins) produces the complete Dart API from the Rust surface:
 
 ```dart
 abstract class TorService implements RustOpaqueInterface {
   static Future<TorService> start({required String stateDir,
                                    required String cacheDir,
                                    required int socksPort});
+  static Future<TorService> startWithSnowflake({required String stateDir,
+                                                 required String cacheDir,
+                                                 required int socksPort,
+                                                 required int snowflakePort});
+  Future<TorSession> openSession({required int socksPort});
   Future<void> bootstrap();
   Future<TorStatus> status();
   Stream<TorStatus> watchStatus();
@@ -206,13 +265,19 @@ abstract class TorService implements RustOpaqueInterface {
   Future<int> socksPort();
   Future<void> stop();
 }
+
+abstract class TorSession implements RustOpaqueInterface {
+  Future<int> socksPort();
+  Future<bool> proxyIsAlive();
+  Future<void> stop();
+}
 ```
 
 `TorStatus` and `Blockage` came out as Dart value classes with `==`/`hashCode`,
 `BlockageKind` and `TorFailureKind` as real Dart enums, `TorFailure` as a class
 `implements FrbException`, and every doc comment was carried across verbatim.
 Rust `snake_case` became Dart `camelCase`; `async fn` became `Future`.
-Hand-written binding code: **zero lines**.
+Hand-written Rust binding code: **zero lines**.
 
 The generator is syntactic, not semantic, so four things had to be written in
 shapes it recognises. None of them are annotations on business logic; all are

@@ -114,12 +114,12 @@ async fn probe_succeeds_through_tor() {
     svc.stop().await;
 }
 
-/// Drive a real SOCKS5 CONNECT through our hand-written front end and read a
-/// live HTTP response back. This is the test that validates `tor-socksproto`
-/// usage end to end.
+/// Drive a real SOCKS5 CONNECT to Bull Bitcoin's RecoverBull hidden service
+/// through our hand-written front end and read a live HTTP response back. This
+/// is the test that validates `tor-socksproto` usage end to end.
 #[tokio::test(flavor = "multi_thread")]
 #[ignore = "requires the Tor network"]
-async fn socks5_connect_relays_http() {
+async fn socks5_connect_relays_onion_http() {
     let dir = scratch("socks");
     let svc = TorService::start(&format!("{dir}/state"), &format!("{dir}/cache"), 0)
         .await
@@ -137,8 +137,8 @@ async fn socks5_connect_relays_http() {
     sock.read_exact(&mut greet).await.expect("greeting reply");
     assert_eq!(greet, [0x05, 0x00], "expected SOCKS5 / no-auth");
 
-    // CONNECT to example.com:80 by hostname, so Tor resolves it remotely.
-    let host = b"example.com";
+    // CONNECT by hostname, so Tor resolves the hidden service remotely.
+    let host = b"5m7enm5y77tdgmaf3d5xuwa5c7fjma7v5ljtwxu4q5jtq6b5utspmpyd.onion";
     let mut req = vec![0x05, 0x01, 0x00, 0x03, host.len() as u8];
     req.extend_from_slice(host);
     req.extend_from_slice(&80u16.to_be_bytes());
@@ -169,7 +169,9 @@ async fn socks5_connect_relays_http() {
     sock.read_exact(&mut rest).await.expect("reply tail");
 
     // Now the socket is a plain tunnel. Speak HTTP/1.0 over it.
-    sock.write_all(b"GET / HTTP/1.0\r\nHost: example.com\r\n\r\n")
+    sock.write_all(
+        b"GET / HTTP/1.0\r\nHost: 5m7enm5y77tdgmaf3d5xuwa5c7fjma7v5ljtwxu4q5jtq6b5utspmpyd.onion\r\n\r\n",
+    )
         .await
         .expect("http request");
 

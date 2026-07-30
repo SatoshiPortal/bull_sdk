@@ -29,3 +29,4 @@ export 'src/rust/api/client.dart';
 export 'src/rust/api/error.dart';
 export 'src/rust/api/status.dart';
 export 'src/rust/frb_generated.dart' show OnionCore;
+export 'src/snowflake_transport.dart';
