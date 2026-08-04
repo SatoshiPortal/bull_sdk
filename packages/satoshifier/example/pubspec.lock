@@ -37,11 +37,11 @@ packages:
     dependency: transitive
     description:
       path: "."
-      ref: "1377091a42743761be71ff42e01b8ff65531fbd3"
-      resolved-ref: "1377091a42743761be71ff42e01b8ff65531fbd3"
+      ref: fbf8952ed7056c9663e4bd47dddc8b4994580532
+      resolved-ref: fbf8952ed7056c9663e4bd47dddc8b4994580532
       url: "https://github.com/bitcoindevkit/bdk-dart"
     source: git
-    version: "1.0.0-rc.2"
+    version: "1.0.0-rc.3"
   bip21_uri:
     dependency: transitive
     description:
