@@ -19,7 +19,13 @@ bitbox = { git = "https://github.com/SatoshiPortal/bitbox-dart", rev = "c110af75
 bbqr = { git = "https://github.com/SatoshiPortal/bbqr-rust.git", rev = "2296a713beb58a175eb620a087f7da6826dc6f70", default-features = false }
 dart_bbqr = { git = "https://github.com/SatoshiPortal/bbqr-dart", rev = "50b2397a708aa8083c22ae80a49e4dd0d503632e", features = ["bull_sdk"] }
 boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", tag = "v0.5.1", features = ["bull_sdk"] }
-lwk = { git = "https://github.com/SatoshiPortal/lwk-dart", tag = "v0.5.0", features = ["bull_sdk"] }
+# TEMPORARY test-week pin: SatoshiPortal/lwk-dart#88 (Liquid UTXO consolidation)
+# isn't merged/tagged yet — pinned by rev (not branch, per the convention
+# above) to the PR's tip as of 2026-07-22 (includes 3ede959's fix for a dead
+# drain_lbtc_wallet() call in build_custom_tx). Re-point to a proper
+# `develop`/`main`/minor-release tag once #88 lands upstream (targeted next
+# Wednesday).
+lwk = { git = "https://github.com/SatoshiPortal/lwk-dart", rev = "3ede959189e60db6cf08f7f2e579fc55c900a3dc", features = ["bull_sdk"] }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }
