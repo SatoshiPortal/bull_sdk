@@ -55,18 +55,4 @@ with open('$FILE', 'w') as f:
 # Step 3: Convert mirrored TxFee to boltz::TxFee via .into()
 sedi 's/api_miner_fee,/api_miner_fee.into(),/g' "$FILE"
 
-# Step 4: Convert Vec<ark Transaction> to Vec<mirror Transaction> for transaction_history
-python3 -c "
-with open('$FILE', 'r') as f:
-    lines = f.readlines()
-for i, line in enumerate(lines):
-    if 'ArkWallet::transaction_history' in line:
-        for j in range(i+1, min(i+10, len(lines))):
-            if '.await?' in lines[j]:
-                lines[j] = lines[j].replace('.await?', '.await.map(|v| v.into_iter().map(|t| -> crate::api::simple::ArkTransaction { t.into() }).collect::<Vec<_>>())?')
-                break
-with open('$FILE', 'w') as f:
-    f.writelines(lines)
-"
-
 echo "Post-processed $FILE"

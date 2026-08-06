@@ -3,7 +3,6 @@ members = [
     "packages/bull_sdk/rust",
 ]
 exclude = [
-    "packages/ark-wallet/rust",
     "packages/bbqr/rust",
     "packages/bitbox/rust",
     "packages/boltz/rust",

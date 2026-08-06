@@ -10,13 +10,6 @@ import 'frb_generated.dart';
 import 'frb_generated.io.dart'
     if (dart.library.js_interop) 'frb_generated.web.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
-import 'third_party/ark_wallet/ark/balance.dart';
-import 'third_party/ark_wallet/ark/client.dart';
-import 'third_party/ark_wallet/ark/esplora.dart';
-import 'third_party/ark_wallet/ark/server_info.dart';
-import 'third_party/ark_wallet/ark/settle.dart';
-import 'third_party/ark_wallet/ark/storage.dart';
-import 'third_party/ark_wallet/ark/utils.dart';
 import 'third_party/bbqr/continuous_join.dart';
 import 'third_party/bbqr/encode.dart';
 import 'third_party/bbqr/file_type.dart';
@@ -99,7 +92,7 @@ class BullSdk extends BaseEntrypoint<BullSdkApi, BullSdkApiImpl, BullSdkWire> {
   String get codegenVersion => '2.12.0';
 
   @override
-  int get rustContentHash => 410244455;
+  int get rustContentHash => 1884940812;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -111,68 +104,6 @@ class BullSdk extends BaseEntrypoint<BullSdkApi, BullSdkApiImpl, BullSdkWire> {
 }
 
 abstract class BullSdkApi extends BaseApi {
-  Future<ArkBalance> arkWalletArkClientArkWalletBalance({
-    required ArkWallet that,
-  });
-
-  String arkWalletArkClientArkWalletBoardingAddress({required ArkWallet that});
-
-  Future<bool> arkWalletArkClientArkWalletCanSettleBoarding({
-    required ArkWallet that,
-  });
-
-  Future<String> arkWalletArkClientArkWalletCollaborativeRedeem({
-    required ArkWallet that,
-    required String address,
-    required PlatformInt64 sats,
-    required bool selectRecoverableVtxos,
-  });
-
-  Future<BoardingSettlement> arkWalletArkClientArkWalletGetBoardingStatus({
-    required ArkWallet that,
-  });
-
-  Future<ArkWallet> arkWalletArkClientArkWalletInit({
-    required List<int> secretKey,
-    required String network,
-    required String esplora,
-    required String server,
-    required String boltz,
-  });
-
-  String arkWalletArkClientArkWalletOffchainAddress({required ArkWallet that});
-
-  String arkWalletArkClientArkWalletOnchainAddress({required ArkWallet that});
-
-  Future<String> arkWalletArkClientArkWalletSendOffChain({
-    required ArkWallet that,
-    required String address,
-    required PlatformInt64 sats,
-  });
-
-  Future<String> arkWalletArkClientArkWalletSendOnChain({
-    required ArkWallet that,
-    required String address,
-    required PlatformInt64 sats,
-  });
-
-  ServerInfo arkWalletArkClientArkWalletServerInfo({required ArkWallet that});
-
-  Future<void> arkWalletArkClientArkWalletSettle({
-    required ArkWallet that,
-    required bool selectRecoverableVtxos,
-  });
-
-  Future<BoardingSettlement>
-  arkWalletArkClientArkWalletSettleBoardingTransactions({
-    required ArkWallet that,
-    required bool selectRecoverableVtxos,
-  });
-
-  Future<List<ArkTransaction>> arkWalletArkClientArkWalletTransactionHistory({
-    required ArkWallet that,
-  });
-
   Future<ContinuousJoiner> bbqrContinuousJoinContinuousJoinerDefault();
 
   Future<ContinuousJoinResult>
@@ -182,16 +113,6 @@ abstract class BullSdkApi extends BaseApi {
   });
 
   Future<ContinuousJoiner> bbqrContinuousJoinContinuousJoinerNew();
-
-  Future<void> arkWalletArkEsploraEsploraClientCheckConnection({
-    required EsploraClient that,
-  });
-
-  Future<EsploraClient> arkWalletArkEsploraEsploraClientNew({
-    required String url,
-  });
-
-  Future<InMemoryDb> arkWalletArkStorageInMemoryDbDefault();
 
   BigInt lwkApiTransactionLiquidTransactionFee({
     required LiquidTransaction that,
@@ -982,10 +903,6 @@ abstract class BullSdkApi extends BaseApi {
 
   String boltzApiSwapStatusTransactionToJson({required Transaction that});
 
-  bool arkWalletArkUtilsUtilsIsArk({required String address});
-
-  bool arkWalletArkUtilsUtilsIsBtc({required String address});
-
   Future<String> bitboxApiVerifyAddress({
     required String serialNumber,
     required String keypath,
@@ -994,14 +911,6 @@ abstract class BullSdkApi extends BaseApi {
   });
 
   Future<BigInt> bbqrQrVersionDataCapacity({required Version that});
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_ArkWallet;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_ArkWallet;
-
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_ArkWalletPtr;
 
   RustArcIncrementStrongCountFnType
   get rust_arc_increment_strong_count_ContinuousJoinResult;
@@ -1020,23 +929,6 @@ abstract class BullSdkApi extends BaseApi {
 
   CrossPlatformFinalizerArg
   get rust_arc_decrement_strong_count_ContinuousJoinerPtr;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_EsploraClient;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_EsploraClient;
-
-  CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_EsploraClientPtr;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_InMemoryDb;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_InMemoryDb;
-
-  CrossPlatformFinalizerArg get rust_arc_decrement_strong_count_InMemoryDbPtr;
 
   RustArcIncrementStrongCountFnType
   get rust_arc_increment_strong_count_LiquidTransaction;
@@ -1070,498 +962,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     required super.generalizedFrbRustBinding,
     required super.portManager,
   });
-
-  @override
-  Future<ArkBalance> arkWalletArkClientArkWalletBalance({
-    required ArkWallet that,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-                that,
-              );
-          return wire.wire__ark_wallet__ark__client__ArkWallet_balance(
-            port_,
-            arg0,
-          );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_ark_balance,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkClientArkWalletBalanceConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkClientArkWalletBalanceConstMeta =>
-      const TaskConstMeta(debugName: "ArkWallet_balance", argNames: ["that"]);
-
-  @override
-  String arkWalletArkClientArkWalletBoardingAddress({required ArkWallet that}) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-                that,
-              );
-          return wire.wire__ark_wallet__ark__client__ArkWallet_boarding_address(
-            arg0,
-          );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_String,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkClientArkWalletBoardingAddressConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkClientArkWalletBoardingAddressConstMeta =>
-      const TaskConstMeta(
-        debugName: "ArkWallet_boarding_address",
-        argNames: ["that"],
-      );
-
-  @override
-  Future<bool> arkWalletArkClientArkWalletCanSettleBoarding({
-    required ArkWallet that,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-                that,
-              );
-          return wire
-              .wire__ark_wallet__ark__client__ArkWallet_can_settle_boarding(
-                port_,
-                arg0,
-              );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_bool,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkClientArkWalletCanSettleBoardingConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkClientArkWalletCanSettleBoardingConstMeta =>
-      const TaskConstMeta(
-        debugName: "ArkWallet_can_settle_boarding",
-        argNames: ["that"],
-      );
-
-  @override
-  Future<String> arkWalletArkClientArkWalletCollaborativeRedeem({
-    required ArkWallet that,
-    required String address,
-    required PlatformInt64 sats,
-    required bool selectRecoverableVtxos,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-                that,
-              );
-          var arg1 = cst_encode_String(address);
-          var arg2 = cst_encode_i_64(sats);
-          var arg3 = cst_encode_bool(selectRecoverableVtxos);
-          return wire
-              .wire__ark_wallet__ark__client__ArkWallet_collaborative_redeem(
-                port_,
-                arg0,
-                arg1,
-                arg2,
-                arg3,
-              );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_String,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkClientArkWalletCollaborativeRedeemConstMeta,
-        argValues: [that, address, sats, selectRecoverableVtxos],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkClientArkWalletCollaborativeRedeemConstMeta =>
-      const TaskConstMeta(
-        debugName: "ArkWallet_collaborative_redeem",
-        argNames: ["that", "address", "sats", "selectRecoverableVtxos"],
-      );
-
-  @override
-  Future<BoardingSettlement> arkWalletArkClientArkWalletGetBoardingStatus({
-    required ArkWallet that,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-                that,
-              );
-          return wire
-              .wire__ark_wallet__ark__client__ArkWallet_get_boarding_status(
-                port_,
-                arg0,
-              );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_boarding_settlement,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkClientArkWalletGetBoardingStatusConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkClientArkWalletGetBoardingStatusConstMeta =>
-      const TaskConstMeta(
-        debugName: "ArkWallet_get_boarding_status",
-        argNames: ["that"],
-      );
-
-  @override
-  Future<ArkWallet> arkWalletArkClientArkWalletInit({
-    required List<int> secretKey,
-    required String network,
-    required String esplora,
-    required String server,
-    required String boltz,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          var arg0 = cst_encode_list_prim_u_8_loose(secretKey);
-          var arg1 = cst_encode_String(network);
-          var arg2 = cst_encode_String(esplora);
-          var arg3 = cst_encode_String(server);
-          var arg4 = cst_encode_String(boltz);
-          return wire.wire__ark_wallet__ark__client__ArkWallet_init(
-            port_,
-            arg0,
-            arg1,
-            arg2,
-            arg3,
-            arg4,
-          );
-        },
-        codec: DcoCodec(
-          decodeSuccessData:
-              dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkClientArkWalletInitConstMeta,
-        argValues: [secretKey, network, esplora, server, boltz],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkClientArkWalletInitConstMeta =>
-      const TaskConstMeta(
-        debugName: "ArkWallet_init",
-        argNames: ["secretKey", "network", "esplora", "server", "boltz"],
-      );
-
-  @override
-  String arkWalletArkClientArkWalletOffchainAddress({required ArkWallet that}) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-                that,
-              );
-          return wire.wire__ark_wallet__ark__client__ArkWallet_offchain_address(
-            arg0,
-          );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_String,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkClientArkWalletOffchainAddressConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkClientArkWalletOffchainAddressConstMeta =>
-      const TaskConstMeta(
-        debugName: "ArkWallet_offchain_address",
-        argNames: ["that"],
-      );
-
-  @override
-  String arkWalletArkClientArkWalletOnchainAddress({required ArkWallet that}) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-                that,
-              );
-          return wire.wire__ark_wallet__ark__client__ArkWallet_onchain_address(
-            arg0,
-          );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_String,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkClientArkWalletOnchainAddressConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkClientArkWalletOnchainAddressConstMeta =>
-      const TaskConstMeta(
-        debugName: "ArkWallet_onchain_address",
-        argNames: ["that"],
-      );
-
-  @override
-  Future<String> arkWalletArkClientArkWalletSendOffChain({
-    required ArkWallet that,
-    required String address,
-    required PlatformInt64 sats,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-                that,
-              );
-          var arg1 = cst_encode_String(address);
-          var arg2 = cst_encode_i_64(sats);
-          return wire.wire__ark_wallet__ark__client__ArkWallet_send_off_chain(
-            port_,
-            arg0,
-            arg1,
-            arg2,
-          );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_String,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkClientArkWalletSendOffChainConstMeta,
-        argValues: [that, address, sats],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkClientArkWalletSendOffChainConstMeta =>
-      const TaskConstMeta(
-        debugName: "ArkWallet_send_off_chain",
-        argNames: ["that", "address", "sats"],
-      );
-
-  @override
-  Future<String> arkWalletArkClientArkWalletSendOnChain({
-    required ArkWallet that,
-    required String address,
-    required PlatformInt64 sats,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-                that,
-              );
-          var arg1 = cst_encode_String(address);
-          var arg2 = cst_encode_i_64(sats);
-          return wire.wire__ark_wallet__ark__client__ArkWallet_send_on_chain(
-            port_,
-            arg0,
-            arg1,
-            arg2,
-          );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_String,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkClientArkWalletSendOnChainConstMeta,
-        argValues: [that, address, sats],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkClientArkWalletSendOnChainConstMeta =>
-      const TaskConstMeta(
-        debugName: "ArkWallet_send_on_chain",
-        argNames: ["that", "address", "sats"],
-      );
-
-  @override
-  ServerInfo arkWalletArkClientArkWalletServerInfo({required ArkWallet that}) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-                that,
-              );
-          return wire.wire__ark_wallet__ark__client__ArkWallet_server_info(
-            arg0,
-          );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_server_info,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkClientArkWalletServerInfoConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkClientArkWalletServerInfoConstMeta =>
-      const TaskConstMeta(
-        debugName: "ArkWallet_server_info",
-        argNames: ["that"],
-      );
-
-  @override
-  Future<void> arkWalletArkClientArkWalletSettle({
-    required ArkWallet that,
-    required bool selectRecoverableVtxos,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-                that,
-              );
-          var arg1 = cst_encode_bool(selectRecoverableVtxos);
-          return wire.wire__ark_wallet__ark__client__ArkWallet_settle(
-            port_,
-            arg0,
-            arg1,
-          );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_unit,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkClientArkWalletSettleConstMeta,
-        argValues: [that, selectRecoverableVtxos],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkClientArkWalletSettleConstMeta =>
-      const TaskConstMeta(
-        debugName: "ArkWallet_settle",
-        argNames: ["that", "selectRecoverableVtxos"],
-      );
-
-  @override
-  Future<BoardingSettlement>
-  arkWalletArkClientArkWalletSettleBoardingTransactions({
-    required ArkWallet that,
-    required bool selectRecoverableVtxos,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-                that,
-              );
-          var arg1 = cst_encode_bool(selectRecoverableVtxos);
-          return wire
-              .wire__ark_wallet__ark__client__ArkWallet_settle_boarding_transactions(
-                port_,
-                arg0,
-                arg1,
-              );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_boarding_settlement,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta:
-            kArkWalletArkClientArkWalletSettleBoardingTransactionsConstMeta,
-        argValues: [that, selectRecoverableVtxos],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta
-  get kArkWalletArkClientArkWalletSettleBoardingTransactionsConstMeta =>
-      const TaskConstMeta(
-        debugName: "ArkWallet_settle_boarding_transactions",
-        argNames: ["that", "selectRecoverableVtxos"],
-      );
-
-  @override
-  Future<List<ArkTransaction>> arkWalletArkClientArkWalletTransactionHistory({
-    required ArkWallet that,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-                that,
-              );
-          return wire
-              .wire__ark_wallet__ark__client__ArkWallet_transaction_history(
-                port_,
-                arg0,
-              );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_list_ark_transaction,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkClientArkWalletTransactionHistoryConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkClientArkWalletTransactionHistoryConstMeta =>
-      const TaskConstMeta(
-        debugName: "ArkWallet_transaction_history",
-        argNames: ["that"],
-      );
 
   @override
   Future<ContinuousJoiner> bbqrContinuousJoinContinuousJoinerDefault() {
@@ -1650,90 +1050,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
 
   TaskConstMeta get kBbqrContinuousJoinContinuousJoinerNewConstMeta =>
       const TaskConstMeta(debugName: "ContinuousJoiner_new", argNames: []);
-
-  @override
-  Future<void> arkWalletArkEsploraEsploraClientCheckConnection({
-    required EsploraClient that,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-                that,
-              );
-          return wire
-              .wire__ark_wallet__ark__esplora__EsploraClient_check_connection(
-                port_,
-                arg0,
-              );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_unit,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkEsploraEsploraClientCheckConnectionConstMeta,
-        argValues: [that],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkEsploraEsploraClientCheckConnectionConstMeta =>
-      const TaskConstMeta(
-        debugName: "EsploraClient_check_connection",
-        argNames: ["that"],
-      );
-
-  @override
-  Future<EsploraClient> arkWalletArkEsploraEsploraClientNew({
-    required String url,
-  }) {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          var arg0 = cst_encode_String(url);
-          return wire.wire__ark_wallet__ark__esplora__EsploraClient_new(
-            port_,
-            arg0,
-          );
-        },
-        codec: DcoCodec(
-          decodeSuccessData:
-              dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient,
-          decodeErrorData: dco_decode_AnyhowException,
-        ),
-        constMeta: kArkWalletArkEsploraEsploraClientNewConstMeta,
-        argValues: [url],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkEsploraEsploraClientNewConstMeta =>
-      const TaskConstMeta(debugName: "EsploraClient_new", argNames: ["url"]);
-
-  @override
-  Future<InMemoryDb> arkWalletArkStorageInMemoryDbDefault() {
-    return handler.executeNormal(
-      NormalTask(
-        callFfi: (port_) {
-          return wire.wire__ark_wallet__ark__storage__InMemoryDb_default(port_);
-        },
-        codec: DcoCodec(
-          decodeSuccessData:
-              dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb,
-          decodeErrorData: null,
-        ),
-        constMeta: kArkWalletArkStorageInMemoryDbDefaultConstMeta,
-        argValues: [],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkStorageInMemoryDbDefaultConstMeta =>
-      const TaskConstMeta(debugName: "InMemoryDb_default", argNames: []);
 
   @override
   BigInt lwkApiTransactionLiquidTransactionFee({
@@ -7481,50 +6797,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       const TaskConstMeta(debugName: "transaction_to_json", argNames: ["that"]);
 
   @override
-  bool arkWalletArkUtilsUtilsIsArk({required String address}) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          var arg0 = cst_encode_String(address);
-          return wire.wire__ark_wallet__ark__utils__utils_is_ark(arg0);
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_bool,
-          decodeErrorData: null,
-        ),
-        constMeta: kArkWalletArkUtilsUtilsIsArkConstMeta,
-        argValues: [address],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkUtilsUtilsIsArkConstMeta =>
-      const TaskConstMeta(debugName: "utils_is_ark", argNames: ["address"]);
-
-  @override
-  bool arkWalletArkUtilsUtilsIsBtc({required String address}) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          var arg0 = cst_encode_String(address);
-          return wire.wire__ark_wallet__ark__utils__utils_is_btc(arg0);
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_bool,
-          decodeErrorData: null,
-        ),
-        constMeta: kArkWalletArkUtilsUtilsIsBtcConstMeta,
-        argValues: [address],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kArkWalletArkUtilsUtilsIsBtcConstMeta =>
-      const TaskConstMeta(debugName: "utils_is_btc", argNames: ["address"]);
-
-  @override
   Future<String> bitboxApiVerifyAddress({
     required String serialNumber,
     required String keypath,
@@ -7587,14 +6859,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   );
 
   RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_ArkWallet => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_ArkWallet => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet;
-
-  RustArcIncrementStrongCountFnType
   get rust_arc_increment_strong_count_ContinuousJoinResult => wire
       .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult;
 
@@ -7609,22 +6873,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   RustArcDecrementStrongCountFnType
   get rust_arc_decrement_strong_count_ContinuousJoiner => wire
       .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoiner;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_EsploraClient => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_EsploraClient => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient;
-
-  RustArcIncrementStrongCountFnType
-  get rust_arc_increment_strong_count_InMemoryDb => wire
-      .rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb;
-
-  RustArcDecrementStrongCountFnType
-  get rust_arc_decrement_strong_count_InMemoryDb => wire
-      .rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb;
 
   RustArcIncrementStrongCountFnType
   get rust_arc_increment_strong_count_LiquidTransaction => wire
@@ -7657,15 +6905,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  ArkWallet
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return ArkWalletImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
   ContinuousJoinResult
   dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult(
     dynamic raw,
@@ -7681,24 +6920,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return ContinuousJoinerImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  EsploraClient
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return EsploraClientImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  InMemoryDb
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return InMemoryDbImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -7740,24 +6961,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  ArkWallet
-  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return ArkWalletImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  EsploraClient
-  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return EsploraClientImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
   LiquidTransaction
   dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
     dynamic raw,
@@ -7787,15 +6990,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  ArkWallet
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return ArkWalletImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
   ContinuousJoinResult
   dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult(
     dynamic raw,
@@ -7811,24 +7005,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   ) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return ContinuousJoinerImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  EsploraClient
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return EsploraClientImpl.frbInternalDcoDecode(raw as List<dynamic>);
-  }
-
-  @protected
-  InMemoryDb
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-    dynamic raw,
-  ) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return InMemoryDbImpl.frbInternalDcoDecode(raw as List<dynamic>);
   }
 
   @protected
@@ -7899,63 +7075,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  ArkBalance dco_decode_ark_balance(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 6)
-      throw Exception('unexpected arr length: expect 6 but see ${arr.length}');
-    return ArkBalance(
-      preconfirmed: dco_decode_i_64(arr[0]),
-      settled: dco_decode_i_64(arr[1]),
-      available: dco_decode_i_64(arr[2]),
-      recoverable: dco_decode_i_64(arr[3]),
-      total: dco_decode_i_64(arr[4]),
-      boarding: dco_decode_ark_boarding(arr[5]),
-    );
-  }
-
-  @protected
-  ArkBoarding dco_decode_ark_boarding(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 3)
-      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
-    return ArkBoarding(
-      unconfirmed: dco_decode_i_64(arr[0]),
-      confirmed: dco_decode_i_64(arr[1]),
-      total: dco_decode_i_64(arr[2]),
-    );
-  }
-
-  @protected
-  ArkTransaction dco_decode_ark_transaction(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    switch (raw[0]) {
-      case 0:
-        return ArkTransaction_Boarding(
-          txid: dco_decode_String(raw[1]),
-          sats: dco_decode_i_64(raw[2]),
-          confirmedAt: dco_decode_opt_box_autoadd_i_64(raw[3]),
-        );
-      case 1:
-        return ArkTransaction_Commitment(
-          txid: dco_decode_String(raw[1]),
-          sats: dco_decode_i_64(raw[2]),
-          createdAt: dco_decode_i_64(raw[3]),
-        );
-      case 2:
-        return ArkTransaction_Redeem(
-          txid: dco_decode_String(raw[1]),
-          sats: dco_decode_i_64(raw[2]),
-          isSettled: dco_decode_bool(raw[3]),
-          createdAt: dco_decode_i_64(raw[4]),
-        );
-      default:
-        throw Exception("unreachable");
-    }
-  }
-
-  @protected
   Balance dco_decode_balance(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -7974,20 +7093,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     if (arr.isNotEmpty)
       throw Exception('unexpected arr length: expect 0 but see ${arr.length}');
     return Blockchain();
-  }
-
-  @protected
-  BoardingSettlement dco_decode_boarding_settlement(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 4)
-      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
-    return BoardingSettlement(
-      pendingCount: dco_decode_i_32(arr[0]),
-      confirmedCount: dco_decode_i_32(arr[1]),
-      totalPendingSats: dco_decode_i_64(arr[2]),
-      totalConfirmedSats: dco_decode_i_64(arr[3]),
-    );
   }
 
   @protected
@@ -8072,12 +7177,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   FileType dco_decode_box_autoadd_file_type(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_file_type(raw);
-  }
-
-  @protected
-  PlatformInt64 dco_decode_box_autoadd_i_64(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_i_64(raw);
   }
 
   @protected
@@ -8482,12 +7581,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  List<ArkTransaction> dco_decode_list_ark_transaction(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return (raw as List<dynamic>).map(dco_decode_ark_transaction).toList();
-  }
-
-  @protected
   List<Balance> dco_decode_list_balance(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_balance).toList();
@@ -8653,12 +7746,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   FileType? dco_decode_opt_box_autoadd_file_type(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_file_type(raw);
-  }
-
-  @protected
-  PlatformInt64? dco_decode_opt_box_autoadd_i_64(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return raw == null ? null : dco_decode_box_autoadd_i_64(raw);
   }
 
   @protected
@@ -8853,31 +7940,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       lbtcLimits: dco_decode_swap_limits(arr[1]),
       btcFees: dco_decode_rev_swap_fees(arr[2]),
       lbtcFees: dco_decode_rev_swap_fees(arr[3]),
-    );
-  }
-
-  @protected
-  ServerInfo dco_decode_server_info(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 15)
-      throw Exception('unexpected arr length: expect 15 but see ${arr.length}');
-    return ServerInfo(
-      version: dco_decode_String(arr[0]),
-      signerPubkey: dco_decode_String(arr[1]),
-      forfeitPubkey: dco_decode_String(arr[2]),
-      forfeitAddress: dco_decode_String(arr[3]),
-      checkpointTapscript: dco_decode_String(arr[4]),
-      network: dco_decode_String(arr[5]),
-      sessionDuration: dco_decode_i_64(arr[6]),
-      unilateralExitDelay: dco_decode_u_32(arr[7]),
-      boardingExitDelay: dco_decode_u_32(arr[8]),
-      utxoMinAmount: dco_decode_opt_box_autoadd_i_64(arr[9]),
-      utxoMaxAmount: dco_decode_opt_box_autoadd_i_64(arr[10]),
-      vtxoMinAmount: dco_decode_opt_box_autoadd_i_64(arr[11]),
-      vtxoMaxAmount: dco_decode_opt_box_autoadd_i_64(arr[12]),
-      dust: dco_decode_i_64(arr[13]),
-      digest: dco_decode_String(arr[14]),
     );
   }
 
@@ -9179,15 +8241,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  Utils dco_decode_utils(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.isNotEmpty)
-      throw Exception('unexpected arr length: expect 0 but see ${arr.length}');
-    return Utils();
-  }
-
-  @protected
   Version dco_decode_version(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return Version.values[raw as int];
@@ -9198,18 +8251,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_String(deserializer);
     return AnyhowException(inner);
-  }
-
-  @protected
-  ArkWallet
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return ArkWalletImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
   }
 
   @protected
@@ -9231,30 +8272,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return ContinuousJoinerImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  EsploraClient
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return EsploraClientImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  InMemoryDb
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return InMemoryDbImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
@@ -9309,30 +8326,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  ArkWallet
-  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return ArkWalletImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  EsploraClient
-  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return EsploraClientImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
   LiquidTransaction
   sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
     SseDeserializer deserializer,
@@ -9369,18 +8362,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  ArkWallet
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return ArkWalletImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
   ContinuousJoinResult
   sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult(
     SseDeserializer deserializer,
@@ -9399,30 +8380,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return ContinuousJoinerImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  EsploraClient
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return EsploraClientImpl.frbInternalSseDecode(
-      sse_decode_usize(deserializer),
-      sse_decode_i_32(deserializer),
-    );
-  }
-
-  @protected
-  InMemoryDb
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return InMemoryDbImpl.frbInternalSseDecode(
       sse_decode_usize(deserializer),
       sse_decode_i_32(deserializer),
     );
@@ -9487,78 +8444,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  ArkBalance sse_decode_ark_balance(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_preconfirmed = sse_decode_i_64(deserializer);
-    var var_settled = sse_decode_i_64(deserializer);
-    var var_available = sse_decode_i_64(deserializer);
-    var var_recoverable = sse_decode_i_64(deserializer);
-    var var_total = sse_decode_i_64(deserializer);
-    var var_boarding = sse_decode_ark_boarding(deserializer);
-    return ArkBalance(
-      preconfirmed: var_preconfirmed,
-      settled: var_settled,
-      available: var_available,
-      recoverable: var_recoverable,
-      total: var_total,
-      boarding: var_boarding,
-    );
-  }
-
-  @protected
-  ArkBoarding sse_decode_ark_boarding(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_unconfirmed = sse_decode_i_64(deserializer);
-    var var_confirmed = sse_decode_i_64(deserializer);
-    var var_total = sse_decode_i_64(deserializer);
-    return ArkBoarding(
-      unconfirmed: var_unconfirmed,
-      confirmed: var_confirmed,
-      total: var_total,
-    );
-  }
-
-  @protected
-  ArkTransaction sse_decode_ark_transaction(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    var tag_ = sse_decode_i_32(deserializer);
-    switch (tag_) {
-      case 0:
-        var var_txid = sse_decode_String(deserializer);
-        var var_sats = sse_decode_i_64(deserializer);
-        var var_confirmedAt = sse_decode_opt_box_autoadd_i_64(deserializer);
-        return ArkTransaction_Boarding(
-          txid: var_txid,
-          sats: var_sats,
-          confirmedAt: var_confirmedAt,
-        );
-      case 1:
-        var var_txid = sse_decode_String(deserializer);
-        var var_sats = sse_decode_i_64(deserializer);
-        var var_createdAt = sse_decode_i_64(deserializer);
-        return ArkTransaction_Commitment(
-          txid: var_txid,
-          sats: var_sats,
-          createdAt: var_createdAt,
-        );
-      case 2:
-        var var_txid = sse_decode_String(deserializer);
-        var var_sats = sse_decode_i_64(deserializer);
-        var var_isSettled = sse_decode_bool(deserializer);
-        var var_createdAt = sse_decode_i_64(deserializer);
-        return ArkTransaction_Redeem(
-          txid: var_txid,
-          sats: var_sats,
-          isSettled: var_isSettled,
-          createdAt: var_createdAt,
-        );
-      default:
-        throw UnimplementedError('');
-    }
-  }
-
-  @protected
   Balance sse_decode_balance(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_assetId = sse_decode_String(deserializer);
@@ -9570,23 +8455,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   Blockchain sse_decode_blockchain(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return Blockchain();
-  }
-
-  @protected
-  BoardingSettlement sse_decode_boarding_settlement(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_pendingCount = sse_decode_i_32(deserializer);
-    var var_confirmedCount = sse_decode_i_32(deserializer);
-    var var_totalPendingSats = sse_decode_i_64(deserializer);
-    var var_totalConfirmedSats = sse_decode_i_64(deserializer);
-    return BoardingSettlement(
-      pendingCount: var_pendingCount,
-      confirmedCount: var_confirmedCount,
-      totalPendingSats: var_totalPendingSats,
-      totalConfirmedSats: var_totalConfirmedSats,
-    );
   }
 
   @protected
@@ -9673,12 +8541,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   FileType sse_decode_box_autoadd_file_type(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_file_type(deserializer));
-  }
-
-  @protected
-  PlatformInt64 sse_decode_box_autoadd_i_64(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_i_64(deserializer));
   }
 
   @protected
@@ -10158,20 +9020,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  List<ArkTransaction> sse_decode_list_ark_transaction(
-    SseDeserializer deserializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    var len_ = sse_decode_i_32(deserializer);
-    var ans_ = <ArkTransaction>[];
-    for (var idx_ = 0; idx_ < len_; ++idx_) {
-      ans_.add(sse_decode_ark_transaction(deserializer));
-    }
-    return ans_;
-  }
-
-  @protected
   List<Balance> sse_decode_list_balance(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -10448,17 +9296,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  PlatformInt64? sse_decode_opt_box_autoadd_i_64(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    if (sse_decode_bool(deserializer)) {
-      return (sse_decode_box_autoadd_i_64(deserializer));
-    } else {
-      return null;
-    }
-  }
-
-  @protected
   PsetInput? sse_decode_opt_box_autoadd_pset_input(
     SseDeserializer deserializer,
   ) {
@@ -10702,43 +9539,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       lbtcLimits: var_lbtcLimits,
       btcFees: var_btcFees,
       lbtcFees: var_lbtcFees,
-    );
-  }
-
-  @protected
-  ServerInfo sse_decode_server_info(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_version = sse_decode_String(deserializer);
-    var var_signerPubkey = sse_decode_String(deserializer);
-    var var_forfeitPubkey = sse_decode_String(deserializer);
-    var var_forfeitAddress = sse_decode_String(deserializer);
-    var var_checkpointTapscript = sse_decode_String(deserializer);
-    var var_network = sse_decode_String(deserializer);
-    var var_sessionDuration = sse_decode_i_64(deserializer);
-    var var_unilateralExitDelay = sse_decode_u_32(deserializer);
-    var var_boardingExitDelay = sse_decode_u_32(deserializer);
-    var var_utxoMinAmount = sse_decode_opt_box_autoadd_i_64(deserializer);
-    var var_utxoMaxAmount = sse_decode_opt_box_autoadd_i_64(deserializer);
-    var var_vtxoMinAmount = sse_decode_opt_box_autoadd_i_64(deserializer);
-    var var_vtxoMaxAmount = sse_decode_opt_box_autoadd_i_64(deserializer);
-    var var_dust = sse_decode_i_64(deserializer);
-    var var_digest = sse_decode_String(deserializer);
-    return ServerInfo(
-      version: var_version,
-      signerPubkey: var_signerPubkey,
-      forfeitPubkey: var_forfeitPubkey,
-      forfeitAddress: var_forfeitAddress,
-      checkpointTapscript: var_checkpointTapscript,
-      network: var_network,
-      sessionDuration: var_sessionDuration,
-      unilateralExitDelay: var_unilateralExitDelay,
-      boardingExitDelay: var_boardingExitDelay,
-      utxoMinAmount: var_utxoMinAmount,
-      utxoMaxAmount: var_utxoMaxAmount,
-      vtxoMinAmount: var_vtxoMinAmount,
-      vtxoMaxAmount: var_vtxoMaxAmount,
-      dust: var_dust,
-      digest: var_digest,
     );
   }
 
@@ -11066,26 +9866,10 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  Utils sse_decode_utils(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return Utils();
-  }
-
-  @protected
   Version sse_decode_version(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
     return Version.values[inner];
-  }
-
-  @protected
-  int
-  cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    ArkWallet raw,
-  ) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    // ignore: invalid_use_of_internal_member
-    return (raw as ArkWalletImpl).frbInternalCstEncode(move: true);
   }
 
   @protected
@@ -11106,26 +9890,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     // Codec=Cst (C-struct based), see doc to use other codecs
     // ignore: invalid_use_of_internal_member
     return (raw as ContinuousJoinerImpl).frbInternalCstEncode(move: true);
-  }
-
-  @protected
-  int
-  cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    EsploraClient raw,
-  ) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    // ignore: invalid_use_of_internal_member
-    return (raw as EsploraClientImpl).frbInternalCstEncode(move: true);
-  }
-
-  @protected
-  int
-  cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-    InMemoryDb raw,
-  ) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    // ignore: invalid_use_of_internal_member
-    return (raw as InMemoryDbImpl).frbInternalCstEncode(move: true);
   }
 
   @protected
@@ -11172,26 +9936,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
 
   @protected
   int
-  cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    ArkWallet raw,
-  ) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    // ignore: invalid_use_of_internal_member
-    return (raw as ArkWalletImpl).frbInternalCstEncode(move: false);
-  }
-
-  @protected
-  int
-  cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    EsploraClient raw,
-  ) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    // ignore: invalid_use_of_internal_member
-    return (raw as EsploraClientImpl).frbInternalCstEncode(move: false);
-  }
-
-  @protected
-  int
   cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
     LiquidTransaction raw,
   ) {
@@ -11224,16 +9968,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
 
   @protected
   int
-  cst_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    ArkWallet raw,
-  ) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    // ignore: invalid_use_of_internal_member
-    return (raw as ArkWalletImpl).frbInternalCstEncode();
-  }
-
-  @protected
-  int
   cst_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult(
     ContinuousJoinResult raw,
   ) {
@@ -11250,26 +9984,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     // Codec=Cst (C-struct based), see doc to use other codecs
     // ignore: invalid_use_of_internal_member
     return (raw as ContinuousJoinerImpl).frbInternalCstEncode();
-  }
-
-  @protected
-  int
-  cst_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    EsploraClient raw,
-  ) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    // ignore: invalid_use_of_internal_member
-    return (raw as EsploraClientImpl).frbInternalCstEncode();
-  }
-
-  @protected
-  int
-  cst_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-    InMemoryDb raw,
-  ) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    // ignore: invalid_use_of_internal_member
-    return (raw as InMemoryDbImpl).frbInternalCstEncode();
   }
 
   @protected
@@ -11422,19 +10136,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
 
   @protected
   void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    ArkWallet self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as ArkWalletImpl).frbInternalSseEncode(move: true),
-      serializer,
-    );
-  }
-
-  @protected
-  void
   sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult(
     ContinuousJoinResult self,
     SseSerializer serializer,
@@ -11455,32 +10156,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
       (self as ContinuousJoinerImpl).frbInternalSseEncode(move: true),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    EsploraClient self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as EsploraClientImpl).frbInternalSseEncode(move: true),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-    InMemoryDb self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as InMemoryDbImpl).frbInternalSseEncode(move: true),
       serializer,
     );
   }
@@ -11541,32 +10216,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
 
   @protected
   void
-  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    ArkWallet self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as ArkWalletImpl).frbInternalSseEncode(move: false),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    EsploraClient self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as EsploraClientImpl).frbInternalSseEncode(move: false),
-      serializer,
-    );
-  }
-
-  @protected
-  void
   sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
     LiquidTransaction self,
     SseSerializer serializer,
@@ -11608,19 +10257,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
 
   @protected
   void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    ArkWallet self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as ArkWalletImpl).frbInternalSseEncode(move: null),
-      serializer,
-    );
-  }
-
-  @protected
-  void
   sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult(
     ContinuousJoinResult self,
     SseSerializer serializer,
@@ -11641,32 +10277,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(
       (self as ContinuousJoinerImpl).frbInternalSseEncode(move: null),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    EsploraClient self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as EsploraClientImpl).frbInternalSseEncode(move: null),
-      serializer,
-    );
-  }
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-    InMemoryDb self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_usize(
-      (self as InMemoryDbImpl).frbInternalSseEncode(move: null),
       serializer,
     );
   }
@@ -11728,64 +10338,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  void sse_encode_ark_balance(ArkBalance self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_i_64(self.preconfirmed, serializer);
-    sse_encode_i_64(self.settled, serializer);
-    sse_encode_i_64(self.available, serializer);
-    sse_encode_i_64(self.recoverable, serializer);
-    sse_encode_i_64(self.total, serializer);
-    sse_encode_ark_boarding(self.boarding, serializer);
-  }
-
-  @protected
-  void sse_encode_ark_boarding(ArkBoarding self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_i_64(self.unconfirmed, serializer);
-    sse_encode_i_64(self.confirmed, serializer);
-    sse_encode_i_64(self.total, serializer);
-  }
-
-  @protected
-  void sse_encode_ark_transaction(
-    ArkTransaction self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    switch (self) {
-      case ArkTransaction_Boarding(
-        txid: final txid,
-        sats: final sats,
-        confirmedAt: final confirmedAt,
-      ):
-        sse_encode_i_32(0, serializer);
-        sse_encode_String(txid, serializer);
-        sse_encode_i_64(sats, serializer);
-        sse_encode_opt_box_autoadd_i_64(confirmedAt, serializer);
-      case ArkTransaction_Commitment(
-        txid: final txid,
-        sats: final sats,
-        createdAt: final createdAt,
-      ):
-        sse_encode_i_32(1, serializer);
-        sse_encode_String(txid, serializer);
-        sse_encode_i_64(sats, serializer);
-        sse_encode_i_64(createdAt, serializer);
-      case ArkTransaction_Redeem(
-        txid: final txid,
-        sats: final sats,
-        isSettled: final isSettled,
-        createdAt: final createdAt,
-      ):
-        sse_encode_i_32(2, serializer);
-        sse_encode_String(txid, serializer);
-        sse_encode_i_64(sats, serializer);
-        sse_encode_bool(isSettled, serializer);
-        sse_encode_i_64(createdAt, serializer);
-    }
-  }
-
-  @protected
   void sse_encode_balance(Balance self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.assetId, serializer);
@@ -11795,18 +10347,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   @protected
   void sse_encode_blockchain(Blockchain self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
-  }
-
-  @protected
-  void sse_encode_boarding_settlement(
-    BoardingSettlement self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_i_32(self.pendingCount, serializer);
-    sse_encode_i_32(self.confirmedCount, serializer);
-    sse_encode_i_64(self.totalPendingSats, serializer);
-    sse_encode_i_64(self.totalConfirmedSats, serializer);
   }
 
   @protected
@@ -11916,15 +10456,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   ) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_file_type(self, serializer);
-  }
-
-  @protected
-  void sse_encode_box_autoadd_i_64(
-    PlatformInt64 self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_i_64(self, serializer);
   }
 
   @protected
@@ -12320,18 +10851,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  void sse_encode_list_ark_transaction(
-    List<ArkTransaction> self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_i_32(self.length, serializer);
-    for (final item in self) {
-      sse_encode_ark_transaction(item, serializer);
-    }
-  }
-
-  @protected
   void sse_encode_list_balance(List<Balance> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
@@ -12597,19 +11116,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  void sse_encode_opt_box_autoadd_i_64(
-    PlatformInt64? self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    sse_encode_bool(self != null, serializer);
-    if (self != null) {
-      sse_encode_box_autoadd_i_64(self, serializer);
-    }
-  }
-
-  @protected
   void sse_encode_opt_box_autoadd_pset_input(
     PsetInput? self,
     SseSerializer serializer,
@@ -12819,26 +11325,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     sse_encode_swap_limits(self.lbtcLimits, serializer);
     sse_encode_rev_swap_fees(self.btcFees, serializer);
     sse_encode_rev_swap_fees(self.lbtcFees, serializer);
-  }
-
-  @protected
-  void sse_encode_server_info(ServerInfo self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_String(self.version, serializer);
-    sse_encode_String(self.signerPubkey, serializer);
-    sse_encode_String(self.forfeitPubkey, serializer);
-    sse_encode_String(self.forfeitAddress, serializer);
-    sse_encode_String(self.checkpointTapscript, serializer);
-    sse_encode_String(self.network, serializer);
-    sse_encode_i_64(self.sessionDuration, serializer);
-    sse_encode_u_32(self.unilateralExitDelay, serializer);
-    sse_encode_u_32(self.boardingExitDelay, serializer);
-    sse_encode_opt_box_autoadd_i_64(self.utxoMinAmount, serializer);
-    sse_encode_opt_box_autoadd_i_64(self.utxoMaxAmount, serializer);
-    sse_encode_opt_box_autoadd_i_64(self.vtxoMinAmount, serializer);
-    sse_encode_opt_box_autoadd_i_64(self.vtxoMaxAmount, serializer);
-    sse_encode_i_64(self.dust, serializer);
-    sse_encode_String(self.digest, serializer);
   }
 
   @protected
@@ -13070,102 +11556,10 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  void sse_encode_utils(Utils self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-  }
-
-  @protected
   void sse_encode_version(Version self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.index, serializer);
   }
-}
-
-@sealed
-class ArkWalletImpl extends RustOpaque implements ArkWallet {
-  // Not to be used by end users
-  ArkWalletImpl.frbInternalDcoDecode(List<dynamic> wire)
-    : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  ArkWalletImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount:
-        BullSdk.instance.api.rust_arc_increment_strong_count_ArkWallet,
-    rustArcDecrementStrongCount:
-        BullSdk.instance.api.rust_arc_decrement_strong_count_ArkWallet,
-    rustArcDecrementStrongCountPtr:
-        BullSdk.instance.api.rust_arc_decrement_strong_count_ArkWalletPtr,
-  );
-
-  Future<ArkBalance> balance() =>
-      BullSdk.instance.api.arkWalletArkClientArkWalletBalance(that: this);
-
-  String boardingAddress() => BullSdk.instance.api
-      .arkWalletArkClientArkWalletBoardingAddress(that: this);
-
-  Future<bool> canSettleBoarding() => BullSdk.instance.api
-      .arkWalletArkClientArkWalletCanSettleBoarding(that: this);
-
-  Future<String> collaborativeRedeem({
-    required String address,
-    required PlatformInt64 sats,
-    required bool selectRecoverableVtxos,
-  }) => BullSdk.instance.api.arkWalletArkClientArkWalletCollaborativeRedeem(
-    that: this,
-    address: address,
-    sats: sats,
-    selectRecoverableVtxos: selectRecoverableVtxos,
-  );
-
-  Future<BoardingSettlement> getBoardingStatus() => BullSdk.instance.api
-      .arkWalletArkClientArkWalletGetBoardingStatus(that: this);
-
-  String offchainAddress() => BullSdk.instance.api
-      .arkWalletArkClientArkWalletOffchainAddress(that: this);
-
-  String onchainAddress() => BullSdk.instance.api
-      .arkWalletArkClientArkWalletOnchainAddress(that: this);
-
-  Future<String> sendOffChain({
-    required String address,
-    required PlatformInt64 sats,
-  }) => BullSdk.instance.api.arkWalletArkClientArkWalletSendOffChain(
-    that: this,
-    address: address,
-    sats: sats,
-  );
-
-  Future<String> sendOnChain({
-    required String address,
-    required PlatformInt64 sats,
-  }) => BullSdk.instance.api.arkWalletArkClientArkWalletSendOnChain(
-    that: this,
-    address: address,
-    sats: sats,
-  );
-
-  ServerInfo serverInfo() =>
-      BullSdk.instance.api.arkWalletArkClientArkWalletServerInfo(that: this);
-
-  Future<void> settle({required bool selectRecoverableVtxos}) =>
-      BullSdk.instance.api.arkWalletArkClientArkWalletSettle(
-        that: this,
-        selectRecoverableVtxos: selectRecoverableVtxos,
-      );
-
-  Future<BoardingSettlement> settleBoardingTransactions({
-    required bool selectRecoverableVtxos,
-  }) => BullSdk.instance.api
-      .arkWalletArkClientArkWalletSettleBoardingTransactions(
-        that: this,
-        selectRecoverableVtxos: selectRecoverableVtxos,
-      );
-
-  Future<List<ArkTransaction>> transactionHistory() => BullSdk.instance.api
-      .arkWalletArkClientArkWalletTransactionHistory(that: this);
 }
 
 @sealed
@@ -13225,49 +11619,6 @@ class ContinuousJoinerImpl extends RustOpaque implements ContinuousJoiner {
         that: this,
         part_: part_,
       );
-}
-
-@sealed
-class EsploraClientImpl extends RustOpaque implements EsploraClient {
-  // Not to be used by end users
-  EsploraClientImpl.frbInternalDcoDecode(List<dynamic> wire)
-    : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  EsploraClientImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount:
-        BullSdk.instance.api.rust_arc_increment_strong_count_EsploraClient,
-    rustArcDecrementStrongCount:
-        BullSdk.instance.api.rust_arc_decrement_strong_count_EsploraClient,
-    rustArcDecrementStrongCountPtr:
-        BullSdk.instance.api.rust_arc_decrement_strong_count_EsploraClientPtr,
-  );
-
-  Future<void> checkConnection() => BullSdk.instance.api
-      .arkWalletArkEsploraEsploraClientCheckConnection(that: this);
-}
-
-@sealed
-class InMemoryDbImpl extends RustOpaque implements InMemoryDb {
-  // Not to be used by end users
-  InMemoryDbImpl.frbInternalDcoDecode(List<dynamic> wire)
-    : super.frbInternalDcoDecode(wire, _kStaticData);
-
-  // Not to be used by end users
-  InMemoryDbImpl.frbInternalSseDecode(BigInt ptr, int externalSizeOnNative)
-    : super.frbInternalSseDecode(ptr, externalSizeOnNative, _kStaticData);
-
-  static final _kStaticData = RustArcStaticData(
-    rustArcIncrementStrongCount:
-        BullSdk.instance.api.rust_arc_increment_strong_count_InMemoryDb,
-    rustArcDecrementStrongCount:
-        BullSdk.instance.api.rust_arc_decrement_strong_count_InMemoryDb,
-    rustArcDecrementStrongCountPtr:
-        BullSdk.instance.api.rust_arc_decrement_strong_count_InMemoryDbPtr,
-  );
 }
 
 @sealed

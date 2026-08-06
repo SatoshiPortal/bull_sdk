@@ -8,29 +8,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 part 'simple.freezed.dart';
 
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`, `from`, `from`
-
-@freezed
-sealed class ArkTransaction with _$ArkTransaction {
-  const ArkTransaction._();
-
-  const factory ArkTransaction.boarding({
-    required String txid,
-    required PlatformInt64 sats,
-    PlatformInt64? confirmedAt,
-  }) = ArkTransaction_Boarding;
-  const factory ArkTransaction.commitment({
-    required String txid,
-    required PlatformInt64 sats,
-    required PlatformInt64 createdAt,
-  }) = ArkTransaction_Commitment;
-  const factory ArkTransaction.redeem({
-    required String txid,
-    required PlatformInt64 sats,
-    required bool isSettled,
-    required PlatformInt64 createdAt,
-  }) = ArkTransaction_Redeem;
-}
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`
 
 @freezed
 sealed class TxFee with _$TxFee {
