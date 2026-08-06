@@ -912,7 +912,7 @@ dependencies = [
 [[package]]
 name = "boltz"
 version = "0.5.1"
-source = "git+https://github.com/SatoshiPortal/boltz-dart?tag=v0.5.1#2a94c9b0219b7aa81aa4b219f37c4dd654fce4cf"
+source = "git+https://github.com/SatoshiPortal/boltz-dart?rev=2a94c9b0219b7aa81aa4b219f37c4dd654fce4cf#2a94c9b0219b7aa81aa4b219f37c4dd654fce4cf"
 dependencies = [
  "anyhow",
  "boltz-client",
