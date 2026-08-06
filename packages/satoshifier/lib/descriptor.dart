@@ -104,11 +104,28 @@ class Descriptor {
     );
   }
 
+  /// A BIP32 key-origin fingerprint: exactly four bytes as hex.
+  ///
+  /// The three parse paths validated this inconsistently — the regexes allowed
+  /// hex of any length, the '[origin]xpub' path allowed anything at all — and
+  /// the length was in practice only checked much later, by
+  /// WatchOnlyDescriptorExtension.canGeneratePsbt, which then called
+  /// hex.decode on it. An eight-character non-hex fingerprint such as
+  /// 'zzzzzzzz' parsed, and the FormatException surfaced out of a boolean
+  /// getter while the host app was deciding whether to offer PSBT signing.
+  static bool isValidFingerprint(String fingerprint) =>
+      _fingerprintPattern.hasMatch(fingerprint);
+
+  static final RegExp _fingerprintPattern = RegExp(r'^[0-9a-fA-F]{8}$');
+
   static Descriptor fromStrings({
     required String fingerprint,
     required String path,
     required String xpub,
   }) {
+    if (!isValidFingerprint(fingerprint)) {
+      throw FormatException('Invalid key-origin fingerprint');
+    }
     final convertedPath = path.startsWith('m/') ? path.substring(2) : path;
 
     final pathParts = convertedPath.split('/');
@@ -154,6 +171,9 @@ class Descriptor {
 
     final operandString = match.group(1)!;
     final fingerprint = match.group(2)!;
+    if (!isValidFingerprint(fingerprint)) {
+      throw FormatException('Invalid key-origin fingerprint');
+    }
     final derivationPurpose = match.group(3)!;
     final coinTypeString = match.group(4)!;
     final accountString = match.group(5)!;
