@@ -47,7 +47,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.12.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 2124457774;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -637940813;
 
 // Section: executor
 
@@ -3979,6 +3979,48 @@ fn wire__boltz__api__chain_swap__chain_swap_to_json_impl(
         },
     )
 }
+fn wire__boltz__api__transactions__check_lockup_outspends_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    swap_id: impl CstDecode<String>,
+    swap_type: impl CstDecode<boltz::api::types::SwapType>,
+    tx_kind: impl CstDecode<boltz::api::types::SwapTxKind>,
+    network: impl CstDecode<boltz::api::types::Chain>,
+    boltz_url: impl CstDecode<String>,
+    chain_swap_direction: impl CstDecode<Option<boltz::api::types::ChainSwapDirection>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "check_lockup_outspends",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_swap_id = swap_id.cst_decode();
+            let api_swap_type = swap_type.cst_decode();
+            let api_tx_kind = tx_kind.cst_decode();
+            let api_network = network.cst_decode();
+            let api_boltz_url = boltz_url.cst_decode();
+            let api_chain_swap_direction = chain_swap_direction.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::transactions::check_lockup_outspends(
+                            &api_swap_id,
+                            api_swap_type,
+                            api_tx_kind,
+                            api_network,
+                            &api_boltz_url,
+                            api_chain_swap_direction,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
 fn wire__boltz__api__transactions__check_vout_0_outspend_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     swap_id: impl CstDecode<String>,
@@ -6344,6 +6386,13 @@ const _: fn() = || {
     {
         let Utils = None::<ark_wallet::ark::utils::Utils>.unwrap();
     }
+    {
+        let VoutOutspend = None::<boltz::api::types::VoutOutspend>.unwrap();
+        let _: u32 = VoutOutspend.vout;
+        let _: Option<u64> = VoutOutspend.value_sat;
+        let _: Option<String> = VoutOutspend.spender_txid;
+        let _: Option<u64> = VoutOutspend.timestamp;
+    }
 };
 
 // Section: dart2rust
@@ -7480,6 +7529,18 @@ impl SseDecode for Vec<lwk::api::transaction::TxOutput> {
     }
 }
 
+impl SseDecode for Vec<boltz::api::types::VoutOutspend> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = Vec::with_capacity(len_ as usize);
+        for idx_ in 0..len_ {
+            ans_.push(<boltz::api::types::VoutOutspend>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for boltz::api::lnurl::Lnurl {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -8324,6 +8385,22 @@ impl SseDecode for bbqr::qr::Version {
             38 => bbqr::qr::Version::V39,
             39 => bbqr::qr::Version::V40,
             _ => unreachable!("Invalid variant for Version: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for boltz::api::types::VoutOutspend {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_vout = <u32>::sse_decode(deserializer);
+        let mut var_valueSat = <Option<u64>>::sse_decode(deserializer);
+        let mut var_spenderTxid = <Option<String>>::sse_decode(deserializer);
+        let mut var_timestamp = <Option<u64>>::sse_decode(deserializer);
+        return boltz::api::types::VoutOutspend {
+            vout: var_vout,
+            value_sat: var_valueSat,
+            spender_txid: var_spenderTxid,
+            timestamp: var_timestamp,
         };
     }
 }
@@ -10032,6 +10109,29 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<bbqr::qr::Version>> for bbqr::
         self.into()
     }
 }
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::types::VoutOutspend> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.vout.into_into_dart().into_dart(),
+            self.0.value_sat.into_into_dart().into_dart(),
+            self.0.spender_txid.into_into_dart().into_dart(),
+            self.0.timestamp.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::types::VoutOutspend>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::types::VoutOutspend>>
+    for boltz::api::types::VoutOutspend
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::types::VoutOutspend> {
+        self.into()
+    }
+}
 
 impl SseEncode for flutter_rust_bridge::for_generated::anyhow::Error {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -10754,6 +10854,16 @@ impl SseEncode for Vec<lwk::api::transaction::TxOutput> {
     }
 }
 
+impl SseEncode for Vec<boltz::api::types::VoutOutspend> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <boltz::api::types::VoutOutspend>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for boltz::api::lnurl::Lnurl {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -11421,6 +11531,16 @@ impl SseEncode for bbqr::qr::Version {
             },
             serializer,
         );
+    }
+}
+
+impl SseEncode for boltz::api::types::VoutOutspend {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u32>::sse_encode(self.vout, serializer);
+        <Option<u64>>::sse_encode(self.value_sat, serializer);
+        <Option<String>>::sse_encode(self.spender_txid, serializer);
+        <Option<u64>>::sse_encode(self.timestamp, serializer);
     }
 }
 
@@ -12339,6 +12459,16 @@ mod io {
             vec.into_iter().map(CstDecode::cst_decode).collect()
         }
     }
+    impl CstDecode<Vec<boltz::api::types::VoutOutspend>> for *mut wire_cst_list_vout_outspend {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<boltz::api::types::VoutOutspend> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
     impl CstDecode<boltz::api::lnurl::Lnurl> for wire_cst_lnurl {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> boltz::api::lnurl::Lnurl {
@@ -12683,6 +12813,17 @@ mod io {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> ark_wallet::ark::utils::Utils {
             ark_wallet::ark::utils::Utils {}
+        }
+    }
+    impl CstDecode<boltz::api::types::VoutOutspend> for wire_cst_vout_outspend {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::VoutOutspend {
+            boltz::api::types::VoutOutspend {
+                vout: self.vout.cst_decode(),
+                value_sat: self.value_sat.cst_decode(),
+                spender_txid: self.spender_txid.cst_decode(),
+                timestamp: self.timestamp.cst_decode(),
+            }
         }
     }
     impl NewWithNullPtr for wire_cst_address {
@@ -13499,6 +13640,21 @@ mod io {
         }
     }
     impl Default for wire_cst_utils {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_vout_outspend {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                vout: Default::default(),
+                value_sat: core::ptr::null_mut(),
+                spender_txid: core::ptr::null_mut(),
+                timestamp: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_vout_outspend {
         fn default() -> Self {
             Self::new_with_null_ptr()
         }
@@ -14672,6 +14828,27 @@ mod io {
         that: *mut wire_cst_chain_swap,
     ) {
         wire__boltz__api__chain_swap__chain_swap_to_json_impl(port_, that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__transactions__check_lockup_outspends(
+        port_: i64,
+        swap_id: *mut wire_cst_list_prim_u_8_strict,
+        swap_type: i32,
+        tx_kind: i32,
+        network: i32,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+        chain_swap_direction: *mut i32,
+    ) {
+        wire__boltz__api__transactions__check_lockup_outspends_impl(
+            port_,
+            swap_id,
+            swap_type,
+            tx_kind,
+            network,
+            boltz_url,
+            chain_swap_direction,
+        )
     }
 
     #[unsafe(no_mangle)]
@@ -15996,6 +16173,20 @@ mod io {
         flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
     }
 
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_vout_outspend(
+        len: i32,
+    ) -> *mut wire_cst_list_vout_outspend {
+        let wrap = wire_cst_list_vout_outspend {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_vout_outspend>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
     #[repr(C)]
     #[derive(Clone, Copy)]
     pub struct wire_cst_address {
@@ -16325,6 +16516,12 @@ mod io {
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
+    pub struct wire_cst_list_vout_outspend {
+        ptr: *mut wire_cst_vout_outspend,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
     pub struct wire_cst_lnurl {
         value: *mut wire_cst_list_prim_u_8_strict,
     }
@@ -16586,6 +16783,14 @@ mod io {
     #[repr(C)]
     #[derive(Clone, Copy)]
     pub struct wire_cst_utils {}
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_vout_outspend {
+        vout: u32,
+        value_sat: *mut u64,
+        spender_txid: *mut wire_cst_list_prim_u_8_strict,
+        timestamp: *mut u64,
+    }
 }
 #[cfg(not(target_family = "wasm"))]
 pub use io::*;

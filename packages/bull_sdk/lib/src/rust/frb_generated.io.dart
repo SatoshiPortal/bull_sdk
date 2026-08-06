@@ -468,6 +468,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   List<TxOutput> dco_decode_list_tx_output(dynamic raw);
 
   @protected
+  List<VoutOutspend> dco_decode_list_vout_outspend(dynamic raw);
+
+  @protected
   Lnurl dco_decode_lnurl(dynamic raw);
 
   @protected
@@ -642,6 +645,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   Version dco_decode_version(dynamic raw);
+
+  @protected
+  VoutOutspend dco_decode_vout_outspend(dynamic raw);
 
   @protected
   AnyhowException sse_decode_AnyhowException(SseDeserializer deserializer);
@@ -1049,6 +1055,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   List<TxOutput> sse_decode_list_tx_output(SseDeserializer deserializer);
 
   @protected
+  List<VoutOutspend> sse_decode_list_vout_outspend(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   Lnurl sse_decode_lnurl(SseDeserializer deserializer);
 
   @protected
@@ -1239,6 +1250,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   Version sse_decode_version(SseDeserializer deserializer);
+
+  @protected
+  VoutOutspend sse_decode_vout_outspend(SseDeserializer deserializer);
 
   @protected
   ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_AnyhowException(
@@ -1704,6 +1718,18 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     final ans = wire.cst_new_list_tx_output(raw.length);
     for (var i = 0; i < raw.length; ++i) {
       cst_api_fill_to_wire_tx_output(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_vout_outspend> cst_encode_list_vout_outspend(
+    List<VoutOutspend> raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_vout_outspend(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_vout_outspend(raw[i], ans.ref.ptr[i]);
     }
     return ans;
   }
@@ -2679,6 +2705,17 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void cst_api_fill_to_wire_utils(Utils apiObj, wire_cst_utils wireObj) {}
 
   @protected
+  void cst_api_fill_to_wire_vout_outspend(
+    VoutOutspend apiObj,
+    wire_cst_vout_outspend wireObj,
+  ) {
+    wireObj.vout = cst_encode_u_32(apiObj.vout);
+    wireObj.value_sat = cst_encode_opt_box_autoadd_u_64(apiObj.valueSat);
+    wireObj.spender_txid = cst_encode_opt_String(apiObj.spenderTxid);
+    wireObj.timestamp = cst_encode_opt_box_autoadd_u_64(apiObj.timestamp);
+  }
+
+  @protected
   int
   cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
     ArkWallet raw,
@@ -3379,6 +3416,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void sse_encode_list_tx_output(List<TxOutput> self, SseSerializer serializer);
 
   @protected
+  void sse_encode_list_vout_outspend(
+    List<VoutOutspend> self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_lnurl(Lnurl self, SseSerializer serializer);
 
   @protected
@@ -3602,6 +3645,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void sse_encode_version(Version self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_vout_outspend(VoutOutspend self, SseSerializer serializer);
 }
 
 // Section: wire_class
@@ -6465,6 +6511,56 @@ class BullSdkWire implements BaseWire {
       _wire__boltz__api__chain_swap__chain_swap_to_jsonPtr
           .asFunction<void Function(int, ffi.Pointer<wire_cst_chain_swap>)>();
 
+  void wire__boltz__api__transactions__check_lockup_outspends(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> swap_id,
+    int swap_type,
+    int tx_kind,
+    int network,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> boltz_url,
+    ffi.Pointer<ffi.Int32> chain_swap_direction,
+  ) {
+    return _wire__boltz__api__transactions__check_lockup_outspends(
+      port_,
+      swap_id,
+      swap_type,
+      tx_kind,
+      network,
+      boltz_url,
+      chain_swap_direction,
+    );
+  }
+
+  late final _wire__boltz__api__transactions__check_lockup_outspendsPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Int32,
+            ffi.Int32,
+            ffi.Int32,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<ffi.Int32>,
+          )
+        >
+      >(
+        'frbgen_bull_sdk_wire__boltz__api__transactions__check_lockup_outspends',
+      );
+  late final _wire__boltz__api__transactions__check_lockup_outspends =
+      _wire__boltz__api__transactions__check_lockup_outspendsPtr
+          .asFunction<
+            void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              int,
+              int,
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<ffi.Int32>,
+            )
+          >();
+
   void wire__boltz__api__transactions__check_vout_0_outspend(
     int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> swap_id,
@@ -9306,6 +9402,19 @@ class BullSdkWire implements BaseWire {
   late final _cst_new_list_tx_output = _cst_new_list_tx_outputPtr
       .asFunction<ffi.Pointer<wire_cst_list_tx_output> Function(int)>();
 
+  ffi.Pointer<wire_cst_list_vout_outspend> cst_new_list_vout_outspend(int len) {
+    return _cst_new_list_vout_outspend(len);
+  }
+
+  late final _cst_new_list_vout_outspendPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_vout_outspend> Function(ffi.Int32)
+        >
+      >('frbgen_bull_sdk_cst_new_list_vout_outspend');
+  late final _cst_new_list_vout_outspend = _cst_new_list_vout_outspendPtr
+      .asFunction<ffi.Pointer<wire_cst_list_vout_outspend> Function(int)>();
+
   int dummy_method_to_enforce_bundling() {
     return _dummy_method_to_enforce_bundling();
   }
@@ -9897,6 +10006,24 @@ final class wire_cst_list_tx_out_secrets extends ffi.Struct {
 
 final class wire_cst_list_tx_output extends ffi.Struct {
   external ffi.Pointer<wire_cst_tx_output> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_vout_outspend extends ffi.Struct {
+  @ffi.Uint32()
+  external int vout;
+
+  external ffi.Pointer<ffi.Uint64> value_sat;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> spender_txid;
+
+  external ffi.Pointer<ffi.Uint64> timestamp;
+}
+
+final class wire_cst_list_vout_outspend extends ffi.Struct {
+  external ffi.Pointer<wire_cst_vout_outspend> ptr;
 
   @ffi.Int32()
   external int len;

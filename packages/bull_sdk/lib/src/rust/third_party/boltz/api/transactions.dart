@@ -25,3 +25,26 @@ Future<OutspendStatus> checkVout0Outspend({
   boltzUrl: boltzUrl,
   chainSwapDirection: chainSwapDirection,
 );
+
+/// Reports the outspend status of EVERY output of the swap's lockup
+/// transaction (server lockup for claims, user lockup for refunds), with
+/// each output's amount where visible. Unlike [check_vout_0_outspend] this
+/// makes no assumption about which vout carries the swap covenant; callers
+/// must match a spender against their own wallet/destination before
+/// treating it as their claim or refund — an output being spent proves
+/// nothing about who was paid.
+Future<List<VoutOutspend>> checkLockupOutspends({
+  required String swapId,
+  required SwapType swapType,
+  required SwapTxKind txKind,
+  required Chain network,
+  required String boltzUrl,
+  ChainSwapDirection? chainSwapDirection,
+}) => BullSdk.instance.api.boltzApiTransactionsCheckLockupOutspends(
+  swapId: swapId,
+  swapType: swapType,
+  txKind: txKind,
+  network: network,
+  boltzUrl: boltzUrl,
+  chainSwapDirection: chainSwapDirection,
+);
