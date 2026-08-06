@@ -19,12 +19,12 @@ class Utils {
 
   static int btcToSats(String bitcoins) {
     if (!_btcAmount.hasMatch(bitcoins)) {
-      throw FormatException('Invalid BTC amount format: $bitcoins');
+      throw FormatException('Invalid BTC amount format');
     }
     final parts = bitcoins.split('.');
     final wholeBtc = int.parse(parts[0]);
     if (wholeBtc > _maxWholeBtc) {
-      throw FormatException('BTC amount above the supply cap: $bitcoins');
+      throw FormatException('BTC amount above the supply cap');
     }
     final fraction = parts.length == 2
         ? int.parse(parts[1].padRight(8, '0'))

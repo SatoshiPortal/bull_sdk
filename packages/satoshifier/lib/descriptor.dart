@@ -50,7 +50,9 @@ class Descriptor {
     // fall through to each other, so a checksum failure raised inside one of
     // them would be indistinguishable from "wrong descriptor shape".
     if (!DescriptorChecksum.isValid(descriptor)) {
-      throw FormatException('Invalid descriptor checksum: $descriptor');
+      // Without the descriptor: it can embed a private key, and this is a
+      // path a malformed paste reaches routinely.
+      throw FormatException('Invalid descriptor checksum');
     }
     try {
       return fromCombinedDescriptor(descriptor);

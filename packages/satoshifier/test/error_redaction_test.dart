@@ -42,6 +42,19 @@ void main() {
       expect(message, isNot(contains('SYNTHETICnotarealkey')));
     });
 
+    // Reached by Descriptor.parse before any shape matching, so a malformed
+    // paste that happens to carry a key lands here routinely.
+    test('a descriptor rejected for its checksum is not echoed', () {
+      const withBadChecksum =
+          'wpkh([86241f88/84h/0h/0h]xprvSYNTHETICnotarealkey/0/*)#aaaaaaaa';
+      expect(
+        () => Descriptor.parse(withBadChecksum),
+        throwsA(
+          predicate((e) => !e.toString().contains('SYNTHETICnotarealkey')),
+        ),
+      );
+    });
+
     test('the failure is still identifiable', () async {
       final message = await errorFor(fakeXprv);
       expect(message, isNotEmpty);
