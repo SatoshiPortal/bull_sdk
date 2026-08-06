@@ -65,8 +65,15 @@ class TestValue {
   // Bitcoin Extended Keys
   static get btcXpub =>
       'xpub661MyMwAqRbcEYS8w7XLSVeEsBXy79zSzH1J8vCdxAZningWLdN3zgtU6LBpB85b3D2yc8sfvZU521AAwdZafEz7mnzBBsz4wKY5e4cp9LB';
-  static get testnetTpub =>
-      'tpubD6NzVbkrYhZ4WLczPJWReQycCJdd6YVWXubbVUFnJ5KgU5MDQrD998ZJLNGbhd2pq7ZtDiPYTfJ7iBenLVQpYgSQqPjUsQeJXH8VQ8xA67D';
+  /// The testnet form of [xpub].
+  ///
+  /// The previous literal was not a usable extended key: correct tpub version
+  /// bytes and a valid base58check trailer, but its 33-byte key field began
+  /// with 0x00, and a compressed public key must begin with 0x02 or 0x03. Any
+  /// code path that actually decodes the key rejected it with "Point is not on
+  /// the curve", which is why the descriptor tests paired a mainnet xpub with
+  /// testnet derivation paths instead of using this value.
+  static get testnetTpub => xpubToTpub;
 
   // Liquid Addresses
   static get liquidAddressMain =>
