@@ -21,7 +21,6 @@ export 'parsers/lnurl_parser.dart' show LnurlParser;
 
 export 'utils/utils.dart' show Utils;
 export 'utils/bip32_utils.dart' show Bip32Utils;
-export '_test_value.dart' show TestValue;
 
 // imports
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -50,6 +49,14 @@ sealed class Satoshifier with _$Satoshifier {
   const factory Satoshifier.bolt11({
     required String invoice,
     required int sats,
+
+    /// The invoice amount as encoded, in millisatoshis.
+    ///
+    /// BOLT11 denominates in msats and the pico-BTC multiplier makes
+    /// sub-satoshi amounts expressible, so [sats] cannot represent every
+    /// invoice. Use this for anything that must be exact; [sats] is a
+    /// rounded-up view for display and balance checks.
+    @Default(0) int msats,
     required String paymentHash,
     @Default('') String description,
     required int expiresAt,

@@ -21,7 +21,7 @@ enum Derivation {
       case '84h' || "84'":
         return Derivation.bip84;
       default:
-        throw 'Unknown derivation purpose: $derivationPurpose';
+        throw 'Unknown derivation purpose';
     }
   }
 

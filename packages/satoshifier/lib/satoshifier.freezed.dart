@@ -143,13 +143,13 @@ return lnurl(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String address,  Network network)?  bitcoinAddress,TResult Function( String address,  Network network)?  liquidAddress,TResult Function( String invoice)?  lightningInvoice,TResult Function( String invoice,  int sats,  String paymentHash,  String description,  int expiresAt,  bool isTestnet)?  bolt11,TResult Function( Descriptor descriptor)?  watchOnly,TResult Function( String scheme,  String uri,  String address,  Network network,  int sats,  String label,  String message,  String lightning,  String pj,  String pjos)?  bip21,TResult Function( String psbt)?  psbt,TResult Function( ExtendedPubkey extendedPubkey)?  watchOnlyXpub,TResult Function( Descriptor descriptor)?  watchOnlyDescriptor,TResult Function( String address)?  lnurl,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( String address,  Network network)?  bitcoinAddress,TResult Function( String address,  Network network)?  liquidAddress,TResult Function( String invoice)?  lightningInvoice,TResult Function( String invoice,  int sats,  int msats,  String paymentHash,  String description,  int expiresAt,  bool isTestnet)?  bolt11,TResult Function( Descriptor descriptor)?  watchOnly,TResult Function( String scheme,  String uri,  String address,  Network network,  int sats,  String label,  String message,  String lightning,  String pj,  String pjos)?  bip21,TResult Function( String psbt)?  psbt,TResult Function( ExtendedPubkey extendedPubkey)?  watchOnlyXpub,TResult Function( Descriptor descriptor)?  watchOnlyDescriptor,TResult Function( String address)?  lnurl,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case BitcoinAddress() when bitcoinAddress != null:
 return bitcoinAddress(_that.address,_that.network);case LiquidAddress() when liquidAddress != null:
 return liquidAddress(_that.address,_that.network);case LightningInvoice() when lightningInvoice != null:
 return lightningInvoice(_that.invoice);case Bolt11() when bolt11 != null:
-return bolt11(_that.invoice,_that.sats,_that.paymentHash,_that.description,_that.expiresAt,_that.isTestnet);case WatchOnly() when watchOnly != null:
+return bolt11(_that.invoice,_that.sats,_that.msats,_that.paymentHash,_that.description,_that.expiresAt,_that.isTestnet);case WatchOnly() when watchOnly != null:
 return watchOnly(_that.descriptor);case Bip21() when bip21 != null:
 return bip21(_that.scheme,_that.uri,_that.address,_that.network,_that.sats,_that.label,_that.message,_that.lightning,_that.pj,_that.pjos);case Psbt() when psbt != null:
 return psbt(_that.psbt);case WatchOnlyXpub() when watchOnlyXpub != null:
@@ -173,13 +173,13 @@ return lnurl(_that.address);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String address,  Network network)  bitcoinAddress,required TResult Function( String address,  Network network)  liquidAddress,required TResult Function( String invoice)  lightningInvoice,required TResult Function( String invoice,  int sats,  String paymentHash,  String description,  int expiresAt,  bool isTestnet)  bolt11,required TResult Function( Descriptor descriptor)  watchOnly,required TResult Function( String scheme,  String uri,  String address,  Network network,  int sats,  String label,  String message,  String lightning,  String pj,  String pjos)  bip21,required TResult Function( String psbt)  psbt,required TResult Function( ExtendedPubkey extendedPubkey)  watchOnlyXpub,required TResult Function( Descriptor descriptor)  watchOnlyDescriptor,required TResult Function( String address)  lnurl,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( String address,  Network network)  bitcoinAddress,required TResult Function( String address,  Network network)  liquidAddress,required TResult Function( String invoice)  lightningInvoice,required TResult Function( String invoice,  int sats,  int msats,  String paymentHash,  String description,  int expiresAt,  bool isTestnet)  bolt11,required TResult Function( Descriptor descriptor)  watchOnly,required TResult Function( String scheme,  String uri,  String address,  Network network,  int sats,  String label,  String message,  String lightning,  String pj,  String pjos)  bip21,required TResult Function( String psbt)  psbt,required TResult Function( ExtendedPubkey extendedPubkey)  watchOnlyXpub,required TResult Function( Descriptor descriptor)  watchOnlyDescriptor,required TResult Function( String address)  lnurl,}) {final _that = this;
 switch (_that) {
 case BitcoinAddress():
 return bitcoinAddress(_that.address,_that.network);case LiquidAddress():
 return liquidAddress(_that.address,_that.network);case LightningInvoice():
 return lightningInvoice(_that.invoice);case Bolt11():
-return bolt11(_that.invoice,_that.sats,_that.paymentHash,_that.description,_that.expiresAt,_that.isTestnet);case WatchOnly():
+return bolt11(_that.invoice,_that.sats,_that.msats,_that.paymentHash,_that.description,_that.expiresAt,_that.isTestnet);case WatchOnly():
 return watchOnly(_that.descriptor);case Bip21():
 return bip21(_that.scheme,_that.uri,_that.address,_that.network,_that.sats,_that.label,_that.message,_that.lightning,_that.pj,_that.pjos);case Psbt():
 return psbt(_that.psbt);case WatchOnlyXpub():
@@ -199,13 +199,13 @@ return lnurl(_that.address);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String address,  Network network)?  bitcoinAddress,TResult? Function( String address,  Network network)?  liquidAddress,TResult? Function( String invoice)?  lightningInvoice,TResult? Function( String invoice,  int sats,  String paymentHash,  String description,  int expiresAt,  bool isTestnet)?  bolt11,TResult? Function( Descriptor descriptor)?  watchOnly,TResult? Function( String scheme,  String uri,  String address,  Network network,  int sats,  String label,  String message,  String lightning,  String pj,  String pjos)?  bip21,TResult? Function( String psbt)?  psbt,TResult? Function( ExtendedPubkey extendedPubkey)?  watchOnlyXpub,TResult? Function( Descriptor descriptor)?  watchOnlyDescriptor,TResult? Function( String address)?  lnurl,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( String address,  Network network)?  bitcoinAddress,TResult? Function( String address,  Network network)?  liquidAddress,TResult? Function( String invoice)?  lightningInvoice,TResult? Function( String invoice,  int sats,  int msats,  String paymentHash,  String description,  int expiresAt,  bool isTestnet)?  bolt11,TResult? Function( Descriptor descriptor)?  watchOnly,TResult? Function( String scheme,  String uri,  String address,  Network network,  int sats,  String label,  String message,  String lightning,  String pj,  String pjos)?  bip21,TResult? Function( String psbt)?  psbt,TResult? Function( ExtendedPubkey extendedPubkey)?  watchOnlyXpub,TResult? Function( Descriptor descriptor)?  watchOnlyDescriptor,TResult? Function( String address)?  lnurl,}) {final _that = this;
 switch (_that) {
 case BitcoinAddress() when bitcoinAddress != null:
 return bitcoinAddress(_that.address,_that.network);case LiquidAddress() when liquidAddress != null:
 return liquidAddress(_that.address,_that.network);case LightningInvoice() when lightningInvoice != null:
 return lightningInvoice(_that.invoice);case Bolt11() when bolt11 != null:
-return bolt11(_that.invoice,_that.sats,_that.paymentHash,_that.description,_that.expiresAt,_that.isTestnet);case WatchOnly() when watchOnly != null:
+return bolt11(_that.invoice,_that.sats,_that.msats,_that.paymentHash,_that.description,_that.expiresAt,_that.isTestnet);case WatchOnly() when watchOnly != null:
 return watchOnly(_that.descriptor);case Bip21() when bip21 != null:
 return bip21(_that.scheme,_that.uri,_that.address,_that.network,_that.sats,_that.label,_that.message,_that.lightning,_that.pj,_that.pjos);case Psbt() when psbt != null:
 return psbt(_that.psbt);case WatchOnlyXpub() when watchOnlyXpub != null:
@@ -425,11 +425,18 @@ as String,
 
 
 class Bolt11 extends Satoshifier {
-  const Bolt11({required this.invoice, required this.sats, required this.paymentHash, this.description = '', required this.expiresAt, required this.isTestnet}): super._();
+  const Bolt11({required this.invoice, required this.sats, this.msats = 0, required this.paymentHash, this.description = '', required this.expiresAt, required this.isTestnet}): super._();
   
 
  final  String invoice;
  final  int sats;
+/// The invoice amount as encoded, in millisatoshis.
+///
+/// BOLT11 denominates in msats and the pico-BTC multiplier makes
+/// sub-satoshi amounts expressible, so [sats] cannot represent every
+/// invoice. Use this for anything that must be exact; [sats] is a
+/// rounded-up view for display and balance checks.
+@JsonKey() final  int msats;
  final  String paymentHash;
 @JsonKey() final  String description;
  final  int expiresAt;
@@ -445,16 +452,16 @@ $Bolt11CopyWith<Bolt11> get copyWith => _$Bolt11CopyWithImpl<Bolt11>(this, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Bolt11&&(identical(other.invoice, invoice) || other.invoice == invoice)&&(identical(other.sats, sats) || other.sats == sats)&&(identical(other.paymentHash, paymentHash) || other.paymentHash == paymentHash)&&(identical(other.description, description) || other.description == description)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.isTestnet, isTestnet) || other.isTestnet == isTestnet));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Bolt11&&(identical(other.invoice, invoice) || other.invoice == invoice)&&(identical(other.sats, sats) || other.sats == sats)&&(identical(other.msats, msats) || other.msats == msats)&&(identical(other.paymentHash, paymentHash) || other.paymentHash == paymentHash)&&(identical(other.description, description) || other.description == description)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt)&&(identical(other.isTestnet, isTestnet) || other.isTestnet == isTestnet));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,invoice,sats,paymentHash,description,expiresAt,isTestnet);
+int get hashCode => Object.hash(runtimeType,invoice,sats,msats,paymentHash,description,expiresAt,isTestnet);
 
 @override
 String toString() {
-  return 'Satoshifier.bolt11(invoice: $invoice, sats: $sats, paymentHash: $paymentHash, description: $description, expiresAt: $expiresAt, isTestnet: $isTestnet)';
+  return 'Satoshifier.bolt11(invoice: $invoice, sats: $sats, msats: $msats, paymentHash: $paymentHash, description: $description, expiresAt: $expiresAt, isTestnet: $isTestnet)';
 }
 
 
@@ -465,7 +472,7 @@ abstract mixin class $Bolt11CopyWith<$Res> implements $SatoshifierCopyWith<$Res>
   factory $Bolt11CopyWith(Bolt11 value, $Res Function(Bolt11) _then) = _$Bolt11CopyWithImpl;
 @useResult
 $Res call({
- String invoice, int sats, String paymentHash, String description, int expiresAt, bool isTestnet
+ String invoice, int sats, int msats, String paymentHash, String description, int expiresAt, bool isTestnet
 });
 
 
@@ -482,10 +489,11 @@ class _$Bolt11CopyWithImpl<$Res>
 
 /// Create a copy of Satoshifier
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? invoice = null,Object? sats = null,Object? paymentHash = null,Object? description = null,Object? expiresAt = null,Object? isTestnet = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? invoice = null,Object? sats = null,Object? msats = null,Object? paymentHash = null,Object? description = null,Object? expiresAt = null,Object? isTestnet = null,}) {
   return _then(Bolt11(
 invoice: null == invoice ? _self.invoice : invoice // ignore: cast_nullable_to_non_nullable
 as String,sats: null == sats ? _self.sats : sats // ignore: cast_nullable_to_non_nullable
+as int,msats: null == msats ? _self.msats : msats // ignore: cast_nullable_to_non_nullable
 as int,paymentHash: null == paymentHash ? _self.paymentHash : paymentHash // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable

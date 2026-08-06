@@ -7,7 +7,7 @@ class WatchOnlyXpubParser {
       return Satoshifier.watchOnlyXpub(extendedPubkey: extendedPubkey);
     } catch (_) {}
 
-    throw 'Invalid watch only data: $data';
+    throw 'Invalid watch only xpub';
   }
 
   static Future<Satoshifier?> tryParse(String data) async {

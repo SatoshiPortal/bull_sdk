@@ -8,14 +8,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi' as ffi;
 import 'frb_generated.dart';
+import '../checked_u64.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_io.dart';
-import 'third_party/ark_wallet/ark/balance.dart';
-import 'third_party/ark_wallet/ark/client.dart';
-import 'third_party/ark_wallet/ark/esplora.dart';
-import 'third_party/ark_wallet/ark/server_info.dart';
-import 'third_party/ark_wallet/ark/settle.dart';
-import 'third_party/ark_wallet/ark/storage.dart';
-import 'third_party/ark_wallet/ark/utils.dart';
 import 'third_party/bbqr/continuous_join.dart';
 import 'third_party/bbqr/encode.dart';
 import 'third_party/bbqr/file_type.dart';
@@ -52,24 +46,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   });
 
   CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_ArkWalletPtr => wire
-      ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWalletPtr;
-
-  CrossPlatformFinalizerArg
   get rust_arc_decrement_strong_count_ContinuousJoinResultPtr => wire
       ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResultPtr;
 
   CrossPlatformFinalizerArg
   get rust_arc_decrement_strong_count_ContinuousJoinerPtr => wire
       ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinerPtr;
-
-  CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_EsploraClientPtr => wire
-      ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClientPtr;
-
-  CrossPlatformFinalizerArg
-  get rust_arc_decrement_strong_count_InMemoryDbPtr => wire
-      ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDbPtr;
 
   CrossPlatformFinalizerArg
   get rust_arc_decrement_strong_count_LiquidTransactionPtr => wire
@@ -87,12 +69,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   AnyhowException dco_decode_AnyhowException(dynamic raw);
 
   @protected
-  ArkWallet
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    dynamic raw,
-  );
-
-  @protected
   ContinuousJoinResult
   dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult(
     dynamic raw,
@@ -101,18 +77,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   ContinuousJoiner
   dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoiner(
-    dynamic raw,
-  );
-
-  @protected
-  EsploraClient
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    dynamic raw,
-  );
-
-  @protected
-  InMemoryDb
-  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
     dynamic raw,
   );
 
@@ -141,18 +105,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
-  ArkWallet
-  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    dynamic raw,
-  );
-
-  @protected
-  EsploraClient
-  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    dynamic raw,
-  );
-
-  @protected
   LiquidTransaction
   dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
     dynamic raw,
@@ -171,12 +123,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
-  ArkWallet
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    dynamic raw,
-  );
-
-  @protected
   ContinuousJoinResult
   dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult(
     dynamic raw,
@@ -185,18 +131,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   ContinuousJoiner
   dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoiner(
-    dynamic raw,
-  );
-
-  @protected
-  EsploraClient
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    dynamic raw,
-  );
-
-  @protected
-  InMemoryDb
-  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
     dynamic raw,
   );
 
@@ -234,22 +168,10 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   Address dco_decode_address(dynamic raw);
 
   @protected
-  ArkBalance dco_decode_ark_balance(dynamic raw);
-
-  @protected
-  ArkBoarding dco_decode_ark_boarding(dynamic raw);
-
-  @protected
-  ArkTransaction dco_decode_ark_transaction(dynamic raw);
-
-  @protected
   Balance dco_decode_balance(dynamic raw);
 
   @protected
   Blockchain dco_decode_blockchain(dynamic raw);
-
-  @protected
-  BoardingSettlement dco_decode_boarding_settlement(dynamic raw);
 
   @protected
   BoltzError dco_decode_boltz_error(dynamic raw);
@@ -289,9 +211,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   FileType dco_decode_box_autoadd_file_type(dynamic raw);
-
-  @protected
-  PlatformInt64 dco_decode_box_autoadd_i_64(dynamic raw);
 
   @protected
   KeyPair dco_decode_box_autoadd_key_pair(dynamic raw);
@@ -423,9 +342,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   List<String> dco_decode_list_String(dynamic raw);
 
   @protected
-  List<ArkTransaction> dco_decode_list_ark_transaction(dynamic raw);
-
-  @protected
   List<Balance> dco_decode_list_balance(dynamic raw);
 
   @protected
@@ -474,6 +390,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   List<TxOutputSpec> dco_decode_list_tx_output_spec(dynamic raw);
 
   @protected
+  List<WalletBalance> dco_decode_list_wallet_balance(dynamic raw);
+
+  @protected
   Lnurl dco_decode_lnurl(dynamic raw);
 
   @protected
@@ -501,9 +420,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   FileType? dco_decode_opt_box_autoadd_file_type(dynamic raw);
-
-  @protected
-  PlatformInt64? dco_decode_opt_box_autoadd_i_64(dynamic raw);
 
   @protected
   PsetInput? dco_decode_opt_box_autoadd_pset_input(dynamic raw);
@@ -564,9 +480,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   ReverseFeesAndLimits dco_decode_reverse_fees_and_limits(dynamic raw);
-
-  @protected
-  ServerInfo dco_decode_server_info(dynamic raw);
 
   @protected
   Side dco_decode_side(dynamic raw);
@@ -647,19 +560,13 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   BigInt dco_decode_usize(dynamic raw);
 
   @protected
-  Utils dco_decode_utils(dynamic raw);
-
-  @protected
   Version dco_decode_version(dynamic raw);
 
   @protected
-  AnyhowException sse_decode_AnyhowException(SseDeserializer deserializer);
+  WalletBalance dco_decode_wallet_balance(dynamic raw);
 
   @protected
-  ArkWallet
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    SseDeserializer deserializer,
-  );
+  AnyhowException sse_decode_AnyhowException(SseDeserializer deserializer);
 
   @protected
   ContinuousJoinResult
@@ -670,18 +577,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   ContinuousJoiner
   sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoiner(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  EsploraClient
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  InMemoryDb
-  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
     SseDeserializer deserializer,
   );
 
@@ -710,18 +605,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
-  ArkWallet
-  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  EsploraClient
-  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    SseDeserializer deserializer,
-  );
-
-  @protected
   LiquidTransaction
   sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
     SseDeserializer deserializer,
@@ -740,12 +623,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
-  ArkWallet
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    SseDeserializer deserializer,
-  );
-
-  @protected
   ContinuousJoinResult
   sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult(
     SseDeserializer deserializer,
@@ -754,18 +631,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   ContinuousJoiner
   sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoiner(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  EsploraClient
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    SseDeserializer deserializer,
-  );
-
-  @protected
-  InMemoryDb
-  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
     SseDeserializer deserializer,
   );
 
@@ -794,24 +659,10 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   Address sse_decode_address(SseDeserializer deserializer);
 
   @protected
-  ArkBalance sse_decode_ark_balance(SseDeserializer deserializer);
-
-  @protected
-  ArkBoarding sse_decode_ark_boarding(SseDeserializer deserializer);
-
-  @protected
-  ArkTransaction sse_decode_ark_transaction(SseDeserializer deserializer);
-
-  @protected
   Balance sse_decode_balance(SseDeserializer deserializer);
 
   @protected
   Blockchain sse_decode_blockchain(SseDeserializer deserializer);
-
-  @protected
-  BoardingSettlement sse_decode_boarding_settlement(
-    SseDeserializer deserializer,
-  );
 
   @protected
   BoltzError sse_decode_boltz_error(SseDeserializer deserializer);
@@ -857,9 +708,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   FileType sse_decode_box_autoadd_file_type(SseDeserializer deserializer);
-
-  @protected
-  PlatformInt64 sse_decode_box_autoadd_i_64(SseDeserializer deserializer);
 
   @protected
   KeyPair sse_decode_box_autoadd_key_pair(SseDeserializer deserializer);
@@ -1007,11 +855,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   List<String> sse_decode_list_String(SseDeserializer deserializer);
 
   @protected
-  List<ArkTransaction> sse_decode_list_ark_transaction(
-    SseDeserializer deserializer,
-  );
-
-  @protected
   List<Balance> sse_decode_list_balance(SseDeserializer deserializer);
 
   @protected
@@ -1066,6 +909,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
+  List<WalletBalance> sse_decode_list_wallet_balance(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   Lnurl sse_decode_lnurl(SseDeserializer deserializer);
 
   @protected
@@ -1095,9 +943,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   FileType? sse_decode_opt_box_autoadd_file_type(SseDeserializer deserializer);
-
-  @protected
-  PlatformInt64? sse_decode_opt_box_autoadd_i_64(SseDeserializer deserializer);
 
   @protected
   PsetInput? sse_decode_opt_box_autoadd_pset_input(
@@ -1168,9 +1013,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   ReverseFeesAndLimits sse_decode_reverse_fees_and_limits(
     SseDeserializer deserializer,
   );
-
-  @protected
-  ServerInfo sse_decode_server_info(SseDeserializer deserializer);
 
   @protected
   Side sse_decode_side(SseDeserializer deserializer);
@@ -1255,10 +1097,10 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   BigInt sse_decode_usize(SseDeserializer deserializer);
 
   @protected
-  Utils sse_decode_utils(SseDeserializer deserializer);
+  Version sse_decode_version(SseDeserializer deserializer);
 
   @protected
-  Version sse_decode_version(SseDeserializer deserializer);
+  WalletBalance sse_decode_wallet_balance(SseDeserializer deserializer);
 
   @protected
   ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_AnyhowException(
@@ -1370,12 +1212,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   ffi.Pointer<ffi.Int32> cst_encode_box_autoadd_file_type(FileType raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return wire.cst_new_box_autoadd_file_type(cst_encode_file_type(raw));
-  }
-
-  @protected
-  ffi.Pointer<ffi.Int64> cst_encode_box_autoadd_i_64(PlatformInt64 raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    return wire.cst_new_box_autoadd_i_64(cst_encode_i_64(raw));
   }
 
   @protected
@@ -1553,18 +1389,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     final ans = wire.cst_new_list_String(raw.length);
     for (var i = 0; i < raw.length; ++i) {
       ans.ref.ptr[i] = cst_encode_String(raw[i]);
-    }
-    return ans;
-  }
-
-  @protected
-  ffi.Pointer<wire_cst_list_ark_transaction> cst_encode_list_ark_transaction(
-    List<ArkTransaction> raw,
-  ) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    final ans = wire.cst_new_list_ark_transaction(raw.length);
-    for (var i = 0; i < raw.length; ++i) {
-      cst_api_fill_to_wire_ark_transaction(raw[i], ans.ref.ptr[i]);
     }
     return ans;
   }
@@ -1753,6 +1577,18 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_list_wallet_balance> cst_encode_list_wallet_balance(
+    List<WalletBalance> raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_wallet_balance(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_wallet_balance(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
   ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_opt_String(
     String? raw,
   ) {
@@ -1789,12 +1625,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   ffi.Pointer<ffi.Int32> cst_encode_opt_box_autoadd_file_type(FileType? raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw == null ? ffi.nullptr : cst_encode_box_autoadd_file_type(raw);
-  }
-
-  @protected
-  ffi.Pointer<ffi.Int64> cst_encode_opt_box_autoadd_i_64(PlatformInt64? raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    return raw == null ? ffi.nullptr : cst_encode_box_autoadd_i_64(raw);
   }
 
   @protected
@@ -1871,13 +1701,13 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   int cst_encode_u_64(BigInt raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    return raw.toSigned(64).toInt();
+    return checkedU64ToNativeInt(raw);
   }
 
   @protected
   int cst_encode_usize(BigInt raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    return raw.toSigned(64).toInt();
+    return checkedU64ToNativeInt(raw);
   }
 
   @protected
@@ -1886,70 +1716,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     wireObj.confidential = cst_encode_String(apiObj.confidential);
     wireObj.index = cst_encode_opt_box_autoadd_u_32(apiObj.index);
     wireObj.blinding_key = cst_encode_opt_String(apiObj.blindingKey);
-  }
-
-  @protected
-  void cst_api_fill_to_wire_ark_balance(
-    ArkBalance apiObj,
-    wire_cst_ark_balance wireObj,
-  ) {
-    wireObj.preconfirmed = cst_encode_i_64(apiObj.preconfirmed);
-    wireObj.settled = cst_encode_i_64(apiObj.settled);
-    wireObj.available = cst_encode_i_64(apiObj.available);
-    wireObj.recoverable = cst_encode_i_64(apiObj.recoverable);
-    wireObj.total = cst_encode_i_64(apiObj.total);
-    cst_api_fill_to_wire_ark_boarding(apiObj.boarding, wireObj.boarding);
-  }
-
-  @protected
-  void cst_api_fill_to_wire_ark_boarding(
-    ArkBoarding apiObj,
-    wire_cst_ark_boarding wireObj,
-  ) {
-    wireObj.unconfirmed = cst_encode_i_64(apiObj.unconfirmed);
-    wireObj.confirmed = cst_encode_i_64(apiObj.confirmed);
-    wireObj.total = cst_encode_i_64(apiObj.total);
-  }
-
-  @protected
-  void cst_api_fill_to_wire_ark_transaction(
-    ArkTransaction apiObj,
-    wire_cst_ark_transaction wireObj,
-  ) {
-    if (apiObj is ArkTransaction_Boarding) {
-      var pre_txid = cst_encode_String(apiObj.txid);
-      var pre_sats = cst_encode_i_64(apiObj.sats);
-      var pre_confirmed_at = cst_encode_opt_box_autoadd_i_64(
-        apiObj.confirmedAt,
-      );
-      wireObj.tag = 0;
-      wireObj.kind.Boarding.txid = pre_txid;
-      wireObj.kind.Boarding.sats = pre_sats;
-      wireObj.kind.Boarding.confirmed_at = pre_confirmed_at;
-      return;
-    }
-    if (apiObj is ArkTransaction_Commitment) {
-      var pre_txid = cst_encode_String(apiObj.txid);
-      var pre_sats = cst_encode_i_64(apiObj.sats);
-      var pre_created_at = cst_encode_i_64(apiObj.createdAt);
-      wireObj.tag = 1;
-      wireObj.kind.Commitment.txid = pre_txid;
-      wireObj.kind.Commitment.sats = pre_sats;
-      wireObj.kind.Commitment.created_at = pre_created_at;
-      return;
-    }
-    if (apiObj is ArkTransaction_Redeem) {
-      var pre_txid = cst_encode_String(apiObj.txid);
-      var pre_sats = cst_encode_i_64(apiObj.sats);
-      var pre_is_settled = cst_encode_bool(apiObj.isSettled);
-      var pre_created_at = cst_encode_i_64(apiObj.createdAt);
-      wireObj.tag = 2;
-      wireObj.kind.Redeem.txid = pre_txid;
-      wireObj.kind.Redeem.sats = pre_sats;
-      wireObj.kind.Redeem.is_settled = pre_is_settled;
-      wireObj.kind.Redeem.created_at = pre_created_at;
-      return;
-    }
   }
 
   @protected
@@ -1963,17 +1729,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     Blockchain apiObj,
     wire_cst_blockchain wireObj,
   ) {}
-
-  @protected
-  void cst_api_fill_to_wire_boarding_settlement(
-    BoardingSettlement apiObj,
-    wire_cst_boarding_settlement wireObj,
-  ) {
-    wireObj.pending_count = cst_encode_i_32(apiObj.pendingCount);
-    wireObj.confirmed_count = cst_encode_i_32(apiObj.confirmedCount);
-    wireObj.total_pending_sats = cst_encode_i_64(apiObj.totalPendingSats);
-    wireObj.total_confirmed_sats = cst_encode_i_64(apiObj.totalConfirmedSats);
-  }
 
   @protected
   void cst_api_fill_to_wire_boltz_error(
@@ -2501,45 +2256,13 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
-  void cst_api_fill_to_wire_server_info(
-    ServerInfo apiObj,
-    wire_cst_server_info wireObj,
-  ) {
-    wireObj.version = cst_encode_String(apiObj.version);
-    wireObj.signer_pubkey = cst_encode_String(apiObj.signerPubkey);
-    wireObj.forfeit_pubkey = cst_encode_String(apiObj.forfeitPubkey);
-    wireObj.forfeit_address = cst_encode_String(apiObj.forfeitAddress);
-    wireObj.checkpoint_tapscript = cst_encode_String(
-      apiObj.checkpointTapscript,
-    );
-    wireObj.network = cst_encode_String(apiObj.network);
-    wireObj.session_duration = cst_encode_i_64(apiObj.sessionDuration);
-    wireObj.unilateral_exit_delay = cst_encode_u_32(apiObj.unilateralExitDelay);
-    wireObj.boarding_exit_delay = cst_encode_u_32(apiObj.boardingExitDelay);
-    wireObj.utxo_min_amount = cst_encode_opt_box_autoadd_i_64(
-      apiObj.utxoMinAmount,
-    );
-    wireObj.utxo_max_amount = cst_encode_opt_box_autoadd_i_64(
-      apiObj.utxoMaxAmount,
-    );
-    wireObj.vtxo_min_amount = cst_encode_opt_box_autoadd_i_64(
-      apiObj.vtxoMinAmount,
-    );
-    wireObj.vtxo_max_amount = cst_encode_opt_box_autoadd_i_64(
-      apiObj.vtxoMaxAmount,
-    );
-    wireObj.dust = cst_encode_i_64(apiObj.dust);
-    wireObj.digest = cst_encode_String(apiObj.digest);
-  }
-
-  @protected
   void cst_api_fill_to_wire_size_and_fees(
     SizeAndFees apiObj,
     wire_cst_size_and_fees wireObj,
   ) {
     wireObj.discounted_vsize = cst_encode_usize(apiObj.discountedVsize);
     wireObj.discounted_weight = cst_encode_usize(apiObj.discountedWeight);
-    wireObj.absolute_fees = cst_encode_list_balance(apiObj.absoluteFees);
+    wireObj.absolute_fees = cst_encode_list_wallet_balance(apiObj.absoluteFees);
   }
 
   @protected
@@ -2730,13 +2453,13 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
-  void cst_api_fill_to_wire_utils(Utils apiObj, wire_cst_utils wireObj) {}
-
-  @protected
-  int
-  cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    ArkWallet raw,
-  );
+  void cst_api_fill_to_wire_wallet_balance(
+    WalletBalance apiObj,
+    wire_cst_wallet_balance wireObj,
+  ) {
+    wireObj.asset_id = cst_encode_String(apiObj.assetId);
+    wireObj.value = cst_encode_u_64(apiObj.value);
+  }
 
   @protected
   int
@@ -2748,18 +2471,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   int
   cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoiner(
     ContinuousJoiner raw,
-  );
-
-  @protected
-  int
-  cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    EsploraClient raw,
-  );
-
-  @protected
-  int
-  cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-    InMemoryDb raw,
   );
 
   @protected
@@ -2788,18 +2499,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int
-  cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    ArkWallet raw,
-  );
-
-  @protected
-  int
-  cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    EsploraClient raw,
-  );
-
-  @protected
-  int
   cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
     LiquidTransaction raw,
   );
@@ -2818,12 +2517,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int
-  cst_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    ArkWallet raw,
-  );
-
-  @protected
-  int
   cst_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult(
     ContinuousJoinResult raw,
   );
@@ -2832,18 +2525,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   int
   cst_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoiner(
     ContinuousJoiner raw,
-  );
-
-  @protected
-  int
-  cst_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    EsploraClient raw,
-  );
-
-  @protected
-  int
-  cst_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-    InMemoryDb raw,
   );
 
   @protected
@@ -2926,13 +2607,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    ArkWallet self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
   sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult(
     ContinuousJoinResult self,
     SseSerializer serializer,
@@ -2942,20 +2616,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void
   sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoiner(
     ContinuousJoiner self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    EsploraClient self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-    InMemoryDb self,
     SseSerializer serializer,
   );
 
@@ -2989,20 +2649,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void
-  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    ArkWallet self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    EsploraClient self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
   sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerLiquidTransaction(
     LiquidTransaction self,
     SseSerializer serializer,
@@ -3024,13 +2670,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    ArkWallet self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
   sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult(
     ContinuousJoinResult self,
     SseSerializer serializer,
@@ -3040,20 +2679,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void
   sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoiner(
     ContinuousJoiner self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    EsploraClient self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void
-  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-    InMemoryDb self,
     SseSerializer serializer,
   );
 
@@ -3085,28 +2710,10 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void sse_encode_address(Address self, SseSerializer serializer);
 
   @protected
-  void sse_encode_ark_balance(ArkBalance self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_ark_boarding(ArkBoarding self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_ark_transaction(
-    ArkTransaction self,
-    SseSerializer serializer,
-  );
-
-  @protected
   void sse_encode_balance(Balance self, SseSerializer serializer);
 
   @protected
   void sse_encode_blockchain(Blockchain self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_boarding_settlement(
-    BoardingSettlement self,
-    SseSerializer serializer,
-  );
 
   @protected
   void sse_encode_boltz_error(BoltzError self, SseSerializer serializer);
@@ -3171,12 +2778,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   void sse_encode_box_autoadd_file_type(
     FileType self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void sse_encode_box_autoadd_i_64(
-    PlatformInt64 self,
     SseSerializer serializer,
   );
 
@@ -3361,12 +2962,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void sse_encode_list_String(List<String> self, SseSerializer serializer);
 
   @protected
-  void sse_encode_list_ark_transaction(
-    List<ArkTransaction> self,
-    SseSerializer serializer,
-  );
-
-  @protected
   void sse_encode_list_balance(List<Balance> self, SseSerializer serializer);
 
   @protected
@@ -3442,6 +3037,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
+  void sse_encode_list_wallet_balance(
+    List<WalletBalance> self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_lnurl(Lnurl self, SseSerializer serializer);
 
   @protected
@@ -3477,12 +3078,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   void sse_encode_opt_box_autoadd_file_type(
     FileType? self,
-    SseSerializer serializer,
-  );
-
-  @protected
-  void sse_encode_opt_box_autoadd_i_64(
-    PlatformInt64? self,
     SseSerializer serializer,
   );
 
@@ -3574,9 +3169,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
-  void sse_encode_server_info(ServerInfo self, SseSerializer serializer);
-
-  @protected
   void sse_encode_side(Side self, SseSerializer serializer);
 
   @protected
@@ -3664,10 +3256,10 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void sse_encode_usize(BigInt self, SseSerializer serializer);
 
   @protected
-  void sse_encode_utils(Utils self, SseSerializer serializer);
+  void sse_encode_version(Version self, SseSerializer serializer);
 
   @protected
-  void sse_encode_version(Version self, SseSerializer serializer);
+  void sse_encode_wallet_balance(WalletBalance self, SseSerializer serializer);
 }
 
 // Section: wire_class
@@ -3706,330 +3298,6 @@ class BullSdkWire implements BaseWire {
       );
   late final _store_dart_post_cobject = _store_dart_post_cobjectPtr
       .asFunction<void Function(DartPostCObjectFnType)>();
-
-  void wire__ark_wallet__ark__client__ArkWallet_balance(int port_, int that) {
-    return _wire__ark_wallet__ark__client__ArkWallet_balance(port_, that);
-  }
-
-  late final _wire__ark_wallet__ark__client__ArkWallet_balancePtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-        'frbgen_bull_sdk_wire__ark_wallet__ark__client__ArkWallet_balance',
-      );
-  late final _wire__ark_wallet__ark__client__ArkWallet_balance =
-      _wire__ark_wallet__ark__client__ArkWallet_balancePtr
-          .asFunction<void Function(int, int)>();
-
-  WireSyncRust2DartDco
-  wire__ark_wallet__ark__client__ArkWallet_boarding_address(int that) {
-    return _wire__ark_wallet__ark__client__ArkWallet_boarding_address(that);
-  }
-
-  late final _wire__ark_wallet__ark__client__ArkWallet_boarding_addressPtr =
-      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
-        'frbgen_bull_sdk_wire__ark_wallet__ark__client__ArkWallet_boarding_address',
-      );
-  late final _wire__ark_wallet__ark__client__ArkWallet_boarding_address =
-      _wire__ark_wallet__ark__client__ArkWallet_boarding_addressPtr
-          .asFunction<WireSyncRust2DartDco Function(int)>();
-
-  void wire__ark_wallet__ark__client__ArkWallet_can_settle_boarding(
-    int port_,
-    int that,
-  ) {
-    return _wire__ark_wallet__ark__client__ArkWallet_can_settle_boarding(
-      port_,
-      that,
-    );
-  }
-
-  late final _wire__ark_wallet__ark__client__ArkWallet_can_settle_boardingPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-        'frbgen_bull_sdk_wire__ark_wallet__ark__client__ArkWallet_can_settle_boarding',
-      );
-  late final _wire__ark_wallet__ark__client__ArkWallet_can_settle_boarding =
-      _wire__ark_wallet__ark__client__ArkWallet_can_settle_boardingPtr
-          .asFunction<void Function(int, int)>();
-
-  void wire__ark_wallet__ark__client__ArkWallet_collaborative_redeem(
-    int port_,
-    int that,
-    ffi.Pointer<wire_cst_list_prim_u_8_strict> address,
-    int sats,
-    bool select_recoverable_vtxos,
-  ) {
-    return _wire__ark_wallet__ark__client__ArkWallet_collaborative_redeem(
-      port_,
-      that,
-      address,
-      sats,
-      select_recoverable_vtxos,
-    );
-  }
-
-  late final _wire__ark_wallet__ark__client__ArkWallet_collaborative_redeemPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Int64,
-            ffi.UintPtr,
-            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            ffi.Int64,
-            ffi.Bool,
-          )
-        >
-      >(
-        'frbgen_bull_sdk_wire__ark_wallet__ark__client__ArkWallet_collaborative_redeem',
-      );
-  late final _wire__ark_wallet__ark__client__ArkWallet_collaborative_redeem =
-      _wire__ark_wallet__ark__client__ArkWallet_collaborative_redeemPtr
-          .asFunction<
-            void Function(
-              int,
-              int,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              int,
-              bool,
-            )
-          >();
-
-  void wire__ark_wallet__ark__client__ArkWallet_get_boarding_status(
-    int port_,
-    int that,
-  ) {
-    return _wire__ark_wallet__ark__client__ArkWallet_get_boarding_status(
-      port_,
-      that,
-    );
-  }
-
-  late final _wire__ark_wallet__ark__client__ArkWallet_get_boarding_statusPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-        'frbgen_bull_sdk_wire__ark_wallet__ark__client__ArkWallet_get_boarding_status',
-      );
-  late final _wire__ark_wallet__ark__client__ArkWallet_get_boarding_status =
-      _wire__ark_wallet__ark__client__ArkWallet_get_boarding_statusPtr
-          .asFunction<void Function(int, int)>();
-
-  void wire__ark_wallet__ark__client__ArkWallet_init(
-    int port_,
-    ffi.Pointer<wire_cst_list_prim_u_8_loose> secret_key,
-    ffi.Pointer<wire_cst_list_prim_u_8_strict> network,
-    ffi.Pointer<wire_cst_list_prim_u_8_strict> esplora,
-    ffi.Pointer<wire_cst_list_prim_u_8_strict> server,
-    ffi.Pointer<wire_cst_list_prim_u_8_strict> boltz,
-  ) {
-    return _wire__ark_wallet__ark__client__ArkWallet_init(
-      port_,
-      secret_key,
-      network,
-      esplora,
-      server,
-      boltz,
-    );
-  }
-
-  late final _wire__ark_wallet__ark__client__ArkWallet_initPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Int64,
-            ffi.Pointer<wire_cst_list_prim_u_8_loose>,
-            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-          )
-        >
-      >('frbgen_bull_sdk_wire__ark_wallet__ark__client__ArkWallet_init');
-  late final _wire__ark_wallet__ark__client__ArkWallet_init =
-      _wire__ark_wallet__ark__client__ArkWallet_initPtr
-          .asFunction<
-            void Function(
-              int,
-              ffi.Pointer<wire_cst_list_prim_u_8_loose>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            )
-          >();
-
-  WireSyncRust2DartDco
-  wire__ark_wallet__ark__client__ArkWallet_offchain_address(int that) {
-    return _wire__ark_wallet__ark__client__ArkWallet_offchain_address(that);
-  }
-
-  late final _wire__ark_wallet__ark__client__ArkWallet_offchain_addressPtr =
-      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
-        'frbgen_bull_sdk_wire__ark_wallet__ark__client__ArkWallet_offchain_address',
-      );
-  late final _wire__ark_wallet__ark__client__ArkWallet_offchain_address =
-      _wire__ark_wallet__ark__client__ArkWallet_offchain_addressPtr
-          .asFunction<WireSyncRust2DartDco Function(int)>();
-
-  WireSyncRust2DartDco wire__ark_wallet__ark__client__ArkWallet_onchain_address(
-    int that,
-  ) {
-    return _wire__ark_wallet__ark__client__ArkWallet_onchain_address(that);
-  }
-
-  late final _wire__ark_wallet__ark__client__ArkWallet_onchain_addressPtr =
-      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
-        'frbgen_bull_sdk_wire__ark_wallet__ark__client__ArkWallet_onchain_address',
-      );
-  late final _wire__ark_wallet__ark__client__ArkWallet_onchain_address =
-      _wire__ark_wallet__ark__client__ArkWallet_onchain_addressPtr
-          .asFunction<WireSyncRust2DartDco Function(int)>();
-
-  void wire__ark_wallet__ark__client__ArkWallet_send_off_chain(
-    int port_,
-    int that,
-    ffi.Pointer<wire_cst_list_prim_u_8_strict> address,
-    int sats,
-  ) {
-    return _wire__ark_wallet__ark__client__ArkWallet_send_off_chain(
-      port_,
-      that,
-      address,
-      sats,
-    );
-  }
-
-  late final _wire__ark_wallet__ark__client__ArkWallet_send_off_chainPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Int64,
-            ffi.UintPtr,
-            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            ffi.Int64,
-          )
-        >
-      >(
-        'frbgen_bull_sdk_wire__ark_wallet__ark__client__ArkWallet_send_off_chain',
-      );
-  late final _wire__ark_wallet__ark__client__ArkWallet_send_off_chain =
-      _wire__ark_wallet__ark__client__ArkWallet_send_off_chainPtr
-          .asFunction<
-            void Function(
-              int,
-              int,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              int,
-            )
-          >();
-
-  void wire__ark_wallet__ark__client__ArkWallet_send_on_chain(
-    int port_,
-    int that,
-    ffi.Pointer<wire_cst_list_prim_u_8_strict> address,
-    int sats,
-  ) {
-    return _wire__ark_wallet__ark__client__ArkWallet_send_on_chain(
-      port_,
-      that,
-      address,
-      sats,
-    );
-  }
-
-  late final _wire__ark_wallet__ark__client__ArkWallet_send_on_chainPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Int64,
-            ffi.UintPtr,
-            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            ffi.Int64,
-          )
-        >
-      >(
-        'frbgen_bull_sdk_wire__ark_wallet__ark__client__ArkWallet_send_on_chain',
-      );
-  late final _wire__ark_wallet__ark__client__ArkWallet_send_on_chain =
-      _wire__ark_wallet__ark__client__ArkWallet_send_on_chainPtr
-          .asFunction<
-            void Function(
-              int,
-              int,
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              int,
-            )
-          >();
-
-  WireSyncRust2DartDco wire__ark_wallet__ark__client__ArkWallet_server_info(
-    int that,
-  ) {
-    return _wire__ark_wallet__ark__client__ArkWallet_server_info(that);
-  }
-
-  late final _wire__ark_wallet__ark__client__ArkWallet_server_infoPtr =
-      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
-        'frbgen_bull_sdk_wire__ark_wallet__ark__client__ArkWallet_server_info',
-      );
-  late final _wire__ark_wallet__ark__client__ArkWallet_server_info =
-      _wire__ark_wallet__ark__client__ArkWallet_server_infoPtr
-          .asFunction<WireSyncRust2DartDco Function(int)>();
-
-  void wire__ark_wallet__ark__client__ArkWallet_settle(
-    int port_,
-    int that,
-    bool select_recoverable_vtxos,
-  ) {
-    return _wire__ark_wallet__ark__client__ArkWallet_settle(
-      port_,
-      that,
-      select_recoverable_vtxos,
-    );
-  }
-
-  late final _wire__ark_wallet__ark__client__ArkWallet_settlePtr =
-      _lookup<
-        ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.Bool)>
-      >('frbgen_bull_sdk_wire__ark_wallet__ark__client__ArkWallet_settle');
-  late final _wire__ark_wallet__ark__client__ArkWallet_settle =
-      _wire__ark_wallet__ark__client__ArkWallet_settlePtr
-          .asFunction<void Function(int, int, bool)>();
-
-  void wire__ark_wallet__ark__client__ArkWallet_settle_boarding_transactions(
-    int port_,
-    int that,
-    bool select_recoverable_vtxos,
-  ) {
-    return _wire__ark_wallet__ark__client__ArkWallet_settle_boarding_transactions(
-      port_,
-      that,
-      select_recoverable_vtxos,
-    );
-  }
-
-  late final _wire__ark_wallet__ark__client__ArkWallet_settle_boarding_transactionsPtr =
-      _lookup<
-        ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.Bool)>
-      >(
-        'frbgen_bull_sdk_wire__ark_wallet__ark__client__ArkWallet_settle_boarding_transactions',
-      );
-  late final _wire__ark_wallet__ark__client__ArkWallet_settle_boarding_transactions =
-      _wire__ark_wallet__ark__client__ArkWallet_settle_boarding_transactionsPtr
-          .asFunction<void Function(int, int, bool)>();
-
-  void wire__ark_wallet__ark__client__ArkWallet_transaction_history(
-    int port_,
-    int that,
-  ) {
-    return _wire__ark_wallet__ark__client__ArkWallet_transaction_history(
-      port_,
-      that,
-    );
-  }
-
-  late final _wire__ark_wallet__ark__client__ArkWallet_transaction_historyPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-        'frbgen_bull_sdk_wire__ark_wallet__ark__client__ArkWallet_transaction_history',
-      );
-  late final _wire__ark_wallet__ark__client__ArkWallet_transaction_history =
-      _wire__ark_wallet__ark__client__ArkWallet_transaction_historyPtr
-          .asFunction<void Function(int, int)>();
 
   void wire__bbqr__continuous_join__ContinuousJoiner_default(int port_) {
     return _wire__bbqr__continuous_join__ContinuousJoiner_default(port_);
@@ -4083,58 +3351,6 @@ class BullSdkWire implements BaseWire {
       );
   late final _wire__bbqr__continuous_join__ContinuousJoiner_new =
       _wire__bbqr__continuous_join__ContinuousJoiner_newPtr
-          .asFunction<void Function(int)>();
-
-  void wire__ark_wallet__ark__esplora__EsploraClient_check_connection(
-    int port_,
-    int that,
-  ) {
-    return _wire__ark_wallet__ark__esplora__EsploraClient_check_connection(
-      port_,
-      that,
-    );
-  }
-
-  late final _wire__ark_wallet__ark__esplora__EsploraClient_check_connectionPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
-        'frbgen_bull_sdk_wire__ark_wallet__ark__esplora__EsploraClient_check_connection',
-      );
-  late final _wire__ark_wallet__ark__esplora__EsploraClient_check_connection =
-      _wire__ark_wallet__ark__esplora__EsploraClient_check_connectionPtr
-          .asFunction<void Function(int, int)>();
-
-  void wire__ark_wallet__ark__esplora__EsploraClient_new(
-    int port_,
-    ffi.Pointer<wire_cst_list_prim_u_8_strict> url,
-  ) {
-    return _wire__ark_wallet__ark__esplora__EsploraClient_new(port_, url);
-  }
-
-  late final _wire__ark_wallet__ark__esplora__EsploraClient_newPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Void Function(
-            ffi.Int64,
-            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-          )
-        >
-      >('frbgen_bull_sdk_wire__ark_wallet__ark__esplora__EsploraClient_new');
-  late final _wire__ark_wallet__ark__esplora__EsploraClient_new =
-      _wire__ark_wallet__ark__esplora__EsploraClient_newPtr
-          .asFunction<
-            void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>)
-          >();
-
-  void wire__ark_wallet__ark__storage__InMemoryDb_default(int port_) {
-    return _wire__ark_wallet__ark__storage__InMemoryDb_default(port_);
-  }
-
-  late final _wire__ark_wallet__ark__storage__InMemoryDb_defaultPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
-        'frbgen_bull_sdk_wire__ark_wallet__ark__storage__InMemoryDb_default',
-      );
-  late final _wire__ark_wallet__ark__storage__InMemoryDb_default =
-      _wire__ark_wallet__ark__storage__InMemoryDb_defaultPtr
           .asFunction<void Function(int)>();
 
   WireSyncRust2DartDco wire__lwk__api__transaction__LiquidTransaction_fee(
@@ -6975,7 +6191,7 @@ class BullSdkWire implements BaseWire {
           .asFunction<void Function(int, int)>();
 
   WireSyncRust2DartDco wire__lwk__api__types__get_balance_by_asset_id(
-    ffi.Pointer<wire_cst_list_balance> balances,
+    ffi.Pointer<wire_cst_list_wallet_balance> balances,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> asset_id,
   ) {
     return _wire__lwk__api__types__get_balance_by_asset_id(balances, asset_id);
@@ -6985,7 +6201,7 @@ class BullSdkWire implements BaseWire {
       _lookup<
         ffi.NativeFunction<
           WireSyncRust2DartDco Function(
-            ffi.Pointer<wire_cst_list_balance>,
+            ffi.Pointer<wire_cst_list_wallet_balance>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
           )
         >
@@ -6994,7 +6210,7 @@ class BullSdkWire implements BaseWire {
       _wire__lwk__api__types__get_balance_by_asset_idPtr
           .asFunction<
             WireSyncRust2DartDco Function(
-              ffi.Pointer<wire_cst_list_balance>,
+              ffi.Pointer<wire_cst_list_wallet_balance>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             )
           >();
@@ -7070,7 +6286,7 @@ class BullSdkWire implements BaseWire {
           .asFunction<WireSyncRust2DartDco Function()>();
 
   WireSyncRust2DartDco wire__lwk__api__types__get_lbtc_balance(
-    ffi.Pointer<wire_cst_list_balance> balances,
+    ffi.Pointer<wire_cst_list_wallet_balance> balances,
   ) {
     return _wire__lwk__api__types__get_lbtc_balance(balances);
   }
@@ -7078,13 +6294,17 @@ class BullSdkWire implements BaseWire {
   late final _wire__lwk__api__types__get_lbtc_balancePtr =
       _lookup<
         ffi.NativeFunction<
-          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_list_balance>)
+          WireSyncRust2DartDco Function(
+            ffi.Pointer<wire_cst_list_wallet_balance>,
+          )
         >
       >('frbgen_bull_sdk_wire__lwk__api__types__get_lbtc_balance');
   late final _wire__lwk__api__types__get_lbtc_balance =
       _wire__lwk__api__types__get_lbtc_balancePtr
           .asFunction<
-            WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_list_balance>)
+            WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_list_wallet_balance>,
+            )
           >();
 
   WireSyncRust2DartDco wire__lwk__api__types__get_ltest_asset_id() {
@@ -7100,7 +6320,7 @@ class BullSdkWire implements BaseWire {
           .asFunction<WireSyncRust2DartDco Function()>();
 
   WireSyncRust2DartDco wire__lwk__api__types__get_ltest_balance(
-    ffi.Pointer<wire_cst_list_balance> balances,
+    ffi.Pointer<wire_cst_list_wallet_balance> balances,
   ) {
     return _wire__lwk__api__types__get_ltest_balance(balances);
   }
@@ -7108,13 +6328,17 @@ class BullSdkWire implements BaseWire {
   late final _wire__lwk__api__types__get_ltest_balancePtr =
       _lookup<
         ffi.NativeFunction<
-          WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_list_balance>)
+          WireSyncRust2DartDco Function(
+            ffi.Pointer<wire_cst_list_wallet_balance>,
+          )
         >
       >('frbgen_bull_sdk_wire__lwk__api__types__get_ltest_balance');
   late final _wire__lwk__api__types__get_ltest_balance =
       _wire__lwk__api__types__get_ltest_balancePtr
           .asFunction<
-            WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_list_balance>)
+            WireSyncRust2DartDco Function(
+              ffi.Pointer<wire_cst_list_wallet_balance>,
+            )
           >();
 
   void wire__bitbox__api__get_root_fingerprint(
@@ -8503,50 +7727,6 @@ class BullSdkWire implements BaseWire {
             WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_transaction>)
           >();
 
-  WireSyncRust2DartDco wire__ark_wallet__ark__utils__utils_is_ark(
-    ffi.Pointer<wire_cst_list_prim_u_8_strict> address,
-  ) {
-    return _wire__ark_wallet__ark__utils__utils_is_ark(address);
-  }
-
-  late final _wire__ark_wallet__ark__utils__utils_is_arkPtr =
-      _lookup<
-        ffi.NativeFunction<
-          WireSyncRust2DartDco Function(
-            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-          )
-        >
-      >('frbgen_bull_sdk_wire__ark_wallet__ark__utils__utils_is_ark');
-  late final _wire__ark_wallet__ark__utils__utils_is_ark =
-      _wire__ark_wallet__ark__utils__utils_is_arkPtr
-          .asFunction<
-            WireSyncRust2DartDco Function(
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            )
-          >();
-
-  WireSyncRust2DartDco wire__ark_wallet__ark__utils__utils_is_btc(
-    ffi.Pointer<wire_cst_list_prim_u_8_strict> address,
-  ) {
-    return _wire__ark_wallet__ark__utils__utils_is_btc(address);
-  }
-
-  late final _wire__ark_wallet__ark__utils__utils_is_btcPtr =
-      _lookup<
-        ffi.NativeFunction<
-          WireSyncRust2DartDco Function(
-            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-          )
-        >
-      >('frbgen_bull_sdk_wire__ark_wallet__ark__utils__utils_is_btc');
-  late final _wire__ark_wallet__ark__utils__utils_is_btc =
-      _wire__ark_wallet__ark__utils__utils_is_btcPtr
-          .asFunction<
-            WireSyncRust2DartDco Function(
-              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            )
-          >();
-
   void wire__bitbox__api__verify_address(
     int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
@@ -8598,40 +7778,6 @@ class BullSdkWire implements BaseWire {
   late final _wire__bbqr__qr__version_data_capacity =
       _wire__bbqr__qr__version_data_capacityPtr
           .asFunction<void Function(int, int)>();
-
-  void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWalletPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_bull_sdk_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet',
-      );
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWalletPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-
-  void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWalletPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_bull_sdk_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet',
-      );
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWallet =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerArkWalletPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
   void
   rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult(
@@ -8699,74 +7845,6 @@ class BullSdkWire implements BaseWire {
       );
   late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoiner =
       _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinerPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-
-  void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClientPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_bull_sdk_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient',
-      );
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClientPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-
-  void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClientPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_bull_sdk_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient',
-      );
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClient =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerEsploraClientPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-
-  void
-  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDbPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_bull_sdk_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb',
-      );
-  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb =
-      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDbPtr
-          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
-
-  void
-  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-    ffi.Pointer<ffi.Void> ptr,
-  ) {
-    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb(
-      ptr,
-    );
-  }
-
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDbPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
-        'frbgen_bull_sdk_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb',
-      );
-  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDb =
-      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerInMemoryDbPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
   void
@@ -9001,17 +8079,6 @@ class BullSdkWire implements BaseWire {
       );
   late final _cst_new_box_autoadd_file_type = _cst_new_box_autoadd_file_typePtr
       .asFunction<ffi.Pointer<ffi.Int32> Function(int)>();
-
-  ffi.Pointer<ffi.Int64> cst_new_box_autoadd_i_64(int value) {
-    return _cst_new_box_autoadd_i_64(value);
-  }
-
-  late final _cst_new_box_autoadd_i_64Ptr =
-      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int64> Function(ffi.Int64)>>(
-        'frbgen_bull_sdk_cst_new_box_autoadd_i_64',
-      );
-  late final _cst_new_box_autoadd_i_64 = _cst_new_box_autoadd_i_64Ptr
-      .asFunction<ffi.Pointer<ffi.Int64> Function(int)>();
 
   ffi.Pointer<wire_cst_key_pair> cst_new_box_autoadd_key_pair() {
     return _cst_new_box_autoadd_key_pair();
@@ -9251,21 +8318,6 @@ class BullSdkWire implements BaseWire {
   late final _cst_new_list_String = _cst_new_list_StringPtr
       .asFunction<ffi.Pointer<wire_cst_list_String> Function(int)>();
 
-  ffi.Pointer<wire_cst_list_ark_transaction> cst_new_list_ark_transaction(
-    int len,
-  ) {
-    return _cst_new_list_ark_transaction(len);
-  }
-
-  late final _cst_new_list_ark_transactionPtr =
-      _lookup<
-        ffi.NativeFunction<
-          ffi.Pointer<wire_cst_list_ark_transaction> Function(ffi.Int32)
-        >
-      >('frbgen_bull_sdk_cst_new_list_ark_transaction');
-  late final _cst_new_list_ark_transaction = _cst_new_list_ark_transactionPtr
-      .asFunction<ffi.Pointer<wire_cst_list_ark_transaction> Function(int)>();
-
   ffi.Pointer<wire_cst_list_balance> cst_new_list_balance(int len) {
     return _cst_new_list_balance(len);
   }
@@ -9483,6 +8535,21 @@ class BullSdkWire implements BaseWire {
       >('frbgen_bull_sdk_cst_new_list_tx_output_spec');
   late final _cst_new_list_tx_output_spec = _cst_new_list_tx_output_specPtr
       .asFunction<ffi.Pointer<wire_cst_list_tx_output_spec> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_wallet_balance> cst_new_list_wallet_balance(
+    int len,
+  ) {
+    return _cst_new_list_wallet_balance(len);
+  }
+
+  late final _cst_new_list_wallet_balancePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_wallet_balance> Function(ffi.Int32)
+        >
+      >('frbgen_bull_sdk_cst_new_list_wallet_balance');
+  late final _cst_new_list_wallet_balance = _cst_new_list_wallet_balancePtr
+      .asFunction<ffi.Pointer<wire_cst_list_wallet_balance> Function(int)>();
 
   int dummy_method_to_enforce_bundling() {
     return _dummy_method_to_enforce_bundling();
@@ -9739,15 +8806,15 @@ final class wire_cst_fees extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> boltz_url;
 }
 
-final class wire_cst_balance extends ffi.Struct {
+final class wire_cst_wallet_balance extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> asset_id;
 
-  @ffi.Int64()
+  @ffi.Uint64()
   external int value;
 }
 
-final class wire_cst_list_balance extends ffi.Struct {
-  external ffi.Pointer<wire_cst_balance> ptr;
+final class wire_cst_list_wallet_balance extends ffi.Struct {
+  external ffi.Pointer<wire_cst_wallet_balance> ptr;
 
   @ffi.Int32()
   external int len;
@@ -9890,55 +8957,15 @@ final class wire_cst_tx_output extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> nonce;
 }
 
-final class wire_cst_ArkTransaction_Boarding extends ffi.Struct {
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> txid;
+final class wire_cst_balance extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> asset_id;
 
   @ffi.Int64()
-  external int sats;
-
-  external ffi.Pointer<ffi.Int64> confirmed_at;
+  external int value;
 }
 
-final class wire_cst_ArkTransaction_Commitment extends ffi.Struct {
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> txid;
-
-  @ffi.Int64()
-  external int sats;
-
-  @ffi.Int64()
-  external int created_at;
-}
-
-final class wire_cst_ArkTransaction_Redeem extends ffi.Struct {
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> txid;
-
-  @ffi.Int64()
-  external int sats;
-
-  @ffi.Bool()
-  external bool is_settled;
-
-  @ffi.Int64()
-  external int created_at;
-}
-
-final class ArkTransactionKind extends ffi.Union {
-  external wire_cst_ArkTransaction_Boarding Boarding;
-
-  external wire_cst_ArkTransaction_Commitment Commitment;
-
-  external wire_cst_ArkTransaction_Redeem Redeem;
-}
-
-final class wire_cst_ark_transaction extends ffi.Struct {
-  @ffi.Int32()
-  external int tag;
-
-  external ArkTransactionKind kind;
-}
-
-final class wire_cst_list_ark_transaction extends ffi.Struct {
-  external ffi.Pointer<wire_cst_ark_transaction> ptr;
+final class wire_cst_list_balance extends ffi.Struct {
+  external ffi.Pointer<wire_cst_balance> ptr;
 
   @ffi.Int32()
   external int len;
@@ -10103,50 +9130,6 @@ final class wire_cst_list_tx_output extends ffi.Struct {
   external int len;
 }
 
-final class wire_cst_ark_boarding extends ffi.Struct {
-  @ffi.Int64()
-  external int unconfirmed;
-
-  @ffi.Int64()
-  external int confirmed;
-
-  @ffi.Int64()
-  external int total;
-}
-
-final class wire_cst_ark_balance extends ffi.Struct {
-  @ffi.Int64()
-  external int preconfirmed;
-
-  @ffi.Int64()
-  external int settled;
-
-  @ffi.Int64()
-  external int available;
-
-  @ffi.Int64()
-  external int recoverable;
-
-  @ffi.Int64()
-  external int total;
-
-  external wire_cst_ark_boarding boarding;
-}
-
-final class wire_cst_boarding_settlement extends ffi.Struct {
-  @ffi.Int32()
-  external int pending_count;
-
-  @ffi.Int32()
-  external int confirmed_count;
-
-  @ffi.Int64()
-  external int total_pending_sats;
-
-  @ffi.Int64()
-  external int total_confirmed_sats;
-}
-
 final class wire_cst_swap_limits extends ffi.Struct {
   @ffi.Uint64()
   external int minimal;
@@ -10287,42 +9270,6 @@ final class wire_cst_reverse_fees_and_limits extends ffi.Struct {
   external wire_cst_rev_swap_fees lbtc_fees;
 }
 
-final class wire_cst_server_info extends ffi.Struct {
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> version;
-
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> signer_pubkey;
-
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> forfeit_pubkey;
-
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> forfeit_address;
-
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> checkpoint_tapscript;
-
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> network;
-
-  @ffi.Int64()
-  external int session_duration;
-
-  @ffi.Uint32()
-  external int unilateral_exit_delay;
-
-  @ffi.Uint32()
-  external int boarding_exit_delay;
-
-  external ffi.Pointer<ffi.Int64> utxo_min_amount;
-
-  external ffi.Pointer<ffi.Int64> utxo_max_amount;
-
-  external ffi.Pointer<ffi.Int64> vtxo_min_amount;
-
-  external ffi.Pointer<ffi.Int64> vtxo_max_amount;
-
-  @ffi.Int64()
-  external int dust;
-
-  external ffi.Pointer<wire_cst_list_prim_u_8_strict> digest;
-}
-
 final class wire_cst_size_and_fees extends ffi.Struct {
   @ffi.UintPtr()
   external int discounted_vsize;
@@ -10330,7 +9277,7 @@ final class wire_cst_size_and_fees extends ffi.Struct {
   @ffi.UintPtr()
   external int discounted_weight;
 
-  external ffi.Pointer<wire_cst_list_balance> absolute_fees;
+  external ffi.Pointer<wire_cst_list_wallet_balance> absolute_fees;
 }
 
 final class wire_cst_split extends ffi.Struct {
@@ -10360,5 +9307,3 @@ final class wire_cst_submarine_fees_and_limits extends ffi.Struct {
 
   external wire_cst_sub_swap_fees lbtc_fees;
 }
-
-final class wire_cst_utils extends ffi.Opaque {}

@@ -4,9 +4,15 @@
 setup: clean deps build
 	@echo "🚀 Setup complete!"
 
+# Keeps pubspec.lock. It is committed, and its sha256 hashes are the only
+# integrity anchor for dependencies that parse untrusted scanner input —
+# bip21_uri, bip32_keys, bs58 and friends are caret-ranged, single-maintainer
+# packages with no signed releases. Deleting it here made every `make setup`
+# re-resolve them, so a poisoned patch release would have been picked up
+# silently. Re-resolve deliberately with `flutter pub upgrade` instead.
 clean:
-	@echo "🧹 Clean and remove pubspec.lock"
-	@flutter clean && rm pubspec.lock
+	@echo "🧹 Clean"
+	@flutter clean
 
 deps:
 	@echo "🐕 Fetching dependencies"

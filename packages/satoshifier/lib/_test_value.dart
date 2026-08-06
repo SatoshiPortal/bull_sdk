@@ -42,10 +42,12 @@ class TestValue {
   static get walletMasterFingerprint => '86241f88';
   static get descriptorP2pkhBip44 =>
       'pkh([$walletMasterFingerprint/44h/0h/0h]$xpub/<0;1>/*)#fzh6clmf';
+  // The BIP49 and BIP84 checksums below were wrong until descriptor parsing
+  // started verifying them; both replacements are the values BDK accepts.
   static get descriptorP2shBip49 =>
-      'sh(wpkh([$walletMasterFingerprint/49h/0h/0h]$xpub/<0;1>/*))#6nkjq52v';
+      'sh(wpkh([$walletMasterFingerprint/49h/0h/0h]$xpub/<0;1>/*))#2vl9h7e6';
   static get descriptorP2wpkhBip84 =>
-      'wpkh([$walletMasterFingerprint/84h/0h/0h]$xpub/<0;1>/*)#ht0s3dna';
+      'wpkh([$walletMasterFingerprint/84h/0h/0h]$xpub/<0;1>/*)#n8txaeah';
 
   static get descriptorChangeOnly =>
       'sh(wpkh([$walletMasterFingerprint/49h/0h/0h]/$xpub/1/*))';
@@ -60,32 +62,18 @@ class TestValue {
   static get testnetP2SH => '2MzQwSSnBHWHqSAqtTVQ6v47XtaisrJa1Vc';
   static get testnetBech32 => 'tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx';
 
-  static get btcWifUncompressed =>
-      '5Hwgr3u458GLafKBgxtssHSPqJnYoGrSzgQsPwLFhLNYskDPyyA';
-  static get btcWifElectrumDeprecatedUncompressed =>
-      '5TfQjD9DLFeUFmDiDrzsdtSGQss93o4pvsmQcgmjfcQVLsEgAoM';
-
-  static get btcWifCompressed =>
-      'L1aW4aubDFB7yfras2S1mN3bqg9nwySY8nkoLmJebSLD5BWv3ENZ';
-  static get btcWifElectrumDeprecatedCompressed =>
-      'LkUevPi661korFvRdQQUkEX35rA484oAwzsT93383q6mUqVe5cw2';
-  static get btcWifElectrumDeprecatedCompressedAlt =>
-      'M3dv4iRtSKb5oHwxjZCGLai1aiZMnuLdGt7iFwjK2ncC3Vu7tRwP';
-
-  static get testnetWifUncompressed =>
-      '92Pg46rUhgTT7romnV7iGW6W1gbGdeezqdbJCzShkCsYNzyyNcc';
-  static get testnetWifCompressed =>
-      'cNJFgo1driFnPcBdBX8BrJrpxchBWXwXCvNH5SoSkdcF6JXXwHMm';
-
   // Bitcoin Extended Keys
   static get btcXpub =>
       'xpub661MyMwAqRbcEYS8w7XLSVeEsBXy79zSzH1J8vCdxAZningWLdN3zgtU6LBpB85b3D2yc8sfvZU521AAwdZafEz7mnzBBsz4wKY5e4cp9LB';
-  static get btcXprv =>
-      'xprv9s21ZrQH143K24Mfq5zL5MhWK9hUhhGbd45hLXo2Pq2oqzMMo63oStZzF93Y5wvzdUayhgkkFoicQZcP3y52uPPxFnfoLZB21Teqt1VvEHx';
-  static get testnetTpub =>
-      'tpubD6NzVbkrYhZ4WLczPJWReQycCJdd6YVWXubbVUFnJ5KgU5MDQrD998ZJLNGbhd2pq7ZtDiPYTfJ7iBenLVQpYgSQqPjUsQeJXH8VQ8xA67D';
-  static get testnetTprv =>
-      'tprv8ZgxMBicQKsPcsbCVeqqF1KVdH7gwDJbxbzpCxDUsoXHdb6SnTPYxdwSAKDC6KKJzv7khnNWRAJQsRA8BBQyiSfYnRt6zuu4vZQGKjeW4YF';
+  /// The testnet form of [xpub].
+  ///
+  /// The previous literal was not a usable extended key: correct tpub version
+  /// bytes and a valid base58check trailer, but its 33-byte key field began
+  /// with 0x00, and a compressed public key must begin with 0x02 or 0x03. Any
+  /// code path that actually decodes the key rejected it with "Point is not on
+  /// the curve", which is why the descriptor tests paired a mainnet xpub with
+  /// testnet derivation paths instead of using this value.
+  static get testnetTpub => xpubToTpub;
 
   // Liquid Addresses
   static get liquidAddressMain =>
