@@ -1,3 +1,4 @@
+import 'package:bip32_keys/bip32_keys.dart';
 import 'package:satoshifier/satoshifier.dart';
 import 'package:satoshifier/utils/descriptor_checksum.dart';
 
@@ -157,6 +158,16 @@ class Descriptor {
     final coinTypeString = match.group(4)!;
     final accountString = match.group(5)!;
     final pubkey = match.group(6)!;
+    // The key travels inside the descriptor as an opaque substring, so
+    // nothing else verifies it. Check the base58check trailer here rather
+    // than through ExtendedPubkey.parse, which additionally insists on a
+    // known SLIP-132 prefix and would reject descriptor flavours this parser
+    // accepts today.
+    try {
+      Bip32Keys.fromBase58(pubkey, bypassVersion: true);
+    } on ArgumentError {
+      throw FormatException('Invalid extended public key in descriptor');
+    }
 
     final operand = useOperandFromRegex
         ? ScriptOperand.fromDescriptor(operandString)
