@@ -70,20 +70,30 @@ enum Network {
     throw 'Invalid xpub type: $xpubType';
   }
 
-  bool get isTestnet {
+  /// Whether this network carries real value.
+  ///
+  /// The switch is exhaustive on purpose: adding a network forces a decision
+  /// here rather than letting it inherit a default.
+  bool get isMainnet {
     switch (this) {
       case Network.bitcoinMainnet:
-        return false;
-      case Network.bitcoinSignet:
-        return false;
       case Network.liquidMainnet:
-        return false;
-      case Network.bitcoinRegtest:
-        return false;
+        return true;
       case Network.bitcoinTestnet:
-        return true;
+      case Network.bitcoinSignet:
+      case Network.bitcoinRegtest:
       case Network.liquidTestnet:
-        return true;
+        return false;
     }
   }
+
+  /// Whether this network is a test network, so worthless by definition.
+  ///
+  /// Previously false for [bitcoinSignet] and [bitcoinRegtest], which reported
+  /// those chains as production. This is the getter a wallet gates on to warn
+  /// the user, pick a backend, or apply production safeguards, so a signet or
+  /// regtest payment was handled as if it moved real funds. Defined as the
+  /// complement of [isMainnet] so the two can never disagree — the same
+  /// "anything but mainnet" rule Bolt11Parser already applies to invoices.
+  bool get isTestnet => !isMainnet;
 }
