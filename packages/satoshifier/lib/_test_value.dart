@@ -62,32 +62,11 @@ class TestValue {
   static get testnetP2SH => '2MzQwSSnBHWHqSAqtTVQ6v47XtaisrJa1Vc';
   static get testnetBech32 => 'tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx';
 
-  static get btcWifUncompressed =>
-      '5Hwgr3u458GLafKBgxtssHSPqJnYoGrSzgQsPwLFhLNYskDPyyA';
-  static get btcWifElectrumDeprecatedUncompressed =>
-      '5TfQjD9DLFeUFmDiDrzsdtSGQss93o4pvsmQcgmjfcQVLsEgAoM';
-
-  static get btcWifCompressed =>
-      'L1aW4aubDFB7yfras2S1mN3bqg9nwySY8nkoLmJebSLD5BWv3ENZ';
-  static get btcWifElectrumDeprecatedCompressed =>
-      'LkUevPi661korFvRdQQUkEX35rA484oAwzsT93383q6mUqVe5cw2';
-  static get btcWifElectrumDeprecatedCompressedAlt =>
-      'M3dv4iRtSKb5oHwxjZCGLai1aiZMnuLdGt7iFwjK2ncC3Vu7tRwP';
-
-  static get testnetWifUncompressed =>
-      '92Pg46rUhgTT7romnV7iGW6W1gbGdeezqdbJCzShkCsYNzyyNcc';
-  static get testnetWifCompressed =>
-      'cNJFgo1driFnPcBdBX8BrJrpxchBWXwXCvNH5SoSkdcF6JXXwHMm';
-
   // Bitcoin Extended Keys
   static get btcXpub =>
       'xpub661MyMwAqRbcEYS8w7XLSVeEsBXy79zSzH1J8vCdxAZningWLdN3zgtU6LBpB85b3D2yc8sfvZU521AAwdZafEz7mnzBBsz4wKY5e4cp9LB';
-  static get btcXprv =>
-      'xprv9s21ZrQH143K24Mfq5zL5MhWK9hUhhGbd45hLXo2Pq2oqzMMo63oStZzF93Y5wvzdUayhgkkFoicQZcP3y52uPPxFnfoLZB21Teqt1VvEHx';
   static get testnetTpub =>
       'tpubD6NzVbkrYhZ4WLczPJWReQycCJdd6YVWXubbVUFnJ5KgU5MDQrD998ZJLNGbhd2pq7ZtDiPYTfJ7iBenLVQpYgSQqPjUsQeJXH8VQ8xA67D';
-  static get testnetTprv =>
-      'tprv8ZgxMBicQKsPcsbCVeqqF1KVdH7gwDJbxbzpCxDUsoXHdb6SnTPYxdwSAKDC6KKJzv7khnNWRAJQsRA8BBQyiSfYnRt6zuu4vZQGKjeW4YF';
 
   // Liquid Addresses
   static get liquidAddressMain =>

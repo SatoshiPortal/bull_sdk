@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:satoshifier/satoshifier.dart';
+import 'package:satoshifier/_test_value.dart';
 
 /// The extended public key travels inside a descriptor as an opaque
 /// substring: the descriptor regex captures it and stores it verbatim, and

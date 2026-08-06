@@ -21,7 +21,6 @@ export 'parsers/lnurl_parser.dart' show LnurlParser;
 
 export 'utils/utils.dart' show Utils;
 export 'utils/bip32_utils.dart' show Bip32Utils;
-export '_test_value.dart' show TestValue;
 
 // imports
 import 'package:freezed_annotation/freezed_annotation.dart';

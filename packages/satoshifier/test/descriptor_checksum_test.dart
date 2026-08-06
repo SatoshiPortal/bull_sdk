@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:satoshifier/satoshifier.dart';
+import 'package:satoshifier/_test_value.dart';
 
 /// Proves the two integrity gaps reported against `Descriptor.parse`:
 /// the BIP-380 checksum suffix is captured by the regex but never verified,
