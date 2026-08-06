@@ -22,6 +22,19 @@ class Bip21Parser {
       default:
         throw 'Unhandled scheme: ${uri.scheme} ${uri.address} not verified';
     }
+
+    // The address decides the network, so a scheme that claims a different one
+    // has to be refused rather than carried alongside it. Satoshifier.bip21
+    // exposes both `scheme` and `network`, and a consumer reading only one of
+    // them would otherwise act on an unchecked, contradictory pair: a mainnet
+    // Liquid address inside a 'liquidtestnet:' URI parsed cleanly and reported
+    // liquidMainnet.
+    if (!schemeMatchesNetwork(uri.scheme, network)) {
+      throw FormatException(
+        'BIP21 scheme ${uri.scheme} does not match the address network '
+        '${network.name}',
+      );
+    }
     // The raw query string is the source of truth. The decoded double is only
     // a fallback, and toStringAsFixed(8) is used rather than toString()
     // because it is never rendered in scientific notation.
@@ -48,6 +61,26 @@ class Bip21Parser {
       pj: uri.options['pj'] as String? ?? '',
       pjos: uri.options['pjos'] as String? ?? '',
     );
+  }
+
+  /// Whether the network a URI scheme claims agrees with the network the
+  /// address actually belongs to.
+  ///
+  /// `bitcoin:` is used for every Bitcoin chain by convention, so it only
+  /// asserts that the address is a Bitcoin one; the Liquid schemes name their
+  /// network and are held to it.
+  static bool schemeMatchesNetwork(String scheme, Network network) {
+    switch (scheme.toLowerCase()) {
+      case 'bitcoin':
+        return network.isBitcoin;
+      case 'liquid':
+      case 'liquidnetwork':
+        return network == Network.liquidMainnet;
+      case 'liquidtestnet':
+        return network == Network.liquidTestnet;
+      default:
+        return false;
+    }
   }
 
   /// Reads the `amount` parameter straight out of the URI query.
