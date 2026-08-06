@@ -48,17 +48,25 @@ bull-sdk/
 │   │   ├── rust/                       # Bridge crate
 │   │   └── lib/
 │   │       ├── bull_sdk.dart           # BullSdk.init()
-│   │       ├── ark.dart                # Ark wallet types
 │   │       ├── bbqr.dart               # BBQr types
+│   │       ├── bitbox.dart             # BitBox types
 │   │       ├── boltz.dart              # Boltz swap types
-│   │       └── lwk.dart                # Liquid Wallet Kit types
-│   ├── ark-wallet/                     # git submodule → SatoshiPortal/ark-wallet-dart
+│   │       ├── lwk.dart                # Liquid Wallet Kit types
+│   │       ├── bdk.dart                # Re-exports the SDK-pinned bdk_dart
+│   │       └── main.dart               # flutter_rust_bridge template demo app
 │   ├── bbqr/                           # git submodule → SatoshiPortal/bbqr-dart
+│   ├── bitbox/                         # git submodule → SatoshiPortal/bitbox-dart
 │   ├── boltz/                          # git submodule → SatoshiPortal/boltz-dart
 │   ├── lwk/                            # git submodule → SatoshiPortal/lwk-dart
+│   ├── bitbox-transport/               # Pure Dart — BitBox transport
 │   ├── boltz-stream/                   # Pure Dart — BoltzWebSocket (depends on bull_sdk)
-│   └── satoshifier/                    # git submodule → SatoshiPortal/dart-satoshifier
+│   └── satoshifier/                    # Pure Dart — payment-string parsers
 ```
+
+The submodules are not a build input: cargo resolves each crate from the `rev`
+pinned in `packages/bull_sdk/rust/Cargo.toml`, which is the source of truth, and
+no Dart path dependency points into `packages/`. Keep a submodule pointer equal
+to its cargo `rev` so the checked-out source matches what actually builds.
 
 ## Regenerating bindings
 
