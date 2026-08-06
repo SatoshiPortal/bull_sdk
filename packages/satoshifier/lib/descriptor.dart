@@ -118,6 +118,39 @@ class Descriptor {
 
   static final RegExp _fingerprintPattern = RegExp(r'^[0-9a-fA-F]{8}$');
 
+  /// Rejects a descriptor whose key-origin coin type and extended key disagree
+  /// about the network.
+  ///
+  /// The network used to come from the coin-type component of the origin path
+  /// alone, and the key's own version bytes — the authoritative,
+  /// checksum-protected signal — were never looked at. A mainnet xpub under a
+  /// testnet path was reported as bitcoinTestnet, and a tpub under /0h/ as
+  /// bitcoinMainnet. Either way a single wrong character in the path silently
+  /// produced a plausible wallet on the wrong chain: mainnet UTXOs that never
+  /// appear, or real BTC sent to addresses derived from a throwaway testnet key.
+  ///
+  /// Compared at mainnet-versus-testnet granularity, which is what the version
+  /// bytes actually encode. Comparing the exact network would reject Liquid,
+  /// whose coin type 1776 legitimately carries an xpub.
+  ///
+  /// A prefix this package does not know is left alone rather than refused:
+  /// parseDescriptorWithOrigin deliberately accepts descriptor flavours that
+  /// ExtendedPubkey.parse would reject, and this check is not the place to
+  /// narrow that.
+  static void _checkKeyNetworkMatchesPath(String xpub, Network pathNetwork) {
+    final XpubType keyType;
+    try {
+      keyType = XpubType.fromString(xpub);
+    } catch (_) {
+      return;
+    }
+    if (Network.fromXpubType(keyType).isMainnet != pathNetwork.isMainnet) {
+      throw FormatException(
+        'Key-origin coin type and extended key disagree on the network',
+      );
+    }
+  }
+
   static Descriptor fromStrings({
     required String fingerprint,
     required String path,
@@ -143,6 +176,7 @@ class Descriptor {
     final derivation = Derivation.fromPurpose(purpose);
     final coinType = CoinType.fromInt(coinTypeInt);
     final network = coinType.toNetwork();
+    _checkKeyNetworkMatchesPath(xpub, network);
     final operand = switch (derivation) {
       Derivation.bip44 => ScriptOperand.pkh,
       Derivation.bip49 => ScriptOperand.shwpkh,
@@ -196,6 +230,7 @@ class Descriptor {
     final coinTypeInt = int.parse(Utils.trimLastQuoteOrH(coinTypeString));
     final coinType = CoinType.fromInt(coinTypeInt);
     final network = coinType.toNetwork();
+    _checkKeyNetworkMatchesPath(pubkey, network);
     final account = int.parse(Utils.trimLastQuoteOrH(accountString));
 
     return Descriptor(

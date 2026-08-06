@@ -42,14 +42,15 @@ void main() {
 
     test('decodes a testnet descriptor', () async {
       final testnetDescriptor =
-          'wpkh([${TestValue.walletMasterFingerprint}/84h/1h/1984h]${TestValue.xpub}/0/*)';
+          'wpkh([${TestValue.walletMasterFingerprint}/84h/1h/1984h]'
+          '${TestValue.testnetTpub}/0/*)';
       final satoshifier = await WatchOnlyDescriptorParser.parse(
         testnetDescriptor,
       );
       expect(satoshifier, isA<WatchOnlyDescriptor>());
       final descriptor = (satoshifier as WatchOnlyDescriptor).descriptor;
       expect(descriptor.operand, ScriptOperand.wpkh);
-      expect(descriptor.pubkey, TestValue.xpub);
+      expect(descriptor.pubkey, TestValue.testnetTpub);
       expect(descriptor.fingerprint, TestValue.walletMasterFingerprint);
       expect(descriptor.network, Network.bitcoinTestnet);
       expect(descriptor.derivation, Derivation.bip84);
@@ -251,7 +252,7 @@ void main() {
       final d = Descriptor.fromStrings(
         fingerprint: TestValue.walletMasterFingerprint,
         path: 'm/49h/1h/7h',
-        xpub: TestValue.xpub,
+        xpub: TestValue.testnetTpub,
       );
       expect(d.operand, ScriptOperand.shwpkh);
       expect(d.derivation, Derivation.bip49);
@@ -294,7 +295,7 @@ void main() {
 
     test('parse([origin]xpub): 84h on testnet (1h) infers wpkh', () {
       final d = Descriptor.parse(
-        '[${TestValue.walletMasterFingerprint}/84h/1h/4h]${TestValue.xpub}',
+        '[${TestValue.walletMasterFingerprint}/84h/1h/4h]${TestValue.testnetTpub}',
       );
       expect(d.operand, ScriptOperand.wpkh);
       expect(d.derivation, Derivation.bip84);
@@ -323,7 +324,7 @@ void main() {
 
     test('parse([origin]xpub): 44h on testnet (1h) infers pkh', () {
       final d = Descriptor.parse(
-        '[${TestValue.walletMasterFingerprint}/44h/1h/2h]${TestValue.xpub}',
+        '[${TestValue.walletMasterFingerprint}/44h/1h/2h]${TestValue.testnetTpub}',
       );
       expect(d.operand, ScriptOperand.pkh);
       expect(d.derivation, Derivation.bip44);
