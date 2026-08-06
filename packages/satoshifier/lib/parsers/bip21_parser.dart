@@ -22,8 +22,19 @@ class Bip21Parser {
       default:
         throw 'Unhandled scheme: ${uri.scheme} ${uri.address} not verified';
     }
-    final amount = uri.amount;
-    final sats = amount != null ? Utils.btcToSats(amount.toString()) : 0;
+    // The raw query string is the source of truth. The decoded double is only
+    // a fallback, and toStringAsFixed(8) is used rather than toString()
+    // because it is never rendered in scientific notation.
+    final rawAmount = _rawAmount(data);
+    final decodedAmount = uri.amount;
+    final int sats;
+    if (rawAmount != null) {
+      sats = Utils.btcToSats(rawAmount);
+    } else if (decodedAmount != null) {
+      sats = Utils.btcToSats(decodedAmount.toStringAsFixed(8));
+    } else {
+      sats = 0;
+    }
 
     return Satoshifier.bip21(
       scheme: uri.scheme,
@@ -37,6 +48,37 @@ class Bip21Parser {
       pj: uri.options['pj'] as String? ?? '',
       pjos: uri.options['pjos'] as String? ?? '',
     );
+  }
+
+  /// Reads the `amount` parameter straight out of the URI query.
+  ///
+  /// The decoded model exposes the amount as a `double`, and
+  /// `double.toString()` switches to scientific notation below 1e-6: a
+  /// one-satoshi URI renders as `1e-8`, which [Utils.btcToSats] rejects. That
+  /// made every BIP21 amount under 1000 sats fail to parse — and because
+  /// [tryParse] swallows the exception, it failed silently. Keeping the
+  /// original decimal string also keeps the satoshi conversion exact integer
+  /// arithmetic instead of round-tripping through a binary float.
+  ///
+  /// The key lookup is case-insensitive: QR codes commonly carry the whole
+  /// URI uppercased to use the denser alphanumeric mode, and the decoder only
+  /// recognises a lowercase `amount`, so those URIs silently decoded to a null
+  /// amount and a zero-sat result.
+  static String? _rawAmount(String data) {
+    final Map<String, String> query;
+    try {
+      final parsed = Uri.tryParse(data);
+      if (parsed == null) return null;
+      query = parsed.queryParameters;
+    } on FormatException {
+      return null;
+    }
+    for (final entry in query.entries) {
+      if (entry.key.toLowerCase() != 'amount') continue;
+      final value = entry.value.trim();
+      return value.isEmpty ? null : value;
+    }
+    return null;
   }
 
   static Future<Satoshifier?> tryParse(String data) async {
