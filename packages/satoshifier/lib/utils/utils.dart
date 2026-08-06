@@ -1,18 +1,37 @@
 class Utils {
+  /// A BTC amount: digits, optionally a fraction of at most eight digits.
+  ///
+  /// Anchored and deliberately narrow. The previous implementation split on
+  /// '.' and parsed each part on its own, which accepted several inputs it
+  /// should not have:
+  ///
+  ///  - a sign was lost when the whole part was zero, because `int.parse('-0')`
+  ///    is `0`. '-0.9' converted to +90,000,000 sats, and the bounds check only
+  ///    rejected `sats < 0`, so the flipped positive value passed;
+  ///  - a fraction longer than eight digits was truncated, so a request for
+  ///    1.999999999 BTC was paid as 1.99999999 BTC — silently less than asked;
+  ///  - '+5' and '1.' parsed, the latter padding an empty fraction to zeros.
+  static final RegExp _btcAmount = RegExp(r'^[0-9]+(\.[0-9]{1,8})?$');
+
+  /// Whole BTC above this cannot exist, and multiplying it would overflow
+  /// 64-bit arithmetic and could wrap into a value [_checkSatsBounds] accepts.
+  static const int _maxWholeBtc = 21000000;
+
   static int btcToSats(String bitcoins) {
-    final parts = bitcoins.split('.');
-    if (parts.length == 1) {
-      final sats = int.parse(parts[0]) * 100000000;
-      _checkSatsBounds(sats);
-      return sats;
-    } else if (parts.length == 2) {
-      final whole = int.parse(parts[0]) * 100000000;
-      final decimal = parts[1].padRight(8, '0').substring(0, 8);
-      final sats = whole + int.parse(decimal);
-      _checkSatsBounds(sats);
-      return sats;
+    if (!_btcAmount.hasMatch(bitcoins)) {
+      throw FormatException('Invalid BTC amount format: $bitcoins');
     }
-    throw FormatException('Invalid BTC amount format');
+    final parts = bitcoins.split('.');
+    final wholeBtc = int.parse(parts[0]);
+    if (wholeBtc > _maxWholeBtc) {
+      throw FormatException('BTC amount above the supply cap: $bitcoins');
+    }
+    final fraction = parts.length == 2
+        ? int.parse(parts[1].padRight(8, '0'))
+        : 0;
+    final sats = wholeBtc * 100000000 + fraction;
+    _checkSatsBounds(sats);
+    return sats;
   }
 
   /// Converts a BOLT11 millisatoshi amount to satoshis, rounding up.
