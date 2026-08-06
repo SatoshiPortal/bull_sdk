@@ -161,6 +161,11 @@ class Descriptor {
     if (!isValidFingerprint(fingerprint)) {
       throw FormatException('Invalid key-origin fingerprint');
     }
+    try {
+      Bip32Keys.fromBase58(xpub, bypassVersion: true);
+    } on ArgumentError {
+      throw FormatException('Invalid extended public key in descriptor');
+    }
     final convertedPath = path.startsWith('m/') ? path.substring(2) : path;
 
     final pathParts = convertedPath.split('/');

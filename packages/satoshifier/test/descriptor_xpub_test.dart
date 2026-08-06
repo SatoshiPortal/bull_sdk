@@ -24,4 +24,20 @@ void main() {
         .first;
     expect(() => Descriptor.parse(descriptor), throwsA(anything));
   });
+
+  test('rejects a bare key-origin xpub that fails base58check', () {
+    final i = TestValue.xpub.length ~/ 2;
+    final badXpub = TestValue.xpub.replaceRange(
+      i,
+      i + 1,
+      TestValue.xpub[i] == 'A' ? 'B' : 'A',
+    );
+
+    expect(
+      () => Descriptor.parse(
+        '[${TestValue.walletMasterFingerprint}/84h/0h/0h]$badXpub',
+      ),
+      throwsA(anything),
+    );
+  });
 }
