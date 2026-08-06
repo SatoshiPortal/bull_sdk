@@ -290,7 +290,9 @@ abstract class BullSdkApi extends BaseApi {
 
   Future<Address> lwkApiWalletWalletAddressLastUnused({required Wallet that});
 
-  Future<List<Balance>> lwkApiWalletWalletBalances({required Wallet that});
+  Future<List<WalletBalance>> lwkApiWalletWalletBalances({
+    required Wallet that,
+  });
 
   Future<String> lwkApiWalletWalletBlindingKey({required Wallet that});
 
@@ -651,8 +653,8 @@ abstract class BullSdkApi extends BaseApi {
 
   Future<bool> bbqrFileTypeFileTypeIsKnownFiletype({required int byte});
 
-  PlatformInt64 lwkApiTypesGetBalanceByAssetId({
-    required List<Balance> balances,
+  BigInt lwkApiTypesGetBalanceByAssetId({
+    required List<WalletBalance> balances,
     required String assetId,
   });
 
@@ -666,11 +668,11 @@ abstract class BullSdkApi extends BaseApi {
 
   String lwkApiTypesGetLbtcAssetId();
 
-  PlatformInt64 lwkApiTypesGetLbtcBalance({required List<Balance> balances});
+  BigInt lwkApiTypesGetLbtcBalance({required List<WalletBalance> balances});
 
   String lwkApiTypesGetLtestAssetId();
 
-  PlatformInt64 lwkApiTypesGetLtestBalance({required List<Balance> balances});
+  BigInt lwkApiTypesGetLtestBalance({required List<WalletBalance> balances});
 
   Future<String> bitboxApiGetRootFingerprint({required String serialNumber});
 
@@ -2398,7 +2400,9 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       );
 
   @override
-  Future<List<Balance>> lwkApiWalletWalletBalances({required Wallet that}) {
+  Future<List<WalletBalance>> lwkApiWalletWalletBalances({
+    required Wallet that,
+  }) {
     return handler.executeNormal(
       NormalTask(
         callFfi: (port_) {
@@ -2409,7 +2413,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           return wire.wire__lwk__api__wallet__Wallet_balances(port_, arg0);
         },
         codec: DcoCodec(
-          decodeSuccessData: dco_decode_list_balance,
+          decodeSuccessData: dco_decode_list_wallet_balance,
           decodeErrorData: dco_decode_lwk_error,
         ),
         constMeta: kLwkApiWalletWalletBalancesConstMeta,
@@ -4972,14 +4976,14 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       );
 
   @override
-  PlatformInt64 lwkApiTypesGetBalanceByAssetId({
-    required List<Balance> balances,
+  BigInt lwkApiTypesGetBalanceByAssetId({
+    required List<WalletBalance> balances,
     required String assetId,
   }) {
     return handler.executeSync(
       SyncTask(
         callFfi: () {
-          var arg0 = cst_encode_list_balance(balances);
+          var arg0 = cst_encode_list_wallet_balance(balances);
           var arg1 = cst_encode_String(assetId);
           return wire.wire__lwk__api__types__get_balance_by_asset_id(
             arg0,
@@ -4987,7 +4991,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           );
         },
         codec: DcoCodec(
-          decodeSuccessData: dco_decode_i_64,
+          decodeSuccessData: dco_decode_u_64,
           decodeErrorData: null,
         ),
         constMeta: kLwkApiTypesGetBalanceByAssetIdConstMeta,
@@ -5079,15 +5083,15 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       const TaskConstMeta(debugName: "get_lbtc_asset_id", argNames: []);
 
   @override
-  PlatformInt64 lwkApiTypesGetLbtcBalance({required List<Balance> balances}) {
+  BigInt lwkApiTypesGetLbtcBalance({required List<WalletBalance> balances}) {
     return handler.executeSync(
       SyncTask(
         callFfi: () {
-          var arg0 = cst_encode_list_balance(balances);
+          var arg0 = cst_encode_list_wallet_balance(balances);
           return wire.wire__lwk__api__types__get_lbtc_balance(arg0);
         },
         codec: DcoCodec(
-          decodeSuccessData: dco_decode_i_64,
+          decodeSuccessData: dco_decode_u_64,
           decodeErrorData: null,
         ),
         constMeta: kLwkApiTypesGetLbtcBalanceConstMeta,
@@ -5124,15 +5128,15 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       const TaskConstMeta(debugName: "get_ltest_asset_id", argNames: []);
 
   @override
-  PlatformInt64 lwkApiTypesGetLtestBalance({required List<Balance> balances}) {
+  BigInt lwkApiTypesGetLtestBalance({required List<WalletBalance> balances}) {
     return handler.executeSync(
       SyncTask(
         callFfi: () {
-          var arg0 = cst_encode_list_balance(balances);
+          var arg0 = cst_encode_list_wallet_balance(balances);
           return wire.wire__lwk__api__types__get_ltest_balance(arg0);
         },
         codec: DcoCodec(
-          decodeSuccessData: dco_decode_i_64,
+          decodeSuccessData: dco_decode_u_64,
           decodeErrorData: null,
         ),
         constMeta: kLwkApiTypesGetLtestBalanceConstMeta,
@@ -7679,6 +7683,12 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  List<WalletBalance> dco_decode_list_wallet_balance(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_wallet_balance).toList();
+  }
+
+  @protected
   Lnurl dco_decode_lnurl(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -7958,7 +7968,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     return SizeAndFees(
       discountedVsize: dco_decode_usize(arr[0]),
       discountedWeight: dco_decode_usize(arr[1]),
-      absoluteFees: dco_decode_list_balance(arr[2]),
+      absoluteFees: dco_decode_list_wallet_balance(arr[2]),
     );
   }
 
@@ -8244,6 +8254,18 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   Version dco_decode_version(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return Version.values[raw as int];
+  }
+
+  @protected
+  WalletBalance dco_decode_wallet_balance(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return WalletBalance(
+      assetId: dco_decode_String(arr[0]),
+      value: dco_decode_u_64(arr[1]),
+    );
   }
 
   @protected
@@ -9208,6 +9230,20 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  List<WalletBalance> sse_decode_list_wallet_balance(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <WalletBalance>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_wallet_balance(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
   Lnurl sse_decode_lnurl(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_value = sse_decode_String(deserializer);
@@ -9554,7 +9590,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_discountedVsize = sse_decode_usize(deserializer);
     var var_discountedWeight = sse_decode_usize(deserializer);
-    var var_absoluteFees = sse_decode_list_balance(deserializer);
+    var var_absoluteFees = sse_decode_list_wallet_balance(deserializer);
     return SizeAndFees(
       discountedVsize: var_discountedVsize,
       discountedWeight: var_discountedWeight,
@@ -9870,6 +9906,14 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
     return Version.values[inner];
+  }
+
+  @protected
+  WalletBalance sse_decode_wallet_balance(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_assetId = sse_decode_String(deserializer);
+    var var_value = sse_decode_u_64(deserializer);
+    return WalletBalance(assetId: var_assetId, value: var_value);
   }
 
   @protected
@@ -11029,6 +11073,18 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  void sse_encode_list_wallet_balance(
+    List<WalletBalance> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_wallet_balance(item, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_lnurl(Lnurl self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.value, serializer);
@@ -11338,7 +11394,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_usize(self.discountedVsize, serializer);
     sse_encode_usize(self.discountedWeight, serializer);
-    sse_encode_list_balance(self.absoluteFees, serializer);
+    sse_encode_list_wallet_balance(self.absoluteFees, serializer);
   }
 
   @protected
@@ -11559,6 +11615,13 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   void sse_encode_version(Version self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_wallet_balance(WalletBalance self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.assetId, serializer);
+    sse_encode_u_64(self.value, serializer);
   }
 }
 
@@ -11850,7 +11913,7 @@ class WalletImpl extends RustOpaque implements Wallet {
       BullSdk.instance.api.lwkApiWalletWalletAddressLastUnused(that: this);
 
   /// Get balances for a wallet.
-  Future<List<Balance>> balances() =>
+  Future<List<WalletBalance>> balances() =>
       BullSdk.instance.api.lwkApiWalletWalletBalances(that: this);
 
   /// Get the blinding key string for the wallet

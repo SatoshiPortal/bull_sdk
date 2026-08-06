@@ -24,7 +24,7 @@ boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", rev = "2a94c9b021
 # drain_lbtc_wallet() call in build_custom_tx). Re-point to a proper
 # `develop`/`main`/minor-release tag once #88 lands upstream (targeted next
 # Wednesday).
-lwk = { git = "https://github.com/SatoshiPortal/lwk-dart", rev = "3ede959189e60db6cf08f7f2e579fc55c900a3dc", features = ["bull_sdk"] }
+lwk = { git = "https://github.com/SatoshiPortal/lwk-dart", rev = "f554c7842f1f4b8e59c72d10a6f0747cb03fa315", features = ["bull_sdk"] }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }

@@ -18,7 +18,7 @@ abstract class Wallet implements RustOpaqueInterface {
   Future<Address> addressLastUnused();
 
   /// Get balances for a wallet.
-  Future<List<Balance>> balances();
+  Future<List<WalletBalance>> balances();
 
   /// Get the blinding key string for the wallet
   Future<String> blindingKey();

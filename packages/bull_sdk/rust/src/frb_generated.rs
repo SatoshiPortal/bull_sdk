@@ -3794,7 +3794,7 @@ fn wire__bbqr__file_type__file_type_is_known_filetype_impl(
     )
 }
 fn wire__lwk__api__types__get_balance_by_asset_id_impl(
-    balances: impl CstDecode<Vec<lwk::api::types::Balance>>,
+    balances: impl CstDecode<Vec<lwk::api::types::WalletBalance>>,
     asset_id: impl CstDecode<String>,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
@@ -3890,7 +3890,7 @@ fn wire__lwk__api__types__get_lbtc_asset_id_impl(
     )
 }
 fn wire__lwk__api__types__get_lbtc_balance_impl(
-    balances: impl CstDecode<Vec<lwk::api::types::Balance>>,
+    balances: impl CstDecode<Vec<lwk::api::types::WalletBalance>>,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -3925,7 +3925,7 @@ fn wire__lwk__api__types__get_ltest_asset_id_impl(
     )
 }
 fn wire__lwk__api__types__get_ltest_balance_impl(
-    balances: impl CstDecode<Vec<lwk::api::types::Balance>>,
+    balances: impl CstDecode<Vec<lwk::api::types::WalletBalance>>,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -5531,7 +5531,7 @@ const _: fn() = || {
         let SizeAndFees = None::<lwk::api::types::SizeAndFees>.unwrap();
         let _: usize = SizeAndFees.discounted_vsize;
         let _: usize = SizeAndFees.discounted_weight;
-        let _: Vec<lwk::api::types::Balance> = SizeAndFees.absolute_fees;
+        let _: Vec<lwk::api::types::WalletBalance> = SizeAndFees.absolute_fees;
     }
     {
         let Split = None::<bbqr::split::Split>.unwrap();
@@ -5644,6 +5644,11 @@ const _: fn() = || {
         let _: String = TxOutputSpec.address;
         let _: u64 = TxOutputSpec.satoshi;
         let _: Option<String> = TxOutputSpec.asset_id;
+    }
+    {
+        let WalletBalance = None::<lwk::api::types::WalletBalance>.unwrap();
+        let _: String = WalletBalance.asset_id;
+        let _: u64 = WalletBalance.value;
     }
 };
 
@@ -6643,6 +6648,18 @@ impl SseDecode for Vec<lwk::api::types::TxOutputSpec> {
     }
 }
 
+impl SseDecode for Vec<lwk::api::types::WalletBalance> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = Vec::with_capacity(len_ as usize);
+        for idx_ in 0..len_ {
+            ans_.push(<lwk::api::types::WalletBalance>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for boltz::api::lnurl::Lnurl {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -7025,7 +7042,7 @@ impl SseDecode for lwk::api::types::SizeAndFees {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_discountedVsize = <usize>::sse_decode(deserializer);
         let mut var_discountedWeight = <usize>::sse_decode(deserializer);
-        let mut var_absoluteFees = <Vec<lwk::api::types::Balance>>::sse_decode(deserializer);
+        let mut var_absoluteFees = <Vec<lwk::api::types::WalletBalance>>::sse_decode(deserializer);
         return lwk::api::types::SizeAndFees {
             discounted_vsize: var_discountedVsize,
             discounted_weight: var_discountedWeight,
@@ -7445,6 +7462,18 @@ impl SseDecode for bbqr::qr::Version {
             38 => bbqr::qr::Version::V39,
             39 => bbqr::qr::Version::V40,
             _ => unreachable!("Invalid variant for Version: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for lwk::api::types::WalletBalance {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_assetId = <String>::sse_decode(deserializer);
+        let mut var_value = <u64>::sse_decode(deserializer);
+        return lwk::api::types::WalletBalance {
+            asset_id: var_assetId,
+            value: var_value,
         };
     }
 }
@@ -8956,6 +8985,27 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<bbqr::qr::Version>> for bbqr::
         self.into()
     }
 }
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::WalletBalance> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.asset_id.into_into_dart().into_dart(),
+            self.0.value.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::WalletBalance>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::WalletBalance>>
+    for lwk::api::types::WalletBalance
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::WalletBalance> {
+        self.into()
+    }
+}
 
 impl SseEncode for flutter_rust_bridge::for_generated::anyhow::Error {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -9563,6 +9613,16 @@ impl SseEncode for Vec<lwk::api::types::TxOutputSpec> {
     }
 }
 
+impl SseEncode for Vec<lwk::api::types::WalletBalance> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <lwk::api::types::WalletBalance>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for boltz::api::lnurl::Lnurl {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -9868,7 +9928,7 @@ impl SseEncode for lwk::api::types::SizeAndFees {
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <usize>::sse_encode(self.discounted_vsize, serializer);
         <usize>::sse_encode(self.discounted_weight, serializer);
-        <Vec<lwk::api::types::Balance>>::sse_encode(self.absolute_fees, serializer);
+        <Vec<lwk::api::types::WalletBalance>>::sse_encode(self.absolute_fees, serializer);
     }
 }
 
@@ -10203,6 +10263,14 @@ impl SseEncode for bbqr::qr::Version {
             },
             serializer,
         );
+    }
+}
+
+impl SseEncode for lwk::api::types::WalletBalance {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.asset_id, serializer);
+        <u64>::sse_encode(self.value, serializer);
     }
 }
 
@@ -10985,6 +11053,16 @@ mod io {
             vec.into_iter().map(CstDecode::cst_decode).collect()
         }
     }
+    impl CstDecode<Vec<lwk::api::types::WalletBalance>> for *mut wire_cst_list_wallet_balance {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<lwk::api::types::WalletBalance> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
     impl CstDecode<boltz::api::lnurl::Lnurl> for wire_cst_lnurl {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> boltz::api::lnurl::Lnurl {
@@ -11310,6 +11388,15 @@ mod io {
                 address: self.address.cst_decode(),
                 satoshi: self.satoshi.cst_decode(),
                 asset_id: self.asset_id.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::types::WalletBalance> for wire_cst_wallet_balance {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::types::WalletBalance {
+            lwk::api::types::WalletBalance {
+                asset_id: self.asset_id.cst_decode(),
+                value: self.value.cst_decode(),
             }
         }
     }
@@ -12046,6 +12133,19 @@ mod io {
         }
     }
     impl Default for wire_cst_tx_output_spec {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_wallet_balance {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                asset_id: core::ptr::null_mut(),
+                value: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_wallet_balance {
         fn default() -> Self {
             Self::new_with_null_ptr()
         }
@@ -13251,7 +13351,7 @@ mod io {
 
     #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__types__get_balance_by_asset_id(
-        balances: *mut wire_cst_list_balance,
+        balances: *mut wire_cst_list_wallet_balance,
         asset_id: *mut wire_cst_list_prim_u_8_strict,
     ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
         wire__lwk__api__types__get_balance_by_asset_id_impl(balances, asset_id)
@@ -13283,7 +13383,7 @@ mod io {
 
     #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__types__get_lbtc_balance(
-        balances: *mut wire_cst_list_balance,
+        balances: *mut wire_cst_list_wallet_balance,
     ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
         wire__lwk__api__types__get_lbtc_balance_impl(balances)
     }
@@ -13296,7 +13396,7 @@ mod io {
 
     #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__types__get_ltest_balance(
-        balances: *mut wire_cst_list_balance,
+        balances: *mut wire_cst_list_wallet_balance,
     ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
         wire__lwk__api__types__get_ltest_balance_impl(balances)
     }
@@ -14359,6 +14459,20 @@ mod io {
         flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
     }
 
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_wallet_balance(
+        len: i32,
+    ) -> *mut wire_cst_list_wallet_balance {
+        let wrap = wire_cst_list_wallet_balance {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_wallet_balance>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
     #[repr(C)]
     #[derive(Clone, Copy)]
     pub struct wire_cst_address {
@@ -14633,6 +14747,12 @@ mod io {
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
+    pub struct wire_cst_list_wallet_balance {
+        ptr: *mut wire_cst_wallet_balance,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
     pub struct wire_cst_lnurl {
         value: *mut wire_cst_list_prim_u_8_strict,
     }
@@ -14727,7 +14847,7 @@ mod io {
     pub struct wire_cst_size_and_fees {
         discounted_vsize: usize,
         discounted_weight: usize,
-        absolute_fees: *mut wire_cst_list_balance,
+        absolute_fees: *mut wire_cst_list_wallet_balance,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
@@ -14878,6 +14998,12 @@ mod io {
         address: *mut wire_cst_list_prim_u_8_strict,
         satoshi: u64,
         asset_id: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_wallet_balance {
+        asset_id: *mut wire_cst_list_prim_u_8_strict,
+        value: u64,
     }
 }
 #[cfg(not(target_family = "wasm"))]

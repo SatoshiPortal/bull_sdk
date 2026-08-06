@@ -2759,7 +2759,7 @@ checksum = "112b39cec0b298b6c1999fee3e31427f74f676e4cb9879ed1a121b43661a4154"
 [[package]]
 name = "lwk"
 version = "0.3.0"
-source = "git+https://github.com/SatoshiPortal/lwk-dart?rev=3ede959189e60db6cf08f7f2e579fc55c900a3dc#3ede959189e60db6cf08f7f2e579fc55c900a3dc"
+source = "git+https://github.com/SatoshiPortal/lwk-dart?rev=f554c7842f1f4b8e59c72d10a6f0747cb03fa315#f554c7842f1f4b8e59c72d10a6f0747cb03fa315"
 dependencies = [
  "anyhow",
  "flutter_rust_bridge",
@@ -2775,6 +2775,7 @@ dependencies = [
  "sideswap_payjoin",
  "sideswap_types",
  "thiserror 2.0.18",
+ "zeroize",
 ]
 
 [[package]]
