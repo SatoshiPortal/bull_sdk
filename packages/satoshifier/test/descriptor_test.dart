@@ -338,7 +338,12 @@ void main() {
         ),
         throwsA(
           predicate(
-            (e) => e is String && e.startsWith('Invalid descriptor format:'),
+            // Must not carry the input: the same message is reached by a
+            // descriptor that embeds a private key.
+            (e) =>
+                e is String &&
+                e.startsWith('Invalid descriptor format') &&
+                !e.contains(TestValue.xpub),
           ),
         ),
       );
@@ -351,7 +356,12 @@ void main() {
         ),
         throwsA(
           predicate(
-            (e) => e is String && e.startsWith('Invalid descriptor format:'),
+            // Must not carry the input: the same message is reached by a
+            // descriptor that embeds a private key.
+            (e) =>
+                e is String &&
+                e.startsWith('Invalid descriptor format') &&
+                !e.contains(TestValue.xpub),
           ),
         ),
       );

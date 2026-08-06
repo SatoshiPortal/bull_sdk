@@ -30,7 +30,12 @@ class Registry {
         continue;
       }
     }
-    throw 'No parser found for: $data';
+    // Deliberately without the input. A user pasting a seed phrase or a
+    // private key into a scan or send field is an ordinary mistake, and host
+    // apps route uncaught errors to crash reporting and log files, so
+    // anything interpolated here is persisted outside the app's control.
+    throw 'No parser found for the given input '
+        '(${data.length} characters)';
   }
 
   static Future<Satoshifier?> tryParse(String data) async {

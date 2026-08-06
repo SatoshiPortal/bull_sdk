@@ -20,7 +20,7 @@ class Bip21Parser {
         final address = await LiquidAddressParser.parse(uri.address);
         network = (address as LiquidAddress).network;
       default:
-        throw 'Unhandled scheme: ${uri.scheme} ${uri.address} not verified';
+        throw 'Unhandled BIP21 scheme: ${uri.scheme}';
     }
 
     // The address decides the network, so a scheme that claims a different one

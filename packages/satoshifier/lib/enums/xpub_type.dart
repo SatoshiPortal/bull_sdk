@@ -20,7 +20,7 @@ enum XpubType {
     if (pubkey.startsWith('upub')) return XpubType.upub;
     if (pubkey.startsWith('vpub')) return XpubType.vpub;
 
-    throw 'Invalid xpub type: $pubkey';
+    throw 'Invalid xpub type';
   }
 
   static XpubType fromDerivation(Derivation derivation, Network network) {

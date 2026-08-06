@@ -7,7 +7,7 @@ class WatchOnlyDescriptorParser {
       return Satoshifier.watchOnlyDescriptor(descriptor: descriptor);
     } catch (_) {}
 
-    throw 'Invalid watch only data: $data';
+    throw 'Invalid watch only descriptor';
   }
 
   static Future<Satoshifier?> tryParse(String data) async {

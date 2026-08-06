@@ -7,11 +7,11 @@ class LnurlParser {
       final isEmail = input.contains('@');
       final isPrefixed = input.toLowerCase().startsWith('lnurl');
 
-      if (!isEmail && !isPrefixed) throw 'Invalid LNURL: $input';
+      if (!isEmail && !isPrefixed) throw 'Invalid LNURL';
 
       final lnurl = boltz.Lnurl(value: input);
       final isValid = await lnurl.validate();
-      if (!isValid) throw 'Invalid LNURL: $input';
+      if (!isValid) throw 'Invalid LNURL';
 
       return Satoshifier.lnurl(address: input);
     } catch (_) {

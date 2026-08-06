@@ -23,7 +23,7 @@ enum ScriptOperand {
     if (trimmed.startsWith('wsh')) return ScriptOperand.wsh;
     if (trimmed.startsWith('tr')) return ScriptOperand.tr;
 
-    throw 'Unsupported descriptor type: $descriptor';
+    throw 'Unsupported descriptor type';
   }
 
   static ScriptOperand fromExtendedPubkey(ExtendedPubkey pubkey) {
@@ -31,6 +31,6 @@ enum ScriptOperand {
     if (pubkey.derivation == Derivation.bip49) return ScriptOperand.shwpkh;
     if (pubkey.derivation == Derivation.bip84) return ScriptOperand.wpkh;
 
-    throw 'Unsupported extended pubkey: $pubkey';
+    throw 'Unsupported extended pubkey derivation: ${pubkey.derivation}';
   }
 }

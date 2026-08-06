@@ -64,7 +64,7 @@ class Descriptor {
       return parseExtendedPublicKeyWithKeyOrigin(descriptor);
     } catch (_) {}
 
-    throw 'Invalid descriptor format: $descriptor';
+    throw 'Invalid descriptor format';
   }
 
   static Descriptor fromCombinedDescriptor(String descriptor) {
