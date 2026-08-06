@@ -8,11 +8,13 @@ class Bolt11Parser {
           Utils.isUppercaseAlphanumeric(data) ? data.toLowerCase() : data;
 
       final invoice = await boltz.DecodedInvoice.fromString(s: input);
-      final sats = invoice.msats.toInt() ~/ 1000;
+      final msats = invoice.msats.toInt();
+      final sats = Utils.msatsToSats(msats);
 
       return Satoshifier.bolt11(
         invoice: data,
         sats: sats,
+        msats: msats,
         paymentHash: invoice.preimageHash,
         description: invoice.description,
         expiresAt: invoice.expiresAt.toInt(),

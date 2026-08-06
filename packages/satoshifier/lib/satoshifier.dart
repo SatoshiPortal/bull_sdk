@@ -50,6 +50,14 @@ sealed class Satoshifier with _$Satoshifier {
   const factory Satoshifier.bolt11({
     required String invoice,
     required int sats,
+
+    /// The invoice amount as encoded, in millisatoshis.
+    ///
+    /// BOLT11 denominates in msats and the pico-BTC multiplier makes
+    /// sub-satoshi amounts expressible, so [sats] cannot represent every
+    /// invoice. Use this for anything that must be exact; [sats] is a
+    /// rounded-up view for display and balance checks.
+    @Default(0) int msats,
     required String paymentHash,
     @Default('') String description,
     required int expiresAt,
