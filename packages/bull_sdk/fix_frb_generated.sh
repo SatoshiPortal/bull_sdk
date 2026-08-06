@@ -56,3 +56,47 @@ with open('$FILE', 'w') as f:
 sedi 's/api_miner_fee,/api_miner_fee.into(),/g' "$FILE"
 
 echo "Post-processed $FILE"
+
+# Step 4: Bound the unsigned 64-bit encoders on the Dart side.
+# FRB emits toSigned(64).toInt(), which wraps modulo 2^64 rather than failing,
+# so an out-of-range amount reached Rust as a different number. Rust cannot
+# detect this: the wrapping happens before the call.
+DART_FILE="lib/src/rust/frb_generated.io.dart"
+
+python3 - "$DART_FILE" <<'PY'
+import sys
+
+path = sys.argv[1]
+with open(path) as f:
+    source = f.read()
+
+import_anchor = "import 'frb_generated.dart';"
+import_line = "import '../checked_u64.dart';"
+encoders = [
+    ("cst_encode_u_64", "int cst_encode_u_64(BigInt raw) {"),
+    ("cst_encode_usize", "int cst_encode_usize(BigInt raw) {"),
+]
+body = "    // Codec=Cst (C-struct based), see doc to use other codecs\n    return raw.toSigned(64).toInt();"
+patched = "    // Codec=Cst (C-struct based), see doc to use other codecs\n    return checkedU64ToNativeInt(raw);"
+
+if import_line not in source:
+    if source.count(import_anchor) != 1:
+        sys.exit(f"expected exactly one {import_anchor!r} in {path}")
+    source = source.replace(import_anchor, f"{import_anchor}\n{import_line}", 1)
+
+for name, signature in encoders:
+    if source.count(signature) != 1:
+        sys.exit(f"expected exactly one {name} in {path}")
+    already = f"{signature}\n{patched}"
+    if already in source:
+        continue
+    target = f"{signature}\n{body}"
+    if target not in source:
+        sys.exit(f"{name} in {path} does not match the expected generated body")
+    source = source.replace(target, f"{signature}\n{patched}", 1)
+
+with open(path, "w") as f:
+    f.write(source)
+PY
+
+echo "Post-processed $DART_FILE"

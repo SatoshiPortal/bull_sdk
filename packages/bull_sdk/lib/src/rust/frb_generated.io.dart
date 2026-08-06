@@ -8,6 +8,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi' as ffi;
 import 'frb_generated.dart';
+import '../checked_u64.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_io.dart';
 import 'third_party/bbqr/continuous_join.dart';
 import 'third_party/bbqr/encode.dart';
@@ -1700,13 +1701,13 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   int cst_encode_u_64(BigInt raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    return raw.toSigned(64).toInt();
+    return checkedU64ToNativeInt(raw);
   }
 
   @protected
   int cst_encode_usize(BigInt raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
-    return raw.toSigned(64).toInt();
+    return checkedU64ToNativeInt(raw);
   }
 
   @protected
