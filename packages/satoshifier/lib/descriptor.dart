@@ -1,4 +1,5 @@
 import 'package:satoshifier/satoshifier.dart';
+import 'package:satoshifier/utils/descriptor_checksum.dart';
 
 class Descriptor {
   final ScriptOperand operand;
@@ -36,15 +37,20 @@ class Descriptor {
     return "${operand.value}($origin$pubkey/0/*)${_isShwpkh ? ')' : ''}";
   }
 
-  CoinType get coinType =>
-      network.isBitcoin
-          ? network == Network.bitcoinMainnet
-              ? CoinType.bitcoin
-              : CoinType.testnet
-          : CoinType.liquid;
+  CoinType get coinType => network.isBitcoin
+      ? network == Network.bitcoinMainnet
+            ? CoinType.bitcoin
+            : CoinType.testnet
+      : CoinType.liquid;
 
   static Descriptor parse(String string) {
     final descriptor = string.trim();
+    // Checked before any parser runs: the three below swallow their errors to
+    // fall through to each other, so a checksum failure raised inside one of
+    // them would be indistinguishable from "wrong descriptor shape".
+    if (!DescriptorChecksum.isValid(descriptor)) {
+      throw FormatException('Invalid descriptor checksum: $descriptor');
+    }
     try {
       return fromCombinedDescriptor(descriptor);
     } catch (_) {}
@@ -152,10 +158,9 @@ class Descriptor {
     final accountString = match.group(5)!;
     final pubkey = match.group(6)!;
 
-    final operand =
-        useOperandFromRegex
-            ? ScriptOperand.fromDescriptor(operandString)
-            : ScriptOperand.fromDescriptor(descriptor);
+    final operand = useOperandFromRegex
+        ? ScriptOperand.fromDescriptor(operandString)
+        : ScriptOperand.fromDescriptor(descriptor);
     final derivation = Derivation.fromPurpose(derivationPurpose);
     final coinTypeInt = int.parse(Utils.trimLastQuoteOrH(coinTypeString));
     final coinType = CoinType.fromInt(coinTypeInt);

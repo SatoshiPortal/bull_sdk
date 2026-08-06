@@ -42,10 +42,12 @@ class TestValue {
   static get walletMasterFingerprint => '86241f88';
   static get descriptorP2pkhBip44 =>
       'pkh([$walletMasterFingerprint/44h/0h/0h]$xpub/<0;1>/*)#fzh6clmf';
+  // The BIP49 and BIP84 checksums below were wrong until descriptor parsing
+  // started verifying them; both replacements are the values BDK accepts.
   static get descriptorP2shBip49 =>
-      'sh(wpkh([$walletMasterFingerprint/49h/0h/0h]$xpub/<0;1>/*))#6nkjq52v';
+      'sh(wpkh([$walletMasterFingerprint/49h/0h/0h]$xpub/<0;1>/*))#2vl9h7e6';
   static get descriptorP2wpkhBip84 =>
-      'wpkh([$walletMasterFingerprint/84h/0h/0h]$xpub/<0;1>/*)#ht0s3dna';
+      'wpkh([$walletMasterFingerprint/84h/0h/0h]$xpub/<0;1>/*)#n8txaeah';
 
   static get descriptorChangeOnly =>
       'sh(wpkh([$walletMasterFingerprint/49h/0h/0h]/$xpub/1/*))';
