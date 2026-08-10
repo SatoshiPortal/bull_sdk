@@ -3,6 +3,19 @@ members = [
     "packages/bull_sdk/rust",
 ]
 exclude = [
+    # Not a member, and not a dependency of rust_lib_bull_sdk. onion ships as
+    # its own Flutter plugin with its own .so, like bdk_dart and payjoin
+    # already do in the app: it carries a native Android/iOS side of its own
+    # (the IPtProxy Snowflake transport), which a plain member crate cannot.
+    #
+    # This split was originally forced rather than chosen: `arti-client` pulls
+    # tor-dirmgr -> rusqlite -> libsqlite3-sys 0.34, ark-client pulled sqlx 0.8
+    # -> libsqlite3-sys 0.28, and cargo allows only one package per graph to
+    # declare `links = "sqlite3"`. Ark has since been dropped from the SDK, so
+    # that specific conflict is gone — but do not assume the graphs now unify:
+    # merging would need the remaining `links = "sqlite3"` claimants re-checked
+    # against arti's 0.34, and would pull all of arti into the shared .so.
+    "packages/onion/rust",
     "packages/bbqr/rust",
     "packages/bitbox/rust",
     "packages/boltz/rust",
