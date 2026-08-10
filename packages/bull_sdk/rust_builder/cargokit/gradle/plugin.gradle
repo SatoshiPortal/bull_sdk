@@ -134,11 +134,20 @@ class CargoKitPlugin implements Plugin<Project> {
 
             def platforms = com.flutter.gradle.FlutterPluginUtils.getTargetPlatforms(project).collect()
 
-            // Same thing addFlutterDependencies does in flutter.gradle
-            if (buildType == "debug") {
-                platforms.add("android-x86")
-                platforms.add("android-x64")
-            }
+            // Upstream cargokit appended android-x86 and android-x64 here on
+            // every debug build, on top of whatever Flutter had already asked
+            // for. Flutter 3.44 has no android-x86 ABI at all (AndroidArch is
+            // armeabi_v7a/arm64_v8a/x86_64) and the x64 entry duplicates one
+            // Flutter may already have requested, so a debug build targeting a
+            // single ABI compiled the whole Rust tree three times. Measured on
+            // an arm64 device: `rust_lib_bull_sdk` built for aarch64, i686 and
+            // x86_64 while `--target-platform android-arm64` was in effect.
+            //
+            // Cargokit has been archived read-only since 2026-03-26, so the
+            // upstream fix (PR #111) will never merge; this copy is vendored
+            // per the official integration guide, so it is ours to correct.
+            // Removing the append restores the intended behaviour: build
+            // exactly the platforms Flutter requested.
 
             // The task name depends on plugin properties, which are not available
             // at this point
