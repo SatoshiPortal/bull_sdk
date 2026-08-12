@@ -23,6 +23,7 @@ class LbtcLnSwap {
   final LBtcSwapScriptStr swapScript;
   final String invoice;
   final BigInt outAmount;
+  final BigInt? expectedOnchainAmount;
   final String scriptAddress;
   final String blindingKey;
   final String electrumUrl;
@@ -39,6 +40,7 @@ class LbtcLnSwap {
     required this.swapScript,
     required this.invoice,
     required this.outAmount,
+    this.expectedOnchainAmount,
     required this.scriptAddress,
     required this.blindingKey,
     required this.electrumUrl,
@@ -223,6 +225,7 @@ class LbtcLnSwap {
       swapScript.hashCode ^
       invoice.hashCode ^
       outAmount.hashCode ^
+      expectedOnchainAmount.hashCode ^
       scriptAddress.hashCode ^
       blindingKey.hashCode ^
       electrumUrl.hashCode ^
@@ -243,6 +246,7 @@ class LbtcLnSwap {
           swapScript == other.swapScript &&
           invoice == other.invoice &&
           outAmount == other.outAmount &&
+          expectedOnchainAmount == other.expectedOnchainAmount &&
           scriptAddress == other.scriptAddress &&
           blindingKey == other.blindingKey &&
           electrumUrl == other.electrumUrl &&

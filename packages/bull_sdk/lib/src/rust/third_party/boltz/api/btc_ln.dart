@@ -23,6 +23,7 @@ class BtcLnSwap {
   final String invoice;
   final String scriptAddress;
   final BigInt outAmount;
+  final BigInt? expectedOnchainAmount;
   final String electrumUrl;
   final String boltzUrl;
   final String? referralId;
@@ -38,6 +39,7 @@ class BtcLnSwap {
     required this.invoice,
     required this.scriptAddress,
     required this.outAmount,
+    this.expectedOnchainAmount,
     required this.electrumUrl,
     required this.boltzUrl,
     this.referralId,
@@ -219,6 +221,7 @@ class BtcLnSwap {
       invoice.hashCode ^
       scriptAddress.hashCode ^
       outAmount.hashCode ^
+      expectedOnchainAmount.hashCode ^
       electrumUrl.hashCode ^
       boltzUrl.hashCode ^
       referralId.hashCode;
@@ -238,6 +241,7 @@ class BtcLnSwap {
           invoice == other.invoice &&
           scriptAddress == other.scriptAddress &&
           outAmount == other.outAmount &&
+          expectedOnchainAmount == other.expectedOnchainAmount &&
           electrumUrl == other.electrumUrl &&
           boltzUrl == other.boltzUrl &&
           referralId == other.referralId;
