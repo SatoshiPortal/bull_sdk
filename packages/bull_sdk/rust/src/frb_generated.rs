@@ -44,7 +44,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.12.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1884940812;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 798013342;
 
 // Section: executor
 
@@ -3355,6 +3355,48 @@ fn wire__boltz__api__chain_swap__chain_swap_to_json_impl(
         },
     )
 }
+fn wire__boltz__api__transactions__check_lockup_outspends_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    swap_id: impl CstDecode<String>,
+    swap_type: impl CstDecode<boltz::api::types::SwapType>,
+    tx_kind: impl CstDecode<boltz::api::types::SwapTxKind>,
+    network: impl CstDecode<boltz::api::types::Chain>,
+    boltz_url: impl CstDecode<String>,
+    chain_swap_direction: impl CstDecode<Option<boltz::api::types::ChainSwapDirection>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "check_lockup_outspends",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_swap_id = swap_id.cst_decode();
+            let api_swap_type = swap_type.cst_decode();
+            let api_tx_kind = tx_kind.cst_decode();
+            let api_network = network.cst_decode();
+            let api_boltz_url = boltz_url.cst_decode();
+            let api_chain_swap_direction = chain_swap_direction.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || async move {
+                        let output_ok = boltz::api::transactions::check_lockup_outspends(
+                            &api_swap_id,
+                            api_swap_type,
+                            api_tx_kind,
+                            api_network,
+                            &api_boltz_url,
+                            api_chain_swap_direction,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
 fn wire__boltz__api__transactions__check_vout_0_outspend_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     swap_id: impl CstDecode<String>,
@@ -5105,6 +5147,26 @@ fn wire__boltz__api__swap_status__swap_status_from_json_string_impl(
         },
     )
 }
+fn wire__boltz__api__swap_status__swap_status_is_resolved_impl(
+    that: impl CstDecode<boltz::api::swap_status::SwapStatus>,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "swap_status_is_resolved",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, ()>((move || {
+                let output_ok = Result::<_, ()>::Ok(
+                    boltz::api::swap_status::SwapStatus::is_resolved(&api_that),
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
 fn wire__boltz__api__swap_status__swap_status_response_from_json_impl(
     json: impl CstDecode<String>,
 ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
@@ -5505,6 +5567,21 @@ const _: fn() = || {
         let _: Option<String> = PsetOutput.blinding_key;
     }
     {
+        let RestoredBtcLnSwaps = None::<boltz::api::restore::RestoredBtcLnSwaps>.unwrap();
+        let _: Vec<boltz::api::btc_ln::BtcLnSwap> = RestoredBtcLnSwaps.swaps;
+        let _: Vec<boltz::api::restore::SkippedRestoreSwap> = RestoredBtcLnSwaps.skipped;
+    }
+    {
+        let RestoredChainSwaps = None::<boltz::api::restore::RestoredChainSwaps>.unwrap();
+        let _: Vec<boltz::api::chain_swap::ChainSwap> = RestoredChainSwaps.swaps;
+        let _: Vec<boltz::api::restore::SkippedRestoreSwap> = RestoredChainSwaps.skipped;
+    }
+    {
+        let RestoredLbtcLnSwaps = None::<boltz::api::restore::RestoredLbtcLnSwaps>.unwrap();
+        let _: Vec<boltz::api::lbtc_ln::LbtcLnSwap> = RestoredLbtcLnSwaps.swaps;
+        let _: Vec<boltz::api::restore::SkippedRestoreSwap> = RestoredLbtcLnSwaps.skipped;
+    }
+    {
         let RestoredSwapSummary = None::<boltz::api::restore::RestoredSwapSummary>.unwrap();
         let _: String = RestoredSwapSummary.id;
         let _: boltz::api::types::SwapType = RestoredSwapSummary.kind;
@@ -5532,6 +5609,11 @@ const _: fn() = || {
         let _: usize = SizeAndFees.discounted_vsize;
         let _: usize = SizeAndFees.discounted_weight;
         let _: Vec<lwk::api::types::WalletBalance> = SizeAndFees.absolute_fees;
+    }
+    {
+        let SkippedRestoreSwap = None::<boltz::api::restore::SkippedRestoreSwap>.unwrap();
+        let _: String = SkippedRestoreSwap.id;
+        let _: String = SkippedRestoreSwap.error;
     }
     {
         let Split = None::<bbqr::split::Split>.unwrap();
@@ -5644,6 +5726,13 @@ const _: fn() = || {
         let _: String = TxOutputSpec.address;
         let _: u64 = TxOutputSpec.satoshi;
         let _: Option<String> = TxOutputSpec.asset_id;
+    }
+    {
+        let VoutOutspend = None::<boltz::api::types::VoutOutspend>.unwrap();
+        let _: u32 = VoutOutspend.vout;
+        let _: Option<u64> = VoutOutspend.value_sat;
+        let _: Option<String> = VoutOutspend.spender_txid;
+        let _: Option<u64> = VoutOutspend.timestamp;
     }
     {
         let WalletBalance = None::<lwk::api::types::WalletBalance>.unwrap();
@@ -6576,6 +6665,20 @@ impl SseDecode for Vec<boltz::api::restore::RestoredSwapSummary> {
     }
 }
 
+impl SseDecode for Vec<boltz::api::restore::SkippedRestoreSwap> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = Vec::with_capacity(len_ as usize);
+        for idx_ in 0..len_ {
+            ans_.push(<boltz::api::restore::SkippedRestoreSwap>::sse_decode(
+                deserializer,
+            ));
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for Vec<lwk::api::types::Tx> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -6643,6 +6746,18 @@ impl SseDecode for Vec<lwk::api::types::TxOutputSpec> {
         let mut ans_ = Vec::with_capacity(len_ as usize);
         for idx_ in 0..len_ {
             ans_.push(<lwk::api::types::TxOutputSpec>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<boltz::api::types::VoutOutspend> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = Vec::with_capacity(len_ as usize);
+        for idx_ in 0..len_ {
+            ans_.push(<boltz::api::types::VoutOutspend>::sse_decode(deserializer));
         }
         return ans_;
     }
@@ -6973,6 +7088,45 @@ impl SseDecode for lwk::api::transaction::PsetOutput {
     }
 }
 
+impl SseDecode for boltz::api::restore::RestoredBtcLnSwaps {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_swaps = <Vec<boltz::api::btc_ln::BtcLnSwap>>::sse_decode(deserializer);
+        let mut var_skipped =
+            <Vec<boltz::api::restore::SkippedRestoreSwap>>::sse_decode(deserializer);
+        return boltz::api::restore::RestoredBtcLnSwaps {
+            swaps: var_swaps,
+            skipped: var_skipped,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::restore::RestoredChainSwaps {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_swaps = <Vec<boltz::api::chain_swap::ChainSwap>>::sse_decode(deserializer);
+        let mut var_skipped =
+            <Vec<boltz::api::restore::SkippedRestoreSwap>>::sse_decode(deserializer);
+        return boltz::api::restore::RestoredChainSwaps {
+            swaps: var_swaps,
+            skipped: var_skipped,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::restore::RestoredLbtcLnSwaps {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_swaps = <Vec<boltz::api::lbtc_ln::LbtcLnSwap>>::sse_decode(deserializer);
+        let mut var_skipped =
+            <Vec<boltz::api::restore::SkippedRestoreSwap>>::sse_decode(deserializer);
+        return boltz::api::restore::RestoredLbtcLnSwaps {
+            swaps: var_swaps,
+            skipped: var_skipped,
+        };
+    }
+}
+
 impl SseDecode for boltz::api::restore::RestoredSwapSummary {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -7047,6 +7201,18 @@ impl SseDecode for lwk::api::types::SizeAndFees {
             discounted_vsize: var_discountedVsize,
             discounted_weight: var_discountedWeight,
             absolute_fees: var_absoluteFees,
+        };
+    }
+}
+
+impl SseDecode for boltz::api::restore::SkippedRestoreSwap {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_id = <String>::sse_decode(deserializer);
+        let mut var_error = <String>::sse_decode(deserializer);
+        return boltz::api::restore::SkippedRestoreSwap {
+            id: var_id,
+            error: var_error,
         };
     }
 }
@@ -7462,6 +7628,22 @@ impl SseDecode for bbqr::qr::Version {
             38 => bbqr::qr::Version::V39,
             39 => bbqr::qr::Version::V40,
             _ => unreachable!("Invalid variant for Version: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for boltz::api::types::VoutOutspend {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_vout = <u32>::sse_decode(deserializer);
+        let mut var_valueSat = <Option<u64>>::sse_decode(deserializer);
+        let mut var_spenderTxid = <Option<String>>::sse_decode(deserializer);
+        let mut var_timestamp = <Option<u64>>::sse_decode(deserializer);
+        return boltz::api::types::VoutOutspend {
+            vout: var_vout,
+            value_sat: var_valueSat,
+            spender_txid: var_spenderTxid,
+            timestamp: var_timestamp,
         };
     }
 }
@@ -8365,6 +8547,69 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::transaction::PsetOut
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::restore::RestoredBtcLnSwaps> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.swaps.into_into_dart().into_dart(),
+            self.0.skipped.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::restore::RestoredBtcLnSwaps>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::restore::RestoredBtcLnSwaps>>
+    for boltz::api::restore::RestoredBtcLnSwaps
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::restore::RestoredBtcLnSwaps> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::restore::RestoredChainSwaps> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.swaps.into_into_dart().into_dart(),
+            self.0.skipped.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::restore::RestoredChainSwaps>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::restore::RestoredChainSwaps>>
+    for boltz::api::restore::RestoredChainSwaps
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::restore::RestoredChainSwaps> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::restore::RestoredLbtcLnSwaps> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.swaps.into_into_dart().into_dart(),
+            self.0.skipped.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::restore::RestoredLbtcLnSwaps>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::restore::RestoredLbtcLnSwaps>>
+    for boltz::api::restore::RestoredLbtcLnSwaps
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::restore::RestoredLbtcLnSwaps> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::restore::RestoredSwapSummary> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -8475,6 +8720,27 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::SizeAndFees>>
     for lwk::api::types::SizeAndFees
 {
     fn into_into_dart(self) -> FrbWrapper<lwk::api::types::SizeAndFees> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::restore::SkippedRestoreSwap> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.id.into_into_dart().into_dart(),
+            self.0.error.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::restore::SkippedRestoreSwap>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::restore::SkippedRestoreSwap>>
+    for boltz::api::restore::SkippedRestoreSwap
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::restore::SkippedRestoreSwap> {
         self.into()
     }
 }
@@ -8982,6 +9248,29 @@ impl flutter_rust_bridge::IntoDart for FrbWrapper<bbqr::qr::Version> {
 impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for FrbWrapper<bbqr::qr::Version> {}
 impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<bbqr::qr::Version>> for bbqr::qr::Version {
     fn into_into_dart(self) -> FrbWrapper<bbqr::qr::Version> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::types::VoutOutspend> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.vout.into_into_dart().into_dart(),
+            self.0.value_sat.into_into_dart().into_dart(),
+            self.0.spender_txid.into_into_dart().into_dart(),
+            self.0.timestamp.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<boltz::api::types::VoutOutspend>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<boltz::api::types::VoutOutspend>>
+    for boltz::api::types::VoutOutspend
+{
+    fn into_into_dart(self) -> FrbWrapper<boltz::api::types::VoutOutspend> {
         self.into()
     }
 }
@@ -9553,6 +9842,16 @@ impl SseEncode for Vec<boltz::api::restore::RestoredSwapSummary> {
     }
 }
 
+impl SseEncode for Vec<boltz::api::restore::SkippedRestoreSwap> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <boltz::api::restore::SkippedRestoreSwap>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for Vec<lwk::api::types::Tx> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -9609,6 +9908,16 @@ impl SseEncode for Vec<lwk::api::types::TxOutputSpec> {
         <i32>::sse_encode(self.len() as _, serializer);
         for item in self {
             <lwk::api::types::TxOutputSpec>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<boltz::api::types::VoutOutspend> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <boltz::api::types::VoutOutspend>::sse_encode(item, serializer);
         }
     }
 }
@@ -9875,6 +10184,30 @@ impl SseEncode for lwk::api::transaction::PsetOutput {
     }
 }
 
+impl SseEncode for boltz::api::restore::RestoredBtcLnSwaps {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Vec<boltz::api::btc_ln::BtcLnSwap>>::sse_encode(self.swaps, serializer);
+        <Vec<boltz::api::restore::SkippedRestoreSwap>>::sse_encode(self.skipped, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::restore::RestoredChainSwaps {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Vec<boltz::api::chain_swap::ChainSwap>>::sse_encode(self.swaps, serializer);
+        <Vec<boltz::api::restore::SkippedRestoreSwap>>::sse_encode(self.skipped, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::restore::RestoredLbtcLnSwaps {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <Vec<boltz::api::lbtc_ln::LbtcLnSwap>>::sse_encode(self.swaps, serializer);
+        <Vec<boltz::api::restore::SkippedRestoreSwap>>::sse_encode(self.skipped, serializer);
+    }
+}
+
 impl SseEncode for boltz::api::restore::RestoredSwapSummary {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -9929,6 +10262,14 @@ impl SseEncode for lwk::api::types::SizeAndFees {
         <usize>::sse_encode(self.discounted_vsize, serializer);
         <usize>::sse_encode(self.discounted_weight, serializer);
         <Vec<lwk::api::types::WalletBalance>>::sse_encode(self.absolute_fees, serializer);
+    }
+}
+
+impl SseEncode for boltz::api::restore::SkippedRestoreSwap {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.id, serializer);
+        <String>::sse_encode(self.error, serializer);
     }
 }
 
@@ -10263,6 +10604,16 @@ impl SseEncode for bbqr::qr::Version {
             },
             serializer,
         );
+    }
+}
+
+impl SseEncode for boltz::api::types::VoutOutspend {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u32>::sse_encode(self.vout, serializer);
+        <Option<u64>>::sse_encode(self.value_sat, serializer);
+        <Option<String>>::sse_encode(self.spender_txid, serializer);
+        <Option<u64>>::sse_encode(self.timestamp, serializer);
     }
 }
 
@@ -10993,6 +11344,18 @@ mod io {
             vec.into_iter().map(CstDecode::cst_decode).collect()
         }
     }
+    impl CstDecode<Vec<boltz::api::restore::SkippedRestoreSwap>>
+        for *mut wire_cst_list_skipped_restore_swap
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<boltz::api::restore::SkippedRestoreSwap> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
     impl CstDecode<Vec<lwk::api::types::Tx>> for *mut wire_cst_list_tx {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> Vec<lwk::api::types::Tx> {
@@ -11046,6 +11409,16 @@ mod io {
     impl CstDecode<Vec<lwk::api::types::TxOutputSpec>> for *mut wire_cst_list_tx_output_spec {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> Vec<lwk::api::types::TxOutputSpec> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<Vec<boltz::api::types::VoutOutspend>> for *mut wire_cst_list_vout_outspend {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<boltz::api::types::VoutOutspend> {
             let vec = unsafe {
                 let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
                 flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
@@ -11158,6 +11531,33 @@ mod io {
             }
         }
     }
+    impl CstDecode<boltz::api::restore::RestoredBtcLnSwaps> for wire_cst_restored_btc_ln_swaps {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::restore::RestoredBtcLnSwaps {
+            boltz::api::restore::RestoredBtcLnSwaps {
+                swaps: self.swaps.cst_decode(),
+                skipped: self.skipped.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::restore::RestoredChainSwaps> for wire_cst_restored_chain_swaps {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::restore::RestoredChainSwaps {
+            boltz::api::restore::RestoredChainSwaps {
+                swaps: self.swaps.cst_decode(),
+                skipped: self.skipped.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::restore::RestoredLbtcLnSwaps> for wire_cst_restored_lbtc_ln_swaps {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::restore::RestoredLbtcLnSwaps {
+            boltz::api::restore::RestoredLbtcLnSwaps {
+                swaps: self.swaps.cst_decode(),
+                skipped: self.skipped.cst_decode(),
+            }
+        }
+    }
     impl CstDecode<boltz::api::restore::RestoredSwapSummary> for wire_cst_restored_swap_summary {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> boltz::api::restore::RestoredSwapSummary {
@@ -11200,6 +11600,15 @@ mod io {
                 discounted_vsize: self.discounted_vsize.cst_decode(),
                 discounted_weight: self.discounted_weight.cst_decode(),
                 absolute_fees: self.absolute_fees.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::restore::SkippedRestoreSwap> for wire_cst_skipped_restore_swap {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::restore::SkippedRestoreSwap {
+            boltz::api::restore::SkippedRestoreSwap {
+                id: self.id.cst_decode(),
+                error: self.error.cst_decode(),
             }
         }
     }
@@ -11388,6 +11797,17 @@ mod io {
                 address: self.address.cst_decode(),
                 satoshi: self.satoshi.cst_decode(),
                 asset_id: self.asset_id.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<boltz::api::types::VoutOutspend> for wire_cst_vout_outspend {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> boltz::api::types::VoutOutspend {
+            boltz::api::types::VoutOutspend {
+                vout: self.vout.cst_decode(),
+                value_sat: self.value_sat.cst_decode(),
+                spender_txid: self.spender_txid.cst_decode(),
+                timestamp: self.timestamp.cst_decode(),
             }
         }
     }
@@ -11831,6 +12251,45 @@ mod io {
             Self::new_with_null_ptr()
         }
     }
+    impl NewWithNullPtr for wire_cst_restored_btc_ln_swaps {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                swaps: core::ptr::null_mut(),
+                skipped: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_restored_btc_ln_swaps {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_restored_chain_swaps {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                swaps: core::ptr::null_mut(),
+                skipped: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_restored_chain_swaps {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_restored_lbtc_ln_swaps {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                swaps: core::ptr::null_mut(),
+                skipped: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_restored_lbtc_ln_swaps {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
     impl NewWithNullPtr for wire_cst_restored_swap_summary {
         fn new_with_null_ptr() -> Self {
             Self {
@@ -11888,6 +12347,19 @@ mod io {
         }
     }
     impl Default for wire_cst_size_and_fees {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_skipped_restore_swap {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                id: core::ptr::null_mut(),
+                error: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_skipped_restore_swap {
         fn default() -> Self {
             Self::new_with_null_ptr()
         }
@@ -12133,6 +12605,21 @@ mod io {
         }
     }
     impl Default for wire_cst_tx_output_spec {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_vout_outspend {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                vout: Default::default(),
+                value_sat: core::ptr::null_mut(),
+                spender_txid: core::ptr::null_mut(),
+                timestamp: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_vout_outspend {
         fn default() -> Self {
             Self::new_with_null_ptr()
         }
@@ -13197,6 +13684,27 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__transactions__check_lockup_outspends(
+        port_: i64,
+        swap_id: *mut wire_cst_list_prim_u_8_strict,
+        swap_type: i32,
+        tx_kind: i32,
+        network: i32,
+        boltz_url: *mut wire_cst_list_prim_u_8_strict,
+        chain_swap_direction: *mut i32,
+    ) {
+        wire__boltz__api__transactions__check_lockup_outspends_impl(
+            port_,
+            swap_id,
+            swap_type,
+            tx_kind,
+            network,
+            boltz_url,
+            chain_swap_direction,
+        )
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__transactions__check_vout_0_outspend(
         port_: i64,
         swap_id: *mut wire_cst_list_prim_u_8_strict,
@@ -13877,6 +14385,13 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__swap_status__swap_status_is_resolved(
+        that: i32,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__boltz__api__swap_status__swap_status_is_resolved_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__swap_status__swap_status_response_from_json(
         json: *mut wire_cst_list_prim_u_8_strict,
     ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
@@ -14380,6 +14895,20 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_skipped_restore_swap(
+        len: i32,
+    ) -> *mut wire_cst_list_skipped_restore_swap {
+        let wrap = wire_cst_list_skipped_restore_swap {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_skipped_restore_swap>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_cst_new_list_tx(len: i32) -> *mut wire_cst_list_tx {
         let wrap = wire_cst_list_tx {
             ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
@@ -14452,6 +14981,20 @@ mod io {
         let wrap = wire_cst_list_tx_output_spec {
             ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
                 <wire_cst_tx_output_spec>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_vout_outspend(
+        len: i32,
+    ) -> *mut wire_cst_list_vout_outspend {
+        let wrap = wire_cst_list_vout_outspend {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_vout_outspend>::new_with_null_ptr(),
                 len,
             ),
             len,
@@ -14711,6 +15254,12 @@ mod io {
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
+    pub struct wire_cst_list_skipped_restore_swap {
+        ptr: *mut wire_cst_skipped_restore_swap,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
     pub struct wire_cst_list_tx {
         ptr: *mut wire_cst_tx,
         len: i32,
@@ -14743,6 +15292,12 @@ mod io {
     #[derive(Clone, Copy)]
     pub struct wire_cst_list_tx_output_spec {
         ptr: *mut wire_cst_tx_output_spec,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_vout_outspend {
+        ptr: *mut wire_cst_vout_outspend,
         len: i32,
     }
     #[repr(C)]
@@ -14818,6 +15373,24 @@ mod io {
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
+    pub struct wire_cst_restored_btc_ln_swaps {
+        swaps: *mut wire_cst_list_btc_ln_swap,
+        skipped: *mut wire_cst_list_skipped_restore_swap,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_restored_chain_swaps {
+        swaps: *mut wire_cst_list_chain_swap,
+        skipped: *mut wire_cst_list_skipped_restore_swap,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_restored_lbtc_ln_swaps {
+        swaps: *mut wire_cst_list_lbtc_ln_swap,
+        skipped: *mut wire_cst_list_skipped_restore_swap,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
     pub struct wire_cst_restored_swap_summary {
         id: *mut wire_cst_list_prim_u_8_strict,
         kind: i32,
@@ -14848,6 +15421,12 @@ mod io {
         discounted_vsize: usize,
         discounted_weight: usize,
         absolute_fees: *mut wire_cst_list_wallet_balance,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_skipped_restore_swap {
+        id: *mut wire_cst_list_prim_u_8_strict,
+        error: *mut wire_cst_list_prim_u_8_strict,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
@@ -14998,6 +15577,14 @@ mod io {
         address: *mut wire_cst_list_prim_u_8_strict,
         satoshi: u64,
         asset_id: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_vout_outspend {
+        vout: u32,
+        value_sat: *mut u64,
+        spender_txid: *mut wire_cst_list_prim_u_8_strict,
+        timestamp: *mut u64,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]

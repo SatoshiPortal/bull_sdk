@@ -42,6 +42,11 @@ enum SwapStatus {
       .api
       .boltzApiSwapStatusSwapStatusFromJsonString(status: status);
 
+  /// Terminal outcomes after which the lockup has been spent (claimed or
+  /// refunded) — nothing is left on-chain to rescue.
+  bool isResolved() =>
+      BullSdk.instance.api.boltzApiSwapStatusSwapStatusIsResolved(that: this);
+
   /// Convert to the Boltz API JSON string representation
   String toJsonString() =>
       BullSdk.instance.api.boltzApiSwapStatusSwapStatusToJsonString(that: this);

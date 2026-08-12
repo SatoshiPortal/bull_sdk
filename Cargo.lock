@@ -634,8 +634,8 @@ dependencies = [
 
 [[package]]
 name = "boltz"
-version = "0.5.1"
-source = "git+https://github.com/SatoshiPortal/boltz-dart?rev=2a94c9b0219b7aa81aa4b219f37c4dd654fce4cf#2a94c9b0219b7aa81aa4b219f37c4dd654fce4cf"
+version = "0.5.2"
+source = "git+https://github.com/SatoshiPortal/boltz-dart?rev=6f7552561bef9fe33344804984ab8217441c86e3#6f7552561bef9fe33344804984ab8217441c86e3"
 dependencies = [
  "anyhow",
  "boltz-client",
