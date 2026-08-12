@@ -92,7 +92,7 @@ class BullSdk extends BaseEntrypoint<BullSdkApi, BullSdkApiImpl, BullSdkWire> {
   String get codegenVersion => '2.12.0';
 
   @override
-  int get rustContentHash => 1884940812;
+  int get rustContentHash => 798013342;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -602,6 +602,15 @@ abstract class BullSdkApi extends BaseApi {
 
   Future<String> boltzApiChainSwapChainSwapToJson({required ChainSwap that});
 
+  Future<List<VoutOutspend>> boltzApiTransactionsCheckLockupOutspends({
+    required String swapId,
+    required SwapType swapType,
+    required SwapTxKind txKind,
+    required Chain network,
+    required String boltzUrl,
+    ChainSwapDirection? chainSwapDirection,
+  });
+
   Future<OutspendStatus> boltzApiTransactionsCheckVout0Outspend({
     required String swapId,
     required SwapType swapType,
@@ -821,20 +830,20 @@ abstract class BullSdkApi extends BaseApi {
     required String hash160,
   });
 
-  Future<List<ChainSwap>> boltzApiRestoreRestoreChainSwaps({
+  Future<RestoredChainSwaps> boltzApiRestoreRestoreChainSwaps({
     required SwapMasterKey swapMasterKey,
     required String btcElectrumUrl,
     required String lbtcElectrumUrl,
     required String boltzUrl,
   });
 
-  Future<List<BtcLnSwap>> boltzApiRestoreRestoreLnBtcSwaps({
+  Future<RestoredBtcLnSwaps> boltzApiRestoreRestoreLnBtcSwaps({
     required SwapMasterKey swapMasterKey,
     required String electrumUrl,
     required String boltzUrl,
   });
 
-  Future<List<LbtcLnSwap>> boltzApiRestoreRestoreLnLbtcSwaps({
+  Future<RestoredLbtcLnSwaps> boltzApiRestoreRestoreLnLbtcSwaps({
     required SwapMasterKey swapMasterKey,
     required String electrumUrl,
     required String boltzUrl,
@@ -882,6 +891,8 @@ abstract class BullSdkApi extends BaseApi {
   SwapStatus boltzApiSwapStatusSwapStatusFromJsonString({
     required String status,
   });
+
+  bool boltzApiSwapStatusSwapStatusIsResolved({required SwapStatus that});
 
   SwapStatusResponse boltzApiSwapStatusSwapStatusResponseFromJson({
     required String json,
@@ -4496,6 +4507,67 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       const TaskConstMeta(debugName: "chain_swap_to_json", argNames: ["that"]);
 
   @override
+  Future<List<VoutOutspend>> boltzApiTransactionsCheckLockupOutspends({
+    required String swapId,
+    required SwapType swapType,
+    required SwapTxKind txKind,
+    required Chain network,
+    required String boltzUrl,
+    ChainSwapDirection? chainSwapDirection,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(swapId);
+          var arg1 = cst_encode_swap_type(swapType);
+          var arg2 = cst_encode_swap_tx_kind(txKind);
+          var arg3 = cst_encode_chain(network);
+          var arg4 = cst_encode_String(boltzUrl);
+          var arg5 = cst_encode_opt_box_autoadd_chain_swap_direction(
+            chainSwapDirection,
+          );
+          return wire.wire__boltz__api__transactions__check_lockup_outspends(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+            arg5,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_list_vout_outspend,
+          decodeErrorData: dco_decode_boltz_error,
+        ),
+        constMeta: kBoltzApiTransactionsCheckLockupOutspendsConstMeta,
+        argValues: [
+          swapId,
+          swapType,
+          txKind,
+          network,
+          boltzUrl,
+          chainSwapDirection,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiTransactionsCheckLockupOutspendsConstMeta =>
+      const TaskConstMeta(
+        debugName: "check_lockup_outspends",
+        argNames: [
+          "swapId",
+          "swapType",
+          "txKind",
+          "network",
+          "boltzUrl",
+          "chainSwapDirection",
+        ],
+      );
+
+  @override
   Future<OutspendStatus> boltzApiTransactionsCheckVout0Outspend({
     required String swapId,
     required SwapType swapType,
@@ -6191,7 +6263,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   );
 
   @override
-  Future<List<ChainSwap>> boltzApiRestoreRestoreChainSwaps({
+  Future<RestoredChainSwaps> boltzApiRestoreRestoreChainSwaps({
     required SwapMasterKey swapMasterKey,
     required String btcElectrumUrl,
     required String lbtcElectrumUrl,
@@ -6213,7 +6285,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           );
         },
         codec: DcoCodec(
-          decodeSuccessData: dco_decode_list_chain_swap,
+          decodeSuccessData: dco_decode_restored_chain_swaps,
           decodeErrorData: dco_decode_boltz_error,
         ),
         constMeta: kBoltzApiRestoreRestoreChainSwapsConstMeta,
@@ -6235,7 +6307,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       );
 
   @override
-  Future<List<BtcLnSwap>> boltzApiRestoreRestoreLnBtcSwaps({
+  Future<RestoredBtcLnSwaps> boltzApiRestoreRestoreLnBtcSwaps({
     required SwapMasterKey swapMasterKey,
     required String electrumUrl,
     required String boltzUrl,
@@ -6254,7 +6326,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           );
         },
         codec: DcoCodec(
-          decodeSuccessData: dco_decode_list_btc_ln_swap,
+          decodeSuccessData: dco_decode_restored_btc_ln_swaps,
           decodeErrorData: dco_decode_boltz_error,
         ),
         constMeta: kBoltzApiRestoreRestoreLnBtcSwapsConstMeta,
@@ -6271,7 +6343,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       );
 
   @override
-  Future<List<LbtcLnSwap>> boltzApiRestoreRestoreLnLbtcSwaps({
+  Future<RestoredLbtcLnSwaps> boltzApiRestoreRestoreLnLbtcSwaps({
     required SwapMasterKey swapMasterKey,
     required String electrumUrl,
     required String boltzUrl,
@@ -6290,7 +6362,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           );
         },
         codec: DcoCodec(
-          decodeSuccessData: dco_decode_list_lbtc_ln_swap,
+          decodeSuccessData: dco_decode_restored_lbtc_ln_swaps,
           decodeErrorData: dco_decode_boltz_error,
         ),
         constMeta: kBoltzApiRestoreRestoreLnLbtcSwapsConstMeta,
@@ -6603,6 +6675,33 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       const TaskConstMeta(
         debugName: "swap_status_from_json_string",
         argNames: ["status"],
+      );
+
+  @override
+  bool boltzApiSwapStatusSwapStatusIsResolved({required SwapStatus that}) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 = cst_encode_swap_status(that);
+          return wire.wire__boltz__api__swap_status__swap_status_is_resolved(
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_bool,
+          decodeErrorData: null,
+        ),
+        constMeta: kBoltzApiSwapStatusSwapStatusIsResolvedConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBoltzApiSwapStatusSwapStatusIsResolvedConstMeta =>
+      const TaskConstMeta(
+        debugName: "swap_status_is_resolved",
+        argNames: ["that"],
       );
 
   @override
@@ -7647,6 +7746,12 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  List<SkippedRestoreSwap> dco_decode_list_skipped_restore_swap(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_skipped_restore_swap).toList();
+  }
+
+  @protected
   List<Tx> dco_decode_list_tx(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_tx).toList();
@@ -7680,6 +7785,12 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   List<TxOutputSpec> dco_decode_list_tx_output_spec(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return (raw as List<dynamic>).map(dco_decode_tx_output_spec).toList();
+  }
+
+  @protected
+  List<VoutOutspend> dco_decode_list_vout_outspend(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return (raw as List<dynamic>).map(dco_decode_vout_outspend).toList();
   }
 
   @protected
@@ -7910,6 +8021,42 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  RestoredBtcLnSwaps dco_decode_restored_btc_ln_swaps(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return RestoredBtcLnSwaps(
+      swaps: dco_decode_list_btc_ln_swap(arr[0]),
+      skipped: dco_decode_list_skipped_restore_swap(arr[1]),
+    );
+  }
+
+  @protected
+  RestoredChainSwaps dco_decode_restored_chain_swaps(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return RestoredChainSwaps(
+      swaps: dco_decode_list_chain_swap(arr[0]),
+      skipped: dco_decode_list_skipped_restore_swap(arr[1]),
+    );
+  }
+
+  @protected
+  RestoredLbtcLnSwaps dco_decode_restored_lbtc_ln_swaps(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return RestoredLbtcLnSwaps(
+      swaps: dco_decode_list_lbtc_ln_swap(arr[0]),
+      skipped: dco_decode_list_skipped_restore_swap(arr[1]),
+    );
+  }
+
+  @protected
   RestoredSwapSummary dco_decode_restored_swap_summary(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
@@ -7969,6 +8116,18 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       discountedVsize: dco_decode_usize(arr[0]),
       discountedWeight: dco_decode_usize(arr[1]),
       absoluteFees: dco_decode_list_wallet_balance(arr[2]),
+    );
+  }
+
+  @protected
+  SkippedRestoreSwap dco_decode_skipped_restore_swap(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return SkippedRestoreSwap(
+      id: dco_decode_String(arr[0]),
+      error: dco_decode_String(arr[1]),
     );
   }
 
@@ -8254,6 +8413,20 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   Version dco_decode_version(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return Version.values[raw as int];
+  }
+
+  @protected
+  VoutOutspend dco_decode_vout_outspend(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return VoutOutspend(
+      vout: dco_decode_u_32(arr[0]),
+      valueSat: dco_decode_opt_box_autoadd_u_64(arr[1]),
+      spenderTxid: dco_decode_opt_String(arr[2]),
+      timestamp: dco_decode_opt_box_autoadd_u_64(arr[3]),
+    );
   }
 
   @protected
@@ -9154,6 +9327,20 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  List<SkippedRestoreSwap> sse_decode_list_skipped_restore_swap(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <SkippedRestoreSwap>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_skipped_restore_swap(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
   List<Tx> sse_decode_list_tx(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -9225,6 +9412,20 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     var ans_ = <TxOutputSpec>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
       ans_.add(sse_decode_tx_output_spec(deserializer));
+    }
+    return ans_;
+  }
+
+  @protected
+  List<VoutOutspend> sse_decode_list_vout_outspend(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var len_ = sse_decode_i_32(deserializer);
+    var ans_ = <VoutOutspend>[];
+    for (var idx_ = 0; idx_ < len_; ++idx_) {
+      ans_.add(sse_decode_vout_outspend(deserializer));
     }
     return ans_;
   }
@@ -9529,6 +9730,36 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  RestoredBtcLnSwaps sse_decode_restored_btc_ln_swaps(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_swaps = sse_decode_list_btc_ln_swap(deserializer);
+    var var_skipped = sse_decode_list_skipped_restore_swap(deserializer);
+    return RestoredBtcLnSwaps(swaps: var_swaps, skipped: var_skipped);
+  }
+
+  @protected
+  RestoredChainSwaps sse_decode_restored_chain_swaps(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_swaps = sse_decode_list_chain_swap(deserializer);
+    var var_skipped = sse_decode_list_skipped_restore_swap(deserializer);
+    return RestoredChainSwaps(swaps: var_swaps, skipped: var_skipped);
+  }
+
+  @protected
+  RestoredLbtcLnSwaps sse_decode_restored_lbtc_ln_swaps(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_swaps = sse_decode_list_lbtc_ln_swap(deserializer);
+    var var_skipped = sse_decode_list_skipped_restore_swap(deserializer);
+    return RestoredLbtcLnSwaps(swaps: var_swaps, skipped: var_skipped);
+  }
+
+  @protected
   RestoredSwapSummary sse_decode_restored_swap_summary(
     SseDeserializer deserializer,
   ) {
@@ -9596,6 +9827,16 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       discountedWeight: var_discountedWeight,
       absoluteFees: var_absoluteFees,
     );
+  }
+
+  @protected
+  SkippedRestoreSwap sse_decode_skipped_restore_swap(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_id = sse_decode_String(deserializer);
+    var var_error = sse_decode_String(deserializer);
+    return SkippedRestoreSwap(id: var_id, error: var_error);
   }
 
   @protected
@@ -9906,6 +10147,21 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
     return Version.values[inner];
+  }
+
+  @protected
+  VoutOutspend sse_decode_vout_outspend(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_vout = sse_decode_u_32(deserializer);
+    var var_valueSat = sse_decode_opt_box_autoadd_u_64(deserializer);
+    var var_spenderTxid = sse_decode_opt_String(deserializer);
+    var var_timestamp = sse_decode_opt_box_autoadd_u_64(deserializer);
+    return VoutOutspend(
+      vout: var_vout,
+      valueSat: var_valueSat,
+      spenderTxid: var_spenderTxid,
+      timestamp: var_timestamp,
+    );
   }
 
   @protected
@@ -11010,6 +11266,18 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  void sse_encode_list_skipped_restore_swap(
+    List<SkippedRestoreSwap> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_skipped_restore_swap(item, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_list_tx(List<Tx> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
@@ -11069,6 +11337,18 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
       sse_encode_tx_output_spec(item, serializer);
+    }
+  }
+
+  @protected
+  void sse_encode_list_vout_outspend(
+    List<VoutOutspend> self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.length, serializer);
+    for (final item in self) {
+      sse_encode_vout_outspend(item, serializer);
     }
   }
 
@@ -11349,6 +11629,36 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  void sse_encode_restored_btc_ln_swaps(
+    RestoredBtcLnSwaps self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_btc_ln_swap(self.swaps, serializer);
+    sse_encode_list_skipped_restore_swap(self.skipped, serializer);
+  }
+
+  @protected
+  void sse_encode_restored_chain_swaps(
+    RestoredChainSwaps self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_chain_swap(self.swaps, serializer);
+    sse_encode_list_skipped_restore_swap(self.skipped, serializer);
+  }
+
+  @protected
+  void sse_encode_restored_lbtc_ln_swaps(
+    RestoredLbtcLnSwaps self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_list_lbtc_ln_swap(self.swaps, serializer);
+    sse_encode_list_skipped_restore_swap(self.skipped, serializer);
+  }
+
+  @protected
   void sse_encode_restored_swap_summary(
     RestoredSwapSummary self,
     SseSerializer serializer,
@@ -11395,6 +11705,16 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     sse_encode_usize(self.discountedVsize, serializer);
     sse_encode_usize(self.discountedWeight, serializer);
     sse_encode_list_wallet_balance(self.absoluteFees, serializer);
+  }
+
+  @protected
+  void sse_encode_skipped_restore_swap(
+    SkippedRestoreSwap self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_String(self.id, serializer);
+    sse_encode_String(self.error, serializer);
   }
 
   @protected
@@ -11615,6 +11935,15 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   void sse_encode_version(Version self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.index, serializer);
+  }
+
+  @protected
+  void sse_encode_vout_outspend(VoutOutspend self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_32(self.vout, serializer);
+    sse_encode_opt_box_autoadd_u_64(self.valueSat, serializer);
+    sse_encode_opt_String(self.spenderTxid, serializer);
+    sse_encode_opt_box_autoadd_u_64(self.timestamp, serializer);
   }
 
   @protected

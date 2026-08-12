@@ -419,6 +419,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  onion:
+    dependency: "direct main"
+    description:
+      path: "../onion"
+      relative: true
+    source: path
+    version: "0.1.0"
   package_config:
     dependency: transitive
     description:
