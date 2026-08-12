@@ -911,8 +911,8 @@ dependencies = [
 
 [[package]]
 name = "boltz"
-version = "0.5.1"
-source = "git+https://github.com/SatoshiPortal/boltz-dart?tag=v0.5.1#2a94c9b0219b7aa81aa4b219f37c4dd654fce4cf"
+version = "0.5.2"
+source = "git+https://github.com/SatoshiPortal/boltz-dart?rev=6f7552561bef9fe33344804984ab8217441c86e3#6f7552561bef9fe33344804984ab8217441c86e3"
 dependencies = [
  "anyhow",
  "boltz-client",
@@ -2767,7 +2767,7 @@ dependencies = [
  "libc",
  "percent-encoding",
  "pin-project-lite",
- "socket2 0.6.4",
+ "socket2 0.5.10",
  "system-configuration 0.7.0",
  "tokio",
  "tower-service",
@@ -4369,7 +4369,7 @@ dependencies = [
  "quinn-udp",
  "rustc-hash 2.1.2",
  "rustls",
- "socket2 0.6.4",
+ "socket2 0.5.10",
  "thiserror 2.0.18",
  "tokio",
  "tracing",
@@ -4406,7 +4406,7 @@ dependencies = [
  "cfg_aliases",
  "libc",
  "once_cell",
- "socket2 0.6.4",
+ "socket2 0.5.10",
  "tracing",
  "windows-sys 0.59.0",
 ]

@@ -18,7 +18,7 @@ ark_wallet = { git = "https://github.com/SatoshiPortal/ark-wallet-dart", rev = "
 bitbox = { git = "https://github.com/SatoshiPortal/bitbox-dart", rev = "c110af7517707ce3ab847bff32762375703d42c3", features = ["bull_sdk"] }
 bbqr = { git = "https://github.com/SatoshiPortal/bbqr-rust.git", rev = "2296a713beb58a175eb620a087f7da6826dc6f70", default-features = false }
 dart_bbqr = { git = "https://github.com/SatoshiPortal/bbqr-dart", rev = "50b2397a708aa8083c22ae80a49e4dd0d503632e", features = ["bull_sdk"] }
-boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", tag = "v0.5.1", features = ["bull_sdk"] }
+boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", rev = "6f7552561bef9fe33344804984ab8217441c86e3", features = ["bull_sdk"] }
 lwk = { git = "https://github.com/SatoshiPortal/lwk-dart", tag = "v0.5.0", features = ["bull_sdk"] }
 
 [lints.rust]

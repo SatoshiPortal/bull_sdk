@@ -12,6 +12,8 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'secrets.dart';
 import 'types.dart';
 
+// These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `LnRestoreDetails`
+
 /// One restore POST returning a summary per swap (id, kind, status, amount).
 Future<List<RestoredSwapSummary>> restoreSwapSummaries({
   required SwapMasterKey swapMasterKey,
@@ -32,7 +34,7 @@ Future<PlatformInt64> restoreSwapIndex({
   boltzUrl: boltzUrl,
 );
 
-Future<List<BtcLnSwap>> restoreLnBtcSwaps({
+Future<RestoredBtcLnSwaps> restoreLnBtcSwaps({
   required SwapMasterKey swapMasterKey,
   required String electrumUrl,
   required String boltzUrl,
@@ -42,7 +44,7 @@ Future<List<BtcLnSwap>> restoreLnBtcSwaps({
   boltzUrl: boltzUrl,
 );
 
-Future<List<LbtcLnSwap>> restoreLnLbtcSwaps({
+Future<RestoredLbtcLnSwaps> restoreLnLbtcSwaps({
   required SwapMasterKey swapMasterKey,
   required String electrumUrl,
   required String boltzUrl,
@@ -52,7 +54,7 @@ Future<List<LbtcLnSwap>> restoreLnLbtcSwaps({
   boltzUrl: boltzUrl,
 );
 
-Future<List<ChainSwap>> restoreChainSwaps({
+Future<RestoredChainSwaps> restoreChainSwaps({
   required SwapMasterKey swapMasterKey,
   required String btcElectrumUrl,
   required String lbtcElectrumUrl,
@@ -63,6 +65,60 @@ Future<List<ChainSwap>> restoreChainSwaps({
   lbtcElectrumUrl: lbtcElectrumUrl,
   boltzUrl: boltzUrl,
 );
+
+class RestoredBtcLnSwaps {
+  final List<BtcLnSwap> swaps;
+  final List<SkippedRestoreSwap> skipped;
+
+  const RestoredBtcLnSwaps({required this.swaps, required this.skipped});
+
+  @override
+  int get hashCode => swaps.hashCode ^ skipped.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RestoredBtcLnSwaps &&
+          runtimeType == other.runtimeType &&
+          swaps == other.swaps &&
+          skipped == other.skipped;
+}
+
+class RestoredChainSwaps {
+  final List<ChainSwap> swaps;
+  final List<SkippedRestoreSwap> skipped;
+
+  const RestoredChainSwaps({required this.swaps, required this.skipped});
+
+  @override
+  int get hashCode => swaps.hashCode ^ skipped.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RestoredChainSwaps &&
+          runtimeType == other.runtimeType &&
+          swaps == other.swaps &&
+          skipped == other.skipped;
+}
+
+class RestoredLbtcLnSwaps {
+  final List<LbtcLnSwap> swaps;
+  final List<SkippedRestoreSwap> skipped;
+
+  const RestoredLbtcLnSwaps({required this.swaps, required this.skipped});
+
+  @override
+  int get hashCode => swaps.hashCode ^ skipped.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is RestoredLbtcLnSwaps &&
+          runtimeType == other.runtimeType &&
+          swaps == other.swaps &&
+          skipped == other.skipped;
+}
 
 /// Lightweight view of a restorable swap, taken straight from the restore
 /// response — enough to list swaps and show status without rebuilding the full
@@ -118,4 +174,27 @@ class RestoredSwapSummary {
           to == other.to &&
           amount == other.amount &&
           recoverable == other.recoverable;
+}
+
+/// A swap the restore scan returned but could not rebuild into a usable
+/// swap object (e.g. a legacy reverse swap whose preimage was not derived
+/// from the swap key). Its funds, if any, are NOT covered by the returned
+/// swaps — callers must surface these to the user rather than treat the
+/// restore as complete.
+class SkippedRestoreSwap {
+  final String id;
+  final String error;
+
+  const SkippedRestoreSwap({required this.id, required this.error});
+
+  @override
+  int get hashCode => id.hashCode ^ error.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SkippedRestoreSwap &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          error == other.error;
 }
