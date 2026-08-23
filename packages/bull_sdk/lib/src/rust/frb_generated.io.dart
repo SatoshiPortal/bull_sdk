@@ -171,6 +171,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   Balance dco_decode_balance(dynamic raw);
 
   @protected
+  BitBoxKeychain dco_decode_bit_box_keychain(dynamic raw);
+
+  @protected
   Blockchain dco_decode_blockchain(dynamic raw);
 
   @protected
@@ -681,6 +684,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   Balance sse_decode_balance(SseDeserializer deserializer);
+
+  @protected
+  BitBoxKeychain sse_decode_bit_box_keychain(SseDeserializer deserializer);
 
   @protected
   Blockchain sse_decode_blockchain(SseDeserializer deserializer);
@@ -2670,6 +2676,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
+  int cst_encode_bit_box_keychain(BitBoxKeychain raw);
+
+  @protected
   bool cst_encode_bool(bool raw);
 
   @protected
@@ -2835,6 +2844,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void sse_encode_balance(Balance self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_bit_box_keychain(
+    BitBoxKeychain self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_blockchain(Blockchain self, SseSerializer serializer);
@@ -6636,6 +6651,42 @@ class BullSdkWire implements BaseWire {
   late final _wire__bitbox__api__init_app = _wire__bitbox__api__init_appPtr
       .asFunction<void Function(int)>();
 
+  void wire__bitbox__api__is_wallet_policy_registered(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> descriptor,
+    bool testnet,
+  ) {
+    return _wire__bitbox__api__is_wallet_policy_registered(
+      port_,
+      serial_number,
+      descriptor,
+      testnet,
+    );
+  }
+
+  late final _wire__bitbox__api__is_wallet_policy_registeredPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Bool,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__is_wallet_policy_registered');
+  late final _wire__bitbox__api__is_wallet_policy_registered =
+      _wire__bitbox__api__is_wallet_policy_registeredPtr
+          .asFunction<
+            void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              bool,
+            )
+          >();
+
   void wire__bbqr__join__joined_frb_override_try_from_parts(
     int port_,
     ffi.Pointer<wire_cst_list_String> parts,
@@ -7406,6 +7457,46 @@ class BullSdkWire implements BaseWire {
             )
           >();
 
+  void wire__bitbox__api__register_wallet_policy(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> descriptor,
+    bool testnet,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> name,
+  ) {
+    return _wire__bitbox__api__register_wallet_policy(
+      port_,
+      serial_number,
+      descriptor,
+      testnet,
+      name,
+    );
+  }
+
+  late final _wire__bitbox__api__register_wallet_policyPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Bool,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__register_wallet_policy');
+  late final _wire__bitbox__api__register_wallet_policy =
+      _wire__bitbox__api__register_wallet_policyPtr
+          .asFunction<
+            void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              bool,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            )
+          >();
+
   void wire__boltz__api__restore__restore_chain_swaps(
     int port_,
     ffi.Pointer<wire_cst_swap_master_key> swap_master_key,
@@ -7641,6 +7732,46 @@ class BullSdkWire implements BaseWire {
           bool,
         )
       >();
+
+  void wire__bitbox__api__sign_wallet_psbt(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> descriptor,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> psbt_str,
+    bool testnet,
+  ) {
+    return _wire__bitbox__api__sign_wallet_psbt(
+      port_,
+      serial_number,
+      descriptor,
+      psbt_str,
+      testnet,
+    );
+  }
+
+  late final _wire__bitbox__api__sign_wallet_psbtPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Bool,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__sign_wallet_psbt');
+  late final _wire__bitbox__api__sign_wallet_psbt =
+      _wire__bitbox__api__sign_wallet_psbtPtr
+          .asFunction<
+            void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              bool,
+            )
+          >();
 
   void wire__bbqr__split__split_frb_override_try_from_data(
     int port_,
@@ -7991,6 +8122,50 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               bool,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            )
+          >();
+
+  void wire__bitbox__api__verify_wallet_address(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> descriptor,
+    bool testnet,
+    int keychain,
+    int index,
+  ) {
+    return _wire__bitbox__api__verify_wallet_address(
+      port_,
+      serial_number,
+      descriptor,
+      testnet,
+      keychain,
+      index,
+    );
+  }
+
+  late final _wire__bitbox__api__verify_wallet_addressPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Bool,
+            ffi.Int32,
+            ffi.Int64,
+          )
+        >
+      >('frbgen_bull_sdk_wire__bitbox__api__verify_wallet_address');
+  late final _wire__bitbox__api__verify_wallet_address =
+      _wire__bitbox__api__verify_wallet_addressPtr
+          .asFunction<
+            void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              bool,
+              int,
+              int,
             )
           >();
 

@@ -436,7 +436,7 @@ dependencies = [
 [[package]]
 name = "bitbox"
 version = "0.2.0"
-source = "git+https://github.com/SatoshiPortal/bitbox-dart?rev=c110af7517707ce3ab847bff32762375703d42c3#c110af7517707ce3ab847bff32762375703d42c3"
+source = "git+https://github.com/ben-kaufman/bitbox-flutter?rev=a70697a8f410fa797fc51be689d9054a4dc56a6a#a70697a8f410fa797fc51be689d9054a4dc56a6a"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -444,6 +444,7 @@ dependencies = [
  "bitcoin",
  "flutter_rust_bridge",
  "lazy_static",
+ "miniscript",
  "tokio",
 ]
 
