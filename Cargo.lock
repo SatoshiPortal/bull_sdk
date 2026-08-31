@@ -757,7 +757,7 @@ checksum = "72f5acc6cb2ba439de613abc23857ec3d78374d8ed5ac84e9d11336e87da8649"
 [[package]]
 name = "bwk"
 version = "0.0.8"
-source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
+source = "git+https://github.com/pythcoiner/bwk?branch=master#2ee68a1810364572b2ace846954aa2dc85799069"
 dependencies = [
  "bip39",
  "bwk-backoff",
@@ -780,7 +780,7 @@ dependencies = [
 [[package]]
 name = "bwk-backoff"
 version = "0.0.3"
-source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
+source = "git+https://github.com/pythcoiner/bwk?branch=master#2ee68a1810364572b2ace846954aa2dc85799069"
 dependencies = [
  "rand 0.9.4",
 ]
@@ -788,7 +788,7 @@ dependencies = [
 [[package]]
 name = "bwk-descriptor"
 version = "0.0.1"
-source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
+source = "git+https://github.com/pythcoiner/bwk?branch=master#2ee68a1810364572b2ace846954aa2dc85799069"
 dependencies = [
  "bwk-keys",
  "miniscript",
@@ -798,7 +798,7 @@ dependencies = [
 [[package]]
 name = "bwk-electrum"
 version = "0.0.4"
-source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
+source = "git+https://github.com/pythcoiner/bwk?branch=master#2ee68a1810364572b2ace846954aa2dc85799069"
 dependencies = [
  "bitcoin_slices",
  "bwk-backoff",
@@ -815,7 +815,7 @@ dependencies = [
 [[package]]
 name = "bwk-keys"
 version = "0.0.1"
-source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
+source = "git+https://github.com/pythcoiner/bwk?branch=master#2ee68a1810364572b2ace846954aa2dc85799069"
 dependencies = [
  "bip39",
  "bitcoin",
@@ -826,7 +826,7 @@ dependencies = [
 [[package]]
 name = "bwk-persist"
 version = "0.0.1"
-source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
+source = "git+https://github.com/pythcoiner/bwk?branch=master#2ee68a1810364572b2ace846954aa2dc85799069"
 dependencies = [
  "fs2",
  "log",
@@ -839,7 +839,7 @@ dependencies = [
 [[package]]
 name = "bwk-sign"
 version = "0.0.1"
-source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
+source = "git+https://github.com/pythcoiner/bwk?branch=master#2ee68a1810364572b2ace846954aa2dc85799069"
 dependencies = [
  "bip39",
  "bwk-descriptor",
@@ -856,7 +856,7 @@ dependencies = [
 [[package]]
 name = "bwk-sp"
 version = "0.1.0"
-source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
+source = "git+https://github.com/pythcoiner/bwk?branch=master#2ee68a1810364572b2ace846954aa2dc85799069"
 dependencies = [
  "bech32 0.9.1",
  "bimap",
@@ -883,7 +883,7 @@ dependencies = [
 [[package]]
 name = "bwk-tx"
 version = "0.0.1"
-source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
+source = "git+https://github.com/pythcoiner/bwk?branch=master#2ee68a1810364572b2ace846954aa2dc85799069"
 dependencies = [
  "bitcoin",
  "bwk-descriptor",
@@ -896,7 +896,7 @@ dependencies = [
 [[package]]
 name = "bwk-utils"
 version = "0.0.1"
-source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
+source = "git+https://github.com/pythcoiner/bwk?branch=master#2ee68a1810364572b2ace846954aa2dc85799069"
 dependencies = [
  "bitcoin",
  "env_logger",
@@ -1438,7 +1438,7 @@ dependencies = [
 [[package]]
 name = "dart_bwk"
 version = "0.1.0"
-source = "git+https://github.com/pythcoiner/bwk-dart?rev=58b5bab17fa81cdef93194a0f113ebc3b085b4cc#58b5bab17fa81cdef93194a0f113ebc3b085b4cc"
+source = "git+https://github.com/pythcoiner/bwk-dart?rev=3cc4c70ad585e07bada7de2240967ecd8f3133b7#3cc4c70ad585e07bada7de2240967ecd8f3133b7"
 dependencies = [
  "bitcoin",
  "bwk",
@@ -1545,7 +1545,7 @@ dependencies = [
  "libc",
  "option-ext",
  "redox_users",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -4414,7 +4414,7 @@ dependencies = [
 [[package]]
 name = "secp256k1_spscan-sys"
 version = "0.1.0"
-source = "git+https://github.com/pythcoiner/bwk?branch=fix_balance#23b209dab6d07542afb7f34d87a68da83625857a"
+source = "git+https://github.com/pythcoiner/bwk?branch=master#2ee68a1810364572b2ace846954aa2dc85799069"
 dependencies = [
  "cc",
 ]
@@ -5604,7 +5604,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.61.2",
+ "windows-sys 0.48.0",
 ]
 
 [[package]]
