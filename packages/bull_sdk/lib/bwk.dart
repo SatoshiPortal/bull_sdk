@@ -23,6 +23,13 @@ export 'src/rust/api/simple.dart'
         RecipientView,
         RecipientView_Sp,
         RecipientView_Standard,
+        // The typed SP error and its variants: a consumer that cannot name the
+        // variants is back to matching on message text.
+        SpError,
+        SpError_ScannerAlreadyRunning,
+        SpError_DisposeTimedOut,
+        SpError_SimulationDrifted,
+        SpError_Other,
         // freezed copyWith mixin — consumers embed RecipientView as a field in
         // their own @freezed classes (e.g. bb-mobile SpState), whose generated
         // code references $RecipientViewCopyWith.
