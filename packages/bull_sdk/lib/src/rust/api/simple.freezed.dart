@@ -347,6 +347,374 @@ as bool,
 }
 
 /// @nodoc
+mixin _$SpError {
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpError);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'SpError()';
+}
+
+
+}
+
+/// @nodoc
+class $SpErrorCopyWith<$Res>  {
+$SpErrorCopyWith(SpError _, $Res Function(SpError) __);
+}
+
+
+/// Adds pattern-matching-related methods to [SpError].
+extension SpErrorPatterns on SpError {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SpError_ScannerAlreadyRunning value)?  scannerAlreadyRunning,TResult Function( SpError_DisposeTimedOut value)?  disposeTimedOut,TResult Function( SpError_SimulationDrifted value)?  simulationDrifted,TResult Function( SpError_Other value)?  other,required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case SpError_ScannerAlreadyRunning() when scannerAlreadyRunning != null:
+return scannerAlreadyRunning(_that);case SpError_DisposeTimedOut() when disposeTimedOut != null:
+return disposeTimedOut(_that);case SpError_SimulationDrifted() when simulationDrifted != null:
+return simulationDrifted(_that);case SpError_Other() when other != null:
+return other(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SpError_ScannerAlreadyRunning value)  scannerAlreadyRunning,required TResult Function( SpError_DisposeTimedOut value)  disposeTimedOut,required TResult Function( SpError_SimulationDrifted value)  simulationDrifted,required TResult Function( SpError_Other value)  other,}){
+final _that = this;
+switch (_that) {
+case SpError_ScannerAlreadyRunning():
+return scannerAlreadyRunning(_that);case SpError_DisposeTimedOut():
+return disposeTimedOut(_that);case SpError_SimulationDrifted():
+return simulationDrifted(_that);case SpError_Other():
+return other(_that);}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SpError_ScannerAlreadyRunning value)?  scannerAlreadyRunning,TResult? Function( SpError_DisposeTimedOut value)?  disposeTimedOut,TResult? Function( SpError_SimulationDrifted value)?  simulationDrifted,TResult? Function( SpError_Other value)?  other,}){
+final _that = this;
+switch (_that) {
+case SpError_ScannerAlreadyRunning() when scannerAlreadyRunning != null:
+return scannerAlreadyRunning(_that);case SpError_DisposeTimedOut() when disposeTimedOut != null:
+return disposeTimedOut(_that);case SpError_SimulationDrifted() when simulationDrifted != null:
+return simulationDrifted(_that);case SpError_Other() when other != null:
+return other(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  scannerAlreadyRunning,TResult Function()?  disposeTimedOut,TResult Function( String detail)?  simulationDrifted,TResult Function( String message)?  other,required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case SpError_ScannerAlreadyRunning() when scannerAlreadyRunning != null:
+return scannerAlreadyRunning();case SpError_DisposeTimedOut() when disposeTimedOut != null:
+return disposeTimedOut();case SpError_SimulationDrifted() when simulationDrifted != null:
+return simulationDrifted(_that.detail);case SpError_Other() when other != null:
+return other(_that.message);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  scannerAlreadyRunning,required TResult Function()  disposeTimedOut,required TResult Function( String detail)  simulationDrifted,required TResult Function( String message)  other,}) {final _that = this;
+switch (_that) {
+case SpError_ScannerAlreadyRunning():
+return scannerAlreadyRunning();case SpError_DisposeTimedOut():
+return disposeTimedOut();case SpError_SimulationDrifted():
+return simulationDrifted(_that.detail);case SpError_Other():
+return other(_that.message);}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  scannerAlreadyRunning,TResult? Function()?  disposeTimedOut,TResult? Function( String detail)?  simulationDrifted,TResult? Function( String message)?  other,}) {final _that = this;
+switch (_that) {
+case SpError_ScannerAlreadyRunning() when scannerAlreadyRunning != null:
+return scannerAlreadyRunning();case SpError_DisposeTimedOut() when disposeTimedOut != null:
+return disposeTimedOut();case SpError_SimulationDrifted() when simulationDrifted != null:
+return simulationDrifted(_that.detail);case SpError_Other() when other != null:
+return other(_that.message);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class SpError_ScannerAlreadyRunning extends SpError {
+  const SpError_ScannerAlreadyRunning(): super._();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpError_ScannerAlreadyRunning);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'SpError.scannerAlreadyRunning()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class SpError_DisposeTimedOut extends SpError {
+  const SpError_DisposeTimedOut(): super._();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpError_DisposeTimedOut);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'SpError.disposeTimedOut()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class SpError_SimulationDrifted extends SpError {
+  const SpError_SimulationDrifted({required this.detail}): super._();
+  
+
+ final  String detail;
+
+/// Create a copy of SpError
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SpError_SimulationDriftedCopyWith<SpError_SimulationDrifted> get copyWith => _$SpError_SimulationDriftedCopyWithImpl<SpError_SimulationDrifted>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpError_SimulationDrifted&&(identical(other.detail, detail) || other.detail == detail));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,detail);
+
+@override
+String toString() {
+  return 'SpError.simulationDrifted(detail: $detail)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SpError_SimulationDriftedCopyWith<$Res> implements $SpErrorCopyWith<$Res> {
+  factory $SpError_SimulationDriftedCopyWith(SpError_SimulationDrifted value, $Res Function(SpError_SimulationDrifted) _then) = _$SpError_SimulationDriftedCopyWithImpl;
+@useResult
+$Res call({
+ String detail
+});
+
+
+
+
+}
+/// @nodoc
+class _$SpError_SimulationDriftedCopyWithImpl<$Res>
+    implements $SpError_SimulationDriftedCopyWith<$Res> {
+  _$SpError_SimulationDriftedCopyWithImpl(this._self, this._then);
+
+  final SpError_SimulationDrifted _self;
+  final $Res Function(SpError_SimulationDrifted) _then;
+
+/// Create a copy of SpError
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? detail = null,}) {
+  return _then(SpError_SimulationDrifted(
+detail: null == detail ? _self.detail : detail // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class SpError_Other extends SpError {
+  const SpError_Other({required this.message}): super._();
+  
+
+ final  String message;
+
+/// Create a copy of SpError
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SpError_OtherCopyWith<SpError_Other> get copyWith => _$SpError_OtherCopyWithImpl<SpError_Other>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpError_Other&&(identical(other.message, message) || other.message == message));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,message);
+
+@override
+String toString() {
+  return 'SpError.other(message: $message)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SpError_OtherCopyWith<$Res> implements $SpErrorCopyWith<$Res> {
+  factory $SpError_OtherCopyWith(SpError_Other value, $Res Function(SpError_Other) _then) = _$SpError_OtherCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class _$SpError_OtherCopyWithImpl<$Res>
+    implements $SpError_OtherCopyWith<$Res> {
+  _$SpError_OtherCopyWithImpl(this._self, this._then);
+
+  final SpError_Other _self;
+  final $Res Function(SpError_Other) _then;
+
+/// Create a copy of SpError
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(SpError_Other(
+message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
 mixin _$SpNotification {
 
 

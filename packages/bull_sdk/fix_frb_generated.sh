@@ -8,6 +8,9 @@ sedi() { sed -i.bak "$@" && rm -f "${@: -1}.bak"; }
 # Step 1: Change type parameter from Error to FrbWrapper<Error>
 sedi 's/transform_result_dco::<_, _, lwk::api::error::LwkError>/transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>/g' "$FILE"
 sedi 's/transform_result_dco::<_, _, boltz::api::error::BoltzError>/transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>/g' "$FILE"
+# dart_bwk's SpError is an external-crate error type like the two above: the
+# aggregator cannot implement IntoDart for it directly, so wrap it too.
+sedi 's/transform_result_dco::<_, _, SpError>/transform_result_dco::<_, _, FrbWrapper<dart_bwk::api::types::SpError>>/g' "$FILE"
 
 # Step 2: For those calls, the closure result needs .map_err(FrbWrapper)
 # The pattern is })()) at the end of the transform_result_dco block

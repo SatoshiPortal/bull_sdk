@@ -9,7 +9,7 @@ import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 part 'simple.freezed.dart';
 
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`, `from`, `from`, `from`, `from`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `from`, `from`, `from`, `from`, `from`, `from`
 
 @freezed
 sealed class RecipientView with _$RecipientView {
@@ -26,6 +26,17 @@ sealed class RecipientView with _$RecipientView {
     required BigInt amountSat,
     required bool isMax,
   }) = RecipientView_Standard;
+}
+
+@freezed
+sealed class SpError with _$SpError implements FrbException {
+  const SpError._();
+
+  const factory SpError.scannerAlreadyRunning() = SpError_ScannerAlreadyRunning;
+  const factory SpError.disposeTimedOut() = SpError_DisposeTimedOut;
+  const factory SpError.simulationDrifted({required String detail}) =
+      SpError_SimulationDrifted;
+  const factory SpError.other({required String message}) = SpError_Other;
 }
 
 @freezed

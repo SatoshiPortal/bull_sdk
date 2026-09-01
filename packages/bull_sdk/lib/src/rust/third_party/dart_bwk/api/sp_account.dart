@@ -139,10 +139,10 @@ abstract class SpAccount implements RustOpaqueInterface {
   /// output set to exactly what the simulation contains. If the coin store
   /// has drifted since the simulation was produced (an incoming SP coin
   /// from a completed scan, an Electrum push for a sub-account coin, a
-  /// reorg evicting an input), the method returns an error of the form
-  /// `"transaction inputs changed since confirmation: ... please re-confirm"`
-  /// so the cubit can surface a re-confirm prompt instead of broadcasting
-  /// a tx that differs from what the user reviewed.
+  /// reorg evicting an input), the method returns
+  /// [`SpError::SimulationDrifted`] so the caller can surface a re-confirm
+  /// prompt instead of broadcasting a tx that differs from what the user
+  /// reviewed.
   ///
   /// Rationale: finalize → sign → broadcast is irreversible; an auto-
   /// re-selection here could ship a tx with different inputs, fee, or

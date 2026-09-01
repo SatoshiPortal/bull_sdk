@@ -1827,7 +1827,7 @@ fn wire__dart_bwk__api__sp_account__SpAccount_dispose_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| async move {
-                transform_result_dco::<_, _, String>(
+                transform_result_dco::<_, _, crate::api::simple::SpError>(
                     (move || async move {
                         let mut api_that_guard = None;
                         let decode_indices_ =
@@ -1873,7 +1873,7 @@ fn wire__dart_bwk__api__sp_account__SpAccount_finalize_psbt_impl(
             let api_that = that.cst_decode();
             let api_simulation = simulation.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, String>((move || {
+                transform_result_dco::<_, _, crate::api::simple::SpError>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -2272,7 +2272,7 @@ fn wire__dart_bwk__api__sp_account__SpAccount_scan_once_impl(
             let api_that = that.cst_decode();
             let api_start_height = start_height.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, String>((move || {
+                transform_result_dco::<_, _, crate::api::simple::SpError>((move || {
                     let mut api_that_guard = None;
                     let decode_indices_ =
                         flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
@@ -8996,6 +8996,34 @@ impl SseDecode for dart_bwk::api::types::SpCoinView {
     }
 }
 
+impl SseDecode for crate::api::simple::SpError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut tag_ = <i32>::sse_decode(deserializer);
+        match tag_ {
+            0 => {
+                return crate::api::simple::SpError::ScannerAlreadyRunning;
+            }
+            1 => {
+                return crate::api::simple::SpError::DisposeTimedOut;
+            }
+            2 => {
+                let mut var_detail = <String>::sse_decode(deserializer);
+                return crate::api::simple::SpError::SimulationDrifted { detail: var_detail };
+            }
+            3 => {
+                let mut var_message = <String>::sse_decode(deserializer);
+                return crate::api::simple::SpError::Other {
+                    message: var_message,
+                };
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
 impl SseDecode for dart_bwk::api::types::SpNetwork {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -10970,6 +10998,32 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<dart_bwk::api::types::SpCoinVi
 {
     fn into_into_dart(self) -> FrbWrapper<dart_bwk::api::types::SpCoinView> {
         self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for crate::api::simple::SpError {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self {
+            crate::api::simple::SpError::ScannerAlreadyRunning => [0.into_dart()].into_dart(),
+            crate::api::simple::SpError::DisposeTimedOut => [1.into_dart()].into_dart(),
+            crate::api::simple::SpError::SimulationDrifted { detail } => {
+                [2.into_dart(), detail.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::simple::SpError::Other { message } => {
+                [3.into_dart(), message.into_into_dart().into_dart()].into_dart()
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive for crate::api::simple::SpError {}
+impl flutter_rust_bridge::IntoIntoDart<crate::api::simple::SpError>
+    for crate::api::simple::SpError
+{
+    fn into_into_dart(self) -> crate::api::simple::SpError {
+        self
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
@@ -12981,6 +13035,31 @@ impl SseEncode for dart_bwk::api::types::SpCoinView {
     }
 }
 
+impl SseEncode for crate::api::simple::SpError {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        match self {
+            crate::api::simple::SpError::ScannerAlreadyRunning => {
+                <i32>::sse_encode(0, serializer);
+            }
+            crate::api::simple::SpError::DisposeTimedOut => {
+                <i32>::sse_encode(1, serializer);
+            }
+            crate::api::simple::SpError::SimulationDrifted { detail } => {
+                <i32>::sse_encode(2, serializer);
+                <String>::sse_encode(detail, serializer);
+            }
+            crate::api::simple::SpError::Other { message } => {
+                <i32>::sse_encode(3, serializer);
+                <String>::sse_encode(message, serializer);
+            }
+            _ => {
+                unimplemented!("");
+            }
+        }
+    }
+}
+
 impl SseEncode for dart_bwk::api::types::SpNetwork {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -14695,6 +14774,28 @@ mod io {
             }
         }
     }
+    impl CstDecode<crate::api::simple::SpError> for wire_cst_sp_error {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> crate::api::simple::SpError {
+            match self.tag {
+                0 => crate::api::simple::SpError::ScannerAlreadyRunning,
+                1 => crate::api::simple::SpError::DisposeTimedOut,
+                2 => {
+                    let ans = unsafe { self.kind.SimulationDrifted };
+                    crate::api::simple::SpError::SimulationDrifted {
+                        detail: ans.detail.cst_decode(),
+                    }
+                }
+                3 => {
+                    let ans = unsafe { self.kind.Other };
+                    crate::api::simple::SpError::Other {
+                        message: ans.message.cst_decode(),
+                    }
+                }
+                _ => unreachable!(),
+            }
+        }
+    }
     impl CstDecode<crate::api::simple::SpNotification> for wire_cst_sp_notification {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> crate::api::simple::SpNotification {
@@ -15644,6 +15745,19 @@ mod io {
         }
     }
     impl Default for wire_cst_sp_coin_view {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_sp_error {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                tag: -1,
+                kind: SpErrorKind { nil__: () },
+            }
+        }
+    }
+    impl Default for wire_cst_sp_error {
         fn default() -> Self {
             Self::new_with_null_ptr()
         }
@@ -19322,6 +19436,29 @@ mod io {
         height: u32,
         is_spendable: bool,
         label: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_sp_error {
+        tag: i32,
+        kind: SpErrorKind,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub union SpErrorKind {
+        SimulationDrifted: wire_cst_SpError_SimulationDrifted,
+        Other: wire_cst_SpError_Other,
+        nil__: (),
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SpError_SimulationDrifted {
+        detail: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SpError_Other {
+        message: *mut wire_cst_list_prim_u_8_strict,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]

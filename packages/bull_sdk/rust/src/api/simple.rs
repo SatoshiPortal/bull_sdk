@@ -291,3 +291,28 @@ impl From<RecipientView> for dart_bwk::api::types::RecipientView {
         }
     }
 }
+
+// Same reason as the SP enums above: an error type carrying associated data
+// renders as an opaque handle through the aggregator unless the primary crate
+// mirrors it. Without this, a consumer gets a `SpError` it cannot inspect,
+// which is the string-sniffing problem again in a different shape.
+#[flutter_rust_bridge::frb(mirror(dart_bwk::api::types::SpError))]
+pub enum SpError {
+    ScannerAlreadyRunning,
+    DisposeTimedOut,
+    SimulationDrifted { detail: String },
+    Other { message: String },
+}
+
+impl From<dart_bwk::api::types::SpError> for SpError {
+    fn from(val: dart_bwk::api::types::SpError) -> SpError {
+        match val {
+            dart_bwk::api::types::SpError::ScannerAlreadyRunning => SpError::ScannerAlreadyRunning,
+            dart_bwk::api::types::SpError::DisposeTimedOut => SpError::DisposeTimedOut,
+            dart_bwk::api::types::SpError::SimulationDrifted { detail } => {
+                SpError::SimulationDrifted { detail }
+            }
+            dart_bwk::api::types::SpError::Other { message } => SpError::Other { message },
+        }
+    }
+}

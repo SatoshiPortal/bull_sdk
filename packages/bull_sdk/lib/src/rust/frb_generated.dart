@@ -2884,7 +2884,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         },
         codec: DcoCodec(
           decodeSuccessData: dco_decode_unit,
-          decodeErrorData: dco_decode_String,
+          decodeErrorData: dco_decode_sp_error,
         ),
         constMeta: kDartBwkApiSpAccountSpAccountDisposeConstMeta,
         argValues: [that],
@@ -2917,7 +2917,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         },
         codec: DcoCodec(
           decodeSuccessData: dco_decode_list_prim_u_8_strict,
-          decodeErrorData: dco_decode_String,
+          decodeErrorData: dco_decode_sp_error,
         ),
         constMeta: kDartBwkApiSpAccountSpAccountFinalizePsbtConstMeta,
         argValues: [that, simulation],
@@ -3273,7 +3273,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         },
         codec: DcoCodec(
           decodeSuccessData: dco_decode_unit,
-          decodeErrorData: dco_decode_String,
+          decodeErrorData: dco_decode_sp_error,
         ),
         constMeta: kDartBwkApiSpAccountSpAccountScanOnceConstMeta,
         argValues: [that, startHeight],
@@ -9839,6 +9839,23 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  SpError dco_decode_sp_error(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    switch (raw[0]) {
+      case 0:
+        return SpError_ScannerAlreadyRunning();
+      case 1:
+        return SpError_DisposeTimedOut();
+      case 2:
+        return SpError_SimulationDrifted(detail: dco_decode_String(raw[1]));
+      case 3:
+        return SpError_Other(message: dco_decode_String(raw[1]));
+      default:
+        throw Exception("unreachable");
+    }
+  }
+
+  @protected
   SpNetwork dco_decode_sp_network(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return SpNetwork.values[raw as int];
@@ -11914,6 +11931,27 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       isSpendable: var_isSpendable,
       label: var_label,
     );
+  }
+
+  @protected
+  SpError sse_decode_sp_error(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    var tag_ = sse_decode_i_32(deserializer);
+    switch (tag_) {
+      case 0:
+        return SpError_ScannerAlreadyRunning();
+      case 1:
+        return SpError_DisposeTimedOut();
+      case 2:
+        var var_detail = sse_decode_String(deserializer);
+        return SpError_SimulationDrifted(detail: var_detail);
+      case 3:
+        var var_message = sse_decode_String(deserializer);
+        return SpError_Other(message: var_message);
+      default:
+        throw UnimplementedError('');
+    }
   }
 
   @protected
@@ -14259,6 +14297,23 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  void sse_encode_sp_error(SpError self, SseSerializer serializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    switch (self) {
+      case SpError_ScannerAlreadyRunning():
+        sse_encode_i_32(0, serializer);
+      case SpError_DisposeTimedOut():
+        sse_encode_i_32(1, serializer);
+      case SpError_SimulationDrifted(detail: final detail):
+        sse_encode_i_32(2, serializer);
+        sse_encode_String(detail, serializer);
+      case SpError_Other(message: final message):
+        sse_encode_i_32(3, serializer);
+        sse_encode_String(message, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_sp_network(SpNetwork self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.index, serializer);
@@ -15018,10 +15073,10 @@ class SpAccountImpl extends RustOpaque implements SpAccount {
   /// output set to exactly what the simulation contains. If the coin store
   /// has drifted since the simulation was produced (an incoming SP coin
   /// from a completed scan, an Electrum push for a sub-account coin, a
-  /// reorg evicting an input), the method returns an error of the form
-  /// `"transaction inputs changed since confirmation: ... please re-confirm"`
-  /// so the cubit can surface a re-confirm prompt instead of broadcasting
-  /// a tx that differs from what the user reviewed.
+  /// reorg evicting an input), the method returns
+  /// [`SpError::SimulationDrifted`] so the caller can surface a re-confirm
+  /// prompt instead of broadcasting a tx that differs from what the user
+  /// reviewed.
   ///
   /// Rationale: finalize → sign → broadcast is irreversible; an auto-
   /// re-selection here could ship a tx with different inputs, fee, or

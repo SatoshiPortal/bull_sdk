@@ -572,6 +572,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   SpCoinView dco_decode_sp_coin_view(dynamic raw);
 
   @protected
+  SpError dco_decode_sp_error(dynamic raw);
+
+  @protected
   SpNetwork dco_decode_sp_network(dynamic raw);
 
   @protected
@@ -1232,6 +1235,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   SpCoinView sse_decode_sp_coin_view(SseDeserializer deserializer);
+
+  @protected
+  SpError sse_decode_sp_error(SseDeserializer deserializer);
 
   @protected
   SpNetwork sse_decode_sp_network(SseDeserializer deserializer);
@@ -2727,6 +2733,33 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_sp_error(
+    SpError apiObj,
+    wire_cst_sp_error wireObj,
+  ) {
+    if (apiObj is SpError_ScannerAlreadyRunning) {
+      wireObj.tag = 0;
+      return;
+    }
+    if (apiObj is SpError_DisposeTimedOut) {
+      wireObj.tag = 1;
+      return;
+    }
+    if (apiObj is SpError_SimulationDrifted) {
+      var pre_detail = cst_encode_String(apiObj.detail);
+      wireObj.tag = 2;
+      wireObj.kind.SimulationDrifted.detail = pre_detail;
+      return;
+    }
+    if (apiObj is SpError_Other) {
+      var pre_message = cst_encode_String(apiObj.message);
+      wireObj.tag = 3;
+      wireObj.kind.Other.message = pre_message;
+      return;
+    }
+  }
+
+  @protected
   void cst_api_fill_to_wire_sp_notification(
     SpNotification apiObj,
     wire_cst_sp_notification wireObj,
@@ -3971,6 +4004,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void sse_encode_sp_coin_view(SpCoinView self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_sp_error(SpError self, SseSerializer serializer);
 
   @protected
   void sse_encode_sp_network(SpNetwork self, SseSerializer serializer);
@@ -11455,6 +11491,27 @@ final class wire_cst_sp_balance_view extends ffi.Struct {
   external int total_unified_sat;
 
   external ffi.Pointer<ffi.Uint32> last_scanned_height;
+}
+
+final class wire_cst_SpError_SimulationDrifted extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> detail;
+}
+
+final class wire_cst_SpError_Other extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> message;
+}
+
+final class SpErrorKind extends ffi.Union {
+  external wire_cst_SpError_SimulationDrifted SimulationDrifted;
+
+  external wire_cst_SpError_Other Other;
+}
+
+final class wire_cst_sp_error extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external SpErrorKind kind;
 }
 
 final class wire_cst_SpNotification_ScanStarted extends ffi.Struct {
