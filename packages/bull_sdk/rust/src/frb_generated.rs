@@ -1724,6 +1724,7 @@ fn wire__dart_bwk__api__sp_account__SpAccount_confirmed_balance_impl(
     )
 }
 fn wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
     name: impl CstDecode<String>,
     network: impl CstDecode<dart_bwk::api::types::SpNetwork>,
     mnemonic: impl CstDecode<String>,
@@ -1732,12 +1733,12 @@ fn wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_impl(
     data_dir: impl CstDecode<String>,
     birthday_height: impl CstDecode<Option<u32>>,
     dust_limit: impl CstDecode<Option<u64>>,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "SpAccount_create_from_mnemonic",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
             let api_name = name.cst_decode();
@@ -1748,23 +1749,26 @@ fn wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_impl(
             let api_data_dir = data_dir.cst_decode();
             let api_birthday_height = birthday_height.cst_decode();
             let api_dust_limit = dust_limit.cst_decode();
-            transform_result_dco::<_, _, String>((move || {
-                let output_ok = dart_bwk::api::sp_account::SpAccount::create_from_mnemonic(
-                    api_name,
-                    api_network,
-                    api_mnemonic,
-                    api_blindbit_url,
-                    api_electrum_url,
-                    api_data_dir,
-                    api_birthday_height,
-                    api_dust_limit,
-                )?;
-                Ok(output_ok)
-            })())
+            move |context| {
+                transform_result_dco::<_, _, String>((move || {
+                    let output_ok = dart_bwk::api::sp_account::SpAccount::create_from_mnemonic(
+                        api_name,
+                        api_network,
+                        api_mnemonic,
+                        api_blindbit_url,
+                        api_electrum_url,
+                        api_data_dir,
+                        api_birthday_height,
+                        api_dust_limit,
+                    )?;
+                    Ok(output_ok)
+                })())
+            }
         },
     )
 }
 fn wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
     name: impl CstDecode<String>,
     network: impl CstDecode<dart_bwk::api::types::SpNetwork>,
     mnemonic: impl CstDecode<String>,
@@ -1775,42 +1779,12 @@ fn wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_run
     dust_limit: impl CstDecode<Option<u64>>,
     fetch_concurrency_factor: impl CstDecode<Option<u32>>,
     match_concurrency_factor: impl CstDecode<Option<u32>>,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "SpAccount_create_from_mnemonic_with_scan_runtime",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
-        },
-        move || {
-            let api_name = name.cst_decode();
-            let api_network = network.cst_decode();
-            let api_mnemonic = mnemonic.cst_decode();
-            let api_blindbit_url = blindbit_url.cst_decode();
-            let api_electrum_url = electrum_url.cst_decode();
-            let api_data_dir = data_dir.cst_decode();
-            let api_birthday_height = birthday_height.cst_decode();
-            let api_dust_limit = dust_limit.cst_decode();
-            let api_fetch_concurrency_factor = fetch_concurrency_factor.cst_decode();
-            let api_match_concurrency_factor = match_concurrency_factor.cst_decode();
-            transform_result_dco::<_, _, String>((move || {
-                let output_ok =
-                    dart_bwk::api::sp_account::SpAccount::create_from_mnemonic_with_scan_runtime(
-                        api_name,
-                        api_network,
-                        api_mnemonic,
-                        api_blindbit_url,
-                        api_electrum_url,
-                        api_data_dir,
-                        api_birthday_height,
-                        api_dust_limit,
-                        api_fetch_concurrency_factor,
-                        api_match_concurrency_factor,
-                    )?;
-                Ok(output_ok)
-            })())
-        },
-    )
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "SpAccount_create_from_mnemonic_with_scan_runtime", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { let api_name = name.cst_decode();let api_network = network.cst_decode();let api_mnemonic = mnemonic.cst_decode();let api_blindbit_url = blindbit_url.cst_decode();let api_electrum_url = electrum_url.cst_decode();let api_data_dir = data_dir.cst_decode();let api_birthday_height = birthday_height.cst_decode();let api_dust_limit = dust_limit.cst_decode();let api_fetch_concurrency_factor = fetch_concurrency_factor.cst_decode();let api_match_concurrency_factor = match_concurrency_factor.cst_decode(); move |context|  {
+                    transform_result_dco::<_, _, String>((move ||  {
+                         let output_ok = dart_bwk::api::sp_account::SpAccount::create_from_mnemonic_with_scan_runtime(api_name, api_network, api_mnemonic, api_blindbit_url, api_electrum_url, api_data_dir, api_birthday_height, api_dust_limit, api_fetch_concurrency_factor, api_match_concurrency_factor)?;   Ok(output_ok)
+                    })())
+                } })
 }
 fn wire__dart_bwk__api__sp_account__SpAccount_dispose_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
@@ -2009,22 +1983,26 @@ fn wire__dart_bwk__api__sp_account__SpAccount_last_scanned_height_impl(
     )
 }
 fn wire__dart_bwk__api__sp_account__SpAccount_load_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
     name: impl CstDecode<String>,
     data_dir: impl CstDecode<String>,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
             debug_name: "SpAccount_load",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
         },
         move || {
             let api_name = name.cst_decode();
             let api_data_dir = data_dir.cst_decode();
-            transform_result_dco::<_, _, String>((move || {
-                let output_ok = dart_bwk::api::sp_account::SpAccount::load(api_name, api_data_dir)?;
-                Ok(output_ok)
-            })())
+            move |context| {
+                transform_result_dco::<_, _, String>((move || {
+                    let output_ok =
+                        dart_bwk::api::sp_account::SpAccount::load(api_name, api_data_dir)?;
+                    Ok(output_ok)
+                })())
+            }
         },
     )
 }
@@ -16459,6 +16437,7 @@ mod io {
 
     #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic(
+        port_: i64,
         name: *mut wire_cst_list_prim_u_8_strict,
         network: i32,
         mnemonic: *mut wire_cst_list_prim_u_8_strict,
@@ -16467,8 +16446,9 @@ mod io {
         data_dir: *mut wire_cst_list_prim_u_8_strict,
         birthday_height: *mut u32,
         dust_limit: *mut u64,
-    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    ) {
         wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_impl(
+            port_,
             name,
             network,
             mnemonic,
@@ -16482,6 +16462,7 @@ mod io {
 
     #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime(
+        port_: i64,
         name: *mut wire_cst_list_prim_u_8_strict,
         network: i32,
         mnemonic: *mut wire_cst_list_prim_u_8_strict,
@@ -16492,8 +16473,9 @@ mod io {
         dust_limit: *mut u64,
         fetch_concurrency_factor: *mut u32,
         match_concurrency_factor: *mut u32,
-    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    ) {
         wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime_impl(
+            port_,
             name,
             network,
             mnemonic,
@@ -16548,10 +16530,11 @@ mod io {
 
     #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_load(
+        port_: i64,
         name: *mut wire_cst_list_prim_u_8_strict,
         data_dir: *mut wire_cst_list_prim_u_8_strict,
-    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
-        wire__dart_bwk__api__sp_account__SpAccount_load_impl(name, data_dir)
+    ) {
+        wire__dart_bwk__api__sp_account__SpAccount_load_impl(port_, name, data_dir)
     }
 
     #[unsafe(no_mangle)]

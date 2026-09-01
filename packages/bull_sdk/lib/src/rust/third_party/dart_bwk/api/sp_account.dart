@@ -41,7 +41,15 @@ abstract class SpAccount implements RustOpaqueInterface {
   /// derived the standard BIP352 way (bwk_sp `new_from_mnemonic`), so the same
   /// mnemonic yields the same SP wallet as other BIP352 software. The taproot
   /// sub-account is added from the same mnemonic.
-  static SpAccount createFromMnemonic({
+  ///
+  /// Not `#[frb(sync)]`: this derives the BIP352 keys, opens `account.sqlite`,
+  /// opens the header store and spawns the scan runtime, which would freeze
+  /// the Dart UI isolate for the whole of it, on first setup and on every
+  /// session re-establish including cold start. Async rather than the usual
+  /// notification-thread pattern because there is no sink to push to yet:
+  /// this call creates the `SpAccount` that owns the single
+  /// `StreamSink<SpNotification>`. FRB runs it on a worker isolate.
+  static Future<SpAccount> createFromMnemonic({
     required String name,
     required SpNetwork network,
     required String mnemonic,
@@ -61,7 +69,16 @@ abstract class SpAccount implements RustOpaqueInterface {
     dustLimit: dustLimit,
   );
 
-  static SpAccount createFromMnemonicWithScanRuntime({
+  /// [create_from_mnemonic] with an explicit scan runtime.
+  ///
+  /// Not `#[frb(sync)]`: this derives the BIP352 keys, opens `account.sqlite`,
+  /// opens the header store and spawns the scan runtime, which would freeze
+  /// the Dart UI isolate for the whole of it, on first setup and on every
+  /// session re-establish including cold start. Async rather than the usual
+  /// notification-thread pattern because there is no sink to push to yet:
+  /// this call creates the `SpAccount` that owns the single
+  /// `StreamSink<SpNotification>`. FRB runs it on a worker isolate.
+  static Future<SpAccount> createFromMnemonicWithScanRuntime({
     required String name,
     required SpNetwork network,
     required String mnemonic,
@@ -155,11 +172,18 @@ abstract class SpAccount implements RustOpaqueInterface {
 
   int? lastScannedHeight();
 
-  static SpAccount load({required String name, required String dataDir}) =>
-      BullSdk.instance.api.dartBwkApiSpAccountSpAccountLoad(
-        name: name,
-        dataDir: dataDir,
-      );
+  /// Reopen an account already on disk.
+  ///
+  /// Not `#[frb(sync)]` for the same reason as [create_from_mnemonic]: it
+  /// opens `account.sqlite` and the header store, and it runs before the
+  /// notification sink exists.
+  static Future<SpAccount> load({
+    required String name,
+    required String dataDir,
+  }) => BullSdk.instance.api.dartBwkApiSpAccountSpAccountLoad(
+    name: name,
+    dataDir: dataDir,
+  );
 
   /// Earliest height a scan may start from (taproot activation on mainnet, a
   /// low constant on test networks). The scan start chooser uses this as its

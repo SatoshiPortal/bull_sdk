@@ -306,7 +306,7 @@ abstract class BullSdkApi extends BaseApi {
     required SpAccount that,
   });
 
-  SpAccount dartBwkApiSpAccountSpAccountCreateFromMnemonic({
+  Future<SpAccount> dartBwkApiSpAccountSpAccountCreateFromMnemonic({
     required String name,
     required SpNetwork network,
     required String mnemonic,
@@ -317,7 +317,8 @@ abstract class BullSdkApi extends BaseApi {
     BigInt? dustLimit,
   });
 
-  SpAccount dartBwkApiSpAccountSpAccountCreateFromMnemonicWithScanRuntime({
+  Future<SpAccount>
+  dartBwkApiSpAccountSpAccountCreateFromMnemonicWithScanRuntime({
     required String name,
     required SpNetwork network,
     required String mnemonic,
@@ -345,7 +346,7 @@ abstract class BullSdkApi extends BaseApi {
 
   int? dartBwkApiSpAccountSpAccountLastScannedHeight({required SpAccount that});
 
-  SpAccount dartBwkApiSpAccountSpAccountLoad({
+  Future<SpAccount> dartBwkApiSpAccountSpAccountLoad({
     required String name,
     required String dataDir,
   });
@@ -2717,7 +2718,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       );
 
   @override
-  SpAccount dartBwkApiSpAccountSpAccountCreateFromMnemonic({
+  Future<SpAccount> dartBwkApiSpAccountSpAccountCreateFromMnemonic({
     required String name,
     required SpNetwork network,
     required String mnemonic,
@@ -2727,9 +2728,9 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     int? birthdayHeight,
     BigInt? dustLimit,
   }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
           var arg0 = cst_encode_String(name);
           var arg1 = cst_encode_sp_network(network);
           var arg2 = cst_encode_String(mnemonic);
@@ -2740,6 +2741,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           var arg7 = cst_encode_opt_box_autoadd_u_64(dustLimit);
           return wire
               .wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic(
+                port_,
                 arg0,
                 arg1,
                 arg2,
@@ -2787,7 +2789,8 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       );
 
   @override
-  SpAccount dartBwkApiSpAccountSpAccountCreateFromMnemonicWithScanRuntime({
+  Future<SpAccount>
+  dartBwkApiSpAccountSpAccountCreateFromMnemonicWithScanRuntime({
     required String name,
     required SpNetwork network,
     required String mnemonic,
@@ -2799,9 +2802,9 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     int? fetchConcurrencyFactor,
     int? matchConcurrencyFactor,
   }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
           var arg0 = cst_encode_String(name);
           var arg1 = cst_encode_sp_network(network);
           var arg2 = cst_encode_String(mnemonic);
@@ -2814,6 +2817,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           var arg9 = cst_encode_opt_box_autoadd_u_32(matchConcurrencyFactor);
           return wire
               .wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime(
+                port_,
                 arg0,
                 arg1,
                 arg2,
@@ -3032,16 +3036,17 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       );
 
   @override
-  SpAccount dartBwkApiSpAccountSpAccountLoad({
+  Future<SpAccount> dartBwkApiSpAccountSpAccountLoad({
     required String name,
     required String dataDir,
   }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
           var arg0 = cst_encode_String(name);
           var arg1 = cst_encode_String(dataDir);
           return wire.wire__dart_bwk__api__sp_account__SpAccount_load(
+            port_,
             arg0,
             arg1,
           );

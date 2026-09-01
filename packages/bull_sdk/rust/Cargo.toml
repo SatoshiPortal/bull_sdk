@@ -22,7 +22,7 @@ boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", rev = "85bcd9fdee
 # `develop`/`main`/minor-release tag once #88 lands upstream (targeted next
 # Wednesday).
 lwk = { git = "https://github.com/SatoshiPortal/lwk-dart", rev = "f554c7842f1f4b8e59c72d10a6f0747cb03fa315", features = ["bull_sdk"] }
-dart_bwk = { git = "https://github.com/pythcoiner/bwk-dart", rev = "d3c3943088ef6ac8b09b9c6157efcba927df0b6b", package = "dart_bwk", features = ["bull_sdk"] }
+dart_bwk = { git = "https://github.com/pythcoiner/bwk-dart", rev = "e2353de5951934ddfc31362455327ee98d74f7c9", package = "dart_bwk", features = ["bull_sdk"] }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }

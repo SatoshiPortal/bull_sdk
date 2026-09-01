@@ -4170,16 +4170,16 @@ class BullSdkWire implements BaseWire {
     ffi.Pointer<T> Function<T extends ffi.NativeType>(String symbolName) lookup,
   ) : _lookup = lookup;
 
-  void store_dart_post_cobject(DartPostCObjectFnType ptr) {
+  void store_dart_post_cobject(int ptr) {
     return _store_dart_post_cobject(ptr);
   }
 
   late final _store_dart_post_cobjectPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(DartPostCObjectFnType)>>(
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int)>>(
         'store_dart_post_cobject',
       );
   late final _store_dart_post_cobject = _store_dart_post_cobjectPtr
-      .asFunction<void Function(DartPostCObjectFnType)>();
+      .asFunction<void Function(int)>();
 
   void wire__bbqr__continuous_join__ContinuousJoiner_default(int port_) {
     return _wire__bbqr__continuous_join__ContinuousJoiner_default(port_);
@@ -5039,8 +5039,8 @@ class BullSdkWire implements BaseWire {
       _wire__dart_bwk__api__sp_account__SpAccount_confirmed_balancePtr
           .asFunction<WireSyncRust2DartDco Function(int)>();
 
-  WireSyncRust2DartDco
-  wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic(
+  void wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic(
+    int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> name,
     int network,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> mnemonic,
@@ -5051,6 +5051,7 @@ class BullSdkWire implements BaseWire {
     ffi.Pointer<ffi.Uint64> dust_limit,
   ) {
     return _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic(
+      port_,
       name,
       network,
       mnemonic,
@@ -5065,7 +5066,8 @@ class BullSdkWire implements BaseWire {
   late final _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonicPtr =
       _lookup<
         ffi.NativeFunction<
-          WireSyncRust2DartDco Function(
+          ffi.Void Function(
+            ffi.Int64,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Int32,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
@@ -5082,7 +5084,8 @@ class BullSdkWire implements BaseWire {
   late final _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic =
       _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonicPtr
           .asFunction<
-            WireSyncRust2DartDco Function(
+            void Function(
+              int,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               int,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
@@ -5094,8 +5097,9 @@ class BullSdkWire implements BaseWire {
             )
           >();
 
-  WireSyncRust2DartDco
+  void
   wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime(
+    int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> name,
     int network,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> mnemonic,
@@ -5108,6 +5112,7 @@ class BullSdkWire implements BaseWire {
     ffi.Pointer<ffi.Uint32> match_concurrency_factor,
   ) {
     return _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime(
+      port_,
       name,
       network,
       mnemonic,
@@ -5124,7 +5129,8 @@ class BullSdkWire implements BaseWire {
   late final _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtimePtr =
       _lookup<
         ffi.NativeFunction<
-          WireSyncRust2DartDco Function(
+          ffi.Void Function(
+            ffi.Int64,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Int32,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
@@ -5143,7 +5149,8 @@ class BullSdkWire implements BaseWire {
   late final _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime =
       _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtimePtr
           .asFunction<
-            WireSyncRust2DartDco Function(
+            void Function(
+              int,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               int,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
@@ -5253,17 +5260,23 @@ class BullSdkWire implements BaseWire {
       _wire__dart_bwk__api__sp_account__SpAccount_last_scanned_heightPtr
           .asFunction<WireSyncRust2DartDco Function(int)>();
 
-  WireSyncRust2DartDco wire__dart_bwk__api__sp_account__SpAccount_load(
+  void wire__dart_bwk__api__sp_account__SpAccount_load(
+    int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> name,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> data_dir,
   ) {
-    return _wire__dart_bwk__api__sp_account__SpAccount_load(name, data_dir);
+    return _wire__dart_bwk__api__sp_account__SpAccount_load(
+      port_,
+      name,
+      data_dir,
+    );
   }
 
   late final _wire__dart_bwk__api__sp_account__SpAccount_loadPtr =
       _lookup<
         ffi.NativeFunction<
-          WireSyncRust2DartDco Function(
+          ffi.Void Function(
+            ffi.Int64,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
           )
@@ -5272,7 +5285,8 @@ class BullSdkWire implements BaseWire {
   late final _wire__dart_bwk__api__sp_account__SpAccount_load =
       _wire__dart_bwk__api__sp_account__SpAccount_loadPtr
           .asFunction<
-            WireSyncRust2DartDco Function(
+            void Function(
+              int,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             )
@@ -5770,7 +5784,7 @@ class BullSdkWire implements BaseWire {
     int sats,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> out_address,
     double fee_rate,
-    bool drain,
+    ffi.Pointer<bool> drain,
   ) {
     return _wire__lwk__api__wallet__Wallet_build_lbtc_tx(
       port_,
@@ -5791,7 +5805,7 @@ class BullSdkWire implements BaseWire {
             ffi.Uint64,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Float,
-            ffi.Bool,
+            ffi.Pointer<bool>,
           )
         >
       >('frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_build_lbtc_tx');
@@ -5804,7 +5818,7 @@ class BullSdkWire implements BaseWire {
               int,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               double,
-              bool,
+              ffi.Pointer<bool>,
             )
           >();
 
@@ -5816,7 +5830,7 @@ class BullSdkWire implements BaseWire {
     ffi.Pointer<wire_cst_list_prim_u_8_strict> asset,
     int network,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> base_url,
-    bool is_send_all,
+    ffi.Pointer<bool> is_send_all,
   ) {
     return _wire__lwk__api__wallet__Wallet_build_payjoin_tx(
       port_,
@@ -5841,7 +5855,7 @@ class BullSdkWire implements BaseWire {
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Int32,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
           )
         >
       >('frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_build_payjoin_tx');
@@ -5856,7 +5870,7 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               int,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              bool,
+              ffi.Pointer<bool>,
             )
           >();
 
@@ -6058,7 +6072,7 @@ class BullSdkWire implements BaseWire {
     int port_,
     int that,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> electrum_url,
-    bool validate_domain,
+    ffi.Pointer<bool> validate_domain,
     ffi.Pointer<ffi.Uint32> stop_at_index,
     ffi.Pointer<ffi.Uint8> timeout,
   ) {
@@ -6079,7 +6093,7 @@ class BullSdkWire implements BaseWire {
             ffi.Int64,
             ffi.UintPtr,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<ffi.Uint32>,
             ffi.Pointer<ffi.Uint8>,
           )
@@ -6092,7 +6106,7 @@ class BullSdkWire implements BaseWire {
               int,
               int,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<ffi.Uint32>,
               ffi.Pointer<ffi.Uint8>,
             )
@@ -6402,7 +6416,7 @@ class BullSdkWire implements BaseWire {
     ffi.Pointer<wire_cst_btc_ln_swap> that,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> out_address,
     ffi.Pointer<wire_cst_tx_fee> miner_fee,
-    bool try_cooperate,
+    ffi.Pointer<bool> try_cooperate,
     ffi.Pointer<wire_cst_electrum_settings> electrum_settings,
   ) {
     return _wire__boltz__api__btc_ln__btc_ln_swap_claim(
@@ -6423,7 +6437,7 @@ class BullSdkWire implements BaseWire {
             ffi.Pointer<wire_cst_btc_ln_swap>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Pointer<wire_cst_tx_fee>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<wire_cst_electrum_settings>,
           )
         >
@@ -6436,7 +6450,7 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<wire_cst_btc_ln_swap>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               ffi.Pointer<wire_cst_tx_fee>,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<wire_cst_electrum_settings>,
             )
           >();
@@ -6444,7 +6458,7 @@ class BullSdkWire implements BaseWire {
   void wire__boltz__api__btc_ln__btc_ln_swap_claim_tx_size(
     int port_,
     ffi.Pointer<wire_cst_btc_ln_swap> that,
-    bool is_cooperative,
+    ffi.Pointer<bool> is_cooperative,
     ffi.Pointer<wire_cst_electrum_settings> electrum_settings,
   ) {
     return _wire__boltz__api__btc_ln__btc_ln_swap_claim_tx_size(
@@ -6461,7 +6475,7 @@ class BullSdkWire implements BaseWire {
           ffi.Void Function(
             ffi.Int64,
             ffi.Pointer<wire_cst_btc_ln_swap>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<wire_cst_electrum_settings>,
           )
         >
@@ -6472,7 +6486,7 @@ class BullSdkWire implements BaseWire {
             void Function(
               int,
               ffi.Pointer<wire_cst_btc_ln_swap>,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<wire_cst_electrum_settings>,
             )
           >();
@@ -6753,7 +6767,7 @@ class BullSdkWire implements BaseWire {
     ffi.Pointer<wire_cst_btc_ln_swap> that,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> out_address,
     ffi.Pointer<wire_cst_tx_fee> miner_fee,
-    bool try_cooperate,
+    ffi.Pointer<bool> try_cooperate,
     ffi.Pointer<wire_cst_electrum_settings> electrum_settings,
   ) {
     return _wire__boltz__api__btc_ln__btc_ln_swap_refund(
@@ -6774,7 +6788,7 @@ class BullSdkWire implements BaseWire {
             ffi.Pointer<wire_cst_btc_ln_swap>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Pointer<wire_cst_tx_fee>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<wire_cst_electrum_settings>,
           )
         >
@@ -6787,7 +6801,7 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<wire_cst_btc_ln_swap>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               ffi.Pointer<wire_cst_tx_fee>,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<wire_cst_electrum_settings>,
             )
           >();
@@ -6795,7 +6809,7 @@ class BullSdkWire implements BaseWire {
   void wire__boltz__api__btc_ln__btc_ln_swap_refund_tx_size(
     int port_,
     ffi.Pointer<wire_cst_btc_ln_swap> that,
-    bool is_cooperative,
+    ffi.Pointer<bool> is_cooperative,
     ffi.Pointer<wire_cst_electrum_settings> electrum_settings,
   ) {
     return _wire__boltz__api__btc_ln__btc_ln_swap_refund_tx_size(
@@ -6812,7 +6826,7 @@ class BullSdkWire implements BaseWire {
           ffi.Void Function(
             ffi.Int64,
             ffi.Pointer<wire_cst_btc_ln_swap>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<wire_cst_electrum_settings>,
           )
         >
@@ -6823,7 +6837,7 @@ class BullSdkWire implements BaseWire {
             void Function(
               int,
               ffi.Pointer<wire_cst_btc_ln_swap>,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<wire_cst_electrum_settings>,
             )
           >();
@@ -6994,7 +7008,7 @@ class BullSdkWire implements BaseWire {
     ffi.Pointer<wire_cst_chain_swap> that,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> out_address,
     ffi.Pointer<wire_cst_tx_fee> miner_fee,
-    bool try_cooperate,
+    ffi.Pointer<bool> try_cooperate,
     ffi.Pointer<wire_cst_electrum_settings> btc_electrum_settings,
     ffi.Pointer<wire_cst_electrum_settings> lbtc_electrum_settings,
   ) {
@@ -7017,7 +7031,7 @@ class BullSdkWire implements BaseWire {
             ffi.Pointer<wire_cst_chain_swap>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Pointer<wire_cst_tx_fee>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<wire_cst_electrum_settings>,
             ffi.Pointer<wire_cst_electrum_settings>,
           )
@@ -7031,7 +7045,7 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<wire_cst_chain_swap>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               ffi.Pointer<wire_cst_tx_fee>,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<wire_cst_electrum_settings>,
               ffi.Pointer<wire_cst_electrum_settings>,
             )
@@ -7041,7 +7055,7 @@ class BullSdkWire implements BaseWire {
     int port_,
     ffi.Pointer<wire_cst_chain_swap> that,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> out_address,
-    bool try_cooperate,
+    ffi.Pointer<bool> try_cooperate,
     ffi.Pointer<wire_cst_electrum_settings> btc_electrum_settings,
     ffi.Pointer<wire_cst_electrum_settings> lbtc_electrum_settings,
   ) {
@@ -7062,7 +7076,7 @@ class BullSdkWire implements BaseWire {
             ffi.Int64,
             ffi.Pointer<wire_cst_chain_swap>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<wire_cst_electrum_settings>,
             ffi.Pointer<wire_cst_electrum_settings>,
           )
@@ -7077,7 +7091,7 @@ class BullSdkWire implements BaseWire {
               int,
               ffi.Pointer<wire_cst_chain_swap>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<wire_cst_electrum_settings>,
               ffi.Pointer<wire_cst_electrum_settings>,
             )
@@ -7152,7 +7166,7 @@ class BullSdkWire implements BaseWire {
   void wire__boltz__api__chain_swap__chain_swap_new(
     int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> id,
-    bool is_testnet,
+    ffi.Pointer<bool> is_testnet,
     int direction,
     ffi.Pointer<wire_cst_key_pair> refund_keys,
     int refund_index,
@@ -7197,7 +7211,7 @@ class BullSdkWire implements BaseWire {
           ffi.Void Function(
             ffi.Int64,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Int32,
             ffi.Pointer<wire_cst_key_pair>,
             ffi.Uint64,
@@ -7222,7 +7236,7 @@ class BullSdkWire implements BaseWire {
             void Function(
               int,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              bool,
+              ffi.Pointer<bool>,
               int,
               ffi.Pointer<wire_cst_key_pair>,
               int,
@@ -7247,7 +7261,7 @@ class BullSdkWire implements BaseWire {
     ffi.Pointer<wire_cst_swap_master_key> swap_master_key,
     int index,
     int amount,
-    bool is_testnet,
+    ffi.Pointer<bool> is_testnet,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> btc_electrum_url,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> lbtc_electrum_url,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> boltz_url,
@@ -7276,7 +7290,7 @@ class BullSdkWire implements BaseWire {
             ffi.Pointer<wire_cst_swap_master_key>,
             ffi.Uint64,
             ffi.Uint64,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
@@ -7293,7 +7307,7 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<wire_cst_swap_master_key>,
               int,
               int,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
@@ -7306,7 +7320,7 @@ class BullSdkWire implements BaseWire {
     ffi.Pointer<wire_cst_chain_swap> that,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> refund_address,
     ffi.Pointer<wire_cst_tx_fee> miner_fee,
-    bool try_cooperate,
+    ffi.Pointer<bool> try_cooperate,
     ffi.Pointer<wire_cst_electrum_settings> btc_electrum_settings,
     ffi.Pointer<wire_cst_electrum_settings> lbtc_electrum_settings,
   ) {
@@ -7329,7 +7343,7 @@ class BullSdkWire implements BaseWire {
             ffi.Pointer<wire_cst_chain_swap>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Pointer<wire_cst_tx_fee>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<wire_cst_electrum_settings>,
             ffi.Pointer<wire_cst_electrum_settings>,
           )
@@ -7343,7 +7357,7 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<wire_cst_chain_swap>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               ffi.Pointer<wire_cst_tx_fee>,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<wire_cst_electrum_settings>,
               ffi.Pointer<wire_cst_electrum_settings>,
             )
@@ -7353,7 +7367,7 @@ class BullSdkWire implements BaseWire {
     int port_,
     ffi.Pointer<wire_cst_chain_swap> that,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> refund_address,
-    bool try_cooperate,
+    ffi.Pointer<bool> try_cooperate,
     ffi.Pointer<wire_cst_electrum_settings> btc_electrum_settings,
     ffi.Pointer<wire_cst_electrum_settings> lbtc_electrum_settings,
   ) {
@@ -7374,7 +7388,7 @@ class BullSdkWire implements BaseWire {
             ffi.Int64,
             ffi.Pointer<wire_cst_chain_swap>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<wire_cst_electrum_settings>,
             ffi.Pointer<wire_cst_electrum_settings>,
           )
@@ -7389,7 +7403,7 @@ class BullSdkWire implements BaseWire {
               int,
               ffi.Pointer<wire_cst_chain_swap>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<wire_cst_electrum_settings>,
               ffi.Pointer<wire_cst_electrum_settings>,
             )
@@ -8263,7 +8277,7 @@ class BullSdkWire implements BaseWire {
     ffi.Pointer<wire_cst_lbtc_ln_swap> that,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> out_address,
     ffi.Pointer<wire_cst_tx_fee> miner_fee,
-    bool try_cooperate,
+    ffi.Pointer<bool> try_cooperate,
     ffi.Pointer<wire_cst_electrum_settings> electrum_settings,
   ) {
     return _wire__boltz__api__lbtc_ln__lbtc_ln_swap_claim(
@@ -8284,7 +8298,7 @@ class BullSdkWire implements BaseWire {
             ffi.Pointer<wire_cst_lbtc_ln_swap>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Pointer<wire_cst_tx_fee>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<wire_cst_electrum_settings>,
           )
         >
@@ -8297,7 +8311,7 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<wire_cst_lbtc_ln_swap>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               ffi.Pointer<wire_cst_tx_fee>,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<wire_cst_electrum_settings>,
             )
           >();
@@ -8305,7 +8319,7 @@ class BullSdkWire implements BaseWire {
   void wire__boltz__api__lbtc_ln__lbtc_ln_swap_claim_tx_size(
     int port_,
     ffi.Pointer<wire_cst_lbtc_ln_swap> that,
-    bool is_cooperative,
+    ffi.Pointer<bool> is_cooperative,
     ffi.Pointer<wire_cst_electrum_settings> electrum_settings,
   ) {
     return _wire__boltz__api__lbtc_ln__lbtc_ln_swap_claim_tx_size(
@@ -8322,7 +8336,7 @@ class BullSdkWire implements BaseWire {
           ffi.Void Function(
             ffi.Int64,
             ffi.Pointer<wire_cst_lbtc_ln_swap>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<wire_cst_electrum_settings>,
           )
         >
@@ -8335,7 +8349,7 @@ class BullSdkWire implements BaseWire {
             void Function(
               int,
               ffi.Pointer<wire_cst_lbtc_ln_swap>,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<wire_cst_electrum_settings>,
             )
           >();
@@ -8622,7 +8636,7 @@ class BullSdkWire implements BaseWire {
     ffi.Pointer<wire_cst_lbtc_ln_swap> that,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> out_address,
     ffi.Pointer<wire_cst_tx_fee> miner_fee,
-    bool try_cooperate,
+    ffi.Pointer<bool> try_cooperate,
     ffi.Pointer<wire_cst_electrum_settings> electrum_settings,
   ) {
     return _wire__boltz__api__lbtc_ln__lbtc_ln_swap_refund(
@@ -8643,7 +8657,7 @@ class BullSdkWire implements BaseWire {
             ffi.Pointer<wire_cst_lbtc_ln_swap>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Pointer<wire_cst_tx_fee>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<wire_cst_electrum_settings>,
           )
         >
@@ -8656,7 +8670,7 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<wire_cst_lbtc_ln_swap>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               ffi.Pointer<wire_cst_tx_fee>,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<wire_cst_electrum_settings>,
             )
           >();
@@ -8664,7 +8678,7 @@ class BullSdkWire implements BaseWire {
   void wire__boltz__api__lbtc_ln__lbtc_ln_swap_refund_tx_size(
     int port_,
     ffi.Pointer<wire_cst_lbtc_ln_swap> that,
-    bool is_cooperative,
+    ffi.Pointer<bool> is_cooperative,
     ffi.Pointer<wire_cst_electrum_settings> electrum_settings,
   ) {
     return _wire__boltz__api__lbtc_ln__lbtc_ln_swap_refund_tx_size(
@@ -8681,7 +8695,7 @@ class BullSdkWire implements BaseWire {
           ffi.Void Function(
             ffi.Int64,
             ffi.Pointer<wire_cst_lbtc_ln_swap>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<wire_cst_electrum_settings>,
           )
         >
@@ -8694,7 +8708,7 @@ class BullSdkWire implements BaseWire {
             void Function(
               int,
               ffi.Pointer<wire_cst_lbtc_ln_swap>,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<wire_cst_electrum_settings>,
             )
           >();
@@ -9128,7 +9142,7 @@ class BullSdkWire implements BaseWire {
     int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> psbt_str,
-    bool testnet,
+    ffi.Pointer<bool> testnet,
   ) {
     return _wire__bitbox__api__sign_psbt(
       port_,
@@ -9145,7 +9159,7 @@ class BullSdkWire implements BaseWire {
             ffi.Int64,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
           )
         >
       >('frbgen_bull_sdk_wire__bitbox__api__sign_psbt');
@@ -9155,7 +9169,7 @@ class BullSdkWire implements BaseWire {
           int,
           ffi.Pointer<wire_cst_list_prim_u_8_strict>,
           ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-          bool,
+          ffi.Pointer<bool>,
         )
       >();
 
@@ -9559,7 +9573,7 @@ class BullSdkWire implements BaseWire {
     int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> keypath,
-    bool testnet,
+    ffi.Pointer<bool> testnet,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> script_type,
   ) {
     return _wire__bitbox__api__verify_address(
@@ -9578,7 +9592,7 @@ class BullSdkWire implements BaseWire {
             ffi.Int64,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-            ffi.Bool,
+            ffi.Pointer<bool>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
           )
         >
@@ -9590,7 +9604,7 @@ class BullSdkWire implements BaseWire {
               int,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
-              bool,
+              ffi.Pointer<bool>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             )
           >();
@@ -10574,12 +10588,7 @@ class BullSdkWire implements BaseWire {
 
 typedef DartPort = ffi.Int64;
 typedef DartDartPort = int;
-typedef DartPostCObjectFnTypeFunction =
-    ffi.Bool Function(DartPort port_id, ffi.Pointer<ffi.Void> message);
-typedef DartDartPostCObjectFnTypeFunction =
-    bool Function(DartDartPort port_id, ffi.Pointer<ffi.Void> message);
-typedef DartPostCObjectFnType =
-    ffi.Pointer<ffi.NativeFunction<DartPostCObjectFnTypeFunction>>;
+typedef bool = ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Int>)>;
 
 final class wire_cst_list_prim_u_8_strict extends ffi.Struct {
   external ffi.Pointer<ffi.Uint8> ptr;
@@ -10625,7 +10634,6 @@ final class wire_cst_RecipientView_Sp extends ffi.Struct {
 
   external ffi.Pointer<ffi.Uint32> label;
 
-  @ffi.Bool()
   external bool is_max;
 }
 
@@ -10635,7 +10643,6 @@ final class wire_cst_RecipientView_Standard extends ffi.Struct {
   @ffi.Uint64()
   external int amount_sat;
 
-  @ffi.Bool()
   external bool is_max;
 }
 
@@ -10782,10 +10789,8 @@ final class wire_cst_btc_ln_swap extends ffi.Struct {
 final class wire_cst_electrum_settings extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> url;
 
-  @ffi.Bool()
   external bool validate_domain;
 
-  @ffi.Bool()
   external bool tls;
 
   @ffi.Uint8()
@@ -10851,7 +10856,6 @@ final class wire_cst_l_btc_swap_script_str extends ffi.Struct {
 final class wire_cst_chain_swap extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> id;
 
-  @ffi.Bool()
   external bool is_testnet;
 
   @ffi.Int32()
@@ -11034,7 +11038,6 @@ final class wire_cst_tx_input extends ffi.Struct {
 
   external ffi.Pointer<wire_cst_list_String> witness;
 
-  @ffi.Bool()
   external bool is_pegin;
 }
 
@@ -11115,7 +11118,6 @@ final class wire_cst_restored_swap_summary extends ffi.Struct {
   @ffi.Uint64()
   external int amount;
 
-  @ffi.Bool()
   external bool recoverable;
 }
 
@@ -11148,7 +11150,6 @@ final class wire_cst_sp_coin_view extends ffi.Struct {
   @ffi.Uint32()
   external int height;
 
-  @ffi.Bool()
   external bool is_spendable;
 
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> label;
@@ -11219,7 +11220,6 @@ final class wire_cst_tx_out extends ffi.Struct {
 
   external wire_cst_tx_out_secrets unblinded;
 
-  @ffi.Bool()
   external bool is_spent;
 
   external wire_cst_address address;
@@ -11351,7 +11351,6 @@ final class wire_cst_decoded_invoice extends ffi.Struct {
   @ffi.Uint64()
   external int expires_at;
 
-  @ffi.Bool()
   external bool is_expired;
 
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> network;
@@ -11371,7 +11370,6 @@ final class wire_cst_device_info extends ffi.Struct {
 
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> version;
 
-  @ffi.Bool()
   external bool initialized;
 }
 
@@ -11426,7 +11424,6 @@ final class wire_cst_pset_amounts extends ffi.Struct {
 }
 
 final class wire_cst_regtest_defaults extends ffi.Struct {
-  @ffi.Bool()
   external bool is_ok;
 
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> error;
