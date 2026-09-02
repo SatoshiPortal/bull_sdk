@@ -334,6 +334,7 @@ DART_FILE="lib/src/rust/frb_generated.io.dart"
 
 python3 - "$DART_FILE" <<'PY'
 import sys
+import re
 
 path = sys.argv[1]
 with open(path) as f:
@@ -343,6 +344,15 @@ source = source.replace(
     "typedef bool = ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Int>)>;\n\n",
     "",
 )
+source = source.replace("ffi.Pointer<bool>", "bool")
+source = re.sub(
+    r"ffi\.NativeFunction<(?P<body>.*?)\n\s*>",
+    lambda match: match.group(0).replace("bool,", "ffi.Bool,"),
+    source,
+    flags=re.S,
+)
+source = source.replace("\n  external bool ", "\n  @ffi.Bool()\n  external bool ")
+source = re.sub(r"(\n\s+@ffi\.Bool\(\)\n)(?:\s+@ffi\.Bool\(\)\n)+", r"\1", source)
 
 import_anchor = "import 'frb_generated.dart';"
 import_line = "import '../checked_u64.dart';"
