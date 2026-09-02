@@ -339,6 +339,11 @@ path = sys.argv[1]
 with open(path) as f:
     source = f.read()
 
+source = source.replace(
+    "typedef bool = ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ffi.Int>)>;\n\n",
+    "",
+)
+
 import_anchor = "import 'frb_generated.dart';"
 import_line = "import '../checked_u64.dart';"
 encoders = [
