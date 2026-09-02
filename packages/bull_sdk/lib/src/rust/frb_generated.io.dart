@@ -590,6 +590,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   SpPaymentView dco_decode_sp_payment_view(dynamic raw);
 
   @protected
+  SpRecipientAddressKind dco_decode_sp_recipient_address_kind(dynamic raw);
+
+  @protected
   Split dco_decode_split(dynamic raw);
 
   @protected
@@ -1255,6 +1258,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   SpPaymentView sse_decode_sp_payment_view(SseDeserializer deserializer);
+
+  @protected
+  SpRecipientAddressKind sse_decode_sp_recipient_address_kind(
+    SseDeserializer deserializer,
+  );
 
   @protected
   Split sse_decode_split(SseDeserializer deserializer);
@@ -3281,6 +3289,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   int cst_encode_sp_payment_status(SpPaymentStatus raw);
 
   @protected
+  int cst_encode_sp_recipient_address_kind(SpRecipientAddressKind raw);
+
+  @protected
   int cst_encode_sub_account_kind(SubAccountKind raw);
 
   @protected
@@ -4031,6 +4042,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void sse_encode_sp_payment_view(SpPaymentView self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_sp_recipient_address_kind(
+    SpRecipientAddressKind self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_split(Split self, SseSerializer serializer);
@@ -9567,6 +9584,36 @@ class BullSdkWire implements BaseWire {
       _wire__boltz__api__swap_status__transaction_to_jsonPtr
           .asFunction<
             WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_transaction>)
+          >();
+
+  void wire__dart_bwk__api__sp_account__validate_recipient_address(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> address,
+    int network,
+  ) {
+    return _wire__dart_bwk__api__sp_account__validate_recipient_address(
+      port_,
+      address,
+      network,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__validate_recipient_addressPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Int32,
+          )
+        >
+      >(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__validate_recipient_address',
+      );
+  late final _wire__dart_bwk__api__sp_account__validate_recipient_address =
+      _wire__dart_bwk__api__sp_account__validate_recipient_addressPtr
+          .asFunction<
+            void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>, int)
           >();
 
   void wire__bitbox__api__verify_address(

@@ -10,6 +10,14 @@ import 'types.dart';
 
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `drop`
 
+Future<SpRecipientAddressKind> validateRecipientAddress({
+  required String address,
+  required SpNetwork network,
+}) => BullSdk.instance.api.dartBwkApiSpAccountValidateRecipientAddress(
+  address: address,
+  network: network,
+);
+
 /// Test a blindbit URL by fetching its current block height. Standalone (no live
 /// account); async so the HTTP GET runs off the Dart UI isolate.
 Future<void> testBlindbitUrl({required String url}) =>

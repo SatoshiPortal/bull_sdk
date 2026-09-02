@@ -45,7 +45,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.12.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1777038934;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 1274511786;
 
 // Section: executor
 
@@ -6774,6 +6774,32 @@ fn wire__boltz__api__swap_status__transaction_to_json_impl(
         },
     )
 }
+fn wire__dart_bwk__api__sp_account__validate_recipient_address_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    address: impl CstDecode<String>,
+    network: impl CstDecode<dart_bwk::api::types::SpNetwork>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "validate_recipient_address",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_address = address.cst_decode();
+            let api_network = network.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, String>((move || {
+                    let output_ok = dart_bwk::api::sp_account::validate_recipient_address(
+                        api_address,
+                        api_network,
+                    )?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
 fn wire__bitbox__api__verify_address_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     serial_number: impl CstDecode<String>,
@@ -7486,6 +7512,16 @@ impl CstDecode<dart_bwk::api::types::SpPaymentStatus> for i32 {
             2 => dart_bwk::api::types::SpPaymentStatus::Verified,
             3 => dart_bwk::api::types::SpPaymentStatus::VerifyFailed,
             _ => unreachable!("Invalid variant for SpPaymentStatus: {}", self),
+        }
+    }
+}
+impl CstDecode<dart_bwk::api::types::SpRecipientAddressKind> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> dart_bwk::api::types::SpRecipientAddressKind {
+        match self {
+            0 => dart_bwk::api::types::SpRecipientAddressKind::Sp,
+            1 => dart_bwk::api::types::SpRecipientAddressKind::Standard,
+            _ => unreachable!("Invalid variant for SpRecipientAddressKind: {}", self),
         }
     }
 }
@@ -9302,6 +9338,18 @@ impl SseDecode for dart_bwk::api::types::SpPaymentView {
             height: var_height,
             timestamp: var_timestamp,
             label: var_label,
+        };
+    }
+}
+
+impl SseDecode for dart_bwk::api::types::SpRecipientAddressKind {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => dart_bwk::api::types::SpRecipientAddressKind::Sp,
+            1 => dart_bwk::api::types::SpRecipientAddressKind::Standard,
+            _ => unreachable!("Invalid variant for SpRecipientAddressKind: {}", inner),
         };
     }
 }
@@ -11326,6 +11374,27 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<dart_bwk::api::types::SpPaymen
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<dart_bwk::api::types::SpRecipientAddressKind> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            dart_bwk::api::types::SpRecipientAddressKind::Sp => 0.into_dart(),
+            dart_bwk::api::types::SpRecipientAddressKind::Standard => 1.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<dart_bwk::api::types::SpRecipientAddressKind>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<dart_bwk::api::types::SpRecipientAddressKind>>
+    for dart_bwk::api::types::SpRecipientAddressKind
+{
+    fn into_into_dart(self) -> FrbWrapper<dart_bwk::api::types::SpRecipientAddressKind> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<bbqr::split::Split> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
@@ -13321,6 +13390,22 @@ impl SseEncode for dart_bwk::api::types::SpPaymentView {
         <Option<u32>>::sse_encode(self.height, serializer);
         <Option<u64>>::sse_encode(self.timestamp, serializer);
         <Option<String>>::sse_encode(self.label, serializer);
+    }
+}
+
+impl SseEncode for dart_bwk::api::types::SpRecipientAddressKind {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                dart_bwk::api::types::SpRecipientAddressKind::Sp => 0,
+                dart_bwk::api::types::SpRecipientAddressKind::Standard => 1,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
     }
 }
 
@@ -18378,6 +18463,15 @@ mod io {
         that: *mut wire_cst_transaction,
     ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
         wire__boltz__api__swap_status__transaction_to_json_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__dart_bwk__api__sp_account__validate_recipient_address(
+        port_: i64,
+        address: *mut wire_cst_list_prim_u_8_strict,
+        network: i32,
+    ) {
+        wire__dart_bwk__api__sp_account__validate_recipient_address_impl(port_, address, network)
     }
 
     #[unsafe(no_mangle)]
