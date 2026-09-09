@@ -4,16 +4,20 @@ import 'package:satoshifier/satoshifier.dart';
 class LnurlParser {
   static Future<Satoshifier> parse(String input) async {
     try {
-      final isEmail = input.contains('@');
-      final isPrefixed = input.toLowerCase().startsWith('lnurl');
+      final normalized = input.trim().replaceFirst(
+        RegExp(r'^lightning:', caseSensitive: false),
+        '',
+      );
+      final isEmail = normalized.contains('@');
+      final isPrefixed = normalized.toLowerCase().startsWith('lnurl');
 
       if (!isEmail && !isPrefixed) throw 'Invalid LNURL: $input';
 
-      final lnurl = boltz.Lnurl(value: input);
+      final lnurl = boltz.Lnurl(value: normalized);
       final isValid = await lnurl.validate();
       if (!isValid) throw 'Invalid LNURL: $input';
 
-      return Satoshifier.lnurl(address: input);
+      return Satoshifier.lnurl(address: normalized);
     } catch (_) {
       rethrow;
     }
