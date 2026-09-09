@@ -2010,6 +2010,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     wireObj.invoice = cst_encode_String(apiObj.invoice);
     wireObj.script_address = cst_encode_String(apiObj.scriptAddress);
     wireObj.out_amount = cst_encode_u_64(apiObj.outAmount);
+    wireObj.expected_onchain_amount = cst_encode_opt_box_autoadd_u_64(
+      apiObj.expectedOnchainAmount,
+    );
     wireObj.electrum_url = cst_encode_String(apiObj.electrumUrl);
     wireObj.boltz_url = cst_encode_String(apiObj.boltzUrl);
     wireObj.referral_id = cst_encode_opt_String(apiObj.referralId);
@@ -2075,6 +2078,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     );
     wireObj.script_address = cst_encode_String(apiObj.scriptAddress);
     wireObj.out_amount = cst_encode_u_64(apiObj.outAmount);
+    wireObj.expected_onchain_amount = cst_encode_opt_box_autoadd_u_64(
+      apiObj.expectedOnchainAmount,
+    );
     wireObj.btc_electrum_url = cst_encode_String(apiObj.btcElectrumUrl);
     wireObj.lbtc_electrum_url = cst_encode_String(apiObj.lbtcElectrumUrl);
     wireObj.boltz_url = cst_encode_String(apiObj.boltzUrl);
@@ -2192,6 +2198,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     );
     wireObj.invoice = cst_encode_String(apiObj.invoice);
     wireObj.out_amount = cst_encode_u_64(apiObj.outAmount);
+    wireObj.expected_onchain_amount = cst_encode_opt_box_autoadd_u_64(
+      apiObj.expectedOnchainAmount,
+    );
     wireObj.script_address = cst_encode_String(apiObj.scriptAddress);
     wireObj.blinding_key = cst_encode_String(apiObj.blindingKey);
     wireObj.electrum_url = cst_encode_String(apiObj.electrumUrl);
@@ -5490,6 +5499,18 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<ffi.Int32>,
             )
           >();
+
+  void wire__boltz__api__types__chain_is_testnet(int port_, int that) {
+    return _wire__boltz__api__types__chain_is_testnet(port_, that);
+  }
+
+  late final _wire__boltz__api__types__chain_is_testnetPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Int32)>>(
+        'frbgen_bull_sdk_wire__boltz__api__types__chain_is_testnet',
+      );
+  late final _wire__boltz__api__types__chain_is_testnet =
+      _wire__boltz__api__types__chain_is_testnetPtr
+          .asFunction<void Function(int, int)>();
 
   void wire__boltz__api__chain_swap__chain_swap_broadcast_boltz(
     int port_,
@@ -8942,6 +8963,8 @@ final class wire_cst_btc_ln_swap extends ffi.Struct {
   @ffi.Uint64()
   external int out_amount;
 
+  external ffi.Pointer<ffi.Uint64> expected_onchain_amount;
+
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> electrum_url;
 
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> boltz_url;
@@ -9048,6 +9071,8 @@ final class wire_cst_chain_swap extends ffi.Struct {
   @ffi.Uint64()
   external int out_amount;
 
+  external ffi.Pointer<ffi.Uint64> expected_onchain_amount;
+
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> btc_electrum_url;
 
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> lbtc_electrum_url;
@@ -9106,6 +9131,8 @@ final class wire_cst_lbtc_ln_swap extends ffi.Struct {
 
   @ffi.Uint64()
   external int out_amount;
+
+  external ffi.Pointer<ffi.Uint64> expected_onchain_amount;
 
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> script_address;
 

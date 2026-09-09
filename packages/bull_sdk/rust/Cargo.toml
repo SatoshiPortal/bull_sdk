@@ -17,7 +17,7 @@ flutter_rust_bridge = "=2.12.0"
 bitbox = { git = "https://github.com/SatoshiPortal/bitbox-dart", rev = "c110af7517707ce3ab847bff32762375703d42c3", features = ["bull_sdk"] }
 bbqr = { git = "https://github.com/SatoshiPortal/bbqr-rust.git", rev = "e4807767d6a61cd7fd9a590f33437553595d0305", default-features = false }
 dart_bbqr = { git = "https://github.com/SatoshiPortal/bbqr-dart", rev = "b06901953ab9c0440a9c0373efcc4345f3c35d32", features = ["bull_sdk"] }
-boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", rev = "6f7552561bef9fe33344804984ab8217441c86e3", features = ["bull_sdk"] }
+boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", rev = "85bcd9fdee8b431c4bf2980fa35c474234e37663", features = ["bull_sdk"] }
 # TEMPORARY test-week pin: SatoshiPortal/lwk-dart#88 (Liquid UTXO consolidation)
 # isn't merged/tagged yet — pinned by rev (not branch, per the convention
 # above) to the PR's tip as of 2026-07-22 (includes 3ede959's fix for a dead

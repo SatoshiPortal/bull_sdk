@@ -23,6 +23,7 @@ class BtcLnSwap {
   final String invoice;
   final String scriptAddress;
   final BigInt outAmount;
+  final BigInt? expectedOnchainAmount;
   final String electrumUrl;
   final String boltzUrl;
   final String? referralId;
@@ -38,6 +39,7 @@ class BtcLnSwap {
     required this.invoice,
     required this.scriptAddress,
     required this.outAmount,
+    this.expectedOnchainAmount,
     required this.electrumUrl,
     required this.boltzUrl,
     this.referralId,
@@ -86,6 +88,9 @@ class BtcLnSwap {
   /// After boltz completes a submarine swap, call this function to close the swap cooperatively using Musig.
   /// If this function is not called within ~1 hour, the swap will be closed via the script path.
   /// The benefit of a cooperative close is that the onchain footprint is smaller and makes the transaction look like a single sig tx, while the script path spend is clearly a swap tx.
+  /// Delegates to boltz-rust's validated flow, which verifies the server's
+  /// preimage against the invoice payment hash before partial-signing —
+  /// never sign a spend of the lockup without proof the invoice was paid.
   Future<void> coopCloseSubmarine() =>
       BullSdk.instance.api.boltzApiBtcLnBtcLnSwapCoopCloseSubmarine(that: this);
 
@@ -219,6 +224,7 @@ class BtcLnSwap {
       invoice.hashCode ^
       scriptAddress.hashCode ^
       outAmount.hashCode ^
+      expectedOnchainAmount.hashCode ^
       electrumUrl.hashCode ^
       boltzUrl.hashCode ^
       referralId.hashCode;
@@ -238,6 +244,7 @@ class BtcLnSwap {
           invoice == other.invoice &&
           scriptAddress == other.scriptAddress &&
           outAmount == other.outAmount &&
+          expectedOnchainAmount == other.expectedOnchainAmount &&
           electrumUrl == other.electrumUrl &&
           boltzUrl == other.boltzUrl &&
           referralId == other.referralId;

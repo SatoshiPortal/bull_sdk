@@ -44,7 +44,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.12.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 798013342;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1838923399;
 
 // Section: executor
 
@@ -2902,6 +2902,28 @@ fn wire__boltz__api__types__btc_swap_script_str_new_impl(
         },
     )
 }
+fn wire__boltz__api__types__chain_is_testnet_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<boltz::api::types::Chain>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "chain_is_testnet",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok =
+                        Result::<_, ()>::Ok(boltz::api::types::Chain::is_testnet(&api_that))?;
+                    Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
 fn wire__boltz__api__chain_swap__chain_swap_broadcast_boltz_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<boltz::api::chain_swap::ChainSwap>,
@@ -5390,6 +5412,7 @@ const _: fn() = || {
         let _: String = BtcLnSwap.invoice;
         let _: String = BtcLnSwap.script_address;
         let _: u64 = BtcLnSwap.out_amount;
+        let _: Option<u64> = BtcLnSwap.expected_onchain_amount;
         let _: String = BtcLnSwap.electrum_url;
         let _: String = BtcLnSwap.boltz_url;
         let _: Option<String> = BtcLnSwap.referral_id;
@@ -5425,6 +5448,7 @@ const _: fn() = || {
         let _: boltz::api::types::LBtcSwapScriptStr = ChainSwap.lbtc_script_str;
         let _: String = ChainSwap.script_address;
         let _: u64 = ChainSwap.out_amount;
+        let _: Option<u64> = ChainSwap.expected_onchain_amount;
         let _: String = ChainSwap.btc_electrum_url;
         let _: String = ChainSwap.lbtc_electrum_url;
         let _: String = ChainSwap.boltz_url;
@@ -5505,6 +5529,7 @@ const _: fn() = || {
         let _: boltz::api::types::LBtcSwapScriptStr = LbtcLnSwap.swap_script;
         let _: String = LbtcLnSwap.invoice;
         let _: u64 = LbtcLnSwap.out_amount;
+        let _: Option<u64> = LbtcLnSwap.expected_onchain_amount;
         let _: String = LbtcLnSwap.script_address;
         let _: String = LbtcLnSwap.blinding_key;
         let _: String = LbtcLnSwap.electrum_url;
@@ -6160,6 +6185,7 @@ impl SseDecode for boltz::api::btc_ln::BtcLnSwap {
         let mut var_invoice = <String>::sse_decode(deserializer);
         let mut var_scriptAddress = <String>::sse_decode(deserializer);
         let mut var_outAmount = <u64>::sse_decode(deserializer);
+        let mut var_expectedOnchainAmount = <Option<u64>>::sse_decode(deserializer);
         let mut var_electrumUrl = <String>::sse_decode(deserializer);
         let mut var_boltzUrl = <String>::sse_decode(deserializer);
         let mut var_referralId = <Option<String>>::sse_decode(deserializer);
@@ -6174,6 +6200,7 @@ impl SseDecode for boltz::api::btc_ln::BtcLnSwap {
             invoice: var_invoice,
             script_address: var_scriptAddress,
             out_amount: var_outAmount,
+            expected_onchain_amount: var_expectedOnchainAmount,
             electrum_url: var_electrumUrl,
             boltz_url: var_boltzUrl,
             referral_id: var_referralId,
@@ -6249,6 +6276,7 @@ impl SseDecode for boltz::api::chain_swap::ChainSwap {
             <boltz::api::types::LBtcSwapScriptStr>::sse_decode(deserializer);
         let mut var_scriptAddress = <String>::sse_decode(deserializer);
         let mut var_outAmount = <u64>::sse_decode(deserializer);
+        let mut var_expectedOnchainAmount = <Option<u64>>::sse_decode(deserializer);
         let mut var_btcElectrumUrl = <String>::sse_decode(deserializer);
         let mut var_lbtcElectrumUrl = <String>::sse_decode(deserializer);
         let mut var_boltzUrl = <String>::sse_decode(deserializer);
@@ -6267,6 +6295,7 @@ impl SseDecode for boltz::api::chain_swap::ChainSwap {
             lbtc_script_str: var_lbtcScriptStr,
             script_address: var_scriptAddress,
             out_amount: var_outAmount,
+            expected_onchain_amount: var_expectedOnchainAmount,
             btc_electrum_url: var_btcElectrumUrl,
             lbtc_electrum_url: var_lbtcElectrumUrl,
             boltz_url: var_boltzUrl,
@@ -6503,6 +6532,7 @@ impl SseDecode for boltz::api::lbtc_ln::LbtcLnSwap {
         let mut var_swapScript = <boltz::api::types::LBtcSwapScriptStr>::sse_decode(deserializer);
         let mut var_invoice = <String>::sse_decode(deserializer);
         let mut var_outAmount = <u64>::sse_decode(deserializer);
+        let mut var_expectedOnchainAmount = <Option<u64>>::sse_decode(deserializer);
         let mut var_scriptAddress = <String>::sse_decode(deserializer);
         let mut var_blindingKey = <String>::sse_decode(deserializer);
         let mut var_electrumUrl = <String>::sse_decode(deserializer);
@@ -6518,6 +6548,7 @@ impl SseDecode for boltz::api::lbtc_ln::LbtcLnSwap {
             swap_script: var_swapScript,
             invoice: var_invoice,
             out_amount: var_outAmount,
+            expected_onchain_amount: var_expectedOnchainAmount,
             script_address: var_scriptAddress,
             blinding_key: var_blindingKey,
             electrum_url: var_electrumUrl,
@@ -7866,6 +7897,7 @@ impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::btc_ln::BtcLnSwap>
             self.0.invoice.into_into_dart().into_dart(),
             self.0.script_address.into_into_dart().into_dart(),
             self.0.out_amount.into_into_dart().into_dart(),
+            self.0.expected_onchain_amount.into_into_dart().into_dart(),
             self.0.electrum_url.into_into_dart().into_dart(),
             self.0.boltz_url.into_into_dart().into_dart(),
             self.0.referral_id.into_into_dart().into_dart(),
@@ -7972,6 +8004,7 @@ impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::chain_swap::ChainS
             self.0.lbtc_script_str.into_into_dart().into_dart(),
             self.0.script_address.into_into_dart().into_dart(),
             self.0.out_amount.into_into_dart().into_dart(),
+            self.0.expected_onchain_amount.into_into_dart().into_dart(),
             self.0.btc_electrum_url.into_into_dart().into_dart(),
             self.0.lbtc_electrum_url.into_into_dart().into_dart(),
             self.0.boltz_url.into_into_dart().into_dart(),
@@ -8274,6 +8307,7 @@ impl flutter_rust_bridge::IntoDart for FrbWrapper<boltz::api::lbtc_ln::LbtcLnSwa
             self.0.swap_script.into_into_dart().into_dart(),
             self.0.invoice.into_into_dart().into_dart(),
             self.0.out_amount.into_into_dart().into_dart(),
+            self.0.expected_onchain_amount.into_into_dart().into_dart(),
             self.0.script_address.into_into_dart().into_dart(),
             self.0.blinding_key.into_into_dart().into_dart(),
             self.0.electrum_url.into_into_dart().into_dart(),
@@ -9463,6 +9497,7 @@ impl SseEncode for boltz::api::btc_ln::BtcLnSwap {
         <String>::sse_encode(self.invoice, serializer);
         <String>::sse_encode(self.script_address, serializer);
         <u64>::sse_encode(self.out_amount, serializer);
+        <Option<u64>>::sse_encode(self.expected_onchain_amount, serializer);
         <String>::sse_encode(self.electrum_url, serializer);
         <String>::sse_encode(self.boltz_url, serializer);
         <Option<String>>::sse_encode(self.referral_id, serializer);
@@ -9525,6 +9560,7 @@ impl SseEncode for boltz::api::chain_swap::ChainSwap {
         <boltz::api::types::LBtcSwapScriptStr>::sse_encode(self.lbtc_script_str, serializer);
         <String>::sse_encode(self.script_address, serializer);
         <u64>::sse_encode(self.out_amount, serializer);
+        <Option<u64>>::sse_encode(self.expected_onchain_amount, serializer);
         <String>::sse_encode(self.btc_electrum_url, serializer);
         <String>::sse_encode(self.lbtc_electrum_url, serializer);
         <String>::sse_encode(self.boltz_url, serializer);
@@ -9718,6 +9754,7 @@ impl SseEncode for boltz::api::lbtc_ln::LbtcLnSwap {
         <boltz::api::types::LBtcSwapScriptStr>::sse_encode(self.swap_script, serializer);
         <String>::sse_encode(self.invoice, serializer);
         <u64>::sse_encode(self.out_amount, serializer);
+        <Option<u64>>::sse_encode(self.expected_onchain_amount, serializer);
         <String>::sse_encode(self.script_address, serializer);
         <String>::sse_encode(self.blinding_key, serializer);
         <String>::sse_encode(self.electrum_url, serializer);
@@ -11059,6 +11096,7 @@ mod io {
                 invoice: self.invoice.cst_decode(),
                 script_address: self.script_address.cst_decode(),
                 out_amount: self.out_amount.cst_decode(),
+                expected_onchain_amount: self.expected_onchain_amount.cst_decode(),
                 electrum_url: self.electrum_url.cst_decode(),
                 boltz_url: self.boltz_url.cst_decode(),
                 referral_id: self.referral_id.cst_decode(),
@@ -11106,6 +11144,7 @@ mod io {
                 lbtc_script_str: self.lbtc_script_str.cst_decode(),
                 script_address: self.script_address.cst_decode(),
                 out_amount: self.out_amount.cst_decode(),
+                expected_onchain_amount: self.expected_onchain_amount.cst_decode(),
                 btc_electrum_url: self.btc_electrum_url.cst_decode(),
                 lbtc_electrum_url: self.lbtc_electrum_url.cst_decode(),
                 boltz_url: self.boltz_url.cst_decode(),
@@ -11226,6 +11265,7 @@ mod io {
                 swap_script: self.swap_script.cst_decode(),
                 invoice: self.invoice.cst_decode(),
                 out_amount: self.out_amount.cst_decode(),
+                expected_onchain_amount: self.expected_onchain_amount.cst_decode(),
                 script_address: self.script_address.cst_decode(),
                 blinding_key: self.blinding_key.cst_decode(),
                 electrum_url: self.electrum_url.cst_decode(),
@@ -11884,6 +11924,7 @@ mod io {
                 invoice: core::ptr::null_mut(),
                 script_address: core::ptr::null_mut(),
                 out_amount: Default::default(),
+                expected_onchain_amount: core::ptr::null_mut(),
                 electrum_url: core::ptr::null_mut(),
                 boltz_url: core::ptr::null_mut(),
                 referral_id: core::ptr::null_mut(),
@@ -11943,6 +11984,7 @@ mod io {
                 lbtc_script_str: Default::default(),
                 script_address: core::ptr::null_mut(),
                 out_amount: Default::default(),
+                expected_onchain_amount: core::ptr::null_mut(),
                 btc_electrum_url: core::ptr::null_mut(),
                 lbtc_electrum_url: core::ptr::null_mut(),
                 boltz_url: core::ptr::null_mut(),
@@ -12103,6 +12145,7 @@ mod io {
                 swap_script: Default::default(),
                 invoice: core::ptr::null_mut(),
                 out_amount: Default::default(),
+                expected_onchain_amount: core::ptr::null_mut(),
                 script_address: core::ptr::null_mut(),
                 blinding_key: core::ptr::null_mut(),
                 electrum_url: core::ptr::null_mut(),
@@ -13472,6 +13515,14 @@ mod io {
             sender_pubkey,
             side,
         )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__types__chain_is_testnet(
+        port_: i64,
+        that: i32,
+    ) {
+        wire__boltz__api__types__chain_is_testnet_impl(port_, that)
     }
 
     #[unsafe(no_mangle)]
@@ -15052,6 +15103,7 @@ mod io {
         invoice: *mut wire_cst_list_prim_u_8_strict,
         script_address: *mut wire_cst_list_prim_u_8_strict,
         out_amount: u64,
+        expected_onchain_amount: *mut u64,
         electrum_url: *mut wire_cst_list_prim_u_8_strict,
         boltz_url: *mut wire_cst_list_prim_u_8_strict,
         referral_id: *mut wire_cst_list_prim_u_8_strict,
@@ -15090,6 +15142,7 @@ mod io {
         lbtc_script_str: wire_cst_l_btc_swap_script_str,
         script_address: *mut wire_cst_list_prim_u_8_strict,
         out_amount: u64,
+        expected_onchain_amount: *mut u64,
         btc_electrum_url: *mut wire_cst_list_prim_u_8_strict,
         lbtc_electrum_url: *mut wire_cst_list_prim_u_8_strict,
         boltz_url: *mut wire_cst_list_prim_u_8_strict,
@@ -15180,6 +15233,7 @@ mod io {
         swap_script: wire_cst_l_btc_swap_script_str,
         invoice: *mut wire_cst_list_prim_u_8_strict,
         out_amount: u64,
+        expected_onchain_amount: *mut u64,
         script_address: *mut wire_cst_list_prim_u_8_strict,
         blinding_key: *mut wire_cst_list_prim_u_8_strict,
         electrum_url: *mut wire_cst_list_prim_u_8_strict,
