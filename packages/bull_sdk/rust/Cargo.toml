@@ -10,7 +10,7 @@ crate-type = ["cdylib", "staticlib"]
 flutter_rust_bridge = "=2.12.0"
 # Cross-repository dependencies use immutable revisions so clean builds remain
 # reproducible.
-bitbox = { git = "https://github.com/ben-kaufman/bitbox-flutter", rev = "a70697a8f410fa797fc51be689d9054a4dc56a6a", features = ["bull_sdk"] }
+bitbox = { git = "https://github.com/SatoshiPortal/bitbox-dart", rev = "b832be8ab497377ac4f9ceb9b0f5f1e830a84e5a", features = ["bull_sdk"] }
 bbqr = { git = "https://github.com/SatoshiPortal/bbqr-rust.git", rev = "e4807767d6a61cd7fd9a590f33437553595d0305", default-features = false }
 dart_bbqr = { git = "https://github.com/SatoshiPortal/bbqr-dart", rev = "b06901953ab9c0440a9c0373efcc4345f3c35d32", features = ["bull_sdk"] }
 boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", rev = "6f7552561bef9fe33344804984ab8217441c86e3", features = ["bull_sdk"] }

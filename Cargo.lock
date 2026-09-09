@@ -436,7 +436,7 @@ dependencies = [
 [[package]]
 name = "bitbox"
 version = "0.2.0"
-source = "git+https://github.com/ben-kaufman/bitbox-flutter?rev=a70697a8f410fa797fc51be689d9054a4dc56a6a#a70697a8f410fa797fc51be689d9054a4dc56a6a"
+source = "git+https://github.com/SatoshiPortal/bitbox-dart?rev=b832be8ab497377ac4f9ceb9b0f5f1e830a84e5a#b832be8ab497377ac4f9ceb9b0f5f1e830a84e5a"
 dependencies = [
  "anyhow",
  "async-trait",
