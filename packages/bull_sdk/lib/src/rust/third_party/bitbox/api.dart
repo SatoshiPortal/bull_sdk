@@ -7,7 +7,7 @@ import '../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 // These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `BITBOX_DEVICES`, `BITBOX_PAIRING_DEVICES`
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `deref`, `deref`, `fmt`, `initialize`, `initialize`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_fields_are_eq`, `clone`, `clone`, `deref`, `deref`, `eq`, `fmt`, `fmt`, `initialize`, `initialize`
 
 Uint8List? getUsbWriteDataWrapper({required String serialNumber}) => BullSdk
     .instance
@@ -73,6 +73,56 @@ Future<String> signPsbt({
   psbtStr: psbtStr,
   testnet: testnet,
 );
+
+Future<bool> isWalletPolicyRegistered({
+  required String serialNumber,
+  required String descriptor,
+  required bool testnet,
+}) => BullSdk.instance.api.bitboxApiIsWalletPolicyRegistered(
+  serialNumber: serialNumber,
+  descriptor: descriptor,
+  testnet: testnet,
+);
+
+Future<void> registerWalletPolicy({
+  required String serialNumber,
+  required String descriptor,
+  required bool testnet,
+  String? name,
+}) => BullSdk.instance.api.bitboxApiRegisterWalletPolicy(
+  serialNumber: serialNumber,
+  descriptor: descriptor,
+  testnet: testnet,
+  name: name,
+);
+
+Future<String> verifyWalletAddress({
+  required String serialNumber,
+  required String descriptor,
+  required bool testnet,
+  required BitBoxKeychain keychain,
+  required PlatformInt64 index,
+}) => BullSdk.instance.api.bitboxApiVerifyWalletAddress(
+  serialNumber: serialNumber,
+  descriptor: descriptor,
+  testnet: testnet,
+  keychain: keychain,
+  index: index,
+);
+
+Future<String> signWalletPsbt({
+  required String serialNumber,
+  required String descriptor,
+  required String psbtStr,
+  required bool testnet,
+}) => BullSdk.instance.api.bitboxApiSignWalletPsbt(
+  serialNumber: serialNumber,
+  descriptor: descriptor,
+  psbtStr: psbtStr,
+  testnet: testnet,
+);
+
+enum BitBoxKeychain { receive, change }
 
 class DeviceInfo {
   final String name;

@@ -92,7 +92,7 @@ class BullSdk extends BaseEntrypoint<BullSdkApi, BullSdkApiImpl, BullSdkWire> {
   String get codegenVersion => '2.12.0';
 
   @override
-  int get rustContentHash => -1838923399;
+  int get rustContentHash => -1318882005;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -695,6 +695,12 @@ abstract class BullSdkApi extends BaseApi {
 
   Future<void> bitboxApiInitApp();
 
+  Future<bool> bitboxApiIsWalletPolicyRegistered({
+    required String serialNumber,
+    required String descriptor,
+    required bool testnet,
+  });
+
   Future<Joined> bbqrJoinJoinedFrbOverrideTryFromParts({
     required List<String> parts,
   });
@@ -832,6 +838,13 @@ abstract class BullSdkApi extends BaseApi {
     required String hash160,
   });
 
+  Future<void> bitboxApiRegisterWalletPolicy({
+    required String serialNumber,
+    required String descriptor,
+    required bool testnet,
+    String? name,
+  });
+
   Future<RestoredChainSwaps> boltzApiRestoreRestoreChainSwaps({
     required SwapMasterKey swapMasterKey,
     required String btcElectrumUrl,
@@ -868,6 +881,13 @@ abstract class BullSdkApi extends BaseApi {
 
   Future<String> bitboxApiSignPsbt({
     required String serialNumber,
+    required String psbtStr,
+    required bool testnet,
+  });
+
+  Future<String> bitboxApiSignWalletPsbt({
+    required String serialNumber,
+    required String descriptor,
     required String psbtStr,
     required bool testnet,
   });
@@ -923,6 +943,14 @@ abstract class BullSdkApi extends BaseApi {
     required String keypath,
     required bool testnet,
     String? scriptType,
+  });
+
+  Future<String> bitboxApiVerifyWalletAddress({
+    required String serialNumber,
+    required String descriptor,
+    required bool testnet,
+    required BitBoxKeychain keychain,
+    required PlatformInt64 index,
   });
 
   Future<BigInt> bbqrQrVersionDataCapacity({required Version that});
@@ -5349,6 +5377,42 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       const TaskConstMeta(debugName: "init_app", argNames: []);
 
   @override
+  Future<bool> bitboxApiIsWalletPolicyRegistered({
+    required String serialNumber,
+    required String descriptor,
+    required bool testnet,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(serialNumber);
+          var arg1 = cst_encode_String(descriptor);
+          var arg2 = cst_encode_bool(testnet);
+          return wire.wire__bitbox__api__is_wallet_policy_registered(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_bool,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+        constMeta: kBitboxApiIsWalletPolicyRegisteredConstMeta,
+        argValues: [serialNumber, descriptor, testnet],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiIsWalletPolicyRegisteredConstMeta =>
+      const TaskConstMeta(
+        debugName: "is_wallet_policy_registered",
+        argNames: ["serialNumber", "descriptor", "testnet"],
+      );
+
+  @override
   Future<Joined> bbqrJoinJoinedFrbOverrideTryFromParts({
     required List<String> parts,
   }) {
@@ -6287,6 +6351,45 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   );
 
   @override
+  Future<void> bitboxApiRegisterWalletPolicy({
+    required String serialNumber,
+    required String descriptor,
+    required bool testnet,
+    String? name,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(serialNumber);
+          var arg1 = cst_encode_String(descriptor);
+          var arg2 = cst_encode_bool(testnet);
+          var arg3 = cst_encode_opt_String(name);
+          return wire.wire__bitbox__api__register_wallet_policy(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_unit,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+        constMeta: kBitboxApiRegisterWalletPolicyConstMeta,
+        argValues: [serialNumber, descriptor, testnet, name],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiRegisterWalletPolicyConstMeta =>
+      const TaskConstMeta(
+        debugName: "register_wallet_policy",
+        argNames: ["serialNumber", "descriptor", "testnet", "name"],
+      );
+
+  @override
   Future<RestoredChainSwaps> boltzApiRestoreRestoreChainSwaps({
     required SwapMasterKey swapMasterKey,
     required String btcElectrumUrl,
@@ -6525,6 +6628,44 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   TaskConstMeta get kBitboxApiSignPsbtConstMeta => const TaskConstMeta(
     debugName: "sign_psbt",
     argNames: ["serialNumber", "psbtStr", "testnet"],
+  );
+
+  @override
+  Future<String> bitboxApiSignWalletPsbt({
+    required String serialNumber,
+    required String descriptor,
+    required String psbtStr,
+    required bool testnet,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(serialNumber);
+          var arg1 = cst_encode_String(descriptor);
+          var arg2 = cst_encode_String(psbtStr);
+          var arg3 = cst_encode_bool(testnet);
+          return wire.wire__bitbox__api__sign_wallet_psbt(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+        constMeta: kBitboxApiSignWalletPsbtConstMeta,
+        argValues: [serialNumber, descriptor, psbtStr, testnet],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiSignWalletPsbtConstMeta => const TaskConstMeta(
+    debugName: "sign_wallet_psbt",
+    argNames: ["serialNumber", "descriptor", "psbtStr", "testnet"],
   );
 
   @override
@@ -6962,6 +7103,54 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   );
 
   @override
+  Future<String> bitboxApiVerifyWalletAddress({
+    required String serialNumber,
+    required String descriptor,
+    required bool testnet,
+    required BitBoxKeychain keychain,
+    required PlatformInt64 index,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(serialNumber);
+          var arg1 = cst_encode_String(descriptor);
+          var arg2 = cst_encode_bool(testnet);
+          var arg3 = cst_encode_bit_box_keychain(keychain);
+          var arg4 = cst_encode_i_64(index);
+          return wire.wire__bitbox__api__verify_wallet_address(
+            port_,
+            arg0,
+            arg1,
+            arg2,
+            arg3,
+            arg4,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+        constMeta: kBitboxApiVerifyWalletAddressConstMeta,
+        argValues: [serialNumber, descriptor, testnet, keychain, index],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kBitboxApiVerifyWalletAddressConstMeta =>
+      const TaskConstMeta(
+        debugName: "verify_wallet_address",
+        argNames: [
+          "serialNumber",
+          "descriptor",
+          "testnet",
+          "keychain",
+          "index",
+        ],
+      );
+
+  @override
   Future<BigInt> bbqrQrVersionDataCapacity({required Version that}) {
     return handler.executeNormal(
       NormalTask(
@@ -7211,6 +7400,12 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       assetId: dco_decode_String(arr[0]),
       value: dco_decode_i_64(arr[1]),
     );
+  }
+
+  @protected
+  BitBoxKeychain dco_decode_bit_box_keychain(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return BitBoxKeychain.values[raw as int];
   }
 
   @protected
@@ -8671,6 +8866,13 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     var var_assetId = sse_decode_String(deserializer);
     var var_value = sse_decode_i_64(deserializer);
     return Balance(assetId: var_assetId, value: var_value);
+  }
+
+  @protected
+  BitBoxKeychain sse_decode_bit_box_keychain(SseDeserializer deserializer) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var inner = sse_decode_i_32(deserializer);
+    return BitBoxKeychain.values[inner];
   }
 
   @protected
@@ -10357,6 +10559,12 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  int cst_encode_bit_box_keychain(BitBoxKeychain raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_i_32(raw.index);
+  }
+
+  @protected
   bool cst_encode_bool(bool raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw;
@@ -10681,6 +10889,15 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.assetId, serializer);
     sse_encode_i_64(self.value, serializer);
+  }
+
+  @protected
+  void sse_encode_bit_box_keychain(
+    BitBoxKeychain self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_i_32(self.index, serializer);
   }
 
   @protected

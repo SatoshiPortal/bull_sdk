@@ -44,7 +44,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.12.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1838923399;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1318882005;
 
 // Section: executor
 
@@ -4092,6 +4092,39 @@ fn wire__bitbox__api__init_app_impl(port_: flutter_rust_bridge::for_generated::M
         },
     )
 }
+fn wire__bitbox__api__is_wallet_policy_registered_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    serial_number: impl CstDecode<String>,
+    descriptor: impl CstDecode<String>,
+    testnet: impl CstDecode<bool>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "is_wallet_policy_registered",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            let api_descriptor = descriptor.cst_decode();
+            let api_testnet = testnet.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let output_ok = bitbox::api::is_wallet_policy_registered(
+                            api_serial_number,
+                            api_descriptor,
+                            api_testnet,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
 fn wire__bbqr__join__joined_frb_override_try_from_parts_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     parts: impl CstDecode<Vec<String>>,
@@ -4816,6 +4849,42 @@ fn wire__boltz__api__secrets__pre_image_new_impl(
         },
     )
 }
+fn wire__bitbox__api__register_wallet_policy_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    serial_number: impl CstDecode<String>,
+    descriptor: impl CstDecode<String>,
+    testnet: impl CstDecode<bool>,
+    name: impl CstDecode<Option<String>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "register_wallet_policy",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            let api_descriptor = descriptor.cst_decode();
+            let api_testnet = testnet.cst_decode();
+            let api_name = name.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let output_ok = bitbox::api::register_wallet_policy(
+                            api_serial_number,
+                            api_descriptor,
+                            api_testnet,
+                            api_name,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
 fn wire__boltz__api__restore__restore_chain_swaps_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     swap_master_key: impl CstDecode<boltz::api::secrets::SwapMasterKey>,
@@ -5023,6 +5092,42 @@ fn wire__bitbox__api__sign_psbt_impl(
                         let output_ok =
                             bitbox::api::sign_psbt(api_serial_number, api_psbt_str, api_testnet)
                                 .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__bitbox__api__sign_wallet_psbt_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    serial_number: impl CstDecode<String>,
+    descriptor: impl CstDecode<String>,
+    psbt_str: impl CstDecode<String>,
+    testnet: impl CstDecode<bool>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "sign_wallet_psbt",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            let api_descriptor = descriptor.cst_decode();
+            let api_psbt_str = psbt_str.cst_decode();
+            let api_testnet = testnet.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let output_ok = bitbox::api::sign_wallet_psbt(
+                            api_serial_number,
+                            api_descriptor,
+                            api_psbt_str,
+                            api_testnet,
+                        )
+                        .await?;
                         Ok(output_ok)
                     })()
                     .await,
@@ -5343,6 +5448,45 @@ fn wire__bitbox__api__verify_address_impl(
                             api_keypath,
                             api_testnet,
                             api_script_type,
+                        )
+                        .await?;
+                        Ok(output_ok)
+                    })()
+                    .await,
+                )
+            }
+        },
+    )
+}
+fn wire__bitbox__api__verify_wallet_address_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    serial_number: impl CstDecode<String>,
+    descriptor: impl CstDecode<String>,
+    testnet: impl CstDecode<bool>,
+    keychain: impl CstDecode<bitbox::api::BitBoxKeychain>,
+    index: impl CstDecode<i64>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_async::<flutter_rust_bridge::for_generated::DcoCodec, _, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "verify_wallet_address",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_serial_number = serial_number.cst_decode();
+            let api_descriptor = descriptor.cst_decode();
+            let api_testnet = testnet.cst_decode();
+            let api_keychain = keychain.cst_decode();
+            let api_index = index.cst_decode();
+            move |context| async move {
+                transform_result_dco::<_, _, flutter_rust_bridge::for_generated::anyhow::Error>(
+                    (move || async move {
+                        let output_ok = bitbox::api::verify_wallet_address(
+                            api_serial_number,
+                            api_descriptor,
+                            api_testnet,
+                            api_keychain,
+                            api_index,
                         )
                         .await?;
                         Ok(output_ok)
@@ -5768,6 +5912,16 @@ const _: fn() = || {
 
 // Section: dart2rust
 
+impl CstDecode<bitbox::api::BitBoxKeychain> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> bitbox::api::BitBoxKeychain {
+        match self {
+            0 => bitbox::api::BitBoxKeychain::Receive,
+            1 => bitbox::api::BitBoxKeychain::Change,
+            _ => unreachable!("Invalid variant for BitBoxKeychain: {}", self),
+        }
+    }
+}
 impl CstDecode<bool> for bool {
     // Codec=Cst (C-struct based), see doc to use other codecs
     fn cst_decode(self) -> bool {
@@ -6142,6 +6296,18 @@ impl SseDecode for lwk::api::types::Balance {
         return lwk::api::types::Balance {
             asset_id: var_assetId,
             value: var_value,
+        };
+    }
+}
+
+impl SseDecode for bitbox::api::BitBoxKeychain {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => bitbox::api::BitBoxKeychain::Receive,
+            1 => bitbox::api::BitBoxKeychain::Change,
+            _ => unreachable!("Invalid variant for BitBoxKeychain: {}", inner),
         };
     }
 }
@@ -7846,6 +8012,27 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::Balance>>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<bitbox::api::BitBoxKeychain> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            bitbox::api::BitBoxKeychain::Receive => 0.into_dart(),
+            bitbox::api::BitBoxKeychain::Change => 1.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<bitbox::api::BitBoxKeychain>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<bitbox::api::BitBoxKeychain>>
+    for bitbox::api::BitBoxKeychain
+{
+    fn into_into_dart(self) -> FrbWrapper<bitbox::api::BitBoxKeychain> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::blockchain::Blockchain> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         Vec::<u8>::new().into_dart()
@@ -9461,6 +9648,22 @@ impl SseEncode for lwk::api::types::Balance {
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <String>::sse_encode(self.asset_id, serializer);
         <i64>::sse_encode(self.value, serializer);
+    }
+}
+
+impl SseEncode for bitbox::api::BitBoxKeychain {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                bitbox::api::BitBoxKeychain::Receive => 0,
+                bitbox::api::BitBoxKeychain::Change => 1,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
     }
 }
 
@@ -13989,6 +14192,21 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__is_wallet_policy_registered(
+        port_: i64,
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+        descriptor: *mut wire_cst_list_prim_u_8_strict,
+        testnet: bool,
+    ) {
+        wire__bitbox__api__is_wallet_policy_registered_impl(
+            port_,
+            serial_number,
+            descriptor,
+            testnet,
+        )
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__bbqr__join__joined_frb_override_try_from_parts(
         port_: i64,
         parts: *mut wire_cst_list_String,
@@ -14301,6 +14519,23 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__register_wallet_policy(
+        port_: i64,
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+        descriptor: *mut wire_cst_list_prim_u_8_strict,
+        testnet: bool,
+        name: *mut wire_cst_list_prim_u_8_strict,
+    ) {
+        wire__bitbox__api__register_wallet_policy_impl(
+            port_,
+            serial_number,
+            descriptor,
+            testnet,
+            name,
+        )
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__boltz__api__restore__restore_chain_swaps(
         port_: i64,
         swap_master_key: *mut wire_cst_swap_master_key,
@@ -14381,6 +14616,23 @@ mod io {
         testnet: bool,
     ) {
         wire__bitbox__api__sign_psbt_impl(port_, serial_number, psbt_str, testnet)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__sign_wallet_psbt(
+        port_: i64,
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+        descriptor: *mut wire_cst_list_prim_u_8_strict,
+        psbt_str: *mut wire_cst_list_prim_u_8_strict,
+        testnet: bool,
+    ) {
+        wire__bitbox__api__sign_wallet_psbt_impl(
+            port_,
+            serial_number,
+            descriptor,
+            psbt_str,
+            testnet,
+        )
     }
 
     #[unsafe(no_mangle)]
@@ -14500,6 +14752,25 @@ mod io {
         script_type: *mut wire_cst_list_prim_u_8_strict,
     ) {
         wire__bitbox__api__verify_address_impl(port_, serial_number, keypath, testnet, script_type)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__bitbox__api__verify_wallet_address(
+        port_: i64,
+        serial_number: *mut wire_cst_list_prim_u_8_strict,
+        descriptor: *mut wire_cst_list_prim_u_8_strict,
+        testnet: bool,
+        keychain: i32,
+        index: i64,
+    ) {
+        wire__bitbox__api__verify_wallet_address_impl(
+            port_,
+            serial_number,
+            descriptor,
+            testnet,
+            keychain,
+            index,
+        )
     }
 
     #[unsafe(no_mangle)]
