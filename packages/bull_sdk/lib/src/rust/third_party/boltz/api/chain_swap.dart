@@ -26,6 +26,7 @@ class ChainSwap {
   final LBtcSwapScriptStr lbtcScriptStr;
   final String scriptAddress;
   final BigInt outAmount;
+  final BigInt? expectedOnchainAmount;
   final String btcElectrumUrl;
   final String lbtcElectrumUrl;
   final String boltzUrl;
@@ -45,6 +46,7 @@ class ChainSwap {
     required this.lbtcScriptStr,
     required this.scriptAddress,
     required this.outAmount,
+    this.expectedOnchainAmount,
     required this.btcElectrumUrl,
     required this.lbtcElectrumUrl,
     required this.boltzUrl,
@@ -229,6 +231,7 @@ class ChainSwap {
       lbtcScriptStr.hashCode ^
       scriptAddress.hashCode ^
       outAmount.hashCode ^
+      expectedOnchainAmount.hashCode ^
       btcElectrumUrl.hashCode ^
       lbtcElectrumUrl.hashCode ^
       boltzUrl.hashCode ^
@@ -252,6 +255,7 @@ class ChainSwap {
           lbtcScriptStr == other.lbtcScriptStr &&
           scriptAddress == other.scriptAddress &&
           outAmount == other.outAmount &&
+          expectedOnchainAmount == other.expectedOnchainAmount &&
           btcElectrumUrl == other.btcElectrumUrl &&
           lbtcElectrumUrl == other.lbtcElectrumUrl &&
           boltzUrl == other.boltzUrl &&

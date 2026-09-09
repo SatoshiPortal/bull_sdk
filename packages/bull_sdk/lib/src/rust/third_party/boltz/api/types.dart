@@ -71,7 +71,15 @@ class BtcSwapScriptStr {
           side == other.side;
 }
 
-enum Chain { bitcoin, bitcoinTestnet, liquid, liquidTestnet }
+enum Chain {
+  bitcoin,
+  bitcoinTestnet,
+  liquid,
+  liquidTestnet;
+
+  Future<bool> isTestnet() =>
+      BullSdk.instance.api.boltzApiTypesChainIsTestnet(that: this);
+}
 
 enum ChainSwapDirection { btcToLbtc, lbtcToBtc }
 
