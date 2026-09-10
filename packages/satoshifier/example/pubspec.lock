@@ -37,11 +37,11 @@ packages:
     dependency: transitive
     description:
       path: "."
-      ref: fbf8952ed7056c9663e4bd47dddc8b4994580532
-      resolved-ref: fbf8952ed7056c9663e4bd47dddc8b4994580532
+      ref: "44b143f743cf02a9aec92a46cfcd534120a781c5"
+      resolved-ref: "44b143f743cf02a9aec92a46cfcd534120a781c5"
       url: "https://github.com/bitcoindevkit/bdk-dart"
     source: git
-    version: "1.0.0-rc.3"
+    version: "1.0.0-rc.4"
   bip21_uri:
     dependency: transitive
     description:
@@ -527,6 +527,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  onion:
+    dependency: transitive
+    description:
+      path: "../../onion"
+      relative: true
+    source: path
+    version: "0.1.0"
   path:
     dependency: transitive
     description:
