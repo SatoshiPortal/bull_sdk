@@ -2759,7 +2759,7 @@ checksum = "112b39cec0b298b6c1999fee3e31427f74f676e4cb9879ed1a121b43661a4154"
 [[package]]
 name = "lwk"
 version = "0.3.0"
-source = "git+https://github.com/SatoshiPortal/lwk-dart?rev=f554c7842f1f4b8e59c72d10a6f0747cb03fa315#f554c7842f1f4b8e59c72d10a6f0747cb03fa315"
+source = "git+https://github.com/SatoshiPortal/lwk-dart?rev=ed6450a67e6f2646f149025692b2c9dd38f2627b#ed6450a67e6f2646f149025692b2c9dd38f2627b"
 dependencies = [
  "anyhow",
  "flutter_rust_bridge",

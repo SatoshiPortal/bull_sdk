@@ -44,7 +44,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.12.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -1318882005;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -765460525;
 
 // Section: executor
 
@@ -2127,6 +2127,89 @@ fn wire__lwk__api__wallet__Wallet_sync_impl(
                         api_validate_domain,
                         api_stop_at_index,
                         api_timeout,
+                    )?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_transaction_projection_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+    txid: impl CstDecode<String>,
+    include_unblinding_data: impl CstDecode<bool>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_transaction_projection",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_txid = txid.cst_decode();
+            let api_include_unblinding_data = include_unblinding_data.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = lwk::api::wallet::Wallet::transaction_projection(
+                        &*api_that_guard,
+                        api_txid,
+                        api_include_unblinding_data,
+                    )?;
+                    Ok(output_ok)
+                })().map_err(FrbWrapper))
+            }
+        },
+    )
+}
+fn wire__lwk__api__wallet__Wallet_transactions_projection_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<Wallet>>>,
+    include_unblinding_data: impl CstDecode<bool>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "Wallet_transactions_projection",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            let api_include_unblinding_data = include_unblinding_data.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
+                    }
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok = lwk::api::wallet::Wallet::transactions_projection(
+                        &*api_that_guard,
+                        api_include_unblinding_data,
                     )?;
                     Ok(output_ok)
                 })().map_err(FrbWrapper))
@@ -5908,6 +5991,31 @@ const _: fn() = || {
         let _: String = WalletBalance.asset_id;
         let _: u64 = WalletBalance.value;
     }
+    {
+        let WalletTxOutCompact = None::<lwk::api::types::WalletTxOutCompact>.unwrap();
+        let _: lwk::api::types::OutPoint = WalletTxOutCompact.outpoint;
+        let _: String = WalletTxOutCompact.script_pubkey;
+        let _: String = WalletTxOutCompact.standard_address;
+        let _: String = WalletTxOutCompact.confidential_address;
+        let _: u64 = WalletTxOutCompact.value;
+        let _: String = WalletTxOutCompact.asset;
+        let _: bool = WalletTxOutCompact.is_spent;
+        let _: Option<u32> = WalletTxOutCompact.height;
+        let _: lwk::api::types::WalletTxChain = WalletTxOutCompact.chain;
+    }
+    {
+        let WalletTxProjection = None::<lwk::api::types::WalletTxProjection>.unwrap();
+        let _: String = WalletTxProjection.txid;
+        let _: Option<u32> = WalletTxProjection.timestamp;
+        let _: String = WalletTxProjection.kind;
+        let _: Vec<lwk::api::types::Balance> = WalletTxProjection.balances;
+        let _: u64 = WalletTxProjection.fee;
+        let _: Option<u32> = WalletTxProjection.height;
+        let _: Option<String> = WalletTxProjection.unblinded_url;
+        let _: usize = WalletTxProjection.vsize;
+        let _: Vec<Option<lwk::api::types::WalletTxOutCompact>> = WalletTxProjection.inputs;
+        let _: Vec<Option<lwk::api::types::WalletTxOutCompact>> = WalletTxProjection.outputs;
+    }
 };
 
 // Section: dart2rust
@@ -6151,6 +6259,16 @@ impl CstDecode<bbqr::qr::Version> for i32 {
             38 => bbqr::qr::Version::V39,
             39 => bbqr::qr::Version::V40,
             _ => unreachable!("Invalid variant for Version: {}", self),
+        }
+    }
+}
+impl CstDecode<lwk::api::types::WalletTxChain> for i32 {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    fn cst_decode(self) -> lwk::api::types::WalletTxChain {
+        match self {
+            0 => lwk::api::types::WalletTxChain::External,
+            1 => lwk::api::types::WalletTxChain::Internal,
+            _ => unreachable!("Invalid variant for WalletTxChain: {}", self),
         }
     }
 }
@@ -6798,6 +6916,20 @@ impl SseDecode for Vec<boltz::api::lbtc_ln::LbtcLnSwap> {
     }
 }
 
+impl SseDecode for Vec<Option<lwk::api::types::WalletTxOutCompact>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = Vec::with_capacity(len_ as usize);
+        for idx_ in 0..len_ {
+            ans_.push(<Option<lwk::api::types::WalletTxOutCompact>>::sse_decode(
+                deserializer,
+            ));
+        }
+        return ans_;
+    }
+}
+
 impl SseDecode for Vec<lwk::api::types::OutPoint> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -6967,6 +7099,20 @@ impl SseDecode for Vec<lwk::api::types::WalletBalance> {
         let mut ans_ = Vec::with_capacity(len_ as usize);
         for idx_ in 0..len_ {
             ans_.push(<lwk::api::types::WalletBalance>::sse_decode(deserializer));
+        }
+        return ans_;
+    }
+}
+
+impl SseDecode for Vec<lwk::api::types::WalletTxProjection> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut len_ = <i32>::sse_decode(deserializer);
+        let mut ans_ = Vec::with_capacity(len_ as usize);
+        for idx_ in 0..len_ {
+            ans_.push(<lwk::api::types::WalletTxProjection>::sse_decode(
+                deserializer,
+            ));
         }
         return ans_;
     }
@@ -7169,6 +7315,32 @@ impl SseDecode for Option<u8> {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         if (<bool>::sse_decode(deserializer)) {
             return Some(<u8>::sse_decode(deserializer));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<lwk::api::types::WalletTxOutCompact> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<lwk::api::types::WalletTxOutCompact>::sse_decode(
+                deserializer,
+            ));
+        } else {
+            return None;
+        }
+    }
+}
+
+impl SseDecode for Option<lwk::api::types::WalletTxProjection> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<lwk::api::types::WalletTxProjection>::sse_decode(
+                deserializer,
+            ));
         } else {
             return None;
         }
@@ -7853,6 +8025,74 @@ impl SseDecode for lwk::api::types::WalletBalance {
         return lwk::api::types::WalletBalance {
             asset_id: var_assetId,
             value: var_value,
+        };
+    }
+}
+
+impl SseDecode for lwk::api::types::WalletTxChain {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut inner = <i32>::sse_decode(deserializer);
+        return match inner {
+            0 => lwk::api::types::WalletTxChain::External,
+            1 => lwk::api::types::WalletTxChain::Internal,
+            _ => unreachable!("Invalid variant for WalletTxChain: {}", inner),
+        };
+    }
+}
+
+impl SseDecode for lwk::api::types::WalletTxOutCompact {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_outpoint = <lwk::api::types::OutPoint>::sse_decode(deserializer);
+        let mut var_scriptPubkey = <String>::sse_decode(deserializer);
+        let mut var_standardAddress = <String>::sse_decode(deserializer);
+        let mut var_confidentialAddress = <String>::sse_decode(deserializer);
+        let mut var_value = <u64>::sse_decode(deserializer);
+        let mut var_asset = <String>::sse_decode(deserializer);
+        let mut var_isSpent = <bool>::sse_decode(deserializer);
+        let mut var_height = <Option<u32>>::sse_decode(deserializer);
+        let mut var_chain = <lwk::api::types::WalletTxChain>::sse_decode(deserializer);
+        return lwk::api::types::WalletTxOutCompact {
+            outpoint: var_outpoint,
+            script_pubkey: var_scriptPubkey,
+            standard_address: var_standardAddress,
+            confidential_address: var_confidentialAddress,
+            value: var_value,
+            asset: var_asset,
+            is_spent: var_isSpent,
+            height: var_height,
+            chain: var_chain,
+        };
+    }
+}
+
+impl SseDecode for lwk::api::types::WalletTxProjection {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_txid = <String>::sse_decode(deserializer);
+        let mut var_timestamp = <Option<u32>>::sse_decode(deserializer);
+        let mut var_kind = <String>::sse_decode(deserializer);
+        let mut var_balances = <Vec<lwk::api::types::Balance>>::sse_decode(deserializer);
+        let mut var_fee = <u64>::sse_decode(deserializer);
+        let mut var_height = <Option<u32>>::sse_decode(deserializer);
+        let mut var_unblindedUrl = <Option<String>>::sse_decode(deserializer);
+        let mut var_vsize = <usize>::sse_decode(deserializer);
+        let mut var_inputs =
+            <Vec<Option<lwk::api::types::WalletTxOutCompact>>>::sse_decode(deserializer);
+        let mut var_outputs =
+            <Vec<Option<lwk::api::types::WalletTxOutCompact>>>::sse_decode(deserializer);
+        return lwk::api::types::WalletTxProjection {
+            txid: var_txid,
+            timestamp: var_timestamp,
+            kind: var_kind,
+            balances: var_balances,
+            fee: var_fee,
+            height: var_height,
+            unblinded_url: var_unblindedUrl,
+            vsize: var_vsize,
+            inputs: var_inputs,
+            outputs: var_outputs,
         };
     }
 }
@@ -9516,6 +9756,84 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::WalletBalance
         self.into()
     }
 }
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::WalletTxChain> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        match self.0 {
+            lwk::api::types::WalletTxChain::External => 0.into_dart(),
+            lwk::api::types::WalletTxChain::Internal => 1.into_dart(),
+            _ => unreachable!(),
+        }
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::WalletTxChain>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::WalletTxChain>>
+    for lwk::api::types::WalletTxChain
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::WalletTxChain> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::WalletTxOutCompact> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.outpoint.into_into_dart().into_dart(),
+            self.0.script_pubkey.into_into_dart().into_dart(),
+            self.0.standard_address.into_into_dart().into_dart(),
+            self.0.confidential_address.into_into_dart().into_dart(),
+            self.0.value.into_into_dart().into_dart(),
+            self.0.asset.into_into_dart().into_dart(),
+            self.0.is_spent.into_into_dart().into_dart(),
+            self.0.height.into_into_dart().into_dart(),
+            self.0.chain.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::WalletTxOutCompact>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::WalletTxOutCompact>>
+    for lwk::api::types::WalletTxOutCompact
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::WalletTxOutCompact> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<lwk::api::types::WalletTxProjection> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.txid.into_into_dart().into_dart(),
+            self.0.timestamp.into_into_dart().into_dart(),
+            self.0.kind.into_into_dart().into_dart(),
+            self.0.balances.into_into_dart().into_dart(),
+            self.0.fee.into_into_dart().into_dart(),
+            self.0.height.into_into_dart().into_dart(),
+            self.0.unblinded_url.into_into_dart().into_dart(),
+            self.0.vsize.into_into_dart().into_dart(),
+            self.0.inputs.into_into_dart().into_dart(),
+            self.0.outputs.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<lwk::api::types::WalletTxProjection>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<lwk::api::types::WalletTxProjection>>
+    for lwk::api::types::WalletTxProjection
+{
+    fn into_into_dart(self) -> FrbWrapper<lwk::api::types::WalletTxProjection> {
+        self.into()
+    }
+}
 
 impl SseEncode for flutter_rust_bridge::for_generated::anyhow::Error {
     // Codec=Sse (Serialization based), see doc to use other codecs
@@ -10032,6 +10350,16 @@ impl SseEncode for Vec<boltz::api::lbtc_ln::LbtcLnSwap> {
     }
 }
 
+impl SseEncode for Vec<Option<lwk::api::types::WalletTxOutCompact>> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <Option<lwk::api::types::WalletTxOutCompact>>::sse_encode(item, serializer);
+        }
+    }
+}
+
 impl SseEncode for Vec<lwk::api::types::OutPoint> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -10168,6 +10496,16 @@ impl SseEncode for Vec<lwk::api::types::WalletBalance> {
         <i32>::sse_encode(self.len() as _, serializer);
         for item in self {
             <lwk::api::types::WalletBalance>::sse_encode(item, serializer);
+        }
+    }
+}
+
+impl SseEncode for Vec<lwk::api::types::WalletTxProjection> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(self.len() as _, serializer);
+        for item in self {
+            <lwk::api::types::WalletTxProjection>::sse_encode(item, serializer);
         }
     }
 }
@@ -10347,6 +10685,26 @@ impl SseEncode for Option<u8> {
         <bool>::sse_encode(self.is_some(), serializer);
         if let Some(value) = self {
             <u8>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<lwk::api::types::WalletTxOutCompact> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <lwk::api::types::WalletTxOutCompact>::sse_encode(value, serializer);
+        }
+    }
+}
+
+impl SseEncode for Option<lwk::api::types::WalletTxProjection> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <lwk::api::types::WalletTxProjection>::sse_encode(value, serializer);
         }
     }
 }
@@ -10865,6 +11223,53 @@ impl SseEncode for lwk::api::types::WalletBalance {
     }
 }
 
+impl SseEncode for lwk::api::types::WalletTxChain {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <i32>::sse_encode(
+            match self {
+                lwk::api::types::WalletTxChain::External => 0,
+                lwk::api::types::WalletTxChain::Internal => 1,
+                _ => {
+                    unimplemented!("");
+                }
+            },
+            serializer,
+        );
+    }
+}
+
+impl SseEncode for lwk::api::types::WalletTxOutCompact {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <lwk::api::types::OutPoint>::sse_encode(self.outpoint, serializer);
+        <String>::sse_encode(self.script_pubkey, serializer);
+        <String>::sse_encode(self.standard_address, serializer);
+        <String>::sse_encode(self.confidential_address, serializer);
+        <u64>::sse_encode(self.value, serializer);
+        <String>::sse_encode(self.asset, serializer);
+        <bool>::sse_encode(self.is_spent, serializer);
+        <Option<u32>>::sse_encode(self.height, serializer);
+        <lwk::api::types::WalletTxChain>::sse_encode(self.chain, serializer);
+    }
+}
+
+impl SseEncode for lwk::api::types::WalletTxProjection {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <String>::sse_encode(self.txid, serializer);
+        <Option<u32>>::sse_encode(self.timestamp, serializer);
+        <String>::sse_encode(self.kind, serializer);
+        <Vec<lwk::api::types::Balance>>::sse_encode(self.balances, serializer);
+        <u64>::sse_encode(self.fee, serializer);
+        <Option<u32>>::sse_encode(self.height, serializer);
+        <Option<String>>::sse_encode(self.unblinded_url, serializer);
+        <usize>::sse_encode(self.vsize, serializer);
+        <Vec<Option<lwk::api::types::WalletTxOutCompact>>>::sse_encode(self.inputs, serializer);
+        <Vec<Option<lwk::api::types::WalletTxOutCompact>>>::sse_encode(self.outputs, serializer);
+    }
+}
+
 #[cfg(not(target_family = "wasm"))]
 mod io {
     // This file is automatically generated, so please do not edit it.
@@ -11285,6 +11690,20 @@ mod io {
             unsafe { *flutter_rust_bridge::for_generated::box_from_leak_ptr(self) }
         }
     }
+    impl CstDecode<lwk::api::types::WalletTxOutCompact> for *mut wire_cst_wallet_tx_out_compact {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::types::WalletTxOutCompact {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<lwk::api::types::WalletTxOutCompact>::cst_decode(*wrap).into()
+        }
+    }
+    impl CstDecode<lwk::api::types::WalletTxProjection> for *mut wire_cst_wallet_tx_projection {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::types::WalletTxProjection {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<lwk::api::types::WalletTxProjection>::cst_decode(*wrap).into()
+        }
+    }
     impl CstDecode<boltz::api::btc_ln::BtcLnSwap> for wire_cst_btc_ln_swap {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> boltz::api::btc_ln::BtcLnSwap {
@@ -11527,6 +11946,18 @@ mod io {
             vec.into_iter().map(CstDecode::cst_decode).collect()
         }
     }
+    impl CstDecode<Vec<Option<lwk::api::types::WalletTxOutCompact>>>
+        for *mut wire_cst_list_opt_box_autoadd_wallet_tx_out_compact
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<Option<lwk::api::types::WalletTxOutCompact>> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
     impl CstDecode<Vec<lwk::api::types::OutPoint>> for *mut wire_cst_list_out_point {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> Vec<lwk::api::types::OutPoint> {
@@ -11672,6 +12103,18 @@ mod io {
     impl CstDecode<Vec<lwk::api::types::WalletBalance>> for *mut wire_cst_list_wallet_balance {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> Vec<lwk::api::types::WalletBalance> {
+            let vec = unsafe {
+                let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
+                flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
+            };
+            vec.into_iter().map(CstDecode::cst_decode).collect()
+        }
+    }
+    impl CstDecode<Vec<lwk::api::types::WalletTxProjection>>
+        for *mut wire_cst_list_wallet_tx_projection
+    {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> Vec<lwk::api::types::WalletTxProjection> {
             let vec = unsafe {
                 let wrap = flutter_rust_bridge::for_generated::box_from_leak_ptr(self);
                 flutter_rust_bridge::for_generated::vec_from_leak_ptr(wrap.ptr, wrap.len)
@@ -12060,6 +12503,39 @@ mod io {
             lwk::api::types::WalletBalance {
                 asset_id: self.asset_id.cst_decode(),
                 value: self.value.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::types::WalletTxOutCompact> for wire_cst_wallet_tx_out_compact {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::types::WalletTxOutCompact {
+            lwk::api::types::WalletTxOutCompact {
+                outpoint: self.outpoint.cst_decode(),
+                script_pubkey: self.script_pubkey.cst_decode(),
+                standard_address: self.standard_address.cst_decode(),
+                confidential_address: self.confidential_address.cst_decode(),
+                value: self.value.cst_decode(),
+                asset: self.asset.cst_decode(),
+                is_spent: self.is_spent.cst_decode(),
+                height: self.height.cst_decode(),
+                chain: self.chain.cst_decode(),
+            }
+        }
+    }
+    impl CstDecode<lwk::api::types::WalletTxProjection> for wire_cst_wallet_tx_projection {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> lwk::api::types::WalletTxProjection {
+            lwk::api::types::WalletTxProjection {
+                txid: self.txid.cst_decode(),
+                timestamp: self.timestamp.cst_decode(),
+                kind: self.kind.cst_decode(),
+                balances: self.balances.cst_decode(),
+                fee: self.fee.cst_decode(),
+                height: self.height.cst_decode(),
+                unblinded_url: self.unblinded_url.cst_decode(),
+                vsize: self.vsize.cst_decode(),
+                inputs: self.inputs.cst_decode(),
+                outputs: self.outputs.cst_decode(),
             }
         }
     }
@@ -12883,6 +13359,47 @@ mod io {
             Self::new_with_null_ptr()
         }
     }
+    impl NewWithNullPtr for wire_cst_wallet_tx_out_compact {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                outpoint: Default::default(),
+                script_pubkey: core::ptr::null_mut(),
+                standard_address: core::ptr::null_mut(),
+                confidential_address: core::ptr::null_mut(),
+                value: Default::default(),
+                asset: core::ptr::null_mut(),
+                is_spent: Default::default(),
+                height: core::ptr::null_mut(),
+                chain: Default::default(),
+            }
+        }
+    }
+    impl Default for wire_cst_wallet_tx_out_compact {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
+    impl NewWithNullPtr for wire_cst_wallet_tx_projection {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                txid: core::ptr::null_mut(),
+                timestamp: core::ptr::null_mut(),
+                kind: core::ptr::null_mut(),
+                balances: core::ptr::null_mut(),
+                fee: Default::default(),
+                height: core::ptr::null_mut(),
+                unblinded_url: core::ptr::null_mut(),
+                vsize: Default::default(),
+                inputs: core::ptr::null_mut(),
+                outputs: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_wallet_tx_projection {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
 
     #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__bbqr__continuous_join__ContinuousJoiner_default(
@@ -13389,6 +13906,34 @@ mod io {
             validate_domain,
             stop_at_index,
             timeout,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_transaction_projection(
+        port_: i64,
+        that: usize,
+        txid: *mut wire_cst_list_prim_u_8_strict,
+        include_unblinding_data: bool,
+    ) {
+        wire__lwk__api__wallet__Wallet_transaction_projection_impl(
+            port_,
+            that,
+            txid,
+            include_unblinding_data,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_transactions_projection(
+        port_: i64,
+        that: usize,
+        include_unblinding_data: bool,
+    ) {
+        wire__lwk__api__wallet__Wallet_transactions_projection_impl(
+            port_,
+            that,
+            include_unblinding_data,
         )
     }
 
@@ -15073,6 +15618,22 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_wallet_tx_out_compact(
+    ) -> *mut wire_cst_wallet_tx_out_compact {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_wallet_tx_out_compact::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_wallet_tx_projection(
+    ) -> *mut wire_cst_wallet_tx_projection {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_wallet_tx_projection::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_cst_new_list_String(len: i32) -> *mut wire_cst_list_String {
         let wrap = wire_cst_list_String {
             ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
@@ -15133,6 +15694,17 @@ mod io {
                 <wire_cst_lbtc_ln_swap>::new_with_null_ptr(),
                 len,
             ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_opt_box_autoadd_wallet_tx_out_compact(
+        len: i32,
+    ) -> *mut wire_cst_list_opt_box_autoadd_wallet_tx_out_compact {
+        let wrap = wire_cst_list_opt_box_autoadd_wallet_tx_out_compact {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(core::ptr::null_mut(), len),
             len,
         };
         flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
@@ -15331,6 +15903,20 @@ mod io {
         let wrap = wire_cst_list_wallet_balance {
             ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
                 <wire_cst_wallet_balance>::new_with_null_ptr(),
+                len,
+            ),
+            len,
+        };
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(wrap)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_list_wallet_tx_projection(
+        len: i32,
+    ) -> *mut wire_cst_list_wallet_tx_projection {
+        let wrap = wire_cst_list_wallet_tx_projection {
+            ptr: flutter_rust_bridge::for_generated::new_leak_vec_ptr(
+                <wire_cst_wallet_tx_projection>::new_with_null_ptr(),
                 len,
             ),
             len,
@@ -15543,6 +16129,12 @@ mod io {
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
+    pub struct wire_cst_list_opt_box_autoadd_wallet_tx_out_compact {
+        ptr: *mut *mut wire_cst_wallet_tx_out_compact,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
     pub struct wire_cst_list_out_point {
         ptr: *mut wire_cst_out_point,
         len: i32,
@@ -15629,6 +16221,12 @@ mod io {
     #[derive(Clone, Copy)]
     pub struct wire_cst_list_wallet_balance {
         ptr: *mut wire_cst_wallet_balance,
+        len: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_list_wallet_tx_projection {
+        ptr: *mut wire_cst_wallet_tx_projection,
         len: i32,
     }
     #[repr(C)]
@@ -15916,6 +16514,33 @@ mod io {
     pub struct wire_cst_wallet_balance {
         asset_id: *mut wire_cst_list_prim_u_8_strict,
         value: u64,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_wallet_tx_out_compact {
+        outpoint: wire_cst_out_point,
+        script_pubkey: *mut wire_cst_list_prim_u_8_strict,
+        standard_address: *mut wire_cst_list_prim_u_8_strict,
+        confidential_address: *mut wire_cst_list_prim_u_8_strict,
+        value: u64,
+        asset: *mut wire_cst_list_prim_u_8_strict,
+        is_spent: bool,
+        height: *mut u32,
+        chain: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_wallet_tx_projection {
+        txid: *mut wire_cst_list_prim_u_8_strict,
+        timestamp: *mut u32,
+        kind: *mut wire_cst_list_prim_u_8_strict,
+        balances: *mut wire_cst_list_balance,
+        fee: u64,
+        height: *mut u32,
+        unblinded_url: *mut wire_cst_list_prim_u_8_strict,
+        vsize: usize,
+        inputs: *mut wire_cst_list_opt_box_autoadd_wallet_tx_out_compact,
+        outputs: *mut wire_cst_list_opt_box_autoadd_wallet_tx_out_compact,
     }
 }
 #[cfg(not(target_family = "wasm"))]

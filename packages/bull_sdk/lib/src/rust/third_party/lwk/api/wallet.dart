@@ -124,6 +124,17 @@ abstract class Wallet implements RustOpaqueInterface {
     int? timeout,
   });
 
+  /// Get the wallet-owned transaction details while preserving original vin/vout indexes.
+  Future<WalletTxProjection?> transactionProjection({
+    required String txid,
+    required bool includeUnblindingData,
+  });
+
+  /// Get compact projections for the complete transaction history under one wallet lock.
+  Future<List<WalletTxProjection>> transactionsProjection({
+    required bool includeUnblindingData,
+  });
+
   /// Get the transaction history of the wallet
   Future<List<Tx>> txs();
 

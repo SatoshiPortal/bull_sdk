@@ -273,6 +273,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   int dco_decode_box_autoadd_u_8(dynamic raw);
 
   @protected
+  WalletTxOutCompact dco_decode_box_autoadd_wallet_tx_out_compact(dynamic raw);
+
+  @protected
+  WalletTxProjection dco_decode_box_autoadd_wallet_tx_projection(dynamic raw);
+
+  @protected
   BtcLnSwap dco_decode_btc_ln_swap(dynamic raw);
 
   @protected
@@ -357,6 +363,10 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   List<LbtcLnSwap> dco_decode_list_lbtc_ln_swap(dynamic raw);
 
   @protected
+  List<WalletTxOutCompact?>
+  dco_decode_list_opt_box_autoadd_wallet_tx_out_compact(dynamic raw);
+
+  @protected
   List<OutPoint> dco_decode_list_out_point(dynamic raw);
 
   @protected
@@ -400,6 +410,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   List<WalletBalance> dco_decode_list_wallet_balance(dynamic raw);
+
+  @protected
+  List<WalletTxProjection> dco_decode_list_wallet_tx_projection(dynamic raw);
 
   @protected
   Lnurl dco_decode_lnurl(dynamic raw);
@@ -456,6 +469,16 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int? dco_decode_opt_box_autoadd_u_8(dynamic raw);
+
+  @protected
+  WalletTxOutCompact? dco_decode_opt_box_autoadd_wallet_tx_out_compact(
+    dynamic raw,
+  );
+
+  @protected
+  WalletTxProjection? dco_decode_opt_box_autoadd_wallet_tx_projection(
+    dynamic raw,
+  );
 
   @protected
   Uint8List? dco_decode_opt_list_prim_u_8_strict(dynamic raw);
@@ -588,6 +611,15 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   WalletBalance dco_decode_wallet_balance(dynamic raw);
+
+  @protected
+  WalletTxChain dco_decode_wallet_tx_chain(dynamic raw);
+
+  @protected
+  WalletTxOutCompact dco_decode_wallet_tx_out_compact(dynamic raw);
+
+  @protected
+  WalletTxProjection dco_decode_wallet_tx_projection(dynamic raw);
 
   @protected
   AnyhowException sse_decode_AnyhowException(SseDeserializer deserializer);
@@ -804,6 +836,16 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   int sse_decode_box_autoadd_u_8(SseDeserializer deserializer);
 
   @protected
+  WalletTxOutCompact sse_decode_box_autoadd_wallet_tx_out_compact(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  WalletTxProjection sse_decode_box_autoadd_wallet_tx_projection(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   BtcLnSwap sse_decode_btc_ln_swap(SseDeserializer deserializer);
 
   @protected
@@ -894,6 +936,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   List<LbtcLnSwap> sse_decode_list_lbtc_ln_swap(SseDeserializer deserializer);
 
   @protected
+  List<WalletTxOutCompact?>
+  sse_decode_list_opt_box_autoadd_wallet_tx_out_compact(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   List<OutPoint> sse_decode_list_out_point(SseDeserializer deserializer);
 
   @protected
@@ -947,6 +995,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   List<WalletBalance> sse_decode_list_wallet_balance(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  List<WalletTxProjection> sse_decode_list_wallet_tx_projection(
     SseDeserializer deserializer,
   );
 
@@ -1013,6 +1066,16 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int? sse_decode_opt_box_autoadd_u_8(SseDeserializer deserializer);
+
+  @protected
+  WalletTxOutCompact? sse_decode_opt_box_autoadd_wallet_tx_out_compact(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  WalletTxProjection? sse_decode_opt_box_autoadd_wallet_tx_projection(
+    SseDeserializer deserializer,
+  );
 
   @protected
   Uint8List? sse_decode_opt_list_prim_u_8_strict(SseDeserializer deserializer);
@@ -1161,6 +1224,19 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   WalletBalance sse_decode_wallet_balance(SseDeserializer deserializer);
+
+  @protected
+  WalletTxChain sse_decode_wallet_tx_chain(SseDeserializer deserializer);
+
+  @protected
+  WalletTxOutCompact sse_decode_wallet_tx_out_compact(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  WalletTxProjection sse_decode_wallet_tx_projection(
+    SseDeserializer deserializer,
+  );
 
   @protected
   ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_AnyhowException(
@@ -1438,6 +1514,24 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_wallet_tx_out_compact>
+  cst_encode_box_autoadd_wallet_tx_out_compact(WalletTxOutCompact raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_wallet_tx_out_compact();
+    cst_api_fill_to_wire_wallet_tx_out_compact(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_wallet_tx_projection>
+  cst_encode_box_autoadd_wallet_tx_projection(WalletTxProjection raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_wallet_tx_projection();
+    cst_api_fill_to_wire_wallet_tx_projection(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
   int cst_encode_i_64(PlatformInt64 raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw.toInt();
@@ -1497,6 +1591,21 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     final ans = wire.cst_new_list_lbtc_ln_swap(raw.length);
     for (var i = 0; i < raw.length; ++i) {
       cst_api_fill_to_wire_lbtc_ln_swap(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_opt_box_autoadd_wallet_tx_out_compact>
+  cst_encode_list_opt_box_autoadd_wallet_tx_out_compact(
+    List<WalletTxOutCompact?> raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_opt_box_autoadd_wallet_tx_out_compact(
+      raw.length,
+    );
+    for (var i = 0; i < raw.length; ++i) {
+      ans.ref.ptr[i] = cst_encode_opt_box_autoadd_wallet_tx_out_compact(raw[i]);
     }
     return ans;
   }
@@ -1672,6 +1781,17 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_list_wallet_tx_projection>
+  cst_encode_list_wallet_tx_projection(List<WalletTxProjection> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_wallet_tx_projection(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_wallet_tx_projection(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
   ffi.Pointer<wire_cst_list_prim_u_8_strict> cst_encode_opt_String(
     String? raw,
   ) {
@@ -1772,6 +1892,24 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   ffi.Pointer<ffi.Uint8> cst_encode_opt_box_autoadd_u_8(int? raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return raw == null ? ffi.nullptr : cst_encode_box_autoadd_u_8(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_wallet_tx_out_compact>
+  cst_encode_opt_box_autoadd_wallet_tx_out_compact(WalletTxOutCompact? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_box_autoadd_wallet_tx_out_compact(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_wallet_tx_projection>
+  cst_encode_opt_box_autoadd_wallet_tx_projection(WalletTxProjection? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_box_autoadd_wallet_tx_projection(raw);
   }
 
   @protected
@@ -1996,6 +2134,22 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     ffi.Pointer<wire_cst_tx_output> wireObj,
   ) {
     cst_api_fill_to_wire_tx_output(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_wallet_tx_out_compact(
+    WalletTxOutCompact apiObj,
+    ffi.Pointer<wire_cst_wallet_tx_out_compact> wireObj,
+  ) {
+    cst_api_fill_to_wire_wallet_tx_out_compact(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_wallet_tx_projection(
+    WalletTxProjection apiObj,
+    ffi.Pointer<wire_cst_wallet_tx_projection> wireObj,
+  ) {
+    cst_api_fill_to_wire_wallet_tx_projection(apiObj, wireObj.ref);
   }
 
   @protected
@@ -2601,6 +2755,45 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_wallet_tx_out_compact(
+    WalletTxOutCompact apiObj,
+    wire_cst_wallet_tx_out_compact wireObj,
+  ) {
+    cst_api_fill_to_wire_out_point(apiObj.outpoint, wireObj.outpoint);
+    wireObj.script_pubkey = cst_encode_String(apiObj.scriptPubkey);
+    wireObj.standard_address = cst_encode_String(apiObj.standardAddress);
+    wireObj.confidential_address = cst_encode_String(
+      apiObj.confidentialAddress,
+    );
+    wireObj.value = cst_encode_u_64(apiObj.value);
+    wireObj.asset = cst_encode_String(apiObj.asset);
+    wireObj.is_spent = cst_encode_bool(apiObj.isSpent);
+    wireObj.height = cst_encode_opt_box_autoadd_u_32(apiObj.height);
+    wireObj.chain = cst_encode_wallet_tx_chain(apiObj.chain);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_wallet_tx_projection(
+    WalletTxProjection apiObj,
+    wire_cst_wallet_tx_projection wireObj,
+  ) {
+    wireObj.txid = cst_encode_String(apiObj.txid);
+    wireObj.timestamp = cst_encode_opt_box_autoadd_u_32(apiObj.timestamp);
+    wireObj.kind = cst_encode_String(apiObj.kind);
+    wireObj.balances = cst_encode_list_balance(apiObj.balances);
+    wireObj.fee = cst_encode_u_64(apiObj.fee);
+    wireObj.height = cst_encode_opt_box_autoadd_u_32(apiObj.height);
+    wireObj.unblinded_url = cst_encode_opt_String(apiObj.unblindedUrl);
+    wireObj.vsize = cst_encode_usize(apiObj.vsize);
+    wireObj.inputs = cst_encode_list_opt_box_autoadd_wallet_tx_out_compact(
+      apiObj.inputs,
+    );
+    wireObj.outputs = cst_encode_list_opt_box_autoadd_wallet_tx_out_compact(
+      apiObj.outputs,
+    );
+  }
+
+  @protected
   int
   cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerContinuousJoinResult(
     ContinuousJoinResult raw,
@@ -2740,6 +2933,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int cst_encode_version(Version raw);
+
+  @protected
+  int cst_encode_wallet_tx_chain(WalletTxChain raw);
 
   @protected
   void sse_encode_AnyhowException(
@@ -3020,6 +3216,18 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void sse_encode_box_autoadd_u_8(int self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_wallet_tx_out_compact(
+    WalletTxOutCompact self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_box_autoadd_wallet_tx_projection(
+    WalletTxProjection self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_btc_ln_swap(BtcLnSwap self, SseSerializer serializer);
 
   @protected
@@ -3131,6 +3339,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
+  void sse_encode_list_opt_box_autoadd_wallet_tx_out_compact(
+    List<WalletTxOutCompact?> self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_list_out_point(List<OutPoint> self, SseSerializer serializer);
 
   @protected
@@ -3199,6 +3413,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   void sse_encode_list_wallet_balance(
     List<WalletBalance> self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_list_wallet_tx_projection(
+    List<WalletTxProjection> self,
     SseSerializer serializer,
   );
 
@@ -3282,6 +3502,18 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void sse_encode_opt_box_autoadd_u_8(int? self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_opt_box_autoadd_wallet_tx_out_compact(
+    WalletTxOutCompact? self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_opt_box_autoadd_wallet_tx_projection(
+    WalletTxProjection? self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_opt_list_prim_u_8_strict(
@@ -3447,6 +3679,21 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void sse_encode_wallet_balance(WalletBalance self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_wallet_tx_chain(WalletTxChain self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_wallet_tx_out_compact(
+    WalletTxOutCompact self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_wallet_tx_projection(
+    WalletTxProjection self,
+    SseSerializer serializer,
+  );
 }
 
 // Section: wire_class
@@ -4715,6 +4962,66 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<ffi.Uint8>,
             )
           >();
+
+  void wire__lwk__api__wallet__Wallet_transaction_projection(
+    int port_,
+    int that,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> txid,
+    bool include_unblinding_data,
+  ) {
+    return _wire__lwk__api__wallet__Wallet_transaction_projection(
+      port_,
+      that,
+      txid,
+      include_unblinding_data,
+    );
+  }
+
+  late final _wire__lwk__api__wallet__Wallet_transaction_projectionPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.UintPtr,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Bool,
+          )
+        >
+      >(
+        'frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_transaction_projection',
+      );
+  late final _wire__lwk__api__wallet__Wallet_transaction_projection =
+      _wire__lwk__api__wallet__Wallet_transaction_projectionPtr
+          .asFunction<
+            void Function(
+              int,
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              bool,
+            )
+          >();
+
+  void wire__lwk__api__wallet__Wallet_transactions_projection(
+    int port_,
+    int that,
+    bool include_unblinding_data,
+  ) {
+    return _wire__lwk__api__wallet__Wallet_transactions_projection(
+      port_,
+      that,
+      include_unblinding_data,
+    );
+  }
+
+  late final _wire__lwk__api__wallet__Wallet_transactions_projectionPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.Bool)>
+      >(
+        'frbgen_bull_sdk_wire__lwk__api__wallet__Wallet_transactions_projection',
+      );
+  late final _wire__lwk__api__wallet__Wallet_transactions_projection =
+      _wire__lwk__api__wallet__Wallet_transactions_projectionPtr
+          .asFunction<void Function(int, int, bool)>();
 
   void wire__lwk__api__wallet__Wallet_txs(int port_, int that) {
     return _wire__lwk__api__wallet__Wallet_txs(port_, that);
@@ -8728,6 +9035,36 @@ class BullSdkWire implements BaseWire {
   late final _cst_new_box_autoadd_u_8 = _cst_new_box_autoadd_u_8Ptr
       .asFunction<ffi.Pointer<ffi.Uint8> Function(int)>();
 
+  ffi.Pointer<wire_cst_wallet_tx_out_compact>
+  cst_new_box_autoadd_wallet_tx_out_compact() {
+    return _cst_new_box_autoadd_wallet_tx_out_compact();
+  }
+
+  late final _cst_new_box_autoadd_wallet_tx_out_compactPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<wire_cst_wallet_tx_out_compact> Function()
+        >
+      >('frbgen_bull_sdk_cst_new_box_autoadd_wallet_tx_out_compact');
+  late final _cst_new_box_autoadd_wallet_tx_out_compact =
+      _cst_new_box_autoadd_wallet_tx_out_compactPtr
+          .asFunction<ffi.Pointer<wire_cst_wallet_tx_out_compact> Function()>();
+
+  ffi.Pointer<wire_cst_wallet_tx_projection>
+  cst_new_box_autoadd_wallet_tx_projection() {
+    return _cst_new_box_autoadd_wallet_tx_projection();
+  }
+
+  late final _cst_new_box_autoadd_wallet_tx_projectionPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<wire_cst_wallet_tx_projection> Function()
+        >
+      >('frbgen_bull_sdk_cst_new_box_autoadd_wallet_tx_projection');
+  late final _cst_new_box_autoadd_wallet_tx_projection =
+      _cst_new_box_autoadd_wallet_tx_projectionPtr
+          .asFunction<ffi.Pointer<wire_cst_wallet_tx_projection> Function()>();
+
   ffi.Pointer<wire_cst_list_String> cst_new_list_String(int len) {
     return _cst_new_list_String(len);
   }
@@ -8792,6 +9129,25 @@ class BullSdkWire implements BaseWire {
       >('frbgen_bull_sdk_cst_new_list_lbtc_ln_swap');
   late final _cst_new_list_lbtc_ln_swap = _cst_new_list_lbtc_ln_swapPtr
       .asFunction<ffi.Pointer<wire_cst_list_lbtc_ln_swap> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_opt_box_autoadd_wallet_tx_out_compact>
+  cst_new_list_opt_box_autoadd_wallet_tx_out_compact(int len) {
+    return _cst_new_list_opt_box_autoadd_wallet_tx_out_compact(len);
+  }
+
+  late final _cst_new_list_opt_box_autoadd_wallet_tx_out_compactPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_opt_box_autoadd_wallet_tx_out_compact>
+          Function(ffi.Int32)
+        >
+      >('frbgen_bull_sdk_cst_new_list_opt_box_autoadd_wallet_tx_out_compact');
+  late final _cst_new_list_opt_box_autoadd_wallet_tx_out_compact =
+      _cst_new_list_opt_box_autoadd_wallet_tx_out_compactPtr
+          .asFunction<
+            ffi.Pointer<wire_cst_list_opt_box_autoadd_wallet_tx_out_compact>
+            Function(int)
+          >();
 
   ffi.Pointer<wire_cst_list_out_point> cst_new_list_out_point(int len) {
     return _cst_new_list_out_point(len);
@@ -9003,6 +9359,23 @@ class BullSdkWire implements BaseWire {
       >('frbgen_bull_sdk_cst_new_list_wallet_balance');
   late final _cst_new_list_wallet_balance = _cst_new_list_wallet_balancePtr
       .asFunction<ffi.Pointer<wire_cst_list_wallet_balance> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_wallet_tx_projection>
+  cst_new_list_wallet_tx_projection(int len) {
+    return _cst_new_list_wallet_tx_projection(len);
+  }
+
+  late final _cst_new_list_wallet_tx_projectionPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_wallet_tx_projection> Function(ffi.Int32)
+        >
+      >('frbgen_bull_sdk_cst_new_list_wallet_tx_projection');
+  late final _cst_new_list_wallet_tx_projection =
+      _cst_new_list_wallet_tx_projectionPtr
+          .asFunction<
+            ffi.Pointer<wire_cst_list_wallet_tx_projection> Function(int)
+          >();
 
   int dummy_method_to_enforce_bundling() {
     return _dummy_method_to_enforce_bundling();
@@ -9416,6 +9789,29 @@ final class wire_cst_tx_output extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> nonce;
 }
 
+final class wire_cst_wallet_tx_out_compact extends ffi.Struct {
+  external wire_cst_out_point outpoint;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> script_pubkey;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> standard_address;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> confidential_address;
+
+  @ffi.Uint64()
+  external int value;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> asset;
+
+  @ffi.Bool()
+  external bool is_spent;
+
+  external ffi.Pointer<ffi.Uint32> height;
+
+  @ffi.Int32()
+  external int chain;
+}
+
 final class wire_cst_balance extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> asset_id;
 
@@ -9428,6 +9824,40 @@ final class wire_cst_list_balance extends ffi.Struct {
 
   @ffi.Int32()
   external int len;
+}
+
+final class wire_cst_list_opt_box_autoadd_wallet_tx_out_compact
+    extends ffi.Struct {
+  external ffi.Pointer<ffi.Pointer<wire_cst_wallet_tx_out_compact>> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_wallet_tx_projection extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> txid;
+
+  external ffi.Pointer<ffi.Uint32> timestamp;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> kind;
+
+  external ffi.Pointer<wire_cst_list_balance> balances;
+
+  @ffi.Uint64()
+  external int fee;
+
+  external ffi.Pointer<ffi.Uint32> height;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> unblinded_url;
+
+  @ffi.UintPtr()
+  external int vsize;
+
+  external ffi.Pointer<wire_cst_list_opt_box_autoadd_wallet_tx_out_compact>
+  inputs;
+
+  external ffi.Pointer<wire_cst_list_opt_box_autoadd_wallet_tx_out_compact>
+  outputs;
 }
 
 final class wire_cst_list_btc_ln_swap extends ffi.Struct {
@@ -9615,6 +10045,13 @@ final class wire_cst_vout_outspend extends ffi.Struct {
 
 final class wire_cst_list_vout_outspend extends ffi.Struct {
   external ffi.Pointer<wire_cst_vout_outspend> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_list_wallet_tx_projection extends ffi.Struct {
+  external ffi.Pointer<wire_cst_wallet_tx_projection> ptr;
 
   @ffi.Int32()
   external int len;
