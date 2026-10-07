@@ -62,7 +62,7 @@ defined in this crate, so an upstream change is absorbed here instead of
 rippling into the app, and the Dart side can switch exhaustively.
 
 **Snowflake is native and unmanaged.** Android and iOS use the precompiled
-IPtProxy 5.5.1 mobile library. It binds a local SOCKS5 listener; Arti's
+IPtProxy 5.6.0 mobile library. It binds a local SOCKS5 listener; Arti's
 `tor-ptmgr` connects to that listener as an unmanaged transport and never tries
 to launch a subprocess. Native process-wide leases keep one listener alive
 while multiple Flutter engines use it. The Android AAR and both iOS binary
@@ -124,6 +124,16 @@ connectivity drops, or when its directory information expires. Consumers must
 treat each `TorStatus` as the current truth rather than latching the first
 `ready_for_traffic`. This is why the status is a stream and not a one-shot
 boolean.
+
+### Stage text
+
+`TorStatus::stage` carries arti's own one-line description of the snapshot
+(the `Display` of `BootstrapStatus`), for example `36%: connecting
+successfully; directory is fetching authority certificates (0/9)`, or
+`Stuck at …` followed by the blockage while arti believes it is stuck. arti designs that string for humans,
+not parsers, and its wording can change between releases: show it as
+diagnostic detail or log it, but act on `fraction`, `ready_for_traffic` and
+`blockage`. It is not localized, and it is empty once the service has stopped.
 
 ### Blockage kinds
 
@@ -204,7 +214,7 @@ conflicts with a previous package which links to `sqlite3` as well
 ```
 
 - `ark_wallet` -> `ark-client 0.7.0` -> `sqlx 0.8` -> `libsqlite3-sys 0.30`
-- `onion` -> `arti-client 0.44` -> `tor-dirmgr` -> `rusqlite >=0.36 <0.40` ->
+- `onion` -> `arti-client 0.47` -> `tor-dirmgr` -> `rusqlite >=0.36 <0.41` ->
   `libsqlite3-sys 0.37`
 
 Only one package in a graph may declare `links = "sqlite3"`. `rusqlite` is a
@@ -224,9 +234,10 @@ aggregate.
 
 ## Snowflake limitations
 
-- The bridge parameters are the Fastly and AMP-cache configurations published
-  by Arti 0.44.0. Updating Arti requires reviewing these values against the
-  current official Snowflake configuration.
+- The bridge lines are copied verbatim from Tor Browser's
+  `projects/tor-expert-bundle/pt_config.json` (re-checked 2026-10-07). Updating
+  Arti or IPtProxy requires reviewing these values against the current official
+  Snowflake configuration.
 - Arti has no BridgeDB/moat client. A future dynamic bridge distribution flow
   would require a separate integration.
 - Changing between direct and Snowflake transport recreates the client; it is
