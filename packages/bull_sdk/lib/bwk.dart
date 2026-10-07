@@ -20,6 +20,8 @@ export 'src/rust/api/simple.dart'
         SpNotification_HeaderProgressCompleted,
         SpNotification_HeaderProgressFailed,
         SpNotification_PaymentHistoryUpdated,
+        SpNotification_ElectrumDisconnected,
+        SpNotification_Reorg,
         RecipientView,
         RecipientView_Sp,
         RecipientView_Standard,

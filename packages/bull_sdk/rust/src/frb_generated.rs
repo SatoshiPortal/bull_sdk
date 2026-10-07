@@ -45,7 +45,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.12.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -593266635;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 825922140;
 
 // Section: executor
 
@@ -182,10 +182,14 @@ fn wire__lwk__api__transaction__LiquidTransaction_from_bytes_impl(
         },
         move || {
             let api_tx_bytes = tx_bytes.cst_decode();
-            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                let output_ok = lwk::api::transaction::LiquidTransaction::from_bytes(api_tx_bytes)?;
-                Ok(output_ok)
-            })().map_err(FrbWrapper))
+            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                (move || {
+                    let output_ok =
+                        lwk::api::transaction::LiquidTransaction::from_bytes(api_tx_bytes)?;
+                    Ok(output_ok)
+                })()
+                .map_err(FrbWrapper),
+            )
         },
     )
 }
@@ -200,11 +204,14 @@ fn wire__lwk__api__transaction__LiquidTransaction_from_pset_impl(
         },
         move || {
             let api_pset_string = pset_string.cst_decode();
-            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                let output_ok =
-                    lwk::api::transaction::LiquidTransaction::from_pset(api_pset_string)?;
-                Ok(output_ok)
-            })().map_err(FrbWrapper))
+            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                (move || {
+                    let output_ok =
+                        lwk::api::transaction::LiquidTransaction::from_pset(api_pset_string)?;
+                    Ok(output_ok)
+                })()
+                .map_err(FrbWrapper),
+            )
         },
     )
 }
@@ -865,27 +872,30 @@ fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_extract_tx_im
         },
         move || {
             let api_that = that.cst_decode();
-            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
-                for i in decode_indices_ {
-                    match i {
-                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                        _ => unreachable!(),
+            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                (move || {
+                    let mut api_that_guard = None;
+                    let decode_indices_ =
+                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                &api_that, 0, false,
+                            ),
+                        ]);
+                    for i in decode_indices_ {
+                        match i {
+                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                            _ => unreachable!(),
+                        }
                     }
-                }
-                let api_that_guard = api_that_guard.unwrap();
-                let output_ok =
-                    lwk::api::transaction::PartiallySignedElementsTransaction::extract_tx(
-                        &*api_that_guard,
-                    )?;
-                Ok(output_ok)
-            })().map_err(FrbWrapper))
+                    let api_that_guard = api_that_guard.unwrap();
+                    let output_ok =
+                        lwk::api::transaction::PartiallySignedElementsTransaction::extract_tx(
+                            &*api_that_guard,
+                        )?;
+                    Ok(output_ok)
+                })()
+                .map_err(FrbWrapper),
+            )
         },
     )
 }
@@ -900,13 +910,16 @@ fn wire__lwk__api__transaction__PartiallySignedElementsTransaction_from_string_i
         },
         move || {
             let api_pset_string = pset_string.cst_decode();
-            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                let output_ok =
-                    lwk::api::transaction::PartiallySignedElementsTransaction::from_string(
-                        api_pset_string,
-                    )?;
-                Ok(output_ok)
-            })().map_err(FrbWrapper))
+            transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                (move || {
+                    let output_ok =
+                        lwk::api::transaction::PartiallySignedElementsTransaction::from_string(
+                            api_pset_string,
+                        )?;
+                    Ok(output_ok)
+                })()
+                .map_err(FrbWrapper),
+            )
         },
     )
 }
@@ -2195,6 +2208,42 @@ fn wire__dart_bwk__api__sp_account__SpAccount_prepare_psbt_impl(
         },
     )
 }
+fn wire__dart_bwk__api__sp_account__SpAccount_restamp_missing_timestamps_impl(
+    that: impl CstDecode<
+        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<SpAccount>>,
+    >,
+) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "SpAccount_restamp_missing_timestamps",
+            port: None,
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            transform_result_dco::<_, _, String>((move || {
+                let mut api_that_guard = None;
+                let decode_indices_ =
+                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
+                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                            &api_that, 0, false,
+                        ),
+                    ]);
+                for i in decode_indices_ {
+                    match i {
+                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                        _ => unreachable!(),
+                    }
+                }
+                let api_that_guard = api_that_guard.unwrap();
+                let output_ok = dart_bwk::api::sp_account::SpAccount::restamp_missing_timestamps(
+                    &*api_that_guard,
+                )?;
+                Ok(output_ok)
+            })())
+        },
+    )
+}
 fn wire__dart_bwk__api__sp_account__SpAccount_restart_electrum_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<
@@ -2512,45 +2561,6 @@ fn wire__dart_bwk__api__sp_account__SpAccount_stop_scan_impl(
         },
     )
 }
-fn wire__dart_bwk__api__sp_account__SpAccount_sub_account_balance_impl(
-    that: impl CstDecode<
-        RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<SpAccount>>,
-    >,
-    kind: impl CstDecode<dart_bwk::api::types::SubAccountKind>,
-) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync::<flutter_rust_bridge::for_generated::DcoCodec, _>(
-        flutter_rust_bridge::for_generated::TaskInfo {
-            debug_name: "SpAccount_sub_account_balance",
-            port: None,
-            mode: flutter_rust_bridge::for_generated::FfiCallMode::Sync,
-        },
-        move || {
-            let api_that = that.cst_decode();
-            let api_kind = kind.cst_decode();
-            transform_result_dco::<_, _, String>((move || {
-                let mut api_that_guard = None;
-                let decode_indices_ =
-                    flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                        flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                            &api_that, 0, false,
-                        ),
-                    ]);
-                for i in decode_indices_ {
-                    match i {
-                        0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                        _ => unreachable!(),
-                    }
-                }
-                let api_that_guard = api_that_guard.unwrap();
-                let output_ok = dart_bwk::api::sp_account::SpAccount::sub_account_balance(
-                    &*api_that_guard,
-                    api_kind,
-                )?;
-                Ok(output_ok)
-            })())
-        },
-    )
-}
 fn wire__dart_bwk__api__sp_account__SpAccount_unified_balance_impl(
     that: impl CstDecode<
         RustOpaqueNom<flutter_rust_bridge::for_generated::RustAutoOpaqueInner<SpAccount>>,
@@ -2677,24 +2687,28 @@ fn wire__lwk__api__wallet__Wallet_address_impl(
             let api_that = that.cst_decode();
             let api_index = index.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::address(&*api_that_guard, api_index)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok =
+                            lwk::api::wallet::Wallet::address(&*api_that_guard, api_index)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -2712,25 +2726,28 @@ fn wire__lwk__api__wallet__Wallet_address_last_unused_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok =
-                        lwk::api::wallet::Wallet::address_last_unused(&*api_that_guard)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok =
+                            lwk::api::wallet::Wallet::address_last_unused(&*api_that_guard)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -2748,24 +2765,27 @@ fn wire__lwk__api__wallet__Wallet_balances_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::balances(&*api_that_guard)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = lwk::api::wallet::Wallet::balances(&*api_that_guard)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -2783,24 +2803,27 @@ fn wire__lwk__api__wallet__Wallet_blinding_key_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::blinding_key(&*api_that_guard)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = lwk::api::wallet::Wallet::blinding_key(&*api_that_guard)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -2826,30 +2849,33 @@ fn wire__lwk__api__wallet__Wallet_build_asset_tx_impl(
             let api_fee_rate = fee_rate.cst_decode();
             let api_asset = asset.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::build_asset_tx(
-                        &*api_that_guard,
-                        api_sats,
-                        api_out_address,
-                        api_fee_rate,
-                        api_asset,
-                    )?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = lwk::api::wallet::Wallet::build_asset_tx(
+                            &*api_that_guard,
+                            api_sats,
+                            api_out_address,
+                            api_fee_rate,
+                            api_asset,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -2875,30 +2901,33 @@ fn wire__lwk__api__wallet__Wallet_build_custom_tx_impl(
             let api_drain_to = drain_to.cst_decode();
             let api_fee_rate = fee_rate.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::build_custom_tx(
-                        &*api_that_guard,
-                        api_utxos,
-                        api_outputs,
-                        api_drain_to,
-                        api_fee_rate,
-                    )?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = lwk::api::wallet::Wallet::build_custom_tx(
+                            &*api_that_guard,
+                            api_utxos,
+                            api_outputs,
+                            api_drain_to,
+                            api_fee_rate,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -2924,30 +2953,33 @@ fn wire__lwk__api__wallet__Wallet_build_lbtc_tx_impl(
             let api_fee_rate = fee_rate.cst_decode();
             let api_drain = drain.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::build_lbtc_tx(
-                        &*api_that_guard,
-                        api_sats,
-                        api_out_address,
-                        api_fee_rate,
-                        api_drain,
-                    )?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = lwk::api::wallet::Wallet::build_lbtc_tx(
+                            &*api_that_guard,
+                            api_sats,
+                            api_out_address,
+                            api_fee_rate,
+                            api_drain,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -2977,32 +3009,35 @@ fn wire__lwk__api__wallet__Wallet_build_payjoin_tx_impl(
             let api_base_url = base_url.cst_decode();
             let api_is_send_all = is_send_all.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::build_payjoin_tx(
-                        &*api_that_guard,
-                        api_sats,
-                        api_out_address,
-                        api_asset,
-                        api_network,
-                        api_base_url,
-                        api_is_send_all,
-                    )?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = lwk::api::wallet::Wallet::build_payjoin_tx(
+                            &*api_that_guard,
+                            api_sats,
+                            api_out_address,
+                            api_asset,
+                            api_network,
+                            api_base_url,
+                            api_is_send_all,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3026,29 +3061,32 @@ fn wire__lwk__api__wallet__Wallet_consolidate_impl(
             let api_high_utxo_threshold = high_utxo_threshold.cst_decode();
             let api_maximum_inputs = maximum_inputs.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::consolidate(
-                        &*api_that_guard,
-                        api_fee_rate,
-                        api_high_utxo_threshold,
-                        api_maximum_inputs,
-                    )?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = lwk::api::wallet::Wallet::consolidate(
+                            &*api_that_guard,
+                            api_fee_rate,
+                            api_high_utxo_threshold,
+                            api_maximum_inputs,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3068,25 +3106,28 @@ fn wire__lwk__api__wallet__Wallet_decode_tx_impl(
             let api_that = that.cst_decode();
             let api_pset = pset.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok =
-                        lwk::api::wallet::Wallet::decode_tx(&*api_that_guard, api_pset)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok =
+                            lwk::api::wallet::Wallet::decode_tx(&*api_that_guard, api_pset)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3104,24 +3145,27 @@ fn wire__lwk__api__wallet__Wallet_descriptor_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::descriptor(&*api_that_guard)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = lwk::api::wallet::Wallet::descriptor(&*api_that_guard)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3143,11 +3187,17 @@ fn wire__lwk__api__wallet__Wallet_init_impl(
             let api_dbpath = dbpath.cst_decode();
             let api_descriptor = descriptor.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let output_ok =
-                        lwk::api::wallet::Wallet::init(api_network, api_dbpath, api_descriptor)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let output_ok = lwk::api::wallet::Wallet::init(
+                            api_network,
+                            api_dbpath,
+                            api_descriptor,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3171,29 +3221,32 @@ fn wire__lwk__api__wallet__Wallet_sign_tx_impl(
             let api_pset = pset.cst_decode();
             let api_mnemonic = mnemonic.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::sign_tx(
-                        &*api_that_guard,
-                        api_network,
-                        api_pset,
-                        api_mnemonic,
-                    )?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = lwk::api::wallet::Wallet::sign_tx(
+                            &*api_that_guard,
+                            api_network,
+                            api_pset,
+                            api_mnemonic,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3217,29 +3270,32 @@ fn wire__lwk__api__wallet__Wallet_signed_pset_with_extra_details_impl(
             let api_pset = pset.cst_decode();
             let api_mnemonic = mnemonic.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::signed_pset_with_extra_details(
-                        &*api_that_guard,
-                        api_network,
-                        api_pset,
-                        api_mnemonic,
-                    )?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = lwk::api::wallet::Wallet::signed_pset_with_extra_details(
+                            &*api_that_guard,
+                            api_network,
+                            api_pset,
+                            api_mnemonic,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3265,30 +3321,33 @@ fn wire__lwk__api__wallet__Wallet_sync_impl(
             let api_stop_at_index = stop_at_index.cst_decode();
             let api_timeout = timeout.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::sync(
-                        &*api_that_guard,
-                        api_electrum_url,
-                        api_validate_domain,
-                        api_stop_at_index,
-                        api_timeout,
-                    )?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = lwk::api::wallet::Wallet::sync(
+                            &*api_that_guard,
+                            api_electrum_url,
+                            api_validate_domain,
+                            api_stop_at_index,
+                            api_timeout,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3306,24 +3365,27 @@ fn wire__lwk__api__wallet__Wallet_txs_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::txs(&*api_that_guard)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = lwk::api::wallet::Wallet::txs(&*api_that_guard)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3341,24 +3403,27 @@ fn wire__lwk__api__wallet__Wallet_utxos_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let mut api_that_guard = None;
-                    let decode_indices_ =
-                        flutter_rust_bridge::for_generated::lockable_compute_decode_order(vec![
-                            flutter_rust_bridge::for_generated::LockableOrderInfo::new(
-                                &api_that, 0, false,
-                            ),
-                        ]);
-                    for i in decode_indices_ {
-                        match i {
-                            0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
-                            _ => unreachable!(),
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let mut api_that_guard = None;
+                        let decode_indices_ =
+                            flutter_rust_bridge::for_generated::lockable_compute_decode_order(
+                                vec![flutter_rust_bridge::for_generated::LockableOrderInfo::new(
+                                    &api_that, 0, false,
+                                )],
+                            );
+                        for i in decode_indices_ {
+                            match i {
+                                0 => api_that_guard = Some(api_that.lockable_decode_sync_ref()),
+                                _ => unreachable!(),
+                            }
                         }
-                    }
-                    let api_that_guard = api_that_guard.unwrap();
-                    let output_ok = lwk::api::wallet::Wallet::utxos(&*api_that_guard)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                        let api_that_guard = api_that_guard.unwrap();
+                        let output_ok = lwk::api::wallet::Wallet::utxos(&*api_that_guard)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3380,14 +3445,17 @@ fn wire__lwk__api__types__address_address_from_script_impl(
             let api_script = script.cst_decode();
             let api_blinding_key = blinding_key.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let output_ok = lwk::api::types::Address::address_from_script(
-                        api_network,
-                        api_script,
-                        api_blinding_key,
-                    )?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let output_ok = lwk::api::types::Address::address_from_script(
+                            api_network,
+                            api_script,
+                            api_blinding_key,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3405,10 +3473,13 @@ fn wire__lwk__api__types__address_validate_impl(
         move || {
             let api_address_string = address_string.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let output_ok = lwk::api::types::Address::validate(api_address_string)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let output_ok = lwk::api::types::Address::validate(api_address_string)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3428,13 +3499,16 @@ fn wire__lwk__api__blockchain__blockchain_broadcast_signed_pset_impl(
             let api_electrum_url = electrum_url.cst_decode();
             let api_signed_pset = signed_pset.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let output_ok = lwk::api::blockchain::Blockchain::broadcast_signed_pset(
-                        api_electrum_url,
-                        api_signed_pset,
-                    )?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let output_ok = lwk::api::blockchain::Blockchain::broadcast_signed_pset(
+                            api_electrum_url,
+                            api_signed_pset,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3454,13 +3528,16 @@ fn wire__lwk__api__blockchain__blockchain_broadcast_tx_bytes_impl(
             let api_electrum_url = electrum_url.cst_decode();
             let api_tx_bytes = tx_bytes.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let output_ok = lwk::api::blockchain::Blockchain::broadcast_tx_bytes(
-                        api_electrum_url,
-                        api_tx_bytes,
-                    )?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let output_ok = lwk::api::blockchain::Blockchain::broadcast_tx_bytes(
+                            api_electrum_url,
+                            api_tx_bytes,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3480,11 +3557,14 @@ fn wire__lwk__api__blockchain__blockchain_test_impl(
             let api_that = that.cst_decode();
             let api_electrum_url = electrum_url.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let output_ok =
-                        lwk::api::blockchain::Blockchain::test(&api_that, api_electrum_url)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let output_ok =
+                            lwk::api::blockchain::Blockchain::test(&api_that, api_electrum_url)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -3711,10 +3791,13 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_from_json_impl(
         move || {
             let api_json_str = json_str.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
-                    let output_ok = boltz::api::btc_ln::BtcLnSwap::from_json(&api_json_str)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || {
+                        let output_ok = boltz::api::btc_ln::BtcLnSwap::from_json(&api_json_str)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -4012,10 +4095,13 @@ fn wire__boltz__api__btc_ln__btc_ln_swap_to_json_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
-                    let output_ok = boltz::api::btc_ln::BtcLnSwap::to_json(&api_that)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || {
+                        let output_ok = boltz::api::btc_ln::BtcLnSwap::to_json(&api_that)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -4671,13 +4757,16 @@ fn wire__lwk__api__descriptor__descriptor_new_confidential_impl(
             let api_network = network.cst_decode();
             let api_mnemonic = mnemonic.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let output_ok = lwk::api::descriptor::Descriptor::new_confidential(
-                        api_network,
-                        api_mnemonic,
-                    )?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let output_ok = lwk::api::descriptor::Descriptor::new_confidential(
+                            api_network,
+                            api_mnemonic,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -4783,10 +4872,13 @@ fn wire__lwk__api__transaction__extract_tx_bytes_impl(
         move || {
             let api_pset = pset.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let output_ok = lwk::api::transaction::extract_tx_bytes(api_pset)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let output_ok = lwk::api::transaction::extract_tx_bytes(api_pset)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -5160,10 +5252,14 @@ fn wire__lwk__api__transaction__get_size_and_absolute_fees_impl(
         move || {
             let api_pset = pset.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>((move || {
-                    let output_ok = lwk::api::transaction::get_size_and_absolute_fees(api_pset)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<lwk::api::error::LwkError>>(
+                    (move || {
+                        let output_ok =
+                            lwk::api::transaction::get_size_and_absolute_fees(api_pset)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -5466,10 +5562,13 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_from_json_impl(
         move || {
             let api_json_str = json_str.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
-                    let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::from_json(&api_json_str)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || {
+                        let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::from_json(&api_json_str)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -5770,10 +5869,13 @@ fn wire__boltz__api__lbtc_ln__lbtc_ln_swap_to_json_impl(
         move || {
             let api_that = that.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
-                    let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::to_json(&api_that)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || {
+                        let output_ok = boltz::api::lbtc_ln::LbtcLnSwap::to_json(&api_that)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -5913,10 +6015,14 @@ fn wire__boltz__api__secrets__pre_image_from_invoice_str_impl(
         move || {
             let api_invoice = invoice.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
-                    let output_ok = boltz::api::secrets::PreImage::from_invoice_str(&api_invoice)?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || {
+                        let output_ok =
+                            boltz::api::secrets::PreImage::from_invoice_str(&api_invoice)?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -6254,14 +6360,17 @@ fn wire__boltz__api__secrets__swap_master_key_create_impl(
             let api_wallet_passphrase = wallet_passphrase.cst_decode();
             let api_network = network.cst_decode();
             move |context| {
-                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>((move || {
-                    let output_ok = boltz::api::secrets::SwapMasterKey::create(
-                        api_wallet_mnemonic,
-                        api_wallet_passphrase,
-                        api_network,
-                    )?;
-                    Ok(output_ok)
-                })().map_err(FrbWrapper))
+                transform_result_dco::<_, _, FrbWrapper<boltz::api::error::BoltzError>>(
+                    (move || {
+                        let output_ok = boltz::api::secrets::SwapMasterKey::create(
+                            api_wallet_mnemonic,
+                            api_wallet_passphrase,
+                            api_network,
+                        )?;
+                        Ok(output_ok)
+                    })()
+                    .map_err(FrbWrapper),
+                )
             }
         },
     )
@@ -6817,7 +6926,7 @@ const _: fn() = || {
         let SpCoinView = None::<dart_bwk::api::types::SpCoinView>.unwrap();
         let _: String = SpCoinView.outpoint;
         let _: u64 = SpCoinView.amount_sat;
-        let _: u32 = SpCoinView.height;
+        let _: Option<u32> = SpCoinView.height;
         let _: bool = SpCoinView.is_spendable;
         let _: Option<String> = SpCoinView.label;
     }
@@ -7142,16 +7251,6 @@ impl CstDecode<dart_bwk::api::types::SpRecipientAddressKind> for i32 {
             0 => dart_bwk::api::types::SpRecipientAddressKind::Sp,
             1 => dart_bwk::api::types::SpRecipientAddressKind::Standard,
             _ => unreachable!("Invalid variant for SpRecipientAddressKind: {}", self),
-        }
-    }
-}
-impl CstDecode<dart_bwk::api::types::SubAccountKind> for i32 {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    fn cst_decode(self) -> dart_bwk::api::types::SubAccountKind {
-        match self {
-            0 => dart_bwk::api::types::SubAccountKind::Segwit,
-            1 => dart_bwk::api::types::SubAccountKind::Taproot,
-            _ => unreachable!("Invalid variant for SubAccountKind: {}", self),
         }
     }
 }
@@ -8634,7 +8733,7 @@ impl SseDecode for dart_bwk::api::types::SpCoinView {
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
         let mut var_outpoint = <String>::sse_decode(deserializer);
         let mut var_amountSat = <u64>::sse_decode(deserializer);
-        let mut var_height = <u32>::sse_decode(deserializer);
+        let mut var_height = <Option<u32>>::sse_decode(deserializer);
         let mut var_isSpendable = <bool>::sse_decode(deserializer);
         let mut var_label = <Option<String>>::sse_decode(deserializer);
         return dart_bwk::api::types::SpCoinView {
@@ -8714,7 +8813,12 @@ impl SseDecode for crate::api::simple::SpNotification {
                 return crate::api::simple::SpNotification::ScanCompleted;
             }
             3 => {
-                return crate::api::simple::SpNotification::ScanStopped;
+                let mut var_lastScanned = <Option<u32>>::sse_decode(deserializer);
+                let mut var_lastSpend = <Option<u32>>::sse_decode(deserializer);
+                return crate::api::simple::SpNotification::ScanStopped {
+                    last_scanned: var_lastScanned,
+                    last_spend: var_lastSpend,
+                };
             }
             4 => {
                 let mut var_message = <String>::sse_decode(deserializer);
@@ -8807,6 +8911,15 @@ impl SseDecode for crate::api::simple::SpNotification {
             }
             16 => {
                 return crate::api::simple::SpNotification::PaymentHistoryUpdated;
+            }
+            17 => {
+                return crate::api::simple::SpNotification::ElectrumDisconnected;
+            }
+            18 => {
+                let mut var_forkHeight = <u32>::sse_decode(deserializer);
+                return crate::api::simple::SpNotification::Reorg {
+                    fork_height: var_forkHeight,
+                };
             }
             _ => {
                 unimplemented!("");
@@ -8907,18 +9020,6 @@ impl SseDecode for bbqr::split::SplitOptions {
             max_split_number: var_maxSplitNumber,
             min_version: var_minVersion,
             max_version: var_maxVersion,
-        };
-    }
-}
-
-impl SseDecode for dart_bwk::api::types::SubAccountKind {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
-        let mut inner = <i32>::sse_decode(deserializer);
-        return match inner {
-            0 => dart_bwk::api::types::SubAccountKind::Segwit,
-            1 => dart_bwk::api::types::SubAccountKind::Taproot,
-            _ => unreachable!("Invalid variant for SubAccountKind: {}", inner),
         };
     }
 }
@@ -9232,7 +9333,10 @@ impl SseDecode for dart_bwk::api::types::TxSimulation {
         let mut var_changeSat = <u64>::sse_decode(deserializer);
         return dart_bwk::api::types::TxSimulation {
             inputs: var_inputs,
-            outputs: var_outputs.into_iter().map(Into::into).collect::<Vec<dart_bwk::api::types::RecipientView>>(),
+            outputs: var_outputs
+                .into_iter()
+                .map(Into::into)
+                .collect::<Vec<dart_bwk::api::types::RecipientView>>(),
             fee_sat: var_feeSat,
             change_sat: var_changeSat,
         };
@@ -10605,7 +10709,15 @@ impl flutter_rust_bridge::IntoDart for crate::api::simple::SpNotification {
             ]
             .into_dart(),
             crate::api::simple::SpNotification::ScanCompleted => [2.into_dart()].into_dart(),
-            crate::api::simple::SpNotification::ScanStopped => [3.into_dart()].into_dart(),
+            crate::api::simple::SpNotification::ScanStopped {
+                last_scanned,
+                last_spend,
+            } => [
+                3.into_dart(),
+                last_scanned.into_into_dart().into_dart(),
+                last_spend.into_into_dart().into_dart(),
+            ]
+            .into_dart(),
             crate::api::simple::SpNotification::ScanFailed { message } => {
                 [4.into_dart(), message.into_into_dart().into_dart()].into_dart()
             }
@@ -10673,6 +10785,12 @@ impl flutter_rust_bridge::IntoDart for crate::api::simple::SpNotification {
             }
             crate::api::simple::SpNotification::PaymentHistoryUpdated => {
                 [16.into_dart()].into_dart()
+            }
+            crate::api::simple::SpNotification::ElectrumDisconnected => {
+                [17.into_dart()].into_dart()
+            }
+            crate::api::simple::SpNotification::Reorg { fork_height } => {
+                [18.into_dart(), fork_height.into_into_dart().into_dart()].into_dart()
             }
             _ => {
                 unimplemented!("");
@@ -10833,27 +10951,6 @@ impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<bbqr::split::SplitOptions>>
     for bbqr::split::SplitOptions
 {
     fn into_into_dart(self) -> FrbWrapper<bbqr::split::SplitOptions> {
-        self.into()
-    }
-}
-// Codec=Dco (DartCObject based), see doc to use other codecs
-impl flutter_rust_bridge::IntoDart for FrbWrapper<dart_bwk::api::types::SubAccountKind> {
-    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
-        match self.0 {
-            dart_bwk::api::types::SubAccountKind::Segwit => 0.into_dart(),
-            dart_bwk::api::types::SubAccountKind::Taproot => 1.into_dart(),
-            _ => unreachable!(),
-        }
-    }
-}
-impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
-    for FrbWrapper<dart_bwk::api::types::SubAccountKind>
-{
-}
-impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<dart_bwk::api::types::SubAccountKind>>
-    for dart_bwk::api::types::SubAccountKind
-{
-    fn into_into_dart(self) -> FrbWrapper<dart_bwk::api::types::SubAccountKind> {
         self.into()
     }
 }
@@ -11271,7 +11368,13 @@ impl flutter_rust_bridge::IntoDart for FrbWrapper<dart_bwk::api::types::TxSimula
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         [
             self.0.inputs.into_into_dart().into_dart(),
-            self.0.outputs.into_iter().map(|o| -> crate::api::simple::RecipientView { o.into() }).collect::<Vec<_>>().into_into_dart().into_dart(),
+            self.0
+                .outputs
+                .into_iter()
+                .map(|o| -> crate::api::simple::RecipientView { o.into() })
+                .collect::<Vec<_>>()
+                .into_into_dart()
+                .into_dart(),
             self.0.fee_sat.into_into_dart().into_dart(),
             self.0.change_sat.into_into_dart().into_dart(),
         ]
@@ -12495,7 +12598,7 @@ impl SseEncode for dart_bwk::api::types::SpCoinView {
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <String>::sse_encode(self.outpoint, serializer);
         <u64>::sse_encode(self.amount_sat, serializer);
-        <u32>::sse_encode(self.height, serializer);
+        <Option<u32>>::sse_encode(self.height, serializer);
         <bool>::sse_encode(self.is_spendable, serializer);
         <Option<String>>::sse_encode(self.label, serializer);
     }
@@ -12561,8 +12664,13 @@ impl SseEncode for crate::api::simple::SpNotification {
             crate::api::simple::SpNotification::ScanCompleted => {
                 <i32>::sse_encode(2, serializer);
             }
-            crate::api::simple::SpNotification::ScanStopped => {
+            crate::api::simple::SpNotification::ScanStopped {
+                last_scanned,
+                last_spend,
+            } => {
                 <i32>::sse_encode(3, serializer);
+                <Option<u32>>::sse_encode(last_scanned, serializer);
+                <Option<u32>>::sse_encode(last_spend, serializer);
             }
             crate::api::simple::SpNotification::ScanFailed { message } => {
                 <i32>::sse_encode(4, serializer);
@@ -12634,6 +12742,13 @@ impl SseEncode for crate::api::simple::SpNotification {
             }
             crate::api::simple::SpNotification::PaymentHistoryUpdated => {
                 <i32>::sse_encode(16, serializer);
+            }
+            crate::api::simple::SpNotification::ElectrumDisconnected => {
+                <i32>::sse_encode(17, serializer);
+            }
+            crate::api::simple::SpNotification::Reorg { fork_height } => {
+                <i32>::sse_encode(18, serializer);
+                <u32>::sse_encode(fork_height, serializer);
             }
             _ => {
                 unimplemented!("");
@@ -12724,22 +12839,6 @@ impl SseEncode for bbqr::split::SplitOptions {
         <usize>::sse_encode(self.max_split_number, serializer);
         <bbqr::qr::Version>::sse_encode(self.min_version, serializer);
         <bbqr::qr::Version>::sse_encode(self.max_version, serializer);
-    }
-}
-
-impl SseEncode for dart_bwk::api::types::SubAccountKind {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
-        <i32>::sse_encode(
-            match self {
-                dart_bwk::api::types::SubAccountKind::Segwit => 0,
-                dart_bwk::api::types::SubAccountKind::Taproot => 1,
-                _ => {
-                    unimplemented!("");
-                }
-            },
-            serializer,
-        );
     }
 }
 
@@ -12972,7 +13071,10 @@ impl SseEncode for dart_bwk::api::types::TxSimulation {
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
         <Vec<dart_bwk::api::types::UnifiedCoinView>>::sse_encode(self.inputs, serializer);
         <Vec<crate::api::simple::RecipientView>>::sse_encode(
-            self.outputs.into_iter().map(Into::into).collect::<Vec<crate::api::simple::RecipientView>>(),
+            self.outputs
+                .into_iter()
+                .map(Into::into)
+                .collect::<Vec<crate::api::simple::RecipientView>>(),
             serializer,
         );
         <u64>::sse_encode(self.fee_sat, serializer);
@@ -14226,7 +14328,13 @@ mod io {
                     }
                 }
                 2 => crate::api::simple::SpNotification::ScanCompleted,
-                3 => crate::api::simple::SpNotification::ScanStopped,
+                3 => {
+                    let ans = unsafe { self.kind.ScanStopped };
+                    crate::api::simple::SpNotification::ScanStopped {
+                        last_scanned: ans.last_scanned.cst_decode(),
+                        last_spend: ans.last_spend.cst_decode(),
+                    }
+                }
                 4 => {
                     let ans = unsafe { self.kind.ScanFailed };
                     crate::api::simple::SpNotification::ScanFailed {
@@ -14304,6 +14412,13 @@ mod io {
                     }
                 }
                 16 => crate::api::simple::SpNotification::PaymentHistoryUpdated,
+                17 => crate::api::simple::SpNotification::ElectrumDisconnected,
+                18 => {
+                    let ans = unsafe { self.kind.Reorg };
+                    crate::api::simple::SpNotification::Reorg {
+                        fork_height: ans.fork_height.cst_decode(),
+                    }
+                }
                 _ => unreachable!(),
             }
         }
@@ -14516,7 +14631,12 @@ mod io {
         fn cst_decode(self) -> dart_bwk::api::types::TxSimulation {
             dart_bwk::api::types::TxSimulation {
                 inputs: self.inputs.cst_decode(),
-                outputs: { let __m: Vec<crate::api::simple::RecipientView> = self.outputs.cst_decode(); __m.into_iter().map(Into::into).collect::<Vec<dart_bwk::api::types::RecipientView>>() },
+                outputs: {
+                    let __m: Vec<crate::api::simple::RecipientView> = self.outputs.cst_decode();
+                    __m.into_iter()
+                        .map(Into::into)
+                        .collect::<Vec<dart_bwk::api::types::RecipientView>>()
+                },
                 fee_sat: self.fee_sat.cst_decode(),
                 change_sat: self.change_sat.cst_decode(),
             }
@@ -15083,7 +15203,7 @@ mod io {
             Self {
                 outpoint: core::ptr::null_mut(),
                 amount_sat: Default::default(),
-                height: Default::default(),
+                height: core::ptr::null_mut(),
                 is_spendable: Default::default(),
                 label: core::ptr::null_mut(),
             }
@@ -15934,6 +16054,13 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_restamp_missing_timestamps(
+        that: usize,
+    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
+        wire__dart_bwk__api__sp_account__SpAccount_restamp_missing_timestamps_impl(that)
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_restart_electrum(
         port_: i64,
         that: usize,
@@ -15996,14 +16123,6 @@ mod io {
         that: usize,
     ) {
         wire__dart_bwk__api__sp_account__SpAccount_stop_scan_impl(port_, that)
-    }
-
-    #[unsafe(no_mangle)]
-    pub extern "C" fn frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_sub_account_balance(
-        that: usize,
-        kind: i32,
-    ) -> flutter_rust_bridge::for_generated::WireSyncRust2DartDco {
-        wire__dart_bwk__api__sp_account__SpAccount_sub_account_balance_impl(that, kind)
     }
 
     #[unsafe(no_mangle)]
@@ -18606,7 +18725,7 @@ mod io {
     pub struct wire_cst_sp_coin_view {
         outpoint: *mut wire_cst_list_prim_u_8_strict,
         amount_sat: u64,
-        height: u32,
+        height: *mut u32,
         is_spendable: bool,
         label: *mut wire_cst_list_prim_u_8_strict,
     }
@@ -18644,6 +18763,7 @@ mod io {
     pub union SpNotificationKind {
         ScanStarted: wire_cst_SpNotification_ScanStarted,
         ScanReceiveProgress: wire_cst_SpNotification_ScanReceiveProgress,
+        ScanStopped: wire_cst_SpNotification_ScanStopped,
         ScanFailed: wire_cst_SpNotification_ScanFailed,
         NewOutput: wire_cst_SpNotification_NewOutput,
         OutputSpent: wire_cst_SpNotification_OutputSpent,
@@ -18655,6 +18775,7 @@ mod io {
         HeaderProgress: wire_cst_SpNotification_HeaderProgress,
         HeaderProgressCompleted: wire_cst_SpNotification_HeaderProgressCompleted,
         HeaderProgressFailed: wire_cst_SpNotification_HeaderProgressFailed,
+        Reorg: wire_cst_SpNotification_Reorg,
         nil__: (),
     }
     #[repr(C)]
@@ -18668,6 +18789,12 @@ mod io {
     pub struct wire_cst_SpNotification_ScanReceiveProgress {
         current: u32,
         end: u32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SpNotification_ScanStopped {
+        last_scanned: *mut u32,
+        last_spend: *mut u32,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
@@ -18732,6 +18859,11 @@ mod io {
     #[derive(Clone, Copy)]
     pub struct wire_cst_SpNotification_HeaderProgressFailed {
         phase: i32,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_SpNotification_Reorg {
+        fork_height: u32,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]

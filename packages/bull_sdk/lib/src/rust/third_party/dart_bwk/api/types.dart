@@ -7,7 +7,7 @@ import '../../../api/simple.dart';
 import '../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `eq`, `eq`, `eq`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `from`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `eq`, `eq`, `eq`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `from`
 
 enum CoinSource { sp, segwit, taproot, other }
 
@@ -78,14 +78,14 @@ class SpBalanceView {
 class SpCoinView {
   final String outpoint;
   final BigInt amountSat;
-  final int height;
+  final int? height;
   final bool isSpendable;
   final String? label;
 
   const SpCoinView({
     required this.outpoint,
     required this.amountSat,
-    required this.height,
+    this.height,
     required this.isSpendable,
     this.label,
   });
@@ -171,8 +171,6 @@ class SpPaymentView {
 }
 
 enum SpRecipientAddressKind { sp, standard }
-
-enum SubAccountKind { segwit, taproot }
 
 class TxSimulation {
   final List<UnifiedCoinView> inputs;
