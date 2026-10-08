@@ -52,7 +52,8 @@ sealed class SpNotification with _$SpNotification {
     required int end,
   }) = SpNotification_ScanReceiveProgress;
   const factory SpNotification.scanCompleted() = SpNotification_ScanCompleted;
-  const factory SpNotification.scanStopped() = SpNotification_ScanStopped;
+  const factory SpNotification.scanStopped({int? lastScanned, int? lastSpend}) =
+      SpNotification_ScanStopped;
   const factory SpNotification.scanFailed({required String message}) =
       SpNotification_ScanFailed;
   const factory SpNotification.newOutput({
@@ -94,6 +95,10 @@ sealed class SpNotification with _$SpNotification {
   }) = SpNotification_HeaderProgressFailed;
   const factory SpNotification.paymentHistoryUpdated() =
       SpNotification_PaymentHistoryUpdated;
+  const factory SpNotification.electrumDisconnected() =
+      SpNotification_ElectrumDisconnected;
+  const factory SpNotification.reorg({required int forkHeight}) =
+      SpNotification_Reorg;
 }
 
 @freezed

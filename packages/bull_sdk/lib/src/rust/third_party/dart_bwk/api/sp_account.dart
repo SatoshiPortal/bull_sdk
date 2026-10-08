@@ -211,12 +211,13 @@ abstract class SpAccount implements RustOpaqueInterface {
   /// Reveal a fresh receive address for the BIP86 taproot sub-account.
   ///
   /// Each call derives the next never-before-issued address via
-  /// [`bwk::Account::new_addr`], which bumps and persists the receive-chain
-  /// tip (sqlite under `PersistenceKind::Sqlite`) *before* deriving. So an
-  /// address is never handed out twice — even across restarts, and
-  /// regardless of whether the previously revealed one has received a coin
-  /// yet. Callers MUST treat this as "give me a new address to hand out"
-  /// (an explicit user action), never as a stable display getter.
+  /// [`bwk_sp::account::Account::new_taproot_address`], which bumps and
+  /// persists the receive-chain tip (sqlite under `PersistenceKind::Sqlite`)
+  /// *before* deriving. So an address is never handed out twice, even across
+  /// restarts, and regardless of whether the previously revealed one has
+  /// received a coin yet. Callers MUST treat this as "give me a new address
+  /// to hand out" (an explicit user action), never as a stable display
+  /// getter.
   ///
   /// Store-only / pure-descriptor: it never contacts Electrum or Blindbit,
   /// so it does not violate the no-chain-query-outside-`scan_once` invariant.
@@ -235,6 +236,10 @@ abstract class SpAccount implements RustOpaqueInterface {
     required List<RecipientView> recipients,
     required BigInt feerateSatVb,
   });
+
+  /// Stamp the confirmed txs still missing a block time from the header
+  /// store. Local only, no network call. Returns whether any tx got stamped.
+  bool restampMissingTimestamps();
 
   /// Restart the sub-account electrum listeners in place (stop then start),
   /// keeping the account and its notification channel alive. Used on app
@@ -289,8 +294,9 @@ abstract class SpAccount implements RustOpaqueInterface {
   /// without touching the inner mutex (which the scan call still holds
   /// via `&mut self` for its full duration); spdk-core's `process_blocks`
   /// observes `scan_cancel` between blocks and returns `Ok(())` after
-  /// persisting state. The scan handler then emits `ScanCompleted` and
-  /// the cubit's `_onNotification` transitions out of `isScanning`.
+  /// persisting state. The scan handler then emits `ScanStopped` with the
+  /// persisted frontiers and the cubit's `_onNotification` transitions out
+  /// of `isScanning`.
   ///
   /// Was `#[frb(sync)]`: that meant Dart's Stop button ran on the
   /// UI isolate and blocked waiting for the inner mutex held by the
@@ -299,9 +305,6 @@ abstract class SpAccount implements RustOpaqueInterface {
   ///
   /// Idempotent: re-flipping an already-`true` flag is a no-op.
   Future<void> stopScan();
-
-  /// Confirmed balance of one sub-account in satoshis.
-  BigInt subAccountBalance({required SubAccountKind kind});
 
   /// Aggregated balance across SP + all sub-accounts.
   SpBalanceView unifiedBalance();

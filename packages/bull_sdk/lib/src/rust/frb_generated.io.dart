@@ -599,9 +599,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   SplitOptions dco_decode_split_options(dynamic raw);
 
   @protected
-  SubAccountKind dco_decode_sub_account_kind(dynamic raw);
-
-  @protected
   SubSwapFees dco_decode_sub_swap_fees(dynamic raw);
 
   @protected
@@ -1269,9 +1266,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   SplitOptions sse_decode_split_options(SseDeserializer deserializer);
-
-  @protected
-  SubAccountKind sse_decode_sub_account_kind(SseDeserializer deserializer);
 
   @protected
   SubSwapFees sse_decode_sub_swap_fees(SseDeserializer deserializer);
@@ -2735,7 +2729,7 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   ) {
     wireObj.outpoint = cst_encode_String(apiObj.outpoint);
     wireObj.amount_sat = cst_encode_u_64(apiObj.amountSat);
-    wireObj.height = cst_encode_u_32(apiObj.height);
+    wireObj.height = cst_encode_opt_box_autoadd_u_32(apiObj.height);
     wireObj.is_spendable = cst_encode_bool(apiObj.isSpendable);
     wireObj.label = cst_encode_opt_String(apiObj.label);
   }
@@ -2793,7 +2787,13 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
       return;
     }
     if (apiObj is SpNotification_ScanStopped) {
+      var pre_last_scanned = cst_encode_opt_box_autoadd_u_32(
+        apiObj.lastScanned,
+      );
+      var pre_last_spend = cst_encode_opt_box_autoadd_u_32(apiObj.lastSpend);
       wireObj.tag = 3;
+      wireObj.kind.ScanStopped.last_scanned = pre_last_scanned;
+      wireObj.kind.ScanStopped.last_spend = pre_last_spend;
       return;
     }
     if (apiObj is SpNotification_ScanFailed) {
@@ -2886,6 +2886,16 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     }
     if (apiObj is SpNotification_PaymentHistoryUpdated) {
       wireObj.tag = 16;
+      return;
+    }
+    if (apiObj is SpNotification_ElectrumDisconnected) {
+      wireObj.tag = 17;
+      return;
+    }
+    if (apiObj is SpNotification_Reorg) {
+      var pre_fork_height = cst_encode_u_32(apiObj.forkHeight);
+      wireObj.tag = 18;
+      wireObj.kind.Reorg.fork_height = pre_fork_height;
       return;
     }
   }
@@ -3290,9 +3300,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int cst_encode_sp_recipient_address_kind(SpRecipientAddressKind raw);
-
-  @protected
-  int cst_encode_sub_account_kind(SubAccountKind raw);
 
   @protected
   int cst_encode_swap_status(SwapStatus raw);
@@ -4054,12 +4061,6 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void sse_encode_split_options(SplitOptions self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_sub_account_kind(
-    SubAccountKind self,
-    SseSerializer serializer,
-  );
 
   @protected
   void sse_encode_sub_swap_fees(SubSwapFees self, SseSerializer serializer);
@@ -5408,6 +5409,23 @@ class BullSdkWire implements BaseWire {
             )
           >();
 
+  WireSyncRust2DartDco
+  wire__dart_bwk__api__sp_account__SpAccount_restamp_missing_timestamps(
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_restamp_missing_timestamps(
+      that,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_restamp_missing_timestampsPtr =
+      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_restamp_missing_timestamps',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_restamp_missing_timestamps =
+      _wire__dart_bwk__api__sp_account__SpAccount_restamp_missing_timestampsPtr
+          .asFunction<WireSyncRust2DartDco Function(int)>();
+
   void wire__dart_bwk__api__sp_account__SpAccount_restart_electrum(
     int port_,
     int that,
@@ -5584,29 +5602,6 @@ class BullSdkWire implements BaseWire {
   late final _wire__dart_bwk__api__sp_account__SpAccount_stop_scan =
       _wire__dart_bwk__api__sp_account__SpAccount_stop_scanPtr
           .asFunction<void Function(int, int)>();
-
-  WireSyncRust2DartDco
-  wire__dart_bwk__api__sp_account__SpAccount_sub_account_balance(
-    int that,
-    int kind,
-  ) {
-    return _wire__dart_bwk__api__sp_account__SpAccount_sub_account_balance(
-      that,
-      kind,
-    );
-  }
-
-  late final _wire__dart_bwk__api__sp_account__SpAccount_sub_account_balancePtr =
-      _lookup<
-        ffi.NativeFunction<
-          WireSyncRust2DartDco Function(ffi.UintPtr, ffi.Int32)
-        >
-      >(
-        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_sub_account_balance',
-      );
-  late final _wire__dart_bwk__api__sp_account__SpAccount_sub_account_balance =
-      _wire__dart_bwk__api__sp_account__SpAccount_sub_account_balancePtr
-          .asFunction<WireSyncRust2DartDco Function(int, int)>();
 
   WireSyncRust2DartDco
   wire__dart_bwk__api__sp_account__SpAccount_unified_balance(int that) {
@@ -11206,8 +11201,7 @@ final class wire_cst_sp_coin_view extends ffi.Struct {
   @ffi.Uint64()
   external int amount_sat;
 
-  @ffi.Uint32()
-  external int height;
+  external ffi.Pointer<ffi.Uint32> height;
 
   @ffi.Bool()
   external bool is_spendable;
@@ -11591,6 +11585,12 @@ final class wire_cst_SpNotification_ScanReceiveProgress extends ffi.Struct {
   external int end;
 }
 
+final class wire_cst_SpNotification_ScanStopped extends ffi.Struct {
+  external ffi.Pointer<ffi.Uint32> last_scanned;
+
+  external ffi.Pointer<ffi.Uint32> last_spend;
+}
+
 final class wire_cst_SpNotification_ScanFailed extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_prim_u_8_strict> message;
 }
@@ -11666,10 +11666,17 @@ final class wire_cst_SpNotification_HeaderProgressFailed extends ffi.Struct {
   external int phase;
 }
 
+final class wire_cst_SpNotification_Reorg extends ffi.Struct {
+  @ffi.Uint32()
+  external int fork_height;
+}
+
 final class SpNotificationKind extends ffi.Union {
   external wire_cst_SpNotification_ScanStarted ScanStarted;
 
   external wire_cst_SpNotification_ScanReceiveProgress ScanReceiveProgress;
+
+  external wire_cst_SpNotification_ScanStopped ScanStopped;
 
   external wire_cst_SpNotification_ScanFailed ScanFailed;
 
@@ -11693,6 +11700,8 @@ final class SpNotificationKind extends ffi.Union {
   HeaderProgressCompleted;
 
   external wire_cst_SpNotification_HeaderProgressFailed HeaderProgressFailed;
+
+  external wire_cst_SpNotification_Reorg Reorg;
 }
 
 final class wire_cst_sp_notification extends ffi.Struct {
