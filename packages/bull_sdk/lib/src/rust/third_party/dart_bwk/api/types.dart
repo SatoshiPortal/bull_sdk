@@ -78,14 +78,14 @@ class SpBalanceView {
 class SpCoinView {
   final String outpoint;
   final BigInt amountSat;
-  final int height;
+  final int? height;
   final bool isSpendable;
   final String? label;
 
   const SpCoinView({
     required this.outpoint,
     required this.amountSat,
-    required this.height,
+    this.height,
     required this.isSpendable,
     this.label,
   });
@@ -108,6 +108,27 @@ class SpCoinView {
           height == other.height &&
           isSpendable == other.isSpendable &&
           label == other.label;
+}
+
+/// A block the app trusts, which the header chain must contain. `hash` is the
+/// block hash in hex. `height` must sit on a 2016 block retarget boundary.
+/// A mainnet account needs one: bwk panics opening its header store without it.
+class SpHeaderCheckpoint {
+  final int height;
+  final String hash;
+
+  const SpHeaderCheckpoint({required this.height, required this.hash});
+
+  @override
+  int get hashCode => height.hashCode ^ hash.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SpHeaderCheckpoint &&
+          runtimeType == other.runtimeType &&
+          height == other.height &&
+          hash == other.hash;
 }
 
 enum SpNetwork { bitcoin, signet, testnet, regtest }
@@ -171,8 +192,6 @@ class SpPaymentView {
 }
 
 enum SpRecipientAddressKind { sp, standard }
-
-enum SubAccountKind { segwit, taproot }
 
 class TxSimulation {
   final List<UnifiedCoinView> inputs;

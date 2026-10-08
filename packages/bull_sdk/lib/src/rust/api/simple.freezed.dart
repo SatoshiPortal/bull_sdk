@@ -758,7 +758,7 @@ extension SpNotificationPatterns on SpNotification {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SpNotification_ScanStarted value)?  scanStarted,TResult Function( SpNotification_ScanReceiveProgress value)?  scanReceiveProgress,TResult Function( SpNotification_ScanCompleted value)?  scanCompleted,TResult Function( SpNotification_ScanStopped value)?  scanStopped,TResult Function( SpNotification_ScanFailed value)?  scanFailed,TResult Function( SpNotification_NewOutput value)?  newOutput,TResult Function( SpNotification_OutputSpent value)?  outputSpent,TResult Function( SpNotification_Broadcasted value)?  broadcasted,TResult Function( SpNotification_BroadcastFailed value)?  broadcastFailed,TResult Function( SpNotification_BackendOffline value)?  backendOffline,TResult Function( SpNotification_ElectrumTx value)?  electrumTx,TResult Function( SpNotification_ScanSpendProgress value)?  scanSpendProgress,TResult Function( SpNotification_HeaderProgressStarted value)?  headerProgressStarted,TResult Function( SpNotification_HeaderProgress value)?  headerProgress,TResult Function( SpNotification_HeaderProgressCompleted value)?  headerProgressCompleted,TResult Function( SpNotification_HeaderProgressFailed value)?  headerProgressFailed,TResult Function( SpNotification_PaymentHistoryUpdated value)?  paymentHistoryUpdated,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( SpNotification_ScanStarted value)?  scanStarted,TResult Function( SpNotification_ScanReceiveProgress value)?  scanReceiveProgress,TResult Function( SpNotification_ScanCompleted value)?  scanCompleted,TResult Function( SpNotification_ScanStopped value)?  scanStopped,TResult Function( SpNotification_ScanFailed value)?  scanFailed,TResult Function( SpNotification_NewOutput value)?  newOutput,TResult Function( SpNotification_OutputSpent value)?  outputSpent,TResult Function( SpNotification_Broadcasted value)?  broadcasted,TResult Function( SpNotification_BroadcastFailed value)?  broadcastFailed,TResult Function( SpNotification_ElectrumTx value)?  electrumTx,TResult Function( SpNotification_ScanSpendProgress value)?  scanSpendProgress,TResult Function( SpNotification_HeaderProgressStarted value)?  headerProgressStarted,TResult Function( SpNotification_HeaderProgress value)?  headerProgress,TResult Function( SpNotification_HeaderProgressCompleted value)?  headerProgressCompleted,TResult Function( SpNotification_HeaderProgressFailed value)?  headerProgressFailed,TResult Function( SpNotification_PaymentHistoryUpdated value)?  paymentHistoryUpdated,TResult Function( SpNotification_ElectrumDisconnected value)?  electrumDisconnected,TResult Function( SpNotification_Reorg value)?  reorg,TResult Function( SpNotification_HeaderCheckpointMismatch value)?  headerCheckpointMismatch,TResult Function( SpNotification_ElectrumConnected value)?  electrumConnected,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case SpNotification_ScanStarted() when scanStarted != null:
@@ -770,15 +770,18 @@ return scanFailed(_that);case SpNotification_NewOutput() when newOutput != null:
 return newOutput(_that);case SpNotification_OutputSpent() when outputSpent != null:
 return outputSpent(_that);case SpNotification_Broadcasted() when broadcasted != null:
 return broadcasted(_that);case SpNotification_BroadcastFailed() when broadcastFailed != null:
-return broadcastFailed(_that);case SpNotification_BackendOffline() when backendOffline != null:
-return backendOffline(_that);case SpNotification_ElectrumTx() when electrumTx != null:
+return broadcastFailed(_that);case SpNotification_ElectrumTx() when electrumTx != null:
 return electrumTx(_that);case SpNotification_ScanSpendProgress() when scanSpendProgress != null:
 return scanSpendProgress(_that);case SpNotification_HeaderProgressStarted() when headerProgressStarted != null:
 return headerProgressStarted(_that);case SpNotification_HeaderProgress() when headerProgress != null:
 return headerProgress(_that);case SpNotification_HeaderProgressCompleted() when headerProgressCompleted != null:
 return headerProgressCompleted(_that);case SpNotification_HeaderProgressFailed() when headerProgressFailed != null:
 return headerProgressFailed(_that);case SpNotification_PaymentHistoryUpdated() when paymentHistoryUpdated != null:
-return paymentHistoryUpdated(_that);case _:
+return paymentHistoryUpdated(_that);case SpNotification_ElectrumDisconnected() when electrumDisconnected != null:
+return electrumDisconnected(_that);case SpNotification_Reorg() when reorg != null:
+return reorg(_that);case SpNotification_HeaderCheckpointMismatch() when headerCheckpointMismatch != null:
+return headerCheckpointMismatch(_that);case SpNotification_ElectrumConnected() when electrumConnected != null:
+return electrumConnected(_that);case _:
   return orElse();
 
 }
@@ -796,7 +799,7 @@ return paymentHistoryUpdated(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SpNotification_ScanStarted value)  scanStarted,required TResult Function( SpNotification_ScanReceiveProgress value)  scanReceiveProgress,required TResult Function( SpNotification_ScanCompleted value)  scanCompleted,required TResult Function( SpNotification_ScanStopped value)  scanStopped,required TResult Function( SpNotification_ScanFailed value)  scanFailed,required TResult Function( SpNotification_NewOutput value)  newOutput,required TResult Function( SpNotification_OutputSpent value)  outputSpent,required TResult Function( SpNotification_Broadcasted value)  broadcasted,required TResult Function( SpNotification_BroadcastFailed value)  broadcastFailed,required TResult Function( SpNotification_BackendOffline value)  backendOffline,required TResult Function( SpNotification_ElectrumTx value)  electrumTx,required TResult Function( SpNotification_ScanSpendProgress value)  scanSpendProgress,required TResult Function( SpNotification_HeaderProgressStarted value)  headerProgressStarted,required TResult Function( SpNotification_HeaderProgress value)  headerProgress,required TResult Function( SpNotification_HeaderProgressCompleted value)  headerProgressCompleted,required TResult Function( SpNotification_HeaderProgressFailed value)  headerProgressFailed,required TResult Function( SpNotification_PaymentHistoryUpdated value)  paymentHistoryUpdated,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( SpNotification_ScanStarted value)  scanStarted,required TResult Function( SpNotification_ScanReceiveProgress value)  scanReceiveProgress,required TResult Function( SpNotification_ScanCompleted value)  scanCompleted,required TResult Function( SpNotification_ScanStopped value)  scanStopped,required TResult Function( SpNotification_ScanFailed value)  scanFailed,required TResult Function( SpNotification_NewOutput value)  newOutput,required TResult Function( SpNotification_OutputSpent value)  outputSpent,required TResult Function( SpNotification_Broadcasted value)  broadcasted,required TResult Function( SpNotification_BroadcastFailed value)  broadcastFailed,required TResult Function( SpNotification_ElectrumTx value)  electrumTx,required TResult Function( SpNotification_ScanSpendProgress value)  scanSpendProgress,required TResult Function( SpNotification_HeaderProgressStarted value)  headerProgressStarted,required TResult Function( SpNotification_HeaderProgress value)  headerProgress,required TResult Function( SpNotification_HeaderProgressCompleted value)  headerProgressCompleted,required TResult Function( SpNotification_HeaderProgressFailed value)  headerProgressFailed,required TResult Function( SpNotification_PaymentHistoryUpdated value)  paymentHistoryUpdated,required TResult Function( SpNotification_ElectrumDisconnected value)  electrumDisconnected,required TResult Function( SpNotification_Reorg value)  reorg,required TResult Function( SpNotification_HeaderCheckpointMismatch value)  headerCheckpointMismatch,required TResult Function( SpNotification_ElectrumConnected value)  electrumConnected,}){
 final _that = this;
 switch (_that) {
 case SpNotification_ScanStarted():
@@ -808,15 +811,18 @@ return scanFailed(_that);case SpNotification_NewOutput():
 return newOutput(_that);case SpNotification_OutputSpent():
 return outputSpent(_that);case SpNotification_Broadcasted():
 return broadcasted(_that);case SpNotification_BroadcastFailed():
-return broadcastFailed(_that);case SpNotification_BackendOffline():
-return backendOffline(_that);case SpNotification_ElectrumTx():
+return broadcastFailed(_that);case SpNotification_ElectrumTx():
 return electrumTx(_that);case SpNotification_ScanSpendProgress():
 return scanSpendProgress(_that);case SpNotification_HeaderProgressStarted():
 return headerProgressStarted(_that);case SpNotification_HeaderProgress():
 return headerProgress(_that);case SpNotification_HeaderProgressCompleted():
 return headerProgressCompleted(_that);case SpNotification_HeaderProgressFailed():
 return headerProgressFailed(_that);case SpNotification_PaymentHistoryUpdated():
-return paymentHistoryUpdated(_that);}
+return paymentHistoryUpdated(_that);case SpNotification_ElectrumDisconnected():
+return electrumDisconnected(_that);case SpNotification_Reorg():
+return reorg(_that);case SpNotification_HeaderCheckpointMismatch():
+return headerCheckpointMismatch(_that);case SpNotification_ElectrumConnected():
+return electrumConnected(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -830,7 +836,7 @@ return paymentHistoryUpdated(_that);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SpNotification_ScanStarted value)?  scanStarted,TResult? Function( SpNotification_ScanReceiveProgress value)?  scanReceiveProgress,TResult? Function( SpNotification_ScanCompleted value)?  scanCompleted,TResult? Function( SpNotification_ScanStopped value)?  scanStopped,TResult? Function( SpNotification_ScanFailed value)?  scanFailed,TResult? Function( SpNotification_NewOutput value)?  newOutput,TResult? Function( SpNotification_OutputSpent value)?  outputSpent,TResult? Function( SpNotification_Broadcasted value)?  broadcasted,TResult? Function( SpNotification_BroadcastFailed value)?  broadcastFailed,TResult? Function( SpNotification_BackendOffline value)?  backendOffline,TResult? Function( SpNotification_ElectrumTx value)?  electrumTx,TResult? Function( SpNotification_ScanSpendProgress value)?  scanSpendProgress,TResult? Function( SpNotification_HeaderProgressStarted value)?  headerProgressStarted,TResult? Function( SpNotification_HeaderProgress value)?  headerProgress,TResult? Function( SpNotification_HeaderProgressCompleted value)?  headerProgressCompleted,TResult? Function( SpNotification_HeaderProgressFailed value)?  headerProgressFailed,TResult? Function( SpNotification_PaymentHistoryUpdated value)?  paymentHistoryUpdated,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( SpNotification_ScanStarted value)?  scanStarted,TResult? Function( SpNotification_ScanReceiveProgress value)?  scanReceiveProgress,TResult? Function( SpNotification_ScanCompleted value)?  scanCompleted,TResult? Function( SpNotification_ScanStopped value)?  scanStopped,TResult? Function( SpNotification_ScanFailed value)?  scanFailed,TResult? Function( SpNotification_NewOutput value)?  newOutput,TResult? Function( SpNotification_OutputSpent value)?  outputSpent,TResult? Function( SpNotification_Broadcasted value)?  broadcasted,TResult? Function( SpNotification_BroadcastFailed value)?  broadcastFailed,TResult? Function( SpNotification_ElectrumTx value)?  electrumTx,TResult? Function( SpNotification_ScanSpendProgress value)?  scanSpendProgress,TResult? Function( SpNotification_HeaderProgressStarted value)?  headerProgressStarted,TResult? Function( SpNotification_HeaderProgress value)?  headerProgress,TResult? Function( SpNotification_HeaderProgressCompleted value)?  headerProgressCompleted,TResult? Function( SpNotification_HeaderProgressFailed value)?  headerProgressFailed,TResult? Function( SpNotification_PaymentHistoryUpdated value)?  paymentHistoryUpdated,TResult? Function( SpNotification_ElectrumDisconnected value)?  electrumDisconnected,TResult? Function( SpNotification_Reorg value)?  reorg,TResult? Function( SpNotification_HeaderCheckpointMismatch value)?  headerCheckpointMismatch,TResult? Function( SpNotification_ElectrumConnected value)?  electrumConnected,}){
 final _that = this;
 switch (_that) {
 case SpNotification_ScanStarted() when scanStarted != null:
@@ -842,15 +848,18 @@ return scanFailed(_that);case SpNotification_NewOutput() when newOutput != null:
 return newOutput(_that);case SpNotification_OutputSpent() when outputSpent != null:
 return outputSpent(_that);case SpNotification_Broadcasted() when broadcasted != null:
 return broadcasted(_that);case SpNotification_BroadcastFailed() when broadcastFailed != null:
-return broadcastFailed(_that);case SpNotification_BackendOffline() when backendOffline != null:
-return backendOffline(_that);case SpNotification_ElectrumTx() when electrumTx != null:
+return broadcastFailed(_that);case SpNotification_ElectrumTx() when electrumTx != null:
 return electrumTx(_that);case SpNotification_ScanSpendProgress() when scanSpendProgress != null:
 return scanSpendProgress(_that);case SpNotification_HeaderProgressStarted() when headerProgressStarted != null:
 return headerProgressStarted(_that);case SpNotification_HeaderProgress() when headerProgress != null:
 return headerProgress(_that);case SpNotification_HeaderProgressCompleted() when headerProgressCompleted != null:
 return headerProgressCompleted(_that);case SpNotification_HeaderProgressFailed() when headerProgressFailed != null:
 return headerProgressFailed(_that);case SpNotification_PaymentHistoryUpdated() when paymentHistoryUpdated != null:
-return paymentHistoryUpdated(_that);case _:
+return paymentHistoryUpdated(_that);case SpNotification_ElectrumDisconnected() when electrumDisconnected != null:
+return electrumDisconnected(_that);case SpNotification_Reorg() when reorg != null:
+return reorg(_that);case SpNotification_HeaderCheckpointMismatch() when headerCheckpointMismatch != null:
+return headerCheckpointMismatch(_that);case SpNotification_ElectrumConnected() when electrumConnected != null:
+return electrumConnected(_that);case _:
   return null;
 
 }
@@ -867,26 +876,29 @@ return paymentHistoryUpdated(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int from,  int to)?  scanStarted,TResult Function( int current,  int end)?  scanReceiveProgress,TResult Function()?  scanCompleted,TResult Function()?  scanStopped,TResult Function( String message)?  scanFailed,TResult Function( String outpoint,  BigInt amountSat)?  newOutput,TResult Function( String outpoint)?  outputSpent,TResult Function( String txid)?  broadcasted,TResult Function( String message)?  broadcastFailed,TResult Function()?  backendOffline,TResult Function( CoinSource kind,  String txid,  BigInt amountSat,  int? height)?  electrumTx,TResult Function( int current,  int end)?  scanSpendProgress,TResult Function( HeaderProgressPhase phase,  int start,  int end)?  headerProgressStarted,TResult Function( HeaderProgressPhase phase,  int current,  int end)?  headerProgress,TResult Function( HeaderProgressPhase phase)?  headerProgressCompleted,TResult Function( HeaderProgressPhase phase)?  headerProgressFailed,TResult Function()?  paymentHistoryUpdated,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( int from,  int to)?  scanStarted,TResult Function( int current,  int end)?  scanReceiveProgress,TResult Function()?  scanCompleted,TResult Function( int? lastScanned,  int? lastSpend)?  scanStopped,TResult Function( String message)?  scanFailed,TResult Function( String outpoint,  BigInt amountSat)?  newOutput,TResult Function( String outpoint)?  outputSpent,TResult Function( String txid)?  broadcasted,TResult Function( String message)?  broadcastFailed,TResult Function( CoinSource kind,  String txid,  BigInt amountSat,  int? height)?  electrumTx,TResult Function( int current,  int end)?  scanSpendProgress,TResult Function( HeaderProgressPhase phase,  int start,  int end)?  headerProgressStarted,TResult Function( HeaderProgressPhase phase,  int current,  int end)?  headerProgress,TResult Function( HeaderProgressPhase phase)?  headerProgressCompleted,TResult Function( HeaderProgressPhase phase)?  headerProgressFailed,TResult Function()?  paymentHistoryUpdated,TResult Function()?  electrumDisconnected,TResult Function( int forkHeight)?  reorg,TResult Function()?  headerCheckpointMismatch,TResult Function()?  electrumConnected,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case SpNotification_ScanStarted() when scanStarted != null:
 return scanStarted(_that.from,_that.to);case SpNotification_ScanReceiveProgress() when scanReceiveProgress != null:
 return scanReceiveProgress(_that.current,_that.end);case SpNotification_ScanCompleted() when scanCompleted != null:
 return scanCompleted();case SpNotification_ScanStopped() when scanStopped != null:
-return scanStopped();case SpNotification_ScanFailed() when scanFailed != null:
+return scanStopped(_that.lastScanned,_that.lastSpend);case SpNotification_ScanFailed() when scanFailed != null:
 return scanFailed(_that.message);case SpNotification_NewOutput() when newOutput != null:
 return newOutput(_that.outpoint,_that.amountSat);case SpNotification_OutputSpent() when outputSpent != null:
 return outputSpent(_that.outpoint);case SpNotification_Broadcasted() when broadcasted != null:
 return broadcasted(_that.txid);case SpNotification_BroadcastFailed() when broadcastFailed != null:
-return broadcastFailed(_that.message);case SpNotification_BackendOffline() when backendOffline != null:
-return backendOffline();case SpNotification_ElectrumTx() when electrumTx != null:
+return broadcastFailed(_that.message);case SpNotification_ElectrumTx() when electrumTx != null:
 return electrumTx(_that.kind,_that.txid,_that.amountSat,_that.height);case SpNotification_ScanSpendProgress() when scanSpendProgress != null:
 return scanSpendProgress(_that.current,_that.end);case SpNotification_HeaderProgressStarted() when headerProgressStarted != null:
 return headerProgressStarted(_that.phase,_that.start,_that.end);case SpNotification_HeaderProgress() when headerProgress != null:
 return headerProgress(_that.phase,_that.current,_that.end);case SpNotification_HeaderProgressCompleted() when headerProgressCompleted != null:
 return headerProgressCompleted(_that.phase);case SpNotification_HeaderProgressFailed() when headerProgressFailed != null:
 return headerProgressFailed(_that.phase);case SpNotification_PaymentHistoryUpdated() when paymentHistoryUpdated != null:
-return paymentHistoryUpdated();case _:
+return paymentHistoryUpdated();case SpNotification_ElectrumDisconnected() when electrumDisconnected != null:
+return electrumDisconnected();case SpNotification_Reorg() when reorg != null:
+return reorg(_that.forkHeight);case SpNotification_HeaderCheckpointMismatch() when headerCheckpointMismatch != null:
+return headerCheckpointMismatch();case SpNotification_ElectrumConnected() when electrumConnected != null:
+return electrumConnected();case _:
   return orElse();
 
 }
@@ -904,26 +916,29 @@ return paymentHistoryUpdated();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int from,  int to)  scanStarted,required TResult Function( int current,  int end)  scanReceiveProgress,required TResult Function()  scanCompleted,required TResult Function()  scanStopped,required TResult Function( String message)  scanFailed,required TResult Function( String outpoint,  BigInt amountSat)  newOutput,required TResult Function( String outpoint)  outputSpent,required TResult Function( String txid)  broadcasted,required TResult Function( String message)  broadcastFailed,required TResult Function()  backendOffline,required TResult Function( CoinSource kind,  String txid,  BigInt amountSat,  int? height)  electrumTx,required TResult Function( int current,  int end)  scanSpendProgress,required TResult Function( HeaderProgressPhase phase,  int start,  int end)  headerProgressStarted,required TResult Function( HeaderProgressPhase phase,  int current,  int end)  headerProgress,required TResult Function( HeaderProgressPhase phase)  headerProgressCompleted,required TResult Function( HeaderProgressPhase phase)  headerProgressFailed,required TResult Function()  paymentHistoryUpdated,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( int from,  int to)  scanStarted,required TResult Function( int current,  int end)  scanReceiveProgress,required TResult Function()  scanCompleted,required TResult Function( int? lastScanned,  int? lastSpend)  scanStopped,required TResult Function( String message)  scanFailed,required TResult Function( String outpoint,  BigInt amountSat)  newOutput,required TResult Function( String outpoint)  outputSpent,required TResult Function( String txid)  broadcasted,required TResult Function( String message)  broadcastFailed,required TResult Function( CoinSource kind,  String txid,  BigInt amountSat,  int? height)  electrumTx,required TResult Function( int current,  int end)  scanSpendProgress,required TResult Function( HeaderProgressPhase phase,  int start,  int end)  headerProgressStarted,required TResult Function( HeaderProgressPhase phase,  int current,  int end)  headerProgress,required TResult Function( HeaderProgressPhase phase)  headerProgressCompleted,required TResult Function( HeaderProgressPhase phase)  headerProgressFailed,required TResult Function()  paymentHistoryUpdated,required TResult Function()  electrumDisconnected,required TResult Function( int forkHeight)  reorg,required TResult Function()  headerCheckpointMismatch,required TResult Function()  electrumConnected,}) {final _that = this;
 switch (_that) {
 case SpNotification_ScanStarted():
 return scanStarted(_that.from,_that.to);case SpNotification_ScanReceiveProgress():
 return scanReceiveProgress(_that.current,_that.end);case SpNotification_ScanCompleted():
 return scanCompleted();case SpNotification_ScanStopped():
-return scanStopped();case SpNotification_ScanFailed():
+return scanStopped(_that.lastScanned,_that.lastSpend);case SpNotification_ScanFailed():
 return scanFailed(_that.message);case SpNotification_NewOutput():
 return newOutput(_that.outpoint,_that.amountSat);case SpNotification_OutputSpent():
 return outputSpent(_that.outpoint);case SpNotification_Broadcasted():
 return broadcasted(_that.txid);case SpNotification_BroadcastFailed():
-return broadcastFailed(_that.message);case SpNotification_BackendOffline():
-return backendOffline();case SpNotification_ElectrumTx():
+return broadcastFailed(_that.message);case SpNotification_ElectrumTx():
 return electrumTx(_that.kind,_that.txid,_that.amountSat,_that.height);case SpNotification_ScanSpendProgress():
 return scanSpendProgress(_that.current,_that.end);case SpNotification_HeaderProgressStarted():
 return headerProgressStarted(_that.phase,_that.start,_that.end);case SpNotification_HeaderProgress():
 return headerProgress(_that.phase,_that.current,_that.end);case SpNotification_HeaderProgressCompleted():
 return headerProgressCompleted(_that.phase);case SpNotification_HeaderProgressFailed():
 return headerProgressFailed(_that.phase);case SpNotification_PaymentHistoryUpdated():
-return paymentHistoryUpdated();}
+return paymentHistoryUpdated();case SpNotification_ElectrumDisconnected():
+return electrumDisconnected();case SpNotification_Reorg():
+return reorg(_that.forkHeight);case SpNotification_HeaderCheckpointMismatch():
+return headerCheckpointMismatch();case SpNotification_ElectrumConnected():
+return electrumConnected();}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -937,26 +952,29 @@ return paymentHistoryUpdated();}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int from,  int to)?  scanStarted,TResult? Function( int current,  int end)?  scanReceiveProgress,TResult? Function()?  scanCompleted,TResult? Function()?  scanStopped,TResult? Function( String message)?  scanFailed,TResult? Function( String outpoint,  BigInt amountSat)?  newOutput,TResult? Function( String outpoint)?  outputSpent,TResult? Function( String txid)?  broadcasted,TResult? Function( String message)?  broadcastFailed,TResult? Function()?  backendOffline,TResult? Function( CoinSource kind,  String txid,  BigInt amountSat,  int? height)?  electrumTx,TResult? Function( int current,  int end)?  scanSpendProgress,TResult? Function( HeaderProgressPhase phase,  int start,  int end)?  headerProgressStarted,TResult? Function( HeaderProgressPhase phase,  int current,  int end)?  headerProgress,TResult? Function( HeaderProgressPhase phase)?  headerProgressCompleted,TResult? Function( HeaderProgressPhase phase)?  headerProgressFailed,TResult? Function()?  paymentHistoryUpdated,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( int from,  int to)?  scanStarted,TResult? Function( int current,  int end)?  scanReceiveProgress,TResult? Function()?  scanCompleted,TResult? Function( int? lastScanned,  int? lastSpend)?  scanStopped,TResult? Function( String message)?  scanFailed,TResult? Function( String outpoint,  BigInt amountSat)?  newOutput,TResult? Function( String outpoint)?  outputSpent,TResult? Function( String txid)?  broadcasted,TResult? Function( String message)?  broadcastFailed,TResult? Function( CoinSource kind,  String txid,  BigInt amountSat,  int? height)?  electrumTx,TResult? Function( int current,  int end)?  scanSpendProgress,TResult? Function( HeaderProgressPhase phase,  int start,  int end)?  headerProgressStarted,TResult? Function( HeaderProgressPhase phase,  int current,  int end)?  headerProgress,TResult? Function( HeaderProgressPhase phase)?  headerProgressCompleted,TResult? Function( HeaderProgressPhase phase)?  headerProgressFailed,TResult? Function()?  paymentHistoryUpdated,TResult? Function()?  electrumDisconnected,TResult? Function( int forkHeight)?  reorg,TResult? Function()?  headerCheckpointMismatch,TResult? Function()?  electrumConnected,}) {final _that = this;
 switch (_that) {
 case SpNotification_ScanStarted() when scanStarted != null:
 return scanStarted(_that.from,_that.to);case SpNotification_ScanReceiveProgress() when scanReceiveProgress != null:
 return scanReceiveProgress(_that.current,_that.end);case SpNotification_ScanCompleted() when scanCompleted != null:
 return scanCompleted();case SpNotification_ScanStopped() when scanStopped != null:
-return scanStopped();case SpNotification_ScanFailed() when scanFailed != null:
+return scanStopped(_that.lastScanned,_that.lastSpend);case SpNotification_ScanFailed() when scanFailed != null:
 return scanFailed(_that.message);case SpNotification_NewOutput() when newOutput != null:
 return newOutput(_that.outpoint,_that.amountSat);case SpNotification_OutputSpent() when outputSpent != null:
 return outputSpent(_that.outpoint);case SpNotification_Broadcasted() when broadcasted != null:
 return broadcasted(_that.txid);case SpNotification_BroadcastFailed() when broadcastFailed != null:
-return broadcastFailed(_that.message);case SpNotification_BackendOffline() when backendOffline != null:
-return backendOffline();case SpNotification_ElectrumTx() when electrumTx != null:
+return broadcastFailed(_that.message);case SpNotification_ElectrumTx() when electrumTx != null:
 return electrumTx(_that.kind,_that.txid,_that.amountSat,_that.height);case SpNotification_ScanSpendProgress() when scanSpendProgress != null:
 return scanSpendProgress(_that.current,_that.end);case SpNotification_HeaderProgressStarted() when headerProgressStarted != null:
 return headerProgressStarted(_that.phase,_that.start,_that.end);case SpNotification_HeaderProgress() when headerProgress != null:
 return headerProgress(_that.phase,_that.current,_that.end);case SpNotification_HeaderProgressCompleted() when headerProgressCompleted != null:
 return headerProgressCompleted(_that.phase);case SpNotification_HeaderProgressFailed() when headerProgressFailed != null:
 return headerProgressFailed(_that.phase);case SpNotification_PaymentHistoryUpdated() when paymentHistoryUpdated != null:
-return paymentHistoryUpdated();case _:
+return paymentHistoryUpdated();case SpNotification_ElectrumDisconnected() when electrumDisconnected != null:
+return electrumDisconnected();case SpNotification_Reorg() when reorg != null:
+return reorg(_that.forkHeight);case SpNotification_HeaderCheckpointMismatch() when headerCheckpointMismatch != null:
+return headerCheckpointMismatch();case SpNotification_ElectrumConnected() when electrumConnected != null:
+return electrumConnected();case _:
   return null;
 
 }
@@ -1136,33 +1154,69 @@ String toString() {
 
 
 class SpNotification_ScanStopped extends SpNotification {
-  const SpNotification_ScanStopped(): super._();
+  const SpNotification_ScanStopped({this.lastScanned, this.lastSpend}): super._();
   
 
+ final  int? lastScanned;
+ final  int? lastSpend;
 
-
+/// Create a copy of SpNotification
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SpNotification_ScanStoppedCopyWith<SpNotification_ScanStopped> get copyWith => _$SpNotification_ScanStoppedCopyWithImpl<SpNotification_ScanStopped>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpNotification_ScanStopped);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpNotification_ScanStopped&&(identical(other.lastScanned, lastScanned) || other.lastScanned == lastScanned)&&(identical(other.lastSpend, lastSpend) || other.lastSpend == lastSpend));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,lastScanned,lastSpend);
 
 @override
 String toString() {
-  return 'SpNotification.scanStopped()';
+  return 'SpNotification.scanStopped(lastScanned: $lastScanned, lastSpend: $lastSpend)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class $SpNotification_ScanStoppedCopyWith<$Res> implements $SpNotificationCopyWith<$Res> {
+  factory $SpNotification_ScanStoppedCopyWith(SpNotification_ScanStopped value, $Res Function(SpNotification_ScanStopped) _then) = _$SpNotification_ScanStoppedCopyWithImpl;
+@useResult
+$Res call({
+ int? lastScanned, int? lastSpend
+});
 
 
+
+
+}
+/// @nodoc
+class _$SpNotification_ScanStoppedCopyWithImpl<$Res>
+    implements $SpNotification_ScanStoppedCopyWith<$Res> {
+  _$SpNotification_ScanStoppedCopyWithImpl(this._self, this._then);
+
+  final SpNotification_ScanStopped _self;
+  final $Res Function(SpNotification_ScanStopped) _then;
+
+/// Create a copy of SpNotification
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? lastScanned = freezed,Object? lastSpend = freezed,}) {
+  return _then(SpNotification_ScanStopped(
+lastScanned: freezed == lastScanned ? _self.lastScanned : lastScanned // ignore: cast_nullable_to_non_nullable
+as int?,lastSpend: freezed == lastSpend ? _self.lastSpend : lastSpend // ignore: cast_nullable_to_non_nullable
+as int?,
+  ));
+}
+
+
+}
 
 /// @nodoc
 
@@ -1495,38 +1549,6 @@ as String,
 
 
 }
-
-/// @nodoc
-
-
-class SpNotification_BackendOffline extends SpNotification {
-  const SpNotification_BackendOffline(): super._();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpNotification_BackendOffline);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'SpNotification.backendOffline()';
-}
-
-
-}
-
-
-
 
 /// @nodoc
 
@@ -1964,6 +1986,168 @@ int get hashCode => runtimeType.hashCode;
 @override
 String toString() {
   return 'SpNotification.paymentHistoryUpdated()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class SpNotification_ElectrumDisconnected extends SpNotification {
+  const SpNotification_ElectrumDisconnected(): super._();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpNotification_ElectrumDisconnected);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'SpNotification.electrumDisconnected()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class SpNotification_Reorg extends SpNotification {
+  const SpNotification_Reorg({required this.forkHeight}): super._();
+  
+
+ final  int forkHeight;
+
+/// Create a copy of SpNotification
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SpNotification_ReorgCopyWith<SpNotification_Reorg> get copyWith => _$SpNotification_ReorgCopyWithImpl<SpNotification_Reorg>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpNotification_Reorg&&(identical(other.forkHeight, forkHeight) || other.forkHeight == forkHeight));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,forkHeight);
+
+@override
+String toString() {
+  return 'SpNotification.reorg(forkHeight: $forkHeight)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SpNotification_ReorgCopyWith<$Res> implements $SpNotificationCopyWith<$Res> {
+  factory $SpNotification_ReorgCopyWith(SpNotification_Reorg value, $Res Function(SpNotification_Reorg) _then) = _$SpNotification_ReorgCopyWithImpl;
+@useResult
+$Res call({
+ int forkHeight
+});
+
+
+
+
+}
+/// @nodoc
+class _$SpNotification_ReorgCopyWithImpl<$Res>
+    implements $SpNotification_ReorgCopyWith<$Res> {
+  _$SpNotification_ReorgCopyWithImpl(this._self, this._then);
+
+  final SpNotification_Reorg _self;
+  final $Res Function(SpNotification_Reorg) _then;
+
+/// Create a copy of SpNotification
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? forkHeight = null,}) {
+  return _then(SpNotification_Reorg(
+forkHeight: null == forkHeight ? _self.forkHeight : forkHeight // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class SpNotification_HeaderCheckpointMismatch extends SpNotification {
+  const SpNotification_HeaderCheckpointMismatch(): super._();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpNotification_HeaderCheckpointMismatch);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'SpNotification.headerCheckpointMismatch()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class SpNotification_ElectrumConnected extends SpNotification {
+  const SpNotification_ElectrumConnected(): super._();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SpNotification_ElectrumConnected);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'SpNotification.electrumConnected()';
 }
 
 

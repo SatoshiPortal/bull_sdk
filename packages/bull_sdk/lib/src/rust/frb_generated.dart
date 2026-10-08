@@ -96,7 +96,7 @@ class BullSdk extends BaseEntrypoint<BullSdkApi, BullSdkApiImpl, BullSdkWire> {
   String get codegenVersion => '2.12.0';
 
   @override
-  int get rustContentHash => 1274511786;
+  int get rustContentHash => 32154284;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -315,6 +315,7 @@ abstract class BullSdkApi extends BaseApi {
     required String dataDir,
     int? birthdayHeight,
     BigInt? dustLimit,
+    SpHeaderCheckpoint? headerCheckpoint,
   });
 
   Future<SpAccount>
@@ -329,6 +330,7 @@ abstract class BullSdkApi extends BaseApi {
     BigInt? dustLimit,
     int? fetchConcurrencyFactor,
     int? matchConcurrencyFactor,
+    SpHeaderCheckpoint? headerCheckpoint,
   });
 
   Future<void> dartBwkApiSpAccountSpAccountDispose({required SpAccount that});
@@ -349,6 +351,7 @@ abstract class BullSdkApi extends BaseApi {
   Future<SpAccount> dartBwkApiSpAccountSpAccountLoad({
     required String name,
     required String dataDir,
+    SpHeaderCheckpoint? headerCheckpoint,
   });
 
   int dartBwkApiSpAccountSpAccountMinBirthdayHeight({required SpAccount that});
@@ -365,6 +368,10 @@ abstract class BullSdkApi extends BaseApi {
     required SpAccount that,
     required List<RecipientView> recipients,
     required BigInt feerateSatVb,
+  });
+
+  bool dartBwkApiSpAccountSpAccountRestampMissingTimestamps({
+    required SpAccount that,
   });
 
   Future<void> dartBwkApiSpAccountSpAccountRestartElectrum({
@@ -398,11 +405,6 @@ abstract class BullSdkApi extends BaseApi {
   });
 
   Future<void> dartBwkApiSpAccountSpAccountStopScan({required SpAccount that});
-
-  BigInt dartBwkApiSpAccountSpAccountSubAccountBalance({
-    required SpAccount that,
-    required SubAccountKind kind,
-  });
 
   SpBalanceView dartBwkApiSpAccountSpAccountUnifiedBalance({
     required SpAccount that,
@@ -2732,6 +2734,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     required String dataDir,
     int? birthdayHeight,
     BigInt? dustLimit,
+    SpHeaderCheckpoint? headerCheckpoint,
   }) {
     return handler.executeNormal(
       NormalTask(
@@ -2744,6 +2747,9 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           var arg5 = cst_encode_String(dataDir);
           var arg6 = cst_encode_opt_box_autoadd_u_32(birthdayHeight);
           var arg7 = cst_encode_opt_box_autoadd_u_64(dustLimit);
+          var arg8 = cst_encode_opt_box_autoadd_sp_header_checkpoint(
+            headerCheckpoint,
+          );
           return wire
               .wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic(
                 port_,
@@ -2755,6 +2761,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
                 arg5,
                 arg6,
                 arg7,
+                arg8,
               );
         },
         codec: DcoCodec(
@@ -2772,6 +2779,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           dataDir,
           birthdayHeight,
           dustLimit,
+          headerCheckpoint,
         ],
         apiImpl: this,
       ),
@@ -2790,6 +2798,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           "dataDir",
           "birthdayHeight",
           "dustLimit",
+          "headerCheckpoint",
         ],
       );
 
@@ -2806,6 +2815,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     BigInt? dustLimit,
     int? fetchConcurrencyFactor,
     int? matchConcurrencyFactor,
+    SpHeaderCheckpoint? headerCheckpoint,
   }) {
     return handler.executeNormal(
       NormalTask(
@@ -2820,6 +2830,9 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           var arg7 = cst_encode_opt_box_autoadd_u_64(dustLimit);
           var arg8 = cst_encode_opt_box_autoadd_u_32(fetchConcurrencyFactor);
           var arg9 = cst_encode_opt_box_autoadd_u_32(matchConcurrencyFactor);
+          var arg10 = cst_encode_opt_box_autoadd_sp_header_checkpoint(
+            headerCheckpoint,
+          );
           return wire
               .wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime(
                 port_,
@@ -2833,6 +2846,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
                 arg7,
                 arg8,
                 arg9,
+                arg10,
               );
         },
         codec: DcoCodec(
@@ -2853,6 +2867,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           dustLimit,
           fetchConcurrencyFactor,
           matchConcurrencyFactor,
+          headerCheckpoint,
         ],
         apiImpl: this,
       ),
@@ -2874,6 +2889,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           "dustLimit",
           "fetchConcurrencyFactor",
           "matchConcurrencyFactor",
+          "headerCheckpoint",
         ],
       );
 
@@ -3044,16 +3060,21 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   Future<SpAccount> dartBwkApiSpAccountSpAccountLoad({
     required String name,
     required String dataDir,
+    SpHeaderCheckpoint? headerCheckpoint,
   }) {
     return handler.executeNormal(
       NormalTask(
         callFfi: (port_) {
           var arg0 = cst_encode_String(name);
           var arg1 = cst_encode_String(dataDir);
+          var arg2 = cst_encode_opt_box_autoadd_sp_header_checkpoint(
+            headerCheckpoint,
+          );
           return wire.wire__dart_bwk__api__sp_account__SpAccount_load(
             port_,
             arg0,
             arg1,
+            arg2,
           );
         },
         codec: DcoCodec(
@@ -3062,7 +3083,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           decodeErrorData: dco_decode_String,
         ),
         constMeta: kDartBwkApiSpAccountSpAccountLoadConstMeta,
-        argValues: [name, dataDir],
+        argValues: [name, dataDir, headerCheckpoint],
         apiImpl: this,
       ),
     );
@@ -3071,7 +3092,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   TaskConstMeta get kDartBwkApiSpAccountSpAccountLoadConstMeta =>
       const TaskConstMeta(
         debugName: "SpAccount_load",
-        argNames: ["name", "dataDir"],
+        argNames: ["name", "dataDir", "headerCheckpoint"],
       );
 
   @override
@@ -3226,6 +3247,41 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       const TaskConstMeta(
         debugName: "SpAccount_prepare_psbt",
         argNames: ["that", "recipients", "feerateSatVb"],
+      );
+
+  @override
+  bool dartBwkApiSpAccountSpAccountRestampMissingTimestamps({
+    required SpAccount that,
+  }) {
+    return handler.executeSync(
+      SyncTask(
+        callFfi: () {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+                that,
+              );
+          return wire
+              .wire__dart_bwk__api__sp_account__SpAccount_restamp_missing_timestamps(
+                arg0,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_bool,
+          decodeErrorData: dco_decode_String,
+        ),
+        constMeta:
+            kDartBwkApiSpAccountSpAccountRestampMissingTimestampsConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kDartBwkApiSpAccountSpAccountRestampMissingTimestampsConstMeta =>
+      const TaskConstMeta(
+        debugName: "SpAccount_restamp_missing_timestamps",
+        argNames: ["that"],
       );
 
   @override
@@ -3496,42 +3552,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
 
   TaskConstMeta get kDartBwkApiSpAccountSpAccountStopScanConstMeta =>
       const TaskConstMeta(debugName: "SpAccount_stop_scan", argNames: ["that"]);
-
-  @override
-  BigInt dartBwkApiSpAccountSpAccountSubAccountBalance({
-    required SpAccount that,
-    required SubAccountKind kind,
-  }) {
-    return handler.executeSync(
-      SyncTask(
-        callFfi: () {
-          var arg0 =
-              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
-                that,
-              );
-          var arg1 = cst_encode_sub_account_kind(kind);
-          return wire
-              .wire__dart_bwk__api__sp_account__SpAccount_sub_account_balance(
-                arg0,
-                arg1,
-              );
-        },
-        codec: DcoCodec(
-          decodeSuccessData: dco_decode_u_64,
-          decodeErrorData: dco_decode_String,
-        ),
-        constMeta: kDartBwkApiSpAccountSpAccountSubAccountBalanceConstMeta,
-        argValues: [that, kind],
-        apiImpl: this,
-      ),
-    );
-  }
-
-  TaskConstMeta get kDartBwkApiSpAccountSpAccountSubAccountBalanceConstMeta =>
-      const TaskConstMeta(
-        debugName: "SpAccount_sub_account_balance",
-        argNames: ["that", "kind"],
-      );
 
   @override
   SpBalanceView dartBwkApiSpAccountSpAccountUnifiedBalance({
@@ -8972,6 +8992,12 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  SpHeaderCheckpoint dco_decode_box_autoadd_sp_header_checkpoint(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return dco_decode_sp_header_checkpoint(raw);
+  }
+
+  @protected
   SplitOptions dco_decode_box_autoadd_split_options(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_split_options(raw);
@@ -9574,6 +9600,16 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  SpHeaderCheckpoint? dco_decode_opt_box_autoadd_sp_header_checkpoint(
+    dynamic raw,
+  ) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    return raw == null
+        ? null
+        : dco_decode_box_autoadd_sp_header_checkpoint(raw);
+  }
+
+  @protected
   Transaction? dco_decode_opt_box_autoadd_transaction(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_transaction(raw);
@@ -9876,7 +9912,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     return SpCoinView(
       outpoint: dco_decode_String(arr[0]),
       amountSat: dco_decode_u_64(arr[1]),
-      height: dco_decode_u_32(arr[2]),
+      height: dco_decode_opt_box_autoadd_u_32(arr[2]),
       isSpendable: dco_decode_bool(arr[3]),
       label: dco_decode_opt_String(arr[4]),
     );
@@ -9897,6 +9933,18 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       default:
         throw Exception("unreachable");
     }
+  }
+
+  @protected
+  SpHeaderCheckpoint dco_decode_sp_header_checkpoint(dynamic raw) {
+    // Codec=Dco (DartCObject based), see doc to use other codecs
+    final arr = raw as List<dynamic>;
+    if (arr.length != 2)
+      throw Exception('unexpected arr length: expect 2 but see ${arr.length}');
+    return SpHeaderCheckpoint(
+      height: dco_decode_u_32(arr[0]),
+      hash: dco_decode_String(arr[1]),
+    );
   }
 
   @protected
@@ -9922,7 +9970,10 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       case 2:
         return SpNotification_ScanCompleted();
       case 3:
-        return SpNotification_ScanStopped();
+        return SpNotification_ScanStopped(
+          lastScanned: dco_decode_opt_box_autoadd_u_32(raw[1]),
+          lastSpend: dco_decode_opt_box_autoadd_u_32(raw[2]),
+        );
       case 4:
         return SpNotification_ScanFailed(message: dco_decode_String(raw[1]));
       case 5:
@@ -9939,41 +9990,47 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           message: dco_decode_String(raw[1]),
         );
       case 9:
-        return SpNotification_BackendOffline();
-      case 10:
         return SpNotification_ElectrumTx(
           kind: dco_decode_coin_source(raw[1]),
           txid: dco_decode_String(raw[2]),
           amountSat: dco_decode_u_64(raw[3]),
           height: dco_decode_opt_box_autoadd_u_32(raw[4]),
         );
-      case 11:
+      case 10:
         return SpNotification_ScanSpendProgress(
           current: dco_decode_u_32(raw[1]),
           end: dco_decode_u_32(raw[2]),
         );
-      case 12:
+      case 11:
         return SpNotification_HeaderProgressStarted(
           phase: dco_decode_header_progress_phase(raw[1]),
           start: dco_decode_u_32(raw[2]),
           end: dco_decode_u_32(raw[3]),
         );
-      case 13:
+      case 12:
         return SpNotification_HeaderProgress(
           phase: dco_decode_header_progress_phase(raw[1]),
           current: dco_decode_u_32(raw[2]),
           end: dco_decode_u_32(raw[3]),
         );
-      case 14:
+      case 13:
         return SpNotification_HeaderProgressCompleted(
           phase: dco_decode_header_progress_phase(raw[1]),
         );
-      case 15:
+      case 14:
         return SpNotification_HeaderProgressFailed(
           phase: dco_decode_header_progress_phase(raw[1]),
         );
-      case 16:
+      case 15:
         return SpNotification_PaymentHistoryUpdated();
+      case 16:
+        return SpNotification_ElectrumDisconnected();
+      case 17:
+        return SpNotification_Reorg(forkHeight: dco_decode_u_32(raw[1]));
+      case 18:
+        return SpNotification_HeaderCheckpointMismatch();
+      case 19:
+        return SpNotification_ElectrumConnected();
       default:
         throw Exception("unreachable");
     }
@@ -10041,12 +10098,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       minVersion: dco_decode_version(arr[3]),
       maxVersion: dco_decode_version(arr[4]),
     );
-  }
-
-  @protected
-  SubAccountKind dco_decode_sub_account_kind(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return SubAccountKind.values[raw as int];
   }
 
   @protected
@@ -10762,6 +10813,14 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   Side sse_decode_box_autoadd_side(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_side(deserializer));
+  }
+
+  @protected
+  SpHeaderCheckpoint sse_decode_box_autoadd_sp_header_checkpoint(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    return (sse_decode_sp_header_checkpoint(deserializer));
   }
 
   @protected
@@ -11636,6 +11695,19 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  SpHeaderCheckpoint? sse_decode_opt_box_autoadd_sp_header_checkpoint(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    if (sse_decode_bool(deserializer)) {
+      return (sse_decode_box_autoadd_sp_header_checkpoint(deserializer));
+    } else {
+      return null;
+    }
+  }
+
+  @protected
   Transaction? sse_decode_opt_box_autoadd_transaction(
     SseDeserializer deserializer,
   ) {
@@ -11971,7 +12043,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var var_outpoint = sse_decode_String(deserializer);
     var var_amountSat = sse_decode_u_64(deserializer);
-    var var_height = sse_decode_u_32(deserializer);
+    var var_height = sse_decode_opt_box_autoadd_u_32(deserializer);
     var var_isSpendable = sse_decode_bool(deserializer);
     var var_label = sse_decode_opt_String(deserializer);
     return SpCoinView(
@@ -12005,6 +12077,16 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  SpHeaderCheckpoint sse_decode_sp_header_checkpoint(
+    SseDeserializer deserializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    var var_height = sse_decode_u_32(deserializer);
+    var var_hash = sse_decode_String(deserializer);
+    return SpHeaderCheckpoint(height: var_height, hash: var_hash);
+  }
+
+  @protected
   SpNetwork sse_decode_sp_network(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     var inner = sse_decode_i_32(deserializer);
@@ -12031,7 +12113,12 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       case 2:
         return SpNotification_ScanCompleted();
       case 3:
-        return SpNotification_ScanStopped();
+        var var_lastScanned = sse_decode_opt_box_autoadd_u_32(deserializer);
+        var var_lastSpend = sse_decode_opt_box_autoadd_u_32(deserializer);
+        return SpNotification_ScanStopped(
+          lastScanned: var_lastScanned,
+          lastSpend: var_lastSpend,
+        );
       case 4:
         var var_message = sse_decode_String(deserializer);
         return SpNotification_ScanFailed(message: var_message);
@@ -12052,8 +12139,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         var var_message = sse_decode_String(deserializer);
         return SpNotification_BroadcastFailed(message: var_message);
       case 9:
-        return SpNotification_BackendOffline();
-      case 10:
         var var_kind = sse_decode_coin_source(deserializer);
         var var_txid = sse_decode_String(deserializer);
         var var_amountSat = sse_decode_u_64(deserializer);
@@ -12064,14 +12149,14 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           amountSat: var_amountSat,
           height: var_height,
         );
-      case 11:
+      case 10:
         var var_current = sse_decode_u_32(deserializer);
         var var_end = sse_decode_u_32(deserializer);
         return SpNotification_ScanSpendProgress(
           current: var_current,
           end: var_end,
         );
-      case 12:
+      case 11:
         var var_phase = sse_decode_header_progress_phase(deserializer);
         var var_start = sse_decode_u_32(deserializer);
         var var_end = sse_decode_u_32(deserializer);
@@ -12080,7 +12165,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           start: var_start,
           end: var_end,
         );
-      case 13:
+      case 12:
         var var_phase = sse_decode_header_progress_phase(deserializer);
         var var_current = sse_decode_u_32(deserializer);
         var var_end = sse_decode_u_32(deserializer);
@@ -12089,14 +12174,23 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           current: var_current,
           end: var_end,
         );
-      case 14:
+      case 13:
         var var_phase = sse_decode_header_progress_phase(deserializer);
         return SpNotification_HeaderProgressCompleted(phase: var_phase);
-      case 15:
+      case 14:
         var var_phase = sse_decode_header_progress_phase(deserializer);
         return SpNotification_HeaderProgressFailed(phase: var_phase);
-      case 16:
+      case 15:
         return SpNotification_PaymentHistoryUpdated();
+      case 16:
+        return SpNotification_ElectrumDisconnected();
+      case 17:
+        var var_forkHeight = sse_decode_u_32(deserializer);
+        return SpNotification_Reorg(forkHeight: var_forkHeight);
+      case 18:
+        return SpNotification_HeaderCheckpointMismatch();
+      case 19:
+        return SpNotification_ElectrumConnected();
       default:
         throw UnimplementedError('');
     }
@@ -12178,13 +12272,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       minVersion: var_minVersion,
       maxVersion: var_maxVersion,
     );
-  }
-
-  @protected
-  SubAccountKind sse_decode_sub_account_kind(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var inner = sse_decode_i_32(deserializer);
-    return SubAccountKind.values[inner];
   }
 
   @protected
@@ -12815,12 +12902,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
-  int cst_encode_sub_account_kind(SubAccountKind raw) {
-    // Codec=Cst (C-struct based), see doc to use other codecs
-    return cst_encode_i_32(raw.index);
-  }
-
-  @protected
   int cst_encode_swap_status(SwapStatus raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return cst_encode_i_32(raw.index);
@@ -13327,6 +13408,15 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   void sse_encode_box_autoadd_side(Side self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_side(self, serializer);
+  }
+
+  @protected
+  void sse_encode_box_autoadd_sp_header_checkpoint(
+    SpHeaderCheckpoint self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_sp_header_checkpoint(self, serializer);
   }
 
   @protected
@@ -14071,6 +14161,19 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   }
 
   @protected
+  void sse_encode_opt_box_autoadd_sp_header_checkpoint(
+    SpHeaderCheckpoint? self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+
+    sse_encode_bool(self != null, serializer);
+    if (self != null) {
+      sse_encode_box_autoadd_sp_header_checkpoint(self, serializer);
+    }
+  }
+
+  @protected
   void sse_encode_opt_box_autoadd_transaction(
     Transaction? self,
     SseSerializer serializer,
@@ -14356,7 +14459,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_String(self.outpoint, serializer);
     sse_encode_u_64(self.amountSat, serializer);
-    sse_encode_u_32(self.height, serializer);
+    sse_encode_opt_box_autoadd_u_32(self.height, serializer);
     sse_encode_bool(self.isSpendable, serializer);
     sse_encode_opt_String(self.label, serializer);
   }
@@ -14376,6 +14479,16 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         sse_encode_i_32(3, serializer);
         sse_encode_String(message, serializer);
     }
+  }
+
+  @protected
+  void sse_encode_sp_header_checkpoint(
+    SpHeaderCheckpoint self,
+    SseSerializer serializer,
+  ) {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    sse_encode_u_32(self.height, serializer);
+    sse_encode_String(self.hash, serializer);
   }
 
   @protected
@@ -14404,8 +14517,13 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         sse_encode_u_32(end, serializer);
       case SpNotification_ScanCompleted():
         sse_encode_i_32(2, serializer);
-      case SpNotification_ScanStopped():
+      case SpNotification_ScanStopped(
+        lastScanned: final lastScanned,
+        lastSpend: final lastSpend,
+      ):
         sse_encode_i_32(3, serializer);
+        sse_encode_opt_box_autoadd_u_32(lastScanned, serializer);
+        sse_encode_opt_box_autoadd_u_32(lastSpend, serializer);
       case SpNotification_ScanFailed(message: final message):
         sse_encode_i_32(4, serializer);
         sse_encode_String(message, serializer);
@@ -14425,15 +14543,13 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       case SpNotification_BroadcastFailed(message: final message):
         sse_encode_i_32(8, serializer);
         sse_encode_String(message, serializer);
-      case SpNotification_BackendOffline():
-        sse_encode_i_32(9, serializer);
       case SpNotification_ElectrumTx(
         kind: final kind,
         txid: final txid,
         amountSat: final amountSat,
         height: final height,
       ):
-        sse_encode_i_32(10, serializer);
+        sse_encode_i_32(9, serializer);
         sse_encode_coin_source(kind, serializer);
         sse_encode_String(txid, serializer);
         sse_encode_u_64(amountSat, serializer);
@@ -14442,7 +14558,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         current: final current,
         end: final end,
       ):
-        sse_encode_i_32(11, serializer);
+        sse_encode_i_32(10, serializer);
         sse_encode_u_32(current, serializer);
         sse_encode_u_32(end, serializer);
       case SpNotification_HeaderProgressStarted(
@@ -14450,7 +14566,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         start: final start,
         end: final end,
       ):
-        sse_encode_i_32(12, serializer);
+        sse_encode_i_32(11, serializer);
         sse_encode_header_progress_phase(phase, serializer);
         sse_encode_u_32(start, serializer);
         sse_encode_u_32(end, serializer);
@@ -14459,18 +14575,27 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         current: final current,
         end: final end,
       ):
-        sse_encode_i_32(13, serializer);
+        sse_encode_i_32(12, serializer);
         sse_encode_header_progress_phase(phase, serializer);
         sse_encode_u_32(current, serializer);
         sse_encode_u_32(end, serializer);
       case SpNotification_HeaderProgressCompleted(phase: final phase):
-        sse_encode_i_32(14, serializer);
+        sse_encode_i_32(13, serializer);
         sse_encode_header_progress_phase(phase, serializer);
       case SpNotification_HeaderProgressFailed(phase: final phase):
-        sse_encode_i_32(15, serializer);
+        sse_encode_i_32(14, serializer);
         sse_encode_header_progress_phase(phase, serializer);
       case SpNotification_PaymentHistoryUpdated():
+        sse_encode_i_32(15, serializer);
+      case SpNotification_ElectrumDisconnected():
         sse_encode_i_32(16, serializer);
+      case SpNotification_Reorg(forkHeight: final forkHeight):
+        sse_encode_i_32(17, serializer);
+        sse_encode_u_32(forkHeight, serializer);
+      case SpNotification_HeaderCheckpointMismatch():
+        sse_encode_i_32(18, serializer);
+      case SpNotification_ElectrumConnected():
+        sse_encode_i_32(19, serializer);
     }
   }
 
@@ -14533,15 +14658,6 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     sse_encode_usize(self.maxSplitNumber, serializer);
     sse_encode_version(self.minVersion, serializer);
     sse_encode_version(self.maxVersion, serializer);
-  }
-
-  @protected
-  void sse_encode_sub_account_kind(
-    SubAccountKind self,
-    SseSerializer serializer,
-  ) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_i_32(self.index, serializer);
   }
 
   @protected
@@ -15191,12 +15307,13 @@ class SpAccountImpl extends RustOpaque implements SpAccount {
   /// Reveal a fresh receive address for the BIP86 taproot sub-account.
   ///
   /// Each call derives the next never-before-issued address via
-  /// [`bwk::Account::new_addr`], which bumps and persists the receive-chain
-  /// tip (sqlite under `PersistenceKind::Sqlite`) *before* deriving. So an
-  /// address is never handed out twice — even across restarts, and
-  /// regardless of whether the previously revealed one has received a coin
-  /// yet. Callers MUST treat this as "give me a new address to hand out"
-  /// (an explicit user action), never as a stable display getter.
+  /// [`bwk_sp::account::Account::new_taproot_address`], which bumps and
+  /// persists the receive-chain tip (sqlite under `PersistenceKind::Sqlite`)
+  /// *before* deriving. So an address is never handed out twice, even across
+  /// restarts, and regardless of whether the previously revealed one has
+  /// received a coin yet. Callers MUST treat this as "give me a new address
+  /// to hand out" (an explicit user action), never as a stable display
+  /// getter.
   ///
   /// Store-only / pure-descriptor: it never contacts Electrum or Blindbit,
   /// so it does not violate the no-chain-query-outside-`scan_once` invariant.
@@ -15220,6 +15337,11 @@ class SpAccountImpl extends RustOpaque implements SpAccount {
     recipients: recipients,
     feerateSatVb: feerateSatVb,
   );
+
+  /// Stamp the confirmed txs still missing a block time from the header
+  /// store. Local only, no network call. Returns whether any tx got stamped.
+  bool restampMissingTimestamps() => BullSdk.instance.api
+      .dartBwkApiSpAccountSpAccountRestampMissingTimestamps(that: this);
 
   /// Restart the sub-account electrum listeners in place (stop then start),
   /// keeping the account and its notification channel alive. Used on app
@@ -15284,8 +15406,9 @@ class SpAccountImpl extends RustOpaque implements SpAccount {
   /// without touching the inner mutex (which the scan call still holds
   /// via `&mut self` for its full duration); spdk-core's `process_blocks`
   /// observes `scan_cancel` between blocks and returns `Ok(())` after
-  /// persisting state. The scan handler then emits `ScanCompleted` and
-  /// the cubit's `_onNotification` transitions out of `isScanning`.
+  /// persisting state. The scan handler then emits `ScanStopped` with the
+  /// persisted frontiers and the cubit's `_onNotification` transitions out
+  /// of `isScanning`.
   ///
   /// Was `#[frb(sync)]`: that meant Dart's Stop button ran on the
   /// UI isolate and blocked waiting for the inner mutex held by the
@@ -15295,12 +15418,6 @@ class SpAccountImpl extends RustOpaque implements SpAccount {
   /// Idempotent: re-flipping an already-`true` flag is a no-op.
   Future<void> stopScan() =>
       BullSdk.instance.api.dartBwkApiSpAccountSpAccountStopScan(that: this);
-
-  /// Confirmed balance of one sub-account in satoshis.
-  BigInt subAccountBalance({required SubAccountKind kind}) => BullSdk
-      .instance
-      .api
-      .dartBwkApiSpAccountSpAccountSubAccountBalance(that: this, kind: kind);
 
   /// Aggregated balance across SP + all sub-accounts.
   SpBalanceView unifiedBalance() => BullSdk.instance.api

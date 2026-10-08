@@ -36,7 +36,10 @@ pub enum SpNotification {
         end: u32,
     },
     ScanCompleted,
-    ScanStopped,
+    ScanStopped {
+        last_scanned: Option<u32>,
+        last_spend: Option<u32>,
+    },
     ScanFailed {
         message: String,
     },
@@ -53,7 +56,6 @@ pub enum SpNotification {
     BroadcastFailed {
         message: String,
     },
-    BackendOffline,
     ElectrumTx {
         kind: dart_bwk::api::types::CoinSource,
         txid: String,
@@ -81,6 +83,12 @@ pub enum SpNotification {
         phase: dart_bwk::api::types::HeaderProgressPhase,
     },
     PaymentHistoryUpdated,
+    ElectrumDisconnected,
+    Reorg {
+        fork_height: u32,
+    },
+    HeaderCheckpointMismatch,
+    ElectrumConnected,
 }
 
 impl From<dart_bwk::api::types::SpNotification> for SpNotification {
@@ -96,7 +104,13 @@ impl From<dart_bwk::api::types::SpNotification> for SpNotification {
                 SpNotification::ScanSpendProgress { current, end }
             }
             dart_bwk::api::types::SpNotification::ScanCompleted => SpNotification::ScanCompleted,
-            dart_bwk::api::types::SpNotification::ScanStopped => SpNotification::ScanStopped,
+            dart_bwk::api::types::SpNotification::ScanStopped {
+                last_scanned,
+                last_spend,
+            } => SpNotification::ScanStopped {
+                last_scanned,
+                last_spend,
+            },
             dart_bwk::api::types::SpNotification::ScanFailed { message } => {
                 SpNotification::ScanFailed { message }
             }
@@ -116,7 +130,6 @@ impl From<dart_bwk::api::types::SpNotification> for SpNotification {
             dart_bwk::api::types::SpNotification::BroadcastFailed { message } => {
                 SpNotification::BroadcastFailed { message }
             }
-            dart_bwk::api::types::SpNotification::BackendOffline => SpNotification::BackendOffline,
             dart_bwk::api::types::SpNotification::ElectrumTx {
                 kind,
                 txid,
@@ -149,6 +162,18 @@ impl From<dart_bwk::api::types::SpNotification> for SpNotification {
             dart_bwk::api::types::SpNotification::PaymentHistoryUpdated => {
                 SpNotification::PaymentHistoryUpdated
             }
+            dart_bwk::api::types::SpNotification::ElectrumDisconnected => {
+                SpNotification::ElectrumDisconnected
+            }
+            dart_bwk::api::types::SpNotification::Reorg { fork_height } => {
+                SpNotification::Reorg { fork_height }
+            }
+            dart_bwk::api::types::SpNotification::HeaderCheckpointMismatch => {
+                SpNotification::HeaderCheckpointMismatch
+            }
+            dart_bwk::api::types::SpNotification::ElectrumConnected => {
+                SpNotification::ElectrumConnected
+            }
         }
     }
 }
@@ -166,7 +191,13 @@ impl From<SpNotification> for dart_bwk::api::types::SpNotification {
                 dart_bwk::api::types::SpNotification::ScanSpendProgress { current, end }
             }
             SpNotification::ScanCompleted => dart_bwk::api::types::SpNotification::ScanCompleted,
-            SpNotification::ScanStopped => dart_bwk::api::types::SpNotification::ScanStopped,
+            SpNotification::ScanStopped {
+                last_scanned,
+                last_spend,
+            } => dart_bwk::api::types::SpNotification::ScanStopped {
+                last_scanned,
+                last_spend,
+            },
             SpNotification::ScanFailed { message } => {
                 dart_bwk::api::types::SpNotification::ScanFailed { message }
             }
@@ -186,7 +217,6 @@ impl From<SpNotification> for dart_bwk::api::types::SpNotification {
             SpNotification::BroadcastFailed { message } => {
                 dart_bwk::api::types::SpNotification::BroadcastFailed { message }
             }
-            SpNotification::BackendOffline => dart_bwk::api::types::SpNotification::BackendOffline,
             SpNotification::ElectrumTx {
                 kind,
                 txid,
@@ -218,6 +248,18 @@ impl From<SpNotification> for dart_bwk::api::types::SpNotification {
             }
             SpNotification::PaymentHistoryUpdated => {
                 dart_bwk::api::types::SpNotification::PaymentHistoryUpdated
+            }
+            SpNotification::ElectrumDisconnected => {
+                dart_bwk::api::types::SpNotification::ElectrumDisconnected
+            }
+            SpNotification::Reorg { fork_height } => {
+                dart_bwk::api::types::SpNotification::Reorg { fork_height }
+            }
+            SpNotification::HeaderCheckpointMismatch => {
+                dart_bwk::api::types::SpNotification::HeaderCheckpointMismatch
+            }
+            SpNotification::ElectrumConnected => {
+                dart_bwk::api::types::SpNotification::ElectrumConnected
             }
         }
     }
