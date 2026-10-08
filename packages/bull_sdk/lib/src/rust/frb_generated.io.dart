@@ -270,6 +270,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   Side dco_decode_box_autoadd_side(dynamic raw);
 
   @protected
+  SpHeaderCheckpoint dco_decode_box_autoadd_sp_header_checkpoint(dynamic raw);
+
+  @protected
   SplitOptions dco_decode_box_autoadd_split_options(dynamic raw);
 
   @protected
@@ -491,6 +494,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   Side? dco_decode_opt_box_autoadd_side(dynamic raw);
 
   @protected
+  SpHeaderCheckpoint? dco_decode_opt_box_autoadd_sp_header_checkpoint(
+    dynamic raw,
+  );
+
+  @protected
   Transaction? dco_decode_opt_box_autoadd_transaction(dynamic raw);
 
   @protected
@@ -573,6 +581,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   SpError dco_decode_sp_error(dynamic raw);
+
+  @protected
+  SpHeaderCheckpoint dco_decode_sp_header_checkpoint(dynamic raw);
 
   @protected
   SpNetwork dco_decode_sp_network(dynamic raw);
@@ -879,6 +890,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   Side sse_decode_box_autoadd_side(SseDeserializer deserializer);
 
   @protected
+  SpHeaderCheckpoint sse_decode_box_autoadd_sp_header_checkpoint(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   SplitOptions sse_decode_box_autoadd_split_options(
     SseDeserializer deserializer,
   );
@@ -1142,6 +1158,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   Side? sse_decode_opt_box_autoadd_side(SseDeserializer deserializer);
 
   @protected
+  SpHeaderCheckpoint? sse_decode_opt_box_autoadd_sp_header_checkpoint(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   Transaction? sse_decode_opt_box_autoadd_transaction(
     SseDeserializer deserializer,
   );
@@ -1238,6 +1259,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   SpError sse_decode_sp_error(SseDeserializer deserializer);
+
+  @protected
+  SpHeaderCheckpoint sse_decode_sp_header_checkpoint(
+    SseDeserializer deserializer,
+  );
 
   @protected
   SpNetwork sse_decode_sp_network(SseDeserializer deserializer);
@@ -1554,6 +1580,15 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   ffi.Pointer<ffi.Int32> cst_encode_box_autoadd_side(Side raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return wire.cst_new_box_autoadd_side(cst_encode_side(raw));
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_sp_header_checkpoint>
+  cst_encode_box_autoadd_sp_header_checkpoint(SpHeaderCheckpoint raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_sp_header_checkpoint();
+    cst_api_fill_to_wire_sp_header_checkpoint(raw, ptr.ref);
+    return ptr;
   }
 
   @protected
@@ -2001,6 +2036,15 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_sp_header_checkpoint>
+  cst_encode_opt_box_autoadd_sp_header_checkpoint(SpHeaderCheckpoint? raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return raw == null
+        ? ffi.nullptr
+        : cst_encode_box_autoadd_sp_header_checkpoint(raw);
+  }
+
+  @protected
   ffi.Pointer<wire_cst_transaction> cst_encode_opt_box_autoadd_transaction(
     Transaction? raw,
   ) {
@@ -2200,6 +2244,14 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     ffi.Pointer<wire_cst_pset_output> wireObj,
   ) {
     cst_api_fill_to_wire_pset_output(apiObj, wireObj.ref);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_box_autoadd_sp_header_checkpoint(
+    SpHeaderCheckpoint apiObj,
+    ffi.Pointer<wire_cst_sp_header_checkpoint> wireObj,
+  ) {
+    cst_api_fill_to_wire_sp_header_checkpoint(apiObj, wireObj.ref);
   }
 
   @protected
@@ -2762,6 +2814,15 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_sp_header_checkpoint(
+    SpHeaderCheckpoint apiObj,
+    wire_cst_sp_header_checkpoint wireObj,
+  ) {
+    wireObj.height = cst_encode_u_32(apiObj.height);
+    wireObj.hash = cst_encode_String(apiObj.hash);
+  }
+
+  @protected
   void cst_api_fill_to_wire_sp_notification(
     SpNotification apiObj,
     wire_cst_sp_notification wireObj,
@@ -2896,6 +2957,10 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
       var pre_fork_height = cst_encode_u_32(apiObj.forkHeight);
       wireObj.tag = 18;
       wireObj.kind.Reorg.fork_height = pre_fork_height;
+      return;
+    }
+    if (apiObj is SpNotification_HeaderCheckpointMismatch) {
+      wireObj.tag = 19;
       return;
     }
   }
@@ -3580,6 +3645,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void sse_encode_box_autoadd_side(Side self, SseSerializer serializer);
 
   @protected
+  void sse_encode_box_autoadd_sp_header_checkpoint(
+    SpHeaderCheckpoint self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_box_autoadd_split_options(
     SplitOptions self,
     SseSerializer serializer,
@@ -3907,6 +3978,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void sse_encode_opt_box_autoadd_side(Side? self, SseSerializer serializer);
 
   @protected
+  void sse_encode_opt_box_autoadd_sp_header_checkpoint(
+    SpHeaderCheckpoint? self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_opt_box_autoadd_transaction(
     Transaction? self,
     SseSerializer serializer,
@@ -4025,6 +4102,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void sse_encode_sp_error(SpError self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_sp_header_checkpoint(
+    SpHeaderCheckpoint self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_sp_network(SpNetwork self, SseSerializer serializer);
@@ -5067,6 +5150,7 @@ class BullSdkWire implements BaseWire {
     ffi.Pointer<wire_cst_list_prim_u_8_strict> data_dir,
     ffi.Pointer<ffi.Uint32> birthday_height,
     ffi.Pointer<ffi.Uint64> dust_limit,
+    ffi.Pointer<wire_cst_sp_header_checkpoint> header_checkpoint,
   ) {
     return _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic(
       port_,
@@ -5078,6 +5162,7 @@ class BullSdkWire implements BaseWire {
       data_dir,
       birthday_height,
       dust_limit,
+      header_checkpoint,
     );
   }
 
@@ -5094,6 +5179,7 @@ class BullSdkWire implements BaseWire {
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Pointer<ffi.Uint32>,
             ffi.Pointer<ffi.Uint64>,
+            ffi.Pointer<wire_cst_sp_header_checkpoint>,
           )
         >
       >(
@@ -5112,6 +5198,7 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               ffi.Pointer<ffi.Uint32>,
               ffi.Pointer<ffi.Uint64>,
+              ffi.Pointer<wire_cst_sp_header_checkpoint>,
             )
           >();
 
@@ -5128,6 +5215,7 @@ class BullSdkWire implements BaseWire {
     ffi.Pointer<ffi.Uint64> dust_limit,
     ffi.Pointer<ffi.Uint32> fetch_concurrency_factor,
     ffi.Pointer<ffi.Uint32> match_concurrency_factor,
+    ffi.Pointer<wire_cst_sp_header_checkpoint> header_checkpoint,
   ) {
     return _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime(
       port_,
@@ -5141,6 +5229,7 @@ class BullSdkWire implements BaseWire {
       dust_limit,
       fetch_concurrency_factor,
       match_concurrency_factor,
+      header_checkpoint,
     );
   }
 
@@ -5159,6 +5248,7 @@ class BullSdkWire implements BaseWire {
             ffi.Pointer<ffi.Uint64>,
             ffi.Pointer<ffi.Uint32>,
             ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<wire_cst_sp_header_checkpoint>,
           )
         >
       >(
@@ -5179,6 +5269,7 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<ffi.Uint64>,
               ffi.Pointer<ffi.Uint32>,
               ffi.Pointer<ffi.Uint32>,
+              ffi.Pointer<wire_cst_sp_header_checkpoint>,
             )
           >();
 
@@ -5282,11 +5373,13 @@ class BullSdkWire implements BaseWire {
     int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> name,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> data_dir,
+    ffi.Pointer<wire_cst_sp_header_checkpoint> header_checkpoint,
   ) {
     return _wire__dart_bwk__api__sp_account__SpAccount_load(
       port_,
       name,
       data_dir,
+      header_checkpoint,
     );
   }
 
@@ -5297,6 +5390,7 @@ class BullSdkWire implements BaseWire {
             ffi.Int64,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_sp_header_checkpoint>,
           )
         >
       >('frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_load');
@@ -5307,6 +5401,7 @@ class BullSdkWire implements BaseWire {
               int,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_sp_header_checkpoint>,
             )
           >();
 
@@ -10137,6 +10232,21 @@ class BullSdkWire implements BaseWire {
   late final _cst_new_box_autoadd_side = _cst_new_box_autoadd_sidePtr
       .asFunction<ffi.Pointer<ffi.Int32> Function(int)>();
 
+  ffi.Pointer<wire_cst_sp_header_checkpoint>
+  cst_new_box_autoadd_sp_header_checkpoint() {
+    return _cst_new_box_autoadd_sp_header_checkpoint();
+  }
+
+  late final _cst_new_box_autoadd_sp_header_checkpointPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<wire_cst_sp_header_checkpoint> Function()
+        >
+      >('frbgen_bull_sdk_cst_new_box_autoadd_sp_header_checkpoint');
+  late final _cst_new_box_autoadd_sp_header_checkpoint =
+      _cst_new_box_autoadd_sp_header_checkpointPtr
+          .asFunction<ffi.Pointer<wire_cst_sp_header_checkpoint> Function()>();
+
   ffi.Pointer<wire_cst_split_options> cst_new_box_autoadd_split_options() {
     return _cst_new_box_autoadd_split_options();
   }
@@ -10649,6 +10759,13 @@ final class wire_cst_list_prim_u_8_loose extends ffi.Struct {
 
   @ffi.Int32()
   external int len;
+}
+
+final class wire_cst_sp_header_checkpoint extends ffi.Struct {
+  @ffi.Uint32()
+  external int height;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> hash;
 }
 
 final class wire_cst_unified_coin_view extends ffi.Struct {

@@ -88,6 +88,7 @@ pub enum SpNotification {
     Reorg {
         fork_height: u32,
     },
+    HeaderCheckpointMismatch,
 }
 
 impl From<dart_bwk::api::types::SpNotification> for SpNotification {
@@ -167,6 +168,9 @@ impl From<dart_bwk::api::types::SpNotification> for SpNotification {
             }
             dart_bwk::api::types::SpNotification::Reorg { fork_height } => {
                 SpNotification::Reorg { fork_height }
+            }
+            dart_bwk::api::types::SpNotification::HeaderCheckpointMismatch => {
+                SpNotification::HeaderCheckpointMismatch
             }
         }
     }
@@ -249,6 +253,9 @@ impl From<SpNotification> for dart_bwk::api::types::SpNotification {
             }
             SpNotification::Reorg { fork_height } => {
                 dart_bwk::api::types::SpNotification::Reorg { fork_height }
+            }
+            SpNotification::HeaderCheckpointMismatch => {
+                dart_bwk::api::types::SpNotification::HeaderCheckpointMismatch
             }
         }
     }

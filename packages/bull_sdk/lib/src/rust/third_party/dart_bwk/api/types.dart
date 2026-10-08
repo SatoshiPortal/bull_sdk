@@ -7,7 +7,7 @@ import '../../../api/simple.dart';
 import '../../../frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `eq`, `eq`, `eq`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `from`
+// These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `assert_fields_are_eq`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `eq`, `eq`, `eq`, `eq`, `eq`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `from`
 
 enum CoinSource { sp, segwit, taproot, other }
 
@@ -108,6 +108,27 @@ class SpCoinView {
           height == other.height &&
           isSpendable == other.isSpendable &&
           label == other.label;
+}
+
+/// A block the app trusts, which the header chain must contain. `hash` is the
+/// block hash in hex. `height` must sit on a 2016 block retarget boundary.
+/// A mainnet account needs one: bwk panics opening its header store without it.
+class SpHeaderCheckpoint {
+  final int height;
+  final String hash;
+
+  const SpHeaderCheckpoint({required this.height, required this.hash});
+
+  @override
+  int get hashCode => height.hashCode ^ hash.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SpHeaderCheckpoint &&
+          runtimeType == other.runtimeType &&
+          height == other.height &&
+          hash == other.hash;
 }
 
 enum SpNetwork { bitcoin, signet, testnet, regtest }
