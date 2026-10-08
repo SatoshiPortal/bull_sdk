@@ -66,6 +66,7 @@ abstract class SpAccount implements RustOpaqueInterface {
     required String dataDir,
     int? birthdayHeight,
     BigInt? dustLimit,
+    SpHeaderCheckpoint? headerCheckpoint,
   }) => BullSdk.instance.api.dartBwkApiSpAccountSpAccountCreateFromMnemonic(
     name: name,
     network: network,
@@ -75,6 +76,7 @@ abstract class SpAccount implements RustOpaqueInterface {
     dataDir: dataDir,
     birthdayHeight: birthdayHeight,
     dustLimit: dustLimit,
+    headerCheckpoint: headerCheckpoint,
   );
 
   /// [create_from_mnemonic] with an explicit scan runtime.
@@ -97,6 +99,7 @@ abstract class SpAccount implements RustOpaqueInterface {
     BigInt? dustLimit,
     int? fetchConcurrencyFactor,
     int? matchConcurrencyFactor,
+    SpHeaderCheckpoint? headerCheckpoint,
   }) => BullSdk.instance.api
       .dartBwkApiSpAccountSpAccountCreateFromMnemonicWithScanRuntime(
         name: name,
@@ -109,6 +112,7 @@ abstract class SpAccount implements RustOpaqueInterface {
         dustLimit: dustLimit,
         fetchConcurrencyFactor: fetchConcurrencyFactor,
         matchConcurrencyFactor: matchConcurrencyFactor,
+        headerCheckpoint: headerCheckpoint,
       );
 
   /// Cooperatively stop the notification thread and release the inner
@@ -182,15 +186,21 @@ abstract class SpAccount implements RustOpaqueInterface {
 
   /// Reopen an account already on disk.
   ///
+  /// A given `header_checkpoint` replaces the one in the saved config, `None`
+  /// keeps it: the header store extends its chain down to a lower checkpoint
+  /// and refuses a chain that holds another block at its height.
+  ///
   /// Not `#[frb(sync)]` for the same reason as [create_from_mnemonic]: it
   /// opens `account.sqlite` and the header store, and it runs before the
   /// notification sink exists.
   static Future<SpAccount> load({
     required String name,
     required String dataDir,
+    SpHeaderCheckpoint? headerCheckpoint,
   }) => BullSdk.instance.api.dartBwkApiSpAccountSpAccountLoad(
     name: name,
     dataDir: dataDir,
+    headerCheckpoint: headerCheckpoint,
   );
 
   /// Earliest height a scan may start from (taproot activation on mainnet, a

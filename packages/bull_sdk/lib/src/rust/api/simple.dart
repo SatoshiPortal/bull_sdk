@@ -99,6 +99,8 @@ sealed class SpNotification with _$SpNotification {
       SpNotification_ElectrumDisconnected;
   const factory SpNotification.reorg({required int forkHeight}) =
       SpNotification_Reorg;
+  const factory SpNotification.headerCheckpointMismatch() =
+      SpNotification_HeaderCheckpointMismatch;
 }
 
 @freezed

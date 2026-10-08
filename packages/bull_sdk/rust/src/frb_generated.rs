@@ -1746,6 +1746,7 @@ fn wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_impl(
     data_dir: impl CstDecode<String>,
     birthday_height: impl CstDecode<Option<u32>>,
     dust_limit: impl CstDecode<Option<u64>>,
+    header_checkpoint: impl CstDecode<Option<dart_bwk::api::types::SpHeaderCheckpoint>>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -1762,6 +1763,7 @@ fn wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_impl(
             let api_data_dir = data_dir.cst_decode();
             let api_birthday_height = birthday_height.cst_decode();
             let api_dust_limit = dust_limit.cst_decode();
+            let api_header_checkpoint = header_checkpoint.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, String>((move || {
                     let output_ok = dart_bwk::api::sp_account::SpAccount::create_from_mnemonic(
@@ -1773,6 +1775,7 @@ fn wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_impl(
                         api_data_dir,
                         api_birthday_height,
                         api_dust_limit,
+                        api_header_checkpoint,
                     )?;
                     Ok(output_ok)
                 })())
@@ -1792,10 +1795,11 @@ fn wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_run
     dust_limit: impl CstDecode<Option<u64>>,
     fetch_concurrency_factor: impl CstDecode<Option<u32>>,
     match_concurrency_factor: impl CstDecode<Option<u32>>,
+    header_checkpoint: impl CstDecode<Option<dart_bwk::api::types::SpHeaderCheckpoint>>,
 ) {
-    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "SpAccount_create_from_mnemonic_with_scan_runtime", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { let api_name = name.cst_decode();let api_network = network.cst_decode();let api_mnemonic = mnemonic.cst_decode();let api_blindbit_url = blindbit_url.cst_decode();let api_electrum_url = electrum_url.cst_decode();let api_data_dir = data_dir.cst_decode();let api_birthday_height = birthday_height.cst_decode();let api_dust_limit = dust_limit.cst_decode();let api_fetch_concurrency_factor = fetch_concurrency_factor.cst_decode();let api_match_concurrency_factor = match_concurrency_factor.cst_decode(); move |context|  {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec,_,_>(flutter_rust_bridge::for_generated::TaskInfo{ debug_name: "SpAccount_create_from_mnemonic_with_scan_runtime", port: Some(port_), mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal }, move || { let api_name = name.cst_decode();let api_network = network.cst_decode();let api_mnemonic = mnemonic.cst_decode();let api_blindbit_url = blindbit_url.cst_decode();let api_electrum_url = electrum_url.cst_decode();let api_data_dir = data_dir.cst_decode();let api_birthday_height = birthday_height.cst_decode();let api_dust_limit = dust_limit.cst_decode();let api_fetch_concurrency_factor = fetch_concurrency_factor.cst_decode();let api_match_concurrency_factor = match_concurrency_factor.cst_decode();let api_header_checkpoint = header_checkpoint.cst_decode(); move |context|  {
                     transform_result_dco::<_, _, String>((move ||  {
-                         let output_ok = dart_bwk::api::sp_account::SpAccount::create_from_mnemonic_with_scan_runtime(api_name, api_network, api_mnemonic, api_blindbit_url, api_electrum_url, api_data_dir, api_birthday_height, api_dust_limit, api_fetch_concurrency_factor, api_match_concurrency_factor)?;   Ok(output_ok)
+                         let output_ok = dart_bwk::api::sp_account::SpAccount::create_from_mnemonic_with_scan_runtime(api_name, api_network, api_mnemonic, api_blindbit_url, api_electrum_url, api_data_dir, api_birthday_height, api_dust_limit, api_fetch_concurrency_factor, api_match_concurrency_factor, api_header_checkpoint)?;   Ok(output_ok)
                     })())
                 } })
 }
@@ -1999,6 +2003,7 @@ fn wire__dart_bwk__api__sp_account__SpAccount_load_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     name: impl CstDecode<String>,
     data_dir: impl CstDecode<String>,
+    header_checkpoint: impl CstDecode<Option<dart_bwk::api::types::SpHeaderCheckpoint>>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -2009,10 +2014,14 @@ fn wire__dart_bwk__api__sp_account__SpAccount_load_impl(
         move || {
             let api_name = name.cst_decode();
             let api_data_dir = data_dir.cst_decode();
+            let api_header_checkpoint = header_checkpoint.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, String>((move || {
-                    let output_ok =
-                        dart_bwk::api::sp_account::SpAccount::load(api_name, api_data_dir)?;
+                    let output_ok = dart_bwk::api::sp_account::SpAccount::load(
+                        api_name,
+                        api_data_dir,
+                        api_header_checkpoint,
+                    )?;
                     Ok(output_ok)
                 })())
             }
@@ -6931,6 +6940,11 @@ const _: fn() = || {
         let _: Option<String> = SpCoinView.label;
     }
     {
+        let SpHeaderCheckpoint = None::<dart_bwk::api::types::SpHeaderCheckpoint>.unwrap();
+        let _: u32 = SpHeaderCheckpoint.height;
+        let _: String = SpHeaderCheckpoint.hash;
+    }
+    {
         let SpPaymentView = None::<dart_bwk::api::types::SpPaymentView>.unwrap();
         let _: String = SpPaymentView.txid;
         let _: dart_bwk::api::types::SpPaymentDirection = SpPaymentView.direction;
@@ -8406,6 +8420,19 @@ impl SseDecode for Option<boltz::api::types::Side> {
     }
 }
 
+impl SseDecode for Option<dart_bwk::api::types::SpHeaderCheckpoint> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        if (<bool>::sse_decode(deserializer)) {
+            return Some(<dart_bwk::api::types::SpHeaderCheckpoint>::sse_decode(
+                deserializer,
+            ));
+        } else {
+            return None;
+        }
+    }
+}
+
 impl SseDecode for Option<boltz::api::swap_status::Transaction> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -8774,6 +8801,18 @@ impl SseDecode for crate::api::simple::SpError {
     }
 }
 
+impl SseDecode for dart_bwk::api::types::SpHeaderCheckpoint {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
+        let mut var_height = <u32>::sse_decode(deserializer);
+        let mut var_hash = <String>::sse_decode(deserializer);
+        return dart_bwk::api::types::SpHeaderCheckpoint {
+            height: var_height,
+            hash: var_hash,
+        };
+    }
+}
+
 impl SseDecode for dart_bwk::api::types::SpNetwork {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_decode(deserializer: &mut flutter_rust_bridge::for_generated::SseDeserializer) -> Self {
@@ -8920,6 +8959,9 @@ impl SseDecode for crate::api::simple::SpNotification {
                 return crate::api::simple::SpNotification::Reorg {
                     fork_height: var_forkHeight,
                 };
+            }
+            19 => {
+                return crate::api::simple::SpNotification::HeaderCheckpointMismatch;
             }
             _ => {
                 unimplemented!("");
@@ -10670,6 +10712,27 @@ impl flutter_rust_bridge::IntoIntoDart<crate::api::simple::SpError>
     }
 }
 // Codec=Dco (DartCObject based), see doc to use other codecs
+impl flutter_rust_bridge::IntoDart for FrbWrapper<dart_bwk::api::types::SpHeaderCheckpoint> {
+    fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
+        [
+            self.0.height.into_into_dart().into_dart(),
+            self.0.hash.into_into_dart().into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl flutter_rust_bridge::for_generated::IntoDartExceptPrimitive
+    for FrbWrapper<dart_bwk::api::types::SpHeaderCheckpoint>
+{
+}
+impl flutter_rust_bridge::IntoIntoDart<FrbWrapper<dart_bwk::api::types::SpHeaderCheckpoint>>
+    for dart_bwk::api::types::SpHeaderCheckpoint
+{
+    fn into_into_dart(self) -> FrbWrapper<dart_bwk::api::types::SpHeaderCheckpoint> {
+        self.into()
+    }
+}
+// Codec=Dco (DartCObject based), see doc to use other codecs
 impl flutter_rust_bridge::IntoDart for FrbWrapper<dart_bwk::api::types::SpNetwork> {
     fn into_dart(self) -> flutter_rust_bridge::for_generated::DartAbi {
         match self.0 {
@@ -10791,6 +10854,9 @@ impl flutter_rust_bridge::IntoDart for crate::api::simple::SpNotification {
             }
             crate::api::simple::SpNotification::Reorg { fork_height } => {
                 [18.into_dart(), fork_height.into_into_dart().into_dart()].into_dart()
+            }
+            crate::api::simple::SpNotification::HeaderCheckpointMismatch => {
+                [19.into_dart()].into_dart()
             }
             _ => {
                 unimplemented!("");
@@ -12350,6 +12416,16 @@ impl SseEncode for Option<boltz::api::types::Side> {
     }
 }
 
+impl SseEncode for Option<dart_bwk::api::types::SpHeaderCheckpoint> {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <bool>::sse_encode(self.is_some(), serializer);
+        if let Some(value) = self {
+            <dart_bwk::api::types::SpHeaderCheckpoint>::sse_encode(value, serializer);
+        }
+    }
+}
+
 impl SseEncode for Option<boltz::api::swap_status::Transaction> {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -12629,6 +12705,14 @@ impl SseEncode for crate::api::simple::SpError {
     }
 }
 
+impl SseEncode for dart_bwk::api::types::SpHeaderCheckpoint {
+    // Codec=Sse (Serialization based), see doc to use other codecs
+    fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
+        <u32>::sse_encode(self.height, serializer);
+        <String>::sse_encode(self.hash, serializer);
+    }
+}
+
 impl SseEncode for dart_bwk::api::types::SpNetwork {
     // Codec=Sse (Serialization based), see doc to use other codecs
     fn sse_encode(self, serializer: &mut flutter_rust_bridge::for_generated::SseSerializer) {
@@ -12749,6 +12833,9 @@ impl SseEncode for crate::api::simple::SpNotification {
             crate::api::simple::SpNotification::Reorg { fork_height } => {
                 <i32>::sse_encode(18, serializer);
                 <u32>::sse_encode(fork_height, serializer);
+            }
+            crate::api::simple::SpNotification::HeaderCheckpointMismatch => {
+                <i32>::sse_encode(19, serializer);
             }
             _ => {
                 unimplemented!("");
@@ -13596,6 +13683,13 @@ mod io {
             CstDecode::<boltz::api::types::Side>::cst_decode(*wrap).into()
         }
     }
+    impl CstDecode<dart_bwk::api::types::SpHeaderCheckpoint> for *mut wire_cst_sp_header_checkpoint {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> dart_bwk::api::types::SpHeaderCheckpoint {
+            let wrap = unsafe { flutter_rust_bridge::for_generated::box_from_leak_ptr(self) };
+            CstDecode::<dart_bwk::api::types::SpHeaderCheckpoint>::cst_decode(*wrap).into()
+        }
+    }
     impl CstDecode<bbqr::split::SplitOptions> for *mut wire_cst_split_options {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> bbqr::split::SplitOptions {
@@ -14309,6 +14403,15 @@ mod io {
             }
         }
     }
+    impl CstDecode<dart_bwk::api::types::SpHeaderCheckpoint> for wire_cst_sp_header_checkpoint {
+        // Codec=Cst (C-struct based), see doc to use other codecs
+        fn cst_decode(self) -> dart_bwk::api::types::SpHeaderCheckpoint {
+            dart_bwk::api::types::SpHeaderCheckpoint {
+                height: self.height.cst_decode(),
+                hash: self.hash.cst_decode(),
+            }
+        }
+    }
     impl CstDecode<crate::api::simple::SpNotification> for wire_cst_sp_notification {
         // Codec=Cst (C-struct based), see doc to use other codecs
         fn cst_decode(self) -> crate::api::simple::SpNotification {
@@ -14419,6 +14522,7 @@ mod io {
                         fork_height: ans.fork_height.cst_decode(),
                     }
                 }
+                19 => crate::api::simple::SpNotification::HeaderCheckpointMismatch,
                 _ => unreachable!(),
             }
         }
@@ -15227,6 +15331,19 @@ mod io {
             Self::new_with_null_ptr()
         }
     }
+    impl NewWithNullPtr for wire_cst_sp_header_checkpoint {
+        fn new_with_null_ptr() -> Self {
+            Self {
+                height: Default::default(),
+                hash: core::ptr::null_mut(),
+            }
+        }
+    }
+    impl Default for wire_cst_sp_header_checkpoint {
+        fn default() -> Self {
+            Self::new_with_null_ptr()
+        }
+    }
     impl NewWithNullPtr for wire_cst_sp_notification {
         fn new_with_null_ptr() -> Self {
             Self {
@@ -15918,6 +16035,7 @@ mod io {
         data_dir: *mut wire_cst_list_prim_u_8_strict,
         birthday_height: *mut u32,
         dust_limit: *mut u64,
+        header_checkpoint: *mut wire_cst_sp_header_checkpoint,
     ) {
         wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_impl(
             port_,
@@ -15929,6 +16047,7 @@ mod io {
             data_dir,
             birthday_height,
             dust_limit,
+            header_checkpoint,
         )
     }
 
@@ -15945,6 +16064,7 @@ mod io {
         dust_limit: *mut u64,
         fetch_concurrency_factor: *mut u32,
         match_concurrency_factor: *mut u32,
+        header_checkpoint: *mut wire_cst_sp_header_checkpoint,
     ) {
         wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime_impl(
             port_,
@@ -15958,6 +16078,7 @@ mod io {
             dust_limit,
             fetch_concurrency_factor,
             match_concurrency_factor,
+            header_checkpoint,
         )
     }
 
@@ -16005,8 +16126,14 @@ mod io {
         port_: i64,
         name: *mut wire_cst_list_prim_u_8_strict,
         data_dir: *mut wire_cst_list_prim_u_8_strict,
+        header_checkpoint: *mut wire_cst_sp_header_checkpoint,
     ) {
-        wire__dart_bwk__api__sp_account__SpAccount_load_impl(port_, name, data_dir)
+        wire__dart_bwk__api__sp_account__SpAccount_load_impl(
+            port_,
+            name,
+            data_dir,
+            header_checkpoint,
+        )
     }
 
     #[unsafe(no_mangle)]
@@ -17905,6 +18032,14 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_sp_header_checkpoint(
+    ) -> *mut wire_cst_sp_header_checkpoint {
+        flutter_rust_bridge::for_generated::new_leak_box_ptr(
+            wire_cst_sp_header_checkpoint::new_with_null_ptr(),
+        )
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_cst_new_box_autoadd_split_options(
     ) -> *mut wire_cst_split_options {
         flutter_rust_bridge::for_generated::new_leak_box_ptr(
@@ -18751,6 +18886,12 @@ mod io {
     #[derive(Clone, Copy)]
     pub struct wire_cst_SpError_Other {
         message: *mut wire_cst_list_prim_u_8_strict,
+    }
+    #[repr(C)]
+    #[derive(Clone, Copy)]
+    pub struct wire_cst_sp_header_checkpoint {
+        height: u32,
+        hash: *mut wire_cst_list_prim_u_8_strict,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]

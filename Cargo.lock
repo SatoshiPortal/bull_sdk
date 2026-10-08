@@ -757,7 +757,7 @@ checksum = "72f5acc6cb2ba439de613abc23857ec3d78374d8ed5ac84e9d11336e87da8649"
 [[package]]
 name = "bwk"
 version = "0.0.8"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=a8bb66a4d73660dc28f90fb877303f7f4f833e20#a8bb66a4d73660dc28f90fb877303f7f4f833e20"
+source = "git+https://github.com/bwk-bitcoin/bwk?rev=26715022c8ce9c6987f5e6b84e560225aad9e765#26715022c8ce9c6987f5e6b84e560225aad9e765"
 dependencies = [
  "bip39",
  "bwk-backoff",
@@ -779,7 +779,7 @@ dependencies = [
 [[package]]
 name = "bwk-backoff"
 version = "0.0.3"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=a8bb66a4d73660dc28f90fb877303f7f4f833e20#a8bb66a4d73660dc28f90fb877303f7f4f833e20"
+source = "git+https://github.com/bwk-bitcoin/bwk?rev=26715022c8ce9c6987f5e6b84e560225aad9e765#26715022c8ce9c6987f5e6b84e560225aad9e765"
 dependencies = [
  "rand 0.9.4",
 ]
@@ -787,7 +787,7 @@ dependencies = [
 [[package]]
 name = "bwk-coin"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=a8bb66a4d73660dc28f90fb877303f7f4f833e20#a8bb66a4d73660dc28f90fb877303f7f4f833e20"
+source = "git+https://github.com/bwk-bitcoin/bwk?rev=26715022c8ce9c6987f5e6b84e560225aad9e765#26715022c8ce9c6987f5e6b84e560225aad9e765"
 dependencies = [
  "bitcoin",
  "bwk-error",
@@ -798,7 +798,7 @@ dependencies = [
 [[package]]
 name = "bwk-descriptor"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=a8bb66a4d73660dc28f90fb877303f7f4f833e20#a8bb66a4d73660dc28f90fb877303f7f4f833e20"
+source = "git+https://github.com/bwk-bitcoin/bwk?rev=26715022c8ce9c6987f5e6b84e560225aad9e765#26715022c8ce9c6987f5e6b84e560225aad9e765"
 dependencies = [
  "bwk-error",
  "bwk-keys",
@@ -808,7 +808,7 @@ dependencies = [
 [[package]]
 name = "bwk-electrum"
 version = "0.0.4"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=a8bb66a4d73660dc28f90fb877303f7f4f833e20#a8bb66a4d73660dc28f90fb877303f7f4f833e20"
+source = "git+https://github.com/bwk-bitcoin/bwk?rev=26715022c8ce9c6987f5e6b84e560225aad9e765#26715022c8ce9c6987f5e6b84e560225aad9e765"
 dependencies = [
  "bitcoin_slices",
  "bwk-backoff",
@@ -828,7 +828,7 @@ dependencies = [
 [[package]]
 name = "bwk-error"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=a8bb66a4d73660dc28f90fb877303f7f4f833e20#a8bb66a4d73660dc28f90fb877303f7f4f833e20"
+source = "git+https://github.com/bwk-bitcoin/bwk?rev=26715022c8ce9c6987f5e6b84e560225aad9e765#26715022c8ce9c6987f5e6b84e560225aad9e765"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -838,7 +838,7 @@ dependencies = [
 [[package]]
 name = "bwk-keys"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=a8bb66a4d73660dc28f90fb877303f7f4f833e20#a8bb66a4d73660dc28f90fb877303f7f4f833e20"
+source = "git+https://github.com/bwk-bitcoin/bwk?rev=26715022c8ce9c6987f5e6b84e560225aad9e765#26715022c8ce9c6987f5e6b84e560225aad9e765"
 dependencies = [
  "bip39",
  "bitcoin",
@@ -849,7 +849,7 @@ dependencies = [
 [[package]]
 name = "bwk-persist"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=a8bb66a4d73660dc28f90fb877303f7f4f833e20#a8bb66a4d73660dc28f90fb877303f7f4f833e20"
+source = "git+https://github.com/bwk-bitcoin/bwk?rev=26715022c8ce9c6987f5e6b84e560225aad9e765#26715022c8ce9c6987f5e6b84e560225aad9e765"
 dependencies = [
  "bwk-error",
  "fs2",
@@ -862,7 +862,7 @@ dependencies = [
 [[package]]
 name = "bwk-sign"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=a8bb66a4d73660dc28f90fb877303f7f4f833e20#a8bb66a4d73660dc28f90fb877303f7f4f833e20"
+source = "git+https://github.com/bwk-bitcoin/bwk?rev=26715022c8ce9c6987f5e6b84e560225aad9e765#26715022c8ce9c6987f5e6b84e560225aad9e765"
 dependencies = [
  "bip39",
  "bwk-descriptor",
@@ -879,7 +879,7 @@ dependencies = [
 [[package]]
 name = "bwk-sp"
 version = "0.1.0"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=a8bb66a4d73660dc28f90fb877303f7f4f833e20#a8bb66a4d73660dc28f90fb877303f7f4f833e20"
+source = "git+https://github.com/bwk-bitcoin/bwk?rev=26715022c8ce9c6987f5e6b84e560225aad9e765#26715022c8ce9c6987f5e6b84e560225aad9e765"
 dependencies = [
  "bech32 0.9.1",
  "bimap",
@@ -907,7 +907,7 @@ dependencies = [
 [[package]]
 name = "bwk-tx"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=a8bb66a4d73660dc28f90fb877303f7f4f833e20#a8bb66a4d73660dc28f90fb877303f7f4f833e20"
+source = "git+https://github.com/bwk-bitcoin/bwk?rev=26715022c8ce9c6987f5e6b84e560225aad9e765#26715022c8ce9c6987f5e6b84e560225aad9e765"
 dependencies = [
  "bitcoin",
  "bwk-coin",
@@ -921,7 +921,7 @@ dependencies = [
 [[package]]
 name = "bwk-utils"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=a8bb66a4d73660dc28f90fb877303f7f4f833e20#a8bb66a4d73660dc28f90fb877303f7f4f833e20"
+source = "git+https://github.com/bwk-bitcoin/bwk?rev=26715022c8ce9c6987f5e6b84e560225aad9e765#26715022c8ce9c6987f5e6b84e560225aad9e765"
 dependencies = [
  "bitcoin",
  "log",
@@ -1462,7 +1462,7 @@ dependencies = [
 [[package]]
 name = "dart_bwk"
 version = "0.1.0"
-source = "git+https://github.com/pythcoiner/bwk-dart?rev=41ab67281721c37cd88f9795001e5359f11ecd53#41ab67281721c37cd88f9795001e5359f11ecd53"
+source = "git+https://github.com/pythcoiner/bwk-dart?rev=346f33db1be5e8c0bad8c068fbd8a75db8ed6170#346f33db1be5e8c0bad8c068fbd8a75db8ed6170"
 dependencies = [
  "bitcoin",
  "bwk",
@@ -1754,7 +1754,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.61.2",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -2827,7 +2827,7 @@ checksum = "3640c1c38b8e4e43584d8df18be5fc6b0aa314ce6ebf51b53313d4306cca8e46"
 dependencies = [
  "hermit-abi",
  "libc",
- "windows-sys 0.61.2",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -4227,7 +4227,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys 0.12.1",
- "windows-sys 0.61.2",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -4391,7 +4391,7 @@ dependencies = [
 [[package]]
 name = "secp256k1_spscan-sys"
 version = "0.1.0"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=a8bb66a4d73660dc28f90fb877303f7f4f833e20#a8bb66a4d73660dc28f90fb877303f7f4f833e20"
+source = "git+https://github.com/bwk-bitcoin/bwk?rev=26715022c8ce9c6987f5e6b84e560225aad9e765#26715022c8ce9c6987f5e6b84e560225aad9e765"
 dependencies = [
  "cc",
 ]
@@ -4895,7 +4895,7 @@ dependencies = [
  "getrandom 0.4.3",
  "once_cell",
  "rustix 1.1.4",
- "windows-sys 0.61.2",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
