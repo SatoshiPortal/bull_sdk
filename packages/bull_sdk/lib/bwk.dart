@@ -23,6 +23,7 @@ export 'src/rust/api/simple.dart'
         SpNotification_ElectrumDisconnected,
         SpNotification_Reorg,
         SpNotification_HeaderCheckpointMismatch,
+        SpNotification_ElectrumConnected,
         RecipientView,
         RecipientView_Sp,
         RecipientView_Standard,

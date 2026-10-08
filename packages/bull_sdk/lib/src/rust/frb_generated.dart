@@ -9650,6 +9650,8 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         return SpNotification_Reorg(forkHeight: dco_decode_u_32(raw[1]));
       case 19:
         return SpNotification_HeaderCheckpointMismatch();
+      case 20:
+        return SpNotification_ElectrumConnected();
       default:
         throw Exception("unreachable");
     }
@@ -11709,6 +11711,8 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         return SpNotification_Reorg(forkHeight: var_forkHeight);
       case 19:
         return SpNotification_HeaderCheckpointMismatch();
+      case 20:
+        return SpNotification_ElectrumConnected();
       default:
         throw UnimplementedError('');
     }
@@ -14017,6 +14021,8 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         sse_encode_u_32(forkHeight, serializer);
       case SpNotification_HeaderCheckpointMismatch():
         sse_encode_i_32(19, serializer);
+      case SpNotification_ElectrumConnected():
+        sse_encode_i_32(20, serializer);
     }
   }
 

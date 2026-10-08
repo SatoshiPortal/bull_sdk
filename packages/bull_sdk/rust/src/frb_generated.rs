@@ -8963,6 +8963,9 @@ impl SseDecode for crate::api::simple::SpNotification {
             19 => {
                 return crate::api::simple::SpNotification::HeaderCheckpointMismatch;
             }
+            20 => {
+                return crate::api::simple::SpNotification::ElectrumConnected;
+            }
             _ => {
                 unimplemented!("");
             }
@@ -10858,6 +10861,7 @@ impl flutter_rust_bridge::IntoDart for crate::api::simple::SpNotification {
             crate::api::simple::SpNotification::HeaderCheckpointMismatch => {
                 [19.into_dart()].into_dart()
             }
+            crate::api::simple::SpNotification::ElectrumConnected => [20.into_dart()].into_dart(),
             _ => {
                 unimplemented!("");
             }
@@ -12837,6 +12841,9 @@ impl SseEncode for crate::api::simple::SpNotification {
             crate::api::simple::SpNotification::HeaderCheckpointMismatch => {
                 <i32>::sse_encode(19, serializer);
             }
+            crate::api::simple::SpNotification::ElectrumConnected => {
+                <i32>::sse_encode(20, serializer);
+            }
             _ => {
                 unimplemented!("");
             }
@@ -14523,6 +14530,7 @@ mod io {
                     }
                 }
                 19 => crate::api::simple::SpNotification::HeaderCheckpointMismatch,
+                20 => crate::api::simple::SpNotification::ElectrumConnected,
                 _ => unreachable!(),
             }
         }

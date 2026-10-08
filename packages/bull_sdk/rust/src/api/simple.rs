@@ -89,6 +89,7 @@ pub enum SpNotification {
         fork_height: u32,
     },
     HeaderCheckpointMismatch,
+    ElectrumConnected,
 }
 
 impl From<dart_bwk::api::types::SpNotification> for SpNotification {
@@ -171,6 +172,9 @@ impl From<dart_bwk::api::types::SpNotification> for SpNotification {
             }
             dart_bwk::api::types::SpNotification::HeaderCheckpointMismatch => {
                 SpNotification::HeaderCheckpointMismatch
+            }
+            dart_bwk::api::types::SpNotification::ElectrumConnected => {
+                SpNotification::ElectrumConnected
             }
         }
     }
@@ -256,6 +260,9 @@ impl From<SpNotification> for dart_bwk::api::types::SpNotification {
             }
             SpNotification::HeaderCheckpointMismatch => {
                 dart_bwk::api::types::SpNotification::HeaderCheckpointMismatch
+            }
+            SpNotification::ElectrumConnected => {
+                dart_bwk::api::types::SpNotification::ElectrumConnected
             }
         }
     }

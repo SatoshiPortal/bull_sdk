@@ -2835,6 +2835,10 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
       wireObj.tag = 19;
       return;
     }
+    if (apiObj is SpNotification_ElectrumConnected) {
+      wireObj.tag = 20;
+      return;
+    }
   }
 
   @protected
