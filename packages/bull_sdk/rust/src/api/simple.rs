@@ -56,7 +56,6 @@ pub enum SpNotification {
     BroadcastFailed {
         message: String,
     },
-    BackendOffline,
     ElectrumTx {
         kind: dart_bwk::api::types::CoinSource,
         txid: String,
@@ -131,7 +130,6 @@ impl From<dart_bwk::api::types::SpNotification> for SpNotification {
             dart_bwk::api::types::SpNotification::BroadcastFailed { message } => {
                 SpNotification::BroadcastFailed { message }
             }
-            dart_bwk::api::types::SpNotification::BackendOffline => SpNotification::BackendOffline,
             dart_bwk::api::types::SpNotification::ElectrumTx {
                 kind,
                 txid,
@@ -219,7 +217,6 @@ impl From<SpNotification> for dart_bwk::api::types::SpNotification {
             SpNotification::BroadcastFailed { message } => {
                 dart_bwk::api::types::SpNotification::BroadcastFailed { message }
             }
-            SpNotification::BackendOffline => dart_bwk::api::types::SpNotification::BackendOffline,
             SpNotification::ElectrumTx {
                 kind,
                 txid,
