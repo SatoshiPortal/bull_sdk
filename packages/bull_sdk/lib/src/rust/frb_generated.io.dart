@@ -30,6 +30,9 @@ import 'third_party/boltz/api/swap_status.dart';
 import 'third_party/boltz/api/transactions.dart';
 import 'third_party/boltz/api/types.dart';
 import 'third_party/dart_bbqr/api.dart';
+import 'third_party/dart_bwk/api/regtest.dart';
+import 'third_party/dart_bwk/api/sp_account.dart';
+import 'third_party/dart_bwk/api/types.dart';
 import 'third_party/lwk/api/blockchain.dart';
 import 'third_party/lwk/api/descriptor.dart';
 import 'third_party/lwk/api/error.dart';
@@ -60,6 +63,10 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   CrossPlatformFinalizerArg
   get rust_arc_decrement_strong_count_PartiallySignedElementsTransactionPtr => wire
       ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransactionPtr;
+
+  CrossPlatformFinalizerArg
+  get rust_arc_decrement_strong_count_SpAccountPtr => wire
+      ._rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccountPtr;
 
   CrossPlatformFinalizerArg
   get rust_arc_decrement_strong_count_WalletPtr => wire
@@ -93,6 +100,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
+  SpAccount
+  dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+    dynamic raw,
+  );
+
+  @protected
   Wallet
   dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
     dynamic raw,
@@ -113,6 +126,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   PartiallySignedElementsTransaction
   dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+    dynamic raw,
+  );
+
+  @protected
+  SpAccount
+  dco_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
     dynamic raw,
   );
 
@@ -147,8 +166,19 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
+  SpAccount
+  dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+    dynamic raw,
+  );
+
+  @protected
   Wallet
   dco_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+    dynamic raw,
+  );
+
+  @protected
+  RustStreamSink<SpNotification> dco_decode_StreamSink_sp_notification_Dco(
     dynamic raw,
   );
 
@@ -264,6 +294,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   TxOutput dco_decode_box_autoadd_tx_output(dynamic raw);
 
   @protected
+  TxSimulation dco_decode_box_autoadd_tx_simulation(dynamic raw);
+
+  @protected
   int dco_decode_box_autoadd_u_32(dynamic raw);
 
   @protected
@@ -294,6 +327,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   ChainSwapFees dco_decode_chain_swap_fees(dynamic raw);
 
   @protected
+  CoinSource dco_decode_coin_source(dynamic raw);
+
+  @protected
   DecodedInvoice dco_decode_decoded_invoice(dynamic raw);
 
   @protected
@@ -319,6 +355,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   FileType dco_decode_file_type(dynamic raw);
+
+  @protected
+  HeaderProgressPhase dco_decode_header_progress_phase(dynamic raw);
 
   @protected
   int dco_decode_i_32(dynamic raw);
@@ -372,10 +411,19 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   List<PsetOutput> dco_decode_list_pset_output(dynamic raw);
 
   @protected
+  List<RecipientView> dco_decode_list_recipient_view(dynamic raw);
+
+  @protected
   List<RestoredSwapSummary> dco_decode_list_restored_swap_summary(dynamic raw);
 
   @protected
   List<SkippedRestoreSwap> dco_decode_list_skipped_restore_swap(dynamic raw);
+
+  @protected
+  List<SpCoinView> dco_decode_list_sp_coin_view(dynamic raw);
+
+  @protected
+  List<SpPaymentView> dco_decode_list_sp_payment_view(dynamic raw);
 
   @protected
   List<Tx> dco_decode_list_tx(dynamic raw);
@@ -394,6 +442,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   List<TxOutputSpec> dco_decode_list_tx_output_spec(dynamic raw);
+
+  @protected
+  List<UnifiedCoinView> dco_decode_list_unified_coin_view(dynamic raw);
 
   @protected
   List<VoutOutspend> dco_decode_list_vout_outspend(dynamic raw);
@@ -482,6 +533,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   PsetOutput dco_decode_pset_output(dynamic raw);
 
   @protected
+  RecipientView dco_decode_recipient_view(dynamic raw);
+
+  @protected
+  RegtestDefaults dco_decode_regtest_defaults(dynamic raw);
+
+  @protected
   RestoredBtcLnSwaps dco_decode_restored_btc_ln_swaps(dynamic raw);
 
   @protected
@@ -509,10 +566,40 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   SkippedRestoreSwap dco_decode_skipped_restore_swap(dynamic raw);
 
   @protected
+  SpBalanceView dco_decode_sp_balance_view(dynamic raw);
+
+  @protected
+  SpCoinView dco_decode_sp_coin_view(dynamic raw);
+
+  @protected
+  SpError dco_decode_sp_error(dynamic raw);
+
+  @protected
+  SpNetwork dco_decode_sp_network(dynamic raw);
+
+  @protected
+  SpNotification dco_decode_sp_notification(dynamic raw);
+
+  @protected
+  SpPaymentDirection dco_decode_sp_payment_direction(dynamic raw);
+
+  @protected
+  SpPaymentStatus dco_decode_sp_payment_status(dynamic raw);
+
+  @protected
+  SpPaymentView dco_decode_sp_payment_view(dynamic raw);
+
+  @protected
+  SpRecipientAddressKind dco_decode_sp_recipient_address_kind(dynamic raw);
+
+  @protected
   Split dco_decode_split(dynamic raw);
 
   @protected
   SplitOptions dco_decode_split_options(dynamic raw);
+
+  @protected
+  SubAccountKind dco_decode_sub_account_kind(dynamic raw);
 
   @protected
   SubSwapFees dco_decode_sub_swap_fees(dynamic raw);
@@ -566,6 +653,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   TxOutputSpec dco_decode_tx_output_spec(dynamic raw);
 
   @protected
+  TxSimulation dco_decode_tx_simulation(dynamic raw);
+
+  @protected
   int dco_decode_u_32(dynamic raw);
 
   @protected
@@ -573,6 +663,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int dco_decode_u_8(dynamic raw);
+
+  @protected
+  UnifiedCoinStatus dco_decode_unified_coin_status(dynamic raw);
+
+  @protected
+  UnifiedCoinView dco_decode_unified_coin_view(dynamic raw);
 
   @protected
   void dco_decode_unit(dynamic raw);
@@ -617,6 +713,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
+  SpAccount
+  sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   Wallet
   sse_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
     SseDeserializer deserializer,
@@ -637,6 +739,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   PartiallySignedElementsTransaction
   sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  SpAccount
+  sse_decode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
     SseDeserializer deserializer,
   );
 
@@ -671,8 +779,19 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
+  SpAccount
+  sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   Wallet
   sse_decode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  RustStreamSink<SpNotification> sse_decode_StreamSink_sp_notification_Dco(
     SseDeserializer deserializer,
   );
 
@@ -795,6 +914,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   TxOutput sse_decode_box_autoadd_tx_output(SseDeserializer deserializer);
 
   @protected
+  TxSimulation sse_decode_box_autoadd_tx_simulation(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   int sse_decode_box_autoadd_u_32(SseDeserializer deserializer);
 
   @protected
@@ -829,6 +953,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   ChainSwapFees sse_decode_chain_swap_fees(SseDeserializer deserializer);
 
   @protected
+  CoinSource sse_decode_coin_source(SseDeserializer deserializer);
+
+  @protected
   DecodedInvoice sse_decode_decoded_invoice(SseDeserializer deserializer);
 
   @protected
@@ -854,6 +981,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   FileType sse_decode_file_type(SseDeserializer deserializer);
+
+  @protected
+  HeaderProgressPhase sse_decode_header_progress_phase(
+    SseDeserializer deserializer,
+  );
 
   @protected
   int sse_decode_i_32(SseDeserializer deserializer);
@@ -909,12 +1041,25 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   List<PsetOutput> sse_decode_list_pset_output(SseDeserializer deserializer);
 
   @protected
+  List<RecipientView> sse_decode_list_recipient_view(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   List<RestoredSwapSummary> sse_decode_list_restored_swap_summary(
     SseDeserializer deserializer,
   );
 
   @protected
   List<SkippedRestoreSwap> sse_decode_list_skipped_restore_swap(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  List<SpCoinView> sse_decode_list_sp_coin_view(SseDeserializer deserializer);
+
+  @protected
+  List<SpPaymentView> sse_decode_list_sp_payment_view(
     SseDeserializer deserializer,
   );
 
@@ -937,6 +1082,11 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   List<TxOutputSpec> sse_decode_list_tx_output_spec(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  List<UnifiedCoinView> sse_decode_list_unified_coin_view(
     SseDeserializer deserializer,
   );
 
@@ -1039,6 +1189,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   PsetOutput sse_decode_pset_output(SseDeserializer deserializer);
 
   @protected
+  RecipientView sse_decode_recipient_view(SseDeserializer deserializer);
+
+  @protected
+  RegtestDefaults sse_decode_regtest_defaults(SseDeserializer deserializer);
+
+  @protected
   RestoredBtcLnSwaps sse_decode_restored_btc_ln_swaps(
     SseDeserializer deserializer,
   );
@@ -1078,10 +1234,44 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
+  SpBalanceView sse_decode_sp_balance_view(SseDeserializer deserializer);
+
+  @protected
+  SpCoinView sse_decode_sp_coin_view(SseDeserializer deserializer);
+
+  @protected
+  SpError sse_decode_sp_error(SseDeserializer deserializer);
+
+  @protected
+  SpNetwork sse_decode_sp_network(SseDeserializer deserializer);
+
+  @protected
+  SpNotification sse_decode_sp_notification(SseDeserializer deserializer);
+
+  @protected
+  SpPaymentDirection sse_decode_sp_payment_direction(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  SpPaymentStatus sse_decode_sp_payment_status(SseDeserializer deserializer);
+
+  @protected
+  SpPaymentView sse_decode_sp_payment_view(SseDeserializer deserializer);
+
+  @protected
+  SpRecipientAddressKind sse_decode_sp_recipient_address_kind(
+    SseDeserializer deserializer,
+  );
+
+  @protected
   Split sse_decode_split(SseDeserializer deserializer);
 
   @protected
   SplitOptions sse_decode_split_options(SseDeserializer deserializer);
+
+  @protected
+  SubAccountKind sse_decode_sub_account_kind(SseDeserializer deserializer);
 
   @protected
   SubSwapFees sse_decode_sub_swap_fees(SseDeserializer deserializer);
@@ -1139,6 +1329,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   TxOutputSpec sse_decode_tx_output_spec(SseDeserializer deserializer);
 
   @protected
+  TxSimulation sse_decode_tx_simulation(SseDeserializer deserializer);
+
+  @protected
   int sse_decode_u_32(SseDeserializer deserializer);
 
   @protected
@@ -1146,6 +1339,14 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int sse_decode_u_8(SseDeserializer deserializer);
+
+  @protected
+  UnifiedCoinStatus sse_decode_unified_coin_status(
+    SseDeserializer deserializer,
+  );
+
+  @protected
+  UnifiedCoinView sse_decode_unified_coin_view(SseDeserializer deserializer);
 
   @protected
   void sse_decode_unit(SseDeserializer deserializer);
@@ -1168,6 +1369,22 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   ) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     throw UnimplementedError();
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_prim_u_8_strict>
+  cst_encode_StreamSink_sp_notification_Dco(
+    RustStreamSink<SpNotification> raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    return cst_encode_String(
+      raw.setupAndSerialize(
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_sp_notification,
+          decodeErrorData: dco_decode_AnyhowException,
+        ),
+      ),
+    );
   }
 
   @protected
@@ -1420,6 +1637,16 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_tx_simulation> cst_encode_box_autoadd_tx_simulation(
+    TxSimulation raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ptr = wire.cst_new_box_autoadd_tx_simulation();
+    cst_api_fill_to_wire_tx_simulation(raw, ptr.ref);
+    return ptr;
+  }
+
+  @protected
   ffi.Pointer<ffi.Uint32> cst_encode_box_autoadd_u_32(int raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
     return wire.cst_new_box_autoadd_u_32(cst_encode_u_32(raw));
@@ -1558,6 +1785,18 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
+  ffi.Pointer<wire_cst_list_recipient_view> cst_encode_list_recipient_view(
+    List<RecipientView> raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_recipient_view(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_recipient_view(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
   ffi.Pointer<wire_cst_list_restored_swap_summary>
   cst_encode_list_restored_swap_summary(List<RestoredSwapSummary> raw) {
     // Codec=Cst (C-struct based), see doc to use other codecs
@@ -1575,6 +1814,30 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     final ans = wire.cst_new_list_skipped_restore_swap(raw.length);
     for (var i = 0; i < raw.length; ++i) {
       cst_api_fill_to_wire_skipped_restore_swap(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_sp_coin_view> cst_encode_list_sp_coin_view(
+    List<SpCoinView> raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_sp_coin_view(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_sp_coin_view(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_sp_payment_view> cst_encode_list_sp_payment_view(
+    List<SpPaymentView> raw,
+  ) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_sp_payment_view(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_sp_payment_view(raw[i], ans.ref.ptr[i]);
     }
     return ans;
   }
@@ -1643,6 +1906,17 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     final ans = wire.cst_new_list_tx_output_spec(raw.length);
     for (var i = 0; i < raw.length; ++i) {
       cst_api_fill_to_wire_tx_output_spec(raw[i], ans.ref.ptr[i]);
+    }
+    return ans;
+  }
+
+  @protected
+  ffi.Pointer<wire_cst_list_unified_coin_view>
+  cst_encode_list_unified_coin_view(List<UnifiedCoinView> raw) {
+    // Codec=Cst (C-struct based), see doc to use other codecs
+    final ans = wire.cst_new_list_unified_coin_view(raw.length);
+    for (var i = 0; i < raw.length; ++i) {
+      cst_api_fill_to_wire_unified_coin_view(raw[i], ans.ref.ptr[i]);
     }
     return ans;
   }
@@ -1999,6 +2273,14 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_box_autoadd_tx_simulation(
+    TxSimulation apiObj,
+    ffi.Pointer<wire_cst_tx_simulation> wireObj,
+  ) {
+    cst_api_fill_to_wire_tx_simulation(apiObj, wireObj.ref);
+  }
+
+  @protected
   void cst_api_fill_to_wire_btc_ln_swap(
     BtcLnSwap apiObj,
     wire_cst_btc_ln_swap wireObj,
@@ -2313,6 +2595,47 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_recipient_view(
+    RecipientView apiObj,
+    wire_cst_recipient_view wireObj,
+  ) {
+    if (apiObj is RecipientView_Sp) {
+      var pre_address = cst_encode_String(apiObj.address);
+      var pre_amount_sat = cst_encode_u_64(apiObj.amountSat);
+      var pre_label = cst_encode_opt_box_autoadd_u_32(apiObj.label);
+      var pre_is_max = cst_encode_bool(apiObj.isMax);
+      wireObj.tag = 0;
+      wireObj.kind.Sp.address = pre_address;
+      wireObj.kind.Sp.amount_sat = pre_amount_sat;
+      wireObj.kind.Sp.label = pre_label;
+      wireObj.kind.Sp.is_max = pre_is_max;
+      return;
+    }
+    if (apiObj is RecipientView_Standard) {
+      var pre_address = cst_encode_String(apiObj.address);
+      var pre_amount_sat = cst_encode_u_64(apiObj.amountSat);
+      var pre_is_max = cst_encode_bool(apiObj.isMax);
+      wireObj.tag = 1;
+      wireObj.kind.Standard.address = pre_address;
+      wireObj.kind.Standard.amount_sat = pre_amount_sat;
+      wireObj.kind.Standard.is_max = pre_is_max;
+      return;
+    }
+  }
+
+  @protected
+  void cst_api_fill_to_wire_regtest_defaults(
+    RegtestDefaults apiObj,
+    wire_cst_regtest_defaults wireObj,
+  ) {
+    wireObj.is_ok = cst_encode_bool(apiObj.isOk);
+    wireObj.error = cst_encode_String(apiObj.error);
+    wireObj.blindbit_url = cst_encode_String(apiObj.blindbitUrl);
+    wireObj.p2p_node = cst_encode_String(apiObj.p2PNode);
+    wireObj.electrum_url = cst_encode_String(apiObj.electrumUrl);
+  }
+
+  @protected
   void cst_api_fill_to_wire_restored_btc_ln_swaps(
     RestoredBtcLnSwaps apiObj,
     wire_cst_restored_btc_ln_swaps wireObj,
@@ -2391,6 +2714,195 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   ) {
     wireObj.id = cst_encode_String(apiObj.id);
     wireObj.error = cst_encode_String(apiObj.error);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_sp_balance_view(
+    SpBalanceView apiObj,
+    wire_cst_sp_balance_view wireObj,
+  ) {
+    wireObj.confirmed_sat = cst_encode_u_64(apiObj.confirmedSat);
+    wireObj.total_unified_sat = cst_encode_u_64(apiObj.totalUnifiedSat);
+    wireObj.last_scanned_height = cst_encode_opt_box_autoadd_u_32(
+      apiObj.lastScannedHeight,
+    );
+  }
+
+  @protected
+  void cst_api_fill_to_wire_sp_coin_view(
+    SpCoinView apiObj,
+    wire_cst_sp_coin_view wireObj,
+  ) {
+    wireObj.outpoint = cst_encode_String(apiObj.outpoint);
+    wireObj.amount_sat = cst_encode_u_64(apiObj.amountSat);
+    wireObj.height = cst_encode_u_32(apiObj.height);
+    wireObj.is_spendable = cst_encode_bool(apiObj.isSpendable);
+    wireObj.label = cst_encode_opt_String(apiObj.label);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_sp_error(
+    SpError apiObj,
+    wire_cst_sp_error wireObj,
+  ) {
+    if (apiObj is SpError_ScannerAlreadyRunning) {
+      wireObj.tag = 0;
+      return;
+    }
+    if (apiObj is SpError_DisposeTimedOut) {
+      wireObj.tag = 1;
+      return;
+    }
+    if (apiObj is SpError_SimulationDrifted) {
+      var pre_detail = cst_encode_String(apiObj.detail);
+      wireObj.tag = 2;
+      wireObj.kind.SimulationDrifted.detail = pre_detail;
+      return;
+    }
+    if (apiObj is SpError_Other) {
+      var pre_message = cst_encode_String(apiObj.message);
+      wireObj.tag = 3;
+      wireObj.kind.Other.message = pre_message;
+      return;
+    }
+  }
+
+  @protected
+  void cst_api_fill_to_wire_sp_notification(
+    SpNotification apiObj,
+    wire_cst_sp_notification wireObj,
+  ) {
+    if (apiObj is SpNotification_ScanStarted) {
+      var pre_from = cst_encode_u_32(apiObj.from);
+      var pre_to = cst_encode_u_32(apiObj.to);
+      wireObj.tag = 0;
+      wireObj.kind.ScanStarted.from = pre_from;
+      wireObj.kind.ScanStarted.to = pre_to;
+      return;
+    }
+    if (apiObj is SpNotification_ScanReceiveProgress) {
+      var pre_current = cst_encode_u_32(apiObj.current);
+      var pre_end = cst_encode_u_32(apiObj.end);
+      wireObj.tag = 1;
+      wireObj.kind.ScanReceiveProgress.current = pre_current;
+      wireObj.kind.ScanReceiveProgress.end = pre_end;
+      return;
+    }
+    if (apiObj is SpNotification_ScanCompleted) {
+      wireObj.tag = 2;
+      return;
+    }
+    if (apiObj is SpNotification_ScanStopped) {
+      wireObj.tag = 3;
+      return;
+    }
+    if (apiObj is SpNotification_ScanFailed) {
+      var pre_message = cst_encode_String(apiObj.message);
+      wireObj.tag = 4;
+      wireObj.kind.ScanFailed.message = pre_message;
+      return;
+    }
+    if (apiObj is SpNotification_NewOutput) {
+      var pre_outpoint = cst_encode_String(apiObj.outpoint);
+      var pre_amount_sat = cst_encode_u_64(apiObj.amountSat);
+      wireObj.tag = 5;
+      wireObj.kind.NewOutput.outpoint = pre_outpoint;
+      wireObj.kind.NewOutput.amount_sat = pre_amount_sat;
+      return;
+    }
+    if (apiObj is SpNotification_OutputSpent) {
+      var pre_outpoint = cst_encode_String(apiObj.outpoint);
+      wireObj.tag = 6;
+      wireObj.kind.OutputSpent.outpoint = pre_outpoint;
+      return;
+    }
+    if (apiObj is SpNotification_Broadcasted) {
+      var pre_txid = cst_encode_String(apiObj.txid);
+      wireObj.tag = 7;
+      wireObj.kind.Broadcasted.txid = pre_txid;
+      return;
+    }
+    if (apiObj is SpNotification_BroadcastFailed) {
+      var pre_message = cst_encode_String(apiObj.message);
+      wireObj.tag = 8;
+      wireObj.kind.BroadcastFailed.message = pre_message;
+      return;
+    }
+    if (apiObj is SpNotification_BackendOffline) {
+      wireObj.tag = 9;
+      return;
+    }
+    if (apiObj is SpNotification_ElectrumTx) {
+      var pre_kind = cst_encode_coin_source(apiObj.kind);
+      var pre_txid = cst_encode_String(apiObj.txid);
+      var pre_amount_sat = cst_encode_u_64(apiObj.amountSat);
+      var pre_height = cst_encode_opt_box_autoadd_u_32(apiObj.height);
+      wireObj.tag = 10;
+      wireObj.kind.ElectrumTx.kind = pre_kind;
+      wireObj.kind.ElectrumTx.txid = pre_txid;
+      wireObj.kind.ElectrumTx.amount_sat = pre_amount_sat;
+      wireObj.kind.ElectrumTx.height = pre_height;
+      return;
+    }
+    if (apiObj is SpNotification_ScanSpendProgress) {
+      var pre_current = cst_encode_u_32(apiObj.current);
+      var pre_end = cst_encode_u_32(apiObj.end);
+      wireObj.tag = 11;
+      wireObj.kind.ScanSpendProgress.current = pre_current;
+      wireObj.kind.ScanSpendProgress.end = pre_end;
+      return;
+    }
+    if (apiObj is SpNotification_HeaderProgressStarted) {
+      var pre_phase = cst_encode_header_progress_phase(apiObj.phase);
+      var pre_start = cst_encode_u_32(apiObj.start);
+      var pre_end = cst_encode_u_32(apiObj.end);
+      wireObj.tag = 12;
+      wireObj.kind.HeaderProgressStarted.phase = pre_phase;
+      wireObj.kind.HeaderProgressStarted.start = pre_start;
+      wireObj.kind.HeaderProgressStarted.end = pre_end;
+      return;
+    }
+    if (apiObj is SpNotification_HeaderProgress) {
+      var pre_phase = cst_encode_header_progress_phase(apiObj.phase);
+      var pre_current = cst_encode_u_32(apiObj.current);
+      var pre_end = cst_encode_u_32(apiObj.end);
+      wireObj.tag = 13;
+      wireObj.kind.HeaderProgress.phase = pre_phase;
+      wireObj.kind.HeaderProgress.current = pre_current;
+      wireObj.kind.HeaderProgress.end = pre_end;
+      return;
+    }
+    if (apiObj is SpNotification_HeaderProgressCompleted) {
+      var pre_phase = cst_encode_header_progress_phase(apiObj.phase);
+      wireObj.tag = 14;
+      wireObj.kind.HeaderProgressCompleted.phase = pre_phase;
+      return;
+    }
+    if (apiObj is SpNotification_HeaderProgressFailed) {
+      var pre_phase = cst_encode_header_progress_phase(apiObj.phase);
+      wireObj.tag = 15;
+      wireObj.kind.HeaderProgressFailed.phase = pre_phase;
+      return;
+    }
+    if (apiObj is SpNotification_PaymentHistoryUpdated) {
+      wireObj.tag = 16;
+      return;
+    }
+  }
+
+  @protected
+  void cst_api_fill_to_wire_sp_payment_view(
+    SpPaymentView apiObj,
+    wire_cst_sp_payment_view wireObj,
+  ) {
+    wireObj.txid = cst_encode_String(apiObj.txid);
+    wireObj.direction = cst_encode_sp_payment_direction(apiObj.direction);
+    wireObj.status = cst_encode_sp_payment_status(apiObj.status);
+    wireObj.amount_sat = cst_encode_u_64(apiObj.amountSat);
+    wireObj.fee_sat = cst_encode_opt_box_autoadd_u_64(apiObj.feeSat);
+    wireObj.height = cst_encode_opt_box_autoadd_u_32(apiObj.height);
+    wireObj.timestamp = cst_encode_opt_box_autoadd_u_64(apiObj.timestamp);
+    wireObj.label = cst_encode_opt_String(apiObj.label);
   }
 
   @protected
@@ -2581,6 +3093,29 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   }
 
   @protected
+  void cst_api_fill_to_wire_tx_simulation(
+    TxSimulation apiObj,
+    wire_cst_tx_simulation wireObj,
+  ) {
+    wireObj.inputs = cst_encode_list_unified_coin_view(apiObj.inputs);
+    wireObj.outputs = cst_encode_list_recipient_view(apiObj.outputs);
+    wireObj.fee_sat = cst_encode_u_64(apiObj.feeSat);
+    wireObj.change_sat = cst_encode_u_64(apiObj.changeSat);
+  }
+
+  @protected
+  void cst_api_fill_to_wire_unified_coin_view(
+    UnifiedCoinView apiObj,
+    wire_cst_unified_coin_view wireObj,
+  ) {
+    wireObj.source = cst_encode_coin_source(apiObj.source);
+    wireObj.outpoint = cst_encode_String(apiObj.outpoint);
+    wireObj.amount_sat = cst_encode_u_64(apiObj.amountSat);
+    wireObj.height = cst_encode_opt_box_autoadd_u_32(apiObj.height);
+    wireObj.status = cst_encode_unified_coin_status(apiObj.status);
+  }
+
+  @protected
   void cst_api_fill_to_wire_vout_outspend(
     VoutOutspend apiObj,
     wire_cst_vout_outspend wireObj,
@@ -2626,6 +3161,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int
+  cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+    SpAccount raw,
+  );
+
+  @protected
+  int
   cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
     Wallet raw,
   );
@@ -2646,6 +3187,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   int
   cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
     PartiallySignedElementsTransaction raw,
+  );
+
+  @protected
+  int
+  cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+    SpAccount raw,
   );
 
   @protected
@@ -2680,6 +3227,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int
+  cst_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+    SpAccount raw,
+  );
+
+  @protected
+  int
   cst_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
     Wallet raw,
   );
@@ -2697,6 +3250,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   int cst_encode_chain_swap_direction(ChainSwapDirection raw);
 
   @protected
+  int cst_encode_coin_source(CoinSource raw);
+
+  @protected
   int cst_encode_encoding(Encoding raw);
 
   @protected
@@ -2709,6 +3265,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   int cst_encode_file_type(FileType raw);
 
   @protected
+  int cst_encode_header_progress_phase(HeaderProgressPhase raw);
+
+  @protected
   int cst_encode_i_32(int raw);
 
   @protected
@@ -2719,6 +3278,21 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int cst_encode_side(Side raw);
+
+  @protected
+  int cst_encode_sp_network(SpNetwork raw);
+
+  @protected
+  int cst_encode_sp_payment_direction(SpPaymentDirection raw);
+
+  @protected
+  int cst_encode_sp_payment_status(SpPaymentStatus raw);
+
+  @protected
+  int cst_encode_sp_recipient_address_kind(SpRecipientAddressKind raw);
+
+  @protected
+  int cst_encode_sub_account_kind(SubAccountKind raw);
 
   @protected
   int cst_encode_swap_status(SwapStatus raw);
@@ -2734,6 +3308,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   int cst_encode_u_8(int raw);
+
+  @protected
+  int cst_encode_unified_coin_status(UnifiedCoinStatus raw);
 
   @protected
   void cst_encode_unit(void raw);
@@ -2777,6 +3354,13 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void
+  sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+    SpAccount self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void
   sse_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
     Wallet self,
     SseSerializer serializer,
@@ -2800,6 +3384,13 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void
   sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction(
     PartiallySignedElementsTransaction self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void
+  sse_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+    SpAccount self,
     SseSerializer serializer,
   );
 
@@ -2840,8 +3431,21 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void
+  sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+    SpAccount self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void
   sse_encode_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerWallet(
     Wallet self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_StreamSink_sp_notification_Dco(
+    RustStreamSink<SpNotification> self,
     SseSerializer serializer,
   );
 
@@ -3011,6 +3615,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
+  void sse_encode_box_autoadd_tx_simulation(
+    TxSimulation self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_box_autoadd_u_32(int self, SseSerializer serializer);
 
   @protected
@@ -3050,6 +3660,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void sse_encode_chain_swap_fees(ChainSwapFees self, SseSerializer serializer);
 
   @protected
+  void sse_encode_coin_source(CoinSource self, SseSerializer serializer);
+
+  @protected
   void sse_encode_decoded_invoice(
     DecodedInvoice self,
     SseSerializer serializer,
@@ -3081,6 +3694,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void sse_encode_file_type(FileType self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_header_progress_phase(
+    HeaderProgressPhase self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_i_32(int self, SseSerializer serializer);
@@ -3155,6 +3774,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
+  void sse_encode_list_recipient_view(
+    List<RecipientView> self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_list_restored_swap_summary(
     List<RestoredSwapSummary> self,
     SseSerializer serializer,
@@ -3163,6 +3788,18 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   void sse_encode_list_skipped_restore_swap(
     List<SkippedRestoreSwap> self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_list_sp_coin_view(
+    List<SpCoinView> self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_list_sp_payment_view(
+    List<SpPaymentView> self,
     SseSerializer serializer,
   );
 
@@ -3187,6 +3824,12 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   @protected
   void sse_encode_list_tx_output_spec(
     List<TxOutputSpec> self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_list_unified_coin_view(
+    List<UnifiedCoinView> self,
     SseSerializer serializer,
   );
 
@@ -3314,6 +3957,15 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void sse_encode_pset_output(PsetOutput self, SseSerializer serializer);
 
   @protected
+  void sse_encode_recipient_view(RecipientView self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_regtest_defaults(
+    RegtestDefaults self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_restored_btc_ln_swaps(
     RestoredBtcLnSwaps self,
     SseSerializer serializer,
@@ -3359,10 +4011,55 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   );
 
   @protected
+  void sse_encode_sp_balance_view(SpBalanceView self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_sp_coin_view(SpCoinView self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_sp_error(SpError self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_sp_network(SpNetwork self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_sp_notification(
+    SpNotification self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_sp_payment_direction(
+    SpPaymentDirection self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_sp_payment_status(
+    SpPaymentStatus self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_sp_payment_view(SpPaymentView self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_sp_recipient_address_kind(
+    SpRecipientAddressKind self,
+    SseSerializer serializer,
+  );
+
+  @protected
   void sse_encode_split(Split self, SseSerializer serializer);
 
   @protected
   void sse_encode_split_options(SplitOptions self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_sub_account_kind(
+    SubAccountKind self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_sub_swap_fees(SubSwapFees self, SseSerializer serializer);
@@ -3425,6 +4122,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
   void sse_encode_tx_output_spec(TxOutputSpec self, SseSerializer serializer);
 
   @protected
+  void sse_encode_tx_simulation(TxSimulation self, SseSerializer serializer);
+
+  @protected
   void sse_encode_u_32(int self, SseSerializer serializer);
 
   @protected
@@ -3432,6 +4132,18 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
 
   @protected
   void sse_encode_u_8(int self, SseSerializer serializer);
+
+  @protected
+  void sse_encode_unified_coin_status(
+    UnifiedCoinStatus self,
+    SseSerializer serializer,
+  );
+
+  @protected
+  void sse_encode_unified_coin_view(
+    UnifiedCoinView self,
+    SseSerializer serializer,
+  );
 
   @protected
   void sse_encode_unit(void self, SseSerializer serializer);
@@ -4243,6 +4955,707 @@ class BullSdkWire implements BaseWire {
   late final _wire__lwk__api__transaction__PartiallySignedElementsTransaction_to_string =
       _wire__lwk__api__transaction__PartiallySignedElementsTransaction_to_stringPtr
           .asFunction<WireSyncRust2DartDco Function(int)>();
+
+  WireSyncRust2DartDco
+  wire__dart_bwk__api__sp_account__SpAccount_backend_online(int that) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_backend_online(that);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_backend_onlinePtr =
+      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_backend_online',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_backend_online =
+      _wire__dart_bwk__api__sp_account__SpAccount_backend_onlinePtr
+          .asFunction<WireSyncRust2DartDco Function(int)>();
+
+  WireSyncRust2DartDco wire__dart_bwk__api__sp_account__SpAccount_block_height(
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_block_height(that);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_block_heightPtr =
+      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_block_height',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_block_height =
+      _wire__dart_bwk__api__sp_account__SpAccount_block_heightPtr
+          .asFunction<WireSyncRust2DartDco Function(int)>();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_broadcast(
+    int port_,
+    int that,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> tx_hex,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_broadcast(
+      port_,
+      that,
+      tx_hex,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_broadcastPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.UintPtr,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_broadcast');
+  late final _wire__dart_bwk__api__sp_account__SpAccount_broadcast =
+      _wire__dart_bwk__api__sp_account__SpAccount_broadcastPtr
+          .asFunction<
+            void Function(int, int, ffi.Pointer<wire_cst_list_prim_u_8_strict>)
+          >();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_clear_scan_state(
+    int port_,
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_clear_scan_state(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_clear_scan_statePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_clear_scan_state',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_clear_scan_state =
+      _wire__dart_bwk__api__sp_account__SpAccount_clear_scan_statePtr
+          .asFunction<void Function(int, int)>();
+
+  WireSyncRust2DartDco wire__dart_bwk__api__sp_account__SpAccount_coins(
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_coins(that);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_coinsPtr =
+      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_coins',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_coins =
+      _wire__dart_bwk__api__sp_account__SpAccount_coinsPtr
+          .asFunction<WireSyncRust2DartDco Function(int)>();
+
+  WireSyncRust2DartDco
+  wire__dart_bwk__api__sp_account__SpAccount_confirmed_balance(int that) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_confirmed_balance(that);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_confirmed_balancePtr =
+      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_confirmed_balance',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_confirmed_balance =
+      _wire__dart_bwk__api__sp_account__SpAccount_confirmed_balancePtr
+          .asFunction<WireSyncRust2DartDco Function(int)>();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> name,
+    int network,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> mnemonic,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> blindbit_url,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> electrum_url,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> data_dir,
+    ffi.Pointer<ffi.Uint32> birthday_height,
+    ffi.Pointer<ffi.Uint64> dust_limit,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic(
+      port_,
+      name,
+      network,
+      mnemonic,
+      blindbit_url,
+      electrum_url,
+      data_dir,
+      birthday_height,
+      dust_limit,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonicPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Int32,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<ffi.Uint64>,
+          )
+        >
+      >(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic =
+      _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonicPtr
+          .asFunction<
+            void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Pointer<ffi.Uint64>,
+            )
+          >();
+
+  void
+  wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> name,
+    int network,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> mnemonic,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> blindbit_url,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> electrum_url,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> data_dir,
+    ffi.Pointer<ffi.Uint32> birthday_height,
+    ffi.Pointer<ffi.Uint64> dust_limit,
+    ffi.Pointer<ffi.Uint32> fetch_concurrency_factor,
+    ffi.Pointer<ffi.Uint32> match_concurrency_factor,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime(
+      port_,
+      name,
+      network,
+      mnemonic,
+      blindbit_url,
+      electrum_url,
+      data_dir,
+      birthday_height,
+      dust_limit,
+      fetch_concurrency_factor,
+      match_concurrency_factor,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtimePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Int32,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<ffi.Uint64>,
+            ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<ffi.Uint32>,
+          )
+        >
+      >(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtime =
+      _wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_runtimePtr
+          .asFunction<
+            void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Pointer<ffi.Uint64>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Pointer<ffi.Uint32>,
+            )
+          >();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_dispose(int port_, int that) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_dispose(port_, that);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_disposePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_dispose',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_dispose =
+      _wire__dart_bwk__api__sp_account__SpAccount_disposePtr
+          .asFunction<void Function(int, int)>();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_finalize_psbt(
+    int port_,
+    int that,
+    ffi.Pointer<wire_cst_tx_simulation> simulation,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_finalize_psbt(
+      port_,
+      that,
+      simulation,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_finalize_psbtPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.UintPtr,
+            ffi.Pointer<wire_cst_tx_simulation>,
+          )
+        >
+      >(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_finalize_psbt',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_finalize_psbt =
+      _wire__dart_bwk__api__sp_account__SpAccount_finalize_psbtPtr
+          .asFunction<
+            void Function(int, int, ffi.Pointer<wire_cst_tx_simulation>)
+          >();
+
+  WireSyncRust2DartDco wire__dart_bwk__api__sp_account__SpAccount_init(
+    int that,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> sink,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_init(that, sink);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_initPtr =
+      _lookup<
+        ffi.NativeFunction<
+          WireSyncRust2DartDco Function(
+            ffi.UintPtr,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_init');
+  late final _wire__dart_bwk__api__sp_account__SpAccount_init =
+      _wire__dart_bwk__api__sp_account__SpAccount_initPtr
+          .asFunction<
+            WireSyncRust2DartDco Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            )
+          >();
+
+  WireSyncRust2DartDco wire__dart_bwk__api__sp_account__SpAccount_is_scanning(
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_is_scanning(that);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_is_scanningPtr =
+      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_is_scanning',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_is_scanning =
+      _wire__dart_bwk__api__sp_account__SpAccount_is_scanningPtr
+          .asFunction<WireSyncRust2DartDco Function(int)>();
+
+  WireSyncRust2DartDco
+  wire__dart_bwk__api__sp_account__SpAccount_last_scanned_height(int that) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_last_scanned_height(
+      that,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_last_scanned_heightPtr =
+      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_last_scanned_height',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_last_scanned_height =
+      _wire__dart_bwk__api__sp_account__SpAccount_last_scanned_heightPtr
+          .asFunction<WireSyncRust2DartDco Function(int)>();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_load(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> name,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> data_dir,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_load(
+      port_,
+      name,
+      data_dir,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_loadPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_load');
+  late final _wire__dart_bwk__api__sp_account__SpAccount_load =
+      _wire__dart_bwk__api__sp_account__SpAccount_loadPtr
+          .asFunction<
+            void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            )
+          >();
+
+  WireSyncRust2DartDco
+  wire__dart_bwk__api__sp_account__SpAccount_min_birthday_height(int that) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_min_birthday_height(
+      that,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_min_birthday_heightPtr =
+      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_min_birthday_height',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_min_birthday_height =
+      _wire__dart_bwk__api__sp_account__SpAccount_min_birthday_heightPtr
+          .asFunction<WireSyncRust2DartDco Function(int)>();
+
+  WireSyncRust2DartDco wire__dart_bwk__api__sp_account__SpAccount_name(
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_name(that);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_namePtr =
+      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_name',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_name =
+      _wire__dart_bwk__api__sp_account__SpAccount_namePtr
+          .asFunction<WireSyncRust2DartDco Function(int)>();
+
+  WireSyncRust2DartDco wire__dart_bwk__api__sp_account__SpAccount_network(
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_network(that);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_networkPtr =
+      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_network',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_network =
+      _wire__dart_bwk__api__sp_account__SpAccount_networkPtr
+          .asFunction<WireSyncRust2DartDco Function(int)>();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_new_taproot_address(
+    int port_,
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_new_taproot_address(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_new_taproot_addressPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_new_taproot_address',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_new_taproot_address =
+      _wire__dart_bwk__api__sp_account__SpAccount_new_taproot_addressPtr
+          .asFunction<void Function(int, int)>();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_prepare_psbt(
+    int port_,
+    int that,
+    ffi.Pointer<wire_cst_list_recipient_view> recipients,
+    int feerate_sat_vb,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_prepare_psbt(
+      port_,
+      that,
+      recipients,
+      feerate_sat_vb,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_prepare_psbtPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.UintPtr,
+            ffi.Pointer<wire_cst_list_recipient_view>,
+            ffi.Uint64,
+          )
+        >
+      >(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_prepare_psbt',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_prepare_psbt =
+      _wire__dart_bwk__api__sp_account__SpAccount_prepare_psbtPtr
+          .asFunction<
+            void Function(
+              int,
+              int,
+              ffi.Pointer<wire_cst_list_recipient_view>,
+              int,
+            )
+          >();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_restart_electrum(
+    int port_,
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_restart_electrum(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_restart_electrumPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_restart_electrum',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_restart_electrum =
+      _wire__dart_bwk__api__sp_account__SpAccount_restart_electrumPtr
+          .asFunction<void Function(int, int)>();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_scan_once(
+    int port_,
+    int that,
+    ffi.Pointer<ffi.Uint32> start_height,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_scan_once(
+      port_,
+      that,
+      start_height,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_scan_oncePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.Pointer<ffi.Uint32>)
+        >
+      >('frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_scan_once');
+  late final _wire__dart_bwk__api__sp_account__SpAccount_scan_once =
+      _wire__dart_bwk__api__sp_account__SpAccount_scan_oncePtr
+          .asFunction<void Function(int, int, ffi.Pointer<ffi.Uint32>)>();
+
+  WireSyncRust2DartDco
+  wire__dart_bwk__api__sp_account__SpAccount_set_blindbit_url(
+    int that,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> url,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_set_blindbit_url(
+      that,
+      url,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_set_blindbit_urlPtr =
+      _lookup<
+        ffi.NativeFunction<
+          WireSyncRust2DartDco Function(
+            ffi.UintPtr,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_set_blindbit_url',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_set_blindbit_url =
+      _wire__dart_bwk__api__sp_account__SpAccount_set_blindbit_urlPtr
+          .asFunction<
+            WireSyncRust2DartDco Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            )
+          >();
+
+  WireSyncRust2DartDco
+  wire__dart_bwk__api__sp_account__SpAccount_set_electrum_url(
+    int that,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> url,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_set_electrum_url(
+      that,
+      url,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_set_electrum_urlPtr =
+      _lookup<
+        ffi.NativeFunction<
+          WireSyncRust2DartDco Function(
+            ffi.UintPtr,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_set_electrum_url',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_set_electrum_url =
+      _wire__dart_bwk__api__sp_account__SpAccount_set_electrum_urlPtr
+          .asFunction<
+            WireSyncRust2DartDco Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            )
+          >();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_sign_psbt(
+    int port_,
+    int that,
+    ffi.Pointer<wire_cst_list_prim_u_8_loose> psbt,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_sign_psbt(
+      port_,
+      that,
+      psbt,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_sign_psbtPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.UintPtr,
+            ffi.Pointer<wire_cst_list_prim_u_8_loose>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_sign_psbt');
+  late final _wire__dart_bwk__api__sp_account__SpAccount_sign_psbt =
+      _wire__dart_bwk__api__sp_account__SpAccount_sign_psbtPtr
+          .asFunction<
+            void Function(int, int, ffi.Pointer<wire_cst_list_prim_u_8_loose>)
+          >();
+
+  WireSyncRust2DartDco wire__dart_bwk__api__sp_account__SpAccount_sp_address(
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_sp_address(that);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_sp_addressPtr =
+      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_sp_address',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_sp_address =
+      _wire__dart_bwk__api__sp_account__SpAccount_sp_addressPtr
+          .asFunction<WireSyncRust2DartDco Function(int)>();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_start_electrum(
+    int port_,
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_start_electrum(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_start_electrumPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_start_electrum',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_start_electrum =
+      _wire__dart_bwk__api__sp_account__SpAccount_start_electrumPtr
+          .asFunction<void Function(int, int)>();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_stop_scan(
+    int port_,
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_stop_scan(port_, that);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_stop_scanPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_stop_scan',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_stop_scan =
+      _wire__dart_bwk__api__sp_account__SpAccount_stop_scanPtr
+          .asFunction<void Function(int, int)>();
+
+  WireSyncRust2DartDco
+  wire__dart_bwk__api__sp_account__SpAccount_sub_account_balance(
+    int that,
+    int kind,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_sub_account_balance(
+      that,
+      kind,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_sub_account_balancePtr =
+      _lookup<
+        ffi.NativeFunction<
+          WireSyncRust2DartDco Function(ffi.UintPtr, ffi.Int32)
+        >
+      >(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_sub_account_balance',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_sub_account_balance =
+      _wire__dart_bwk__api__sp_account__SpAccount_sub_account_balancePtr
+          .asFunction<WireSyncRust2DartDco Function(int, int)>();
+
+  WireSyncRust2DartDco
+  wire__dart_bwk__api__sp_account__SpAccount_unified_balance(int that) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_unified_balance(that);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_unified_balancePtr =
+      _lookup<ffi.NativeFunction<WireSyncRust2DartDco Function(ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_unified_balance',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_unified_balance =
+      _wire__dart_bwk__api__sp_account__SpAccount_unified_balancePtr
+          .asFunction<WireSyncRust2DartDco Function(int)>();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_unified_coins(
+    int port_,
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_unified_coins(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_unified_coinsPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_unified_coins',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_unified_coins =
+      _wire__dart_bwk__api__sp_account__SpAccount_unified_coinsPtr
+          .asFunction<void Function(int, int)>();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_unified_history(
+    int port_,
+    int that,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_unified_history(
+      port_,
+      that,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_unified_historyPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_unified_history',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_unified_history =
+      _wire__dart_bwk__api__sp_account__SpAccount_unified_historyPtr
+          .asFunction<void Function(int, int)>();
 
   void wire__lwk__api__wallet__Wallet_address(int port_, int that, int index) {
     return _wire__lwk__api__wallet__Wallet_address(port_, that, index);
@@ -6590,6 +8003,18 @@ class BullSdkWire implements BaseWire {
             )
           >();
 
+  void wire__dart_bwk__api__regtest__get_regtest_defaults(int port_) {
+    return _wire__dart_bwk__api__regtest__get_regtest_defaults(port_);
+  }
+
+  late final _wire__dart_bwk__api__regtest__get_regtest_defaultsPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__regtest__get_regtest_defaults',
+      );
+  late final _wire__dart_bwk__api__regtest__get_regtest_defaults =
+      _wire__dart_bwk__api__regtest__get_regtest_defaultsPtr
+          .asFunction<void Function(int)>();
+
   void wire__bitbox__api__get_root_fingerprint(
     int port_,
     ffi.Pointer<wire_cst_list_prim_u_8_strict> serial_number,
@@ -6671,6 +8096,17 @@ class BullSdkWire implements BaseWire {
       );
   late final _wire__bitbox__api__init_app = _wire__bitbox__api__init_appPtr
       .asFunction<void Function(int)>();
+
+  void wire__crate__api__simple__init_app(int port_) {
+    return _wire__crate__api__simple__init_app(port_);
+  }
+
+  late final _wire__crate__api__simple__init_appPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+        'frbgen_bull_sdk_wire__crate__api__simple__init_app',
+      );
+  late final _wire__crate__api__simple__init_app =
+      _wire__crate__api__simple__init_appPtr.asFunction<void Function(int)>();
 
   void wire__bitbox__api__is_wallet_policy_registered(
     int port_,
@@ -8066,6 +9502,50 @@ class BullSdkWire implements BaseWire {
             )
           >();
 
+  void wire__dart_bwk__api__sp_account__test_blindbit_url(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> url,
+  ) {
+    return _wire__dart_bwk__api__sp_account__test_blindbit_url(port_, url);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__test_blindbit_urlPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__dart_bwk__api__sp_account__test_blindbit_url');
+  late final _wire__dart_bwk__api__sp_account__test_blindbit_url =
+      _wire__dart_bwk__api__sp_account__test_blindbit_urlPtr
+          .asFunction<
+            void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>)
+          >();
+
+  void wire__dart_bwk__api__sp_account__test_electrum_url(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> url,
+  ) {
+    return _wire__dart_bwk__api__sp_account__test_electrum_url(port_, url);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__test_electrum_urlPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+          )
+        >
+      >('frbgen_bull_sdk_wire__dart_bwk__api__sp_account__test_electrum_url');
+  late final _wire__dart_bwk__api__sp_account__test_electrum_url =
+      _wire__dart_bwk__api__sp_account__test_electrum_urlPtr
+          .asFunction<
+            void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>)
+          >();
+
   WireSyncRust2DartDco wire__boltz__api__swap_status__transaction_from_json(
     ffi.Pointer<wire_cst_list_prim_u_8_strict> json,
   ) {
@@ -8104,6 +9584,36 @@ class BullSdkWire implements BaseWire {
       _wire__boltz__api__swap_status__transaction_to_jsonPtr
           .asFunction<
             WireSyncRust2DartDco Function(ffi.Pointer<wire_cst_transaction>)
+          >();
+
+  void wire__dart_bwk__api__sp_account__validate_recipient_address(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> address,
+    int network,
+  ) {
+    return _wire__dart_bwk__api__sp_account__validate_recipient_address(
+      port_,
+      address,
+      network,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__validate_recipient_addressPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Int32,
+          )
+        >
+      >(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__validate_recipient_address',
+      );
+  late final _wire__dart_bwk__api__sp_account__validate_recipient_address =
+      _wire__dart_bwk__api__sp_account__validate_recipient_addressPtr
+          .asFunction<
+            void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_strict>, int)
           >();
 
   void wire__bitbox__api__verify_address(
@@ -8336,6 +9846,40 @@ class BullSdkWire implements BaseWire {
       );
   late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransaction =
       _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerPartiallySignedElementsTransactionPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void
+  rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccountPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+        'frbgen_bull_sdk_rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount',
+      );
+  late final _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount =
+      _rust_arc_increment_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccountPtr
+          .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
+
+  void
+  rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+    ffi.Pointer<ffi.Void> ptr,
+  ) {
+    return _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+      ptr,
+    );
+  }
+
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccountPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ffi.Void>)>>(
+        'frbgen_bull_sdk_rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount',
+      );
+  late final _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount =
+      _rust_arc_decrement_strong_count_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccountPtr
           .asFunction<void Function(ffi.Pointer<ffi.Void>)>();
 
   void
@@ -8695,6 +10239,18 @@ class BullSdkWire implements BaseWire {
   late final _cst_new_box_autoadd_tx_output = _cst_new_box_autoadd_tx_outputPtr
       .asFunction<ffi.Pointer<wire_cst_tx_output> Function()>();
 
+  ffi.Pointer<wire_cst_tx_simulation> cst_new_box_autoadd_tx_simulation() {
+    return _cst_new_box_autoadd_tx_simulation();
+  }
+
+  late final _cst_new_box_autoadd_tx_simulationPtr =
+      _lookup<
+        ffi.NativeFunction<ffi.Pointer<wire_cst_tx_simulation> Function()>
+      >('frbgen_bull_sdk_cst_new_box_autoadd_tx_simulation');
+  late final _cst_new_box_autoadd_tx_simulation =
+      _cst_new_box_autoadd_tx_simulationPtr
+          .asFunction<ffi.Pointer<wire_cst_tx_simulation> Function()>();
+
   ffi.Pointer<ffi.Uint32> cst_new_box_autoadd_u_32(int value) {
     return _cst_new_box_autoadd_u_32(value);
   }
@@ -8862,6 +10418,21 @@ class BullSdkWire implements BaseWire {
   late final _cst_new_list_pset_output = _cst_new_list_pset_outputPtr
       .asFunction<ffi.Pointer<wire_cst_list_pset_output> Function(int)>();
 
+  ffi.Pointer<wire_cst_list_recipient_view> cst_new_list_recipient_view(
+    int len,
+  ) {
+    return _cst_new_list_recipient_view(len);
+  }
+
+  late final _cst_new_list_recipient_viewPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_recipient_view> Function(ffi.Int32)
+        >
+      >('frbgen_bull_sdk_cst_new_list_recipient_view');
+  late final _cst_new_list_recipient_view = _cst_new_list_recipient_viewPtr
+      .asFunction<ffi.Pointer<wire_cst_list_recipient_view> Function(int)>();
+
   ffi.Pointer<wire_cst_list_restored_swap_summary>
   cst_new_list_restored_swap_summary(int len) {
     return _cst_new_list_restored_swap_summary(len);
@@ -8895,6 +10466,34 @@ class BullSdkWire implements BaseWire {
           .asFunction<
             ffi.Pointer<wire_cst_list_skipped_restore_swap> Function(int)
           >();
+
+  ffi.Pointer<wire_cst_list_sp_coin_view> cst_new_list_sp_coin_view(int len) {
+    return _cst_new_list_sp_coin_view(len);
+  }
+
+  late final _cst_new_list_sp_coin_viewPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_sp_coin_view> Function(ffi.Int32)
+        >
+      >('frbgen_bull_sdk_cst_new_list_sp_coin_view');
+  late final _cst_new_list_sp_coin_view = _cst_new_list_sp_coin_viewPtr
+      .asFunction<ffi.Pointer<wire_cst_list_sp_coin_view> Function(int)>();
+
+  ffi.Pointer<wire_cst_list_sp_payment_view> cst_new_list_sp_payment_view(
+    int len,
+  ) {
+    return _cst_new_list_sp_payment_view(len);
+  }
+
+  late final _cst_new_list_sp_payment_viewPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_sp_payment_view> Function(ffi.Int32)
+        >
+      >('frbgen_bull_sdk_cst_new_list_sp_payment_view');
+  late final _cst_new_list_sp_payment_view = _cst_new_list_sp_payment_viewPtr
+      .asFunction<ffi.Pointer<wire_cst_list_sp_payment_view> Function(int)>();
 
   ffi.Pointer<wire_cst_list_tx> cst_new_list_tx(int len) {
     return _cst_new_list_tx(len);
@@ -8976,6 +10575,24 @@ class BullSdkWire implements BaseWire {
   late final _cst_new_list_tx_output_spec = _cst_new_list_tx_output_specPtr
       .asFunction<ffi.Pointer<wire_cst_list_tx_output_spec> Function(int)>();
 
+  ffi.Pointer<wire_cst_list_unified_coin_view> cst_new_list_unified_coin_view(
+    int len,
+  ) {
+    return _cst_new_list_unified_coin_view(len);
+  }
+
+  late final _cst_new_list_unified_coin_viewPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Pointer<wire_cst_list_unified_coin_view> Function(ffi.Int32)
+        >
+      >('frbgen_bull_sdk_cst_new_list_unified_coin_view');
+  late final _cst_new_list_unified_coin_view =
+      _cst_new_list_unified_coin_viewPtr
+          .asFunction<
+            ffi.Pointer<wire_cst_list_unified_coin_view> Function(int)
+          >();
+
   ffi.Pointer<wire_cst_list_vout_outspend> cst_new_list_vout_outspend(int len) {
     return _cst_new_list_vout_outspend(len);
   }
@@ -9037,6 +10654,82 @@ final class wire_cst_list_prim_u_8_loose extends ffi.Struct {
 
   @ffi.Int32()
   external int len;
+}
+
+final class wire_cst_unified_coin_view extends ffi.Struct {
+  @ffi.Int32()
+  external int source;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> outpoint;
+
+  @ffi.Uint64()
+  external int amount_sat;
+
+  external ffi.Pointer<ffi.Uint32> height;
+
+  @ffi.Int32()
+  external int status;
+}
+
+final class wire_cst_list_unified_coin_view extends ffi.Struct {
+  external ffi.Pointer<wire_cst_unified_coin_view> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_RecipientView_Sp extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> address;
+
+  @ffi.Uint64()
+  external int amount_sat;
+
+  external ffi.Pointer<ffi.Uint32> label;
+
+  @ffi.Bool()
+  external bool is_max;
+}
+
+final class wire_cst_RecipientView_Standard extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> address;
+
+  @ffi.Uint64()
+  external int amount_sat;
+
+  @ffi.Bool()
+  external bool is_max;
+}
+
+final class RecipientViewKind extends ffi.Union {
+  external wire_cst_RecipientView_Sp Sp;
+
+  external wire_cst_RecipientView_Standard Standard;
+}
+
+final class wire_cst_recipient_view extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external RecipientViewKind kind;
+}
+
+final class wire_cst_list_recipient_view extends ffi.Struct {
+  external ffi.Pointer<wire_cst_recipient_view> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_tx_simulation extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_unified_coin_view> inputs;
+
+  external ffi.Pointer<wire_cst_list_recipient_view> outputs;
+
+  @ffi.Uint64()
+  external int fee_sat;
+
+  @ffi.Uint64()
+  external int change_sat;
 }
 
 final class wire_cst_out_point extends ffi.Struct {
@@ -9507,6 +11200,56 @@ final class wire_cst_list_skipped_restore_swap extends ffi.Struct {
   external int len;
 }
 
+final class wire_cst_sp_coin_view extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> outpoint;
+
+  @ffi.Uint64()
+  external int amount_sat;
+
+  @ffi.Uint32()
+  external int height;
+
+  @ffi.Bool()
+  external bool is_spendable;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> label;
+}
+
+final class wire_cst_list_sp_coin_view extends ffi.Struct {
+  external ffi.Pointer<wire_cst_sp_coin_view> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
+final class wire_cst_sp_payment_view extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> txid;
+
+  @ffi.Int32()
+  external int direction;
+
+  @ffi.Int32()
+  external int status;
+
+  @ffi.Uint64()
+  external int amount_sat;
+
+  external ffi.Pointer<ffi.Uint64> fee_sat;
+
+  external ffi.Pointer<ffi.Uint32> height;
+
+  external ffi.Pointer<ffi.Uint64> timestamp;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> label;
+}
+
+final class wire_cst_list_sp_payment_view extends ffi.Struct {
+  external ffi.Pointer<wire_cst_sp_payment_view> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
+
 final class wire_cst_tx_out_secrets extends ffi.Struct {
   @ffi.Uint64()
   external int value;
@@ -9743,6 +11486,19 @@ final class wire_cst_pset_amounts extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_balance> balances;
 }
 
+final class wire_cst_regtest_defaults extends ffi.Struct {
+  @ffi.Bool()
+  external bool is_ok;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> error;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> blindbit_url;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> p2p_node;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> electrum_url;
+}
+
 final class wire_cst_restored_btc_ln_swaps extends ffi.Struct {
   external ffi.Pointer<wire_cst_list_btc_ln_swap> swaps;
 
@@ -9786,6 +11542,164 @@ final class wire_cst_size_and_fees extends ffi.Struct {
   external int discounted_weight;
 
   external ffi.Pointer<wire_cst_list_wallet_balance> absolute_fees;
+}
+
+final class wire_cst_sp_balance_view extends ffi.Struct {
+  @ffi.Uint64()
+  external int confirmed_sat;
+
+  @ffi.Uint64()
+  external int total_unified_sat;
+
+  external ffi.Pointer<ffi.Uint32> last_scanned_height;
+}
+
+final class wire_cst_SpError_SimulationDrifted extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> detail;
+}
+
+final class wire_cst_SpError_Other extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> message;
+}
+
+final class SpErrorKind extends ffi.Union {
+  external wire_cst_SpError_SimulationDrifted SimulationDrifted;
+
+  external wire_cst_SpError_Other Other;
+}
+
+final class wire_cst_sp_error extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external SpErrorKind kind;
+}
+
+final class wire_cst_SpNotification_ScanStarted extends ffi.Struct {
+  @ffi.Uint32()
+  external int from;
+
+  @ffi.Uint32()
+  external int to;
+}
+
+final class wire_cst_SpNotification_ScanReceiveProgress extends ffi.Struct {
+  @ffi.Uint32()
+  external int current;
+
+  @ffi.Uint32()
+  external int end;
+}
+
+final class wire_cst_SpNotification_ScanFailed extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> message;
+}
+
+final class wire_cst_SpNotification_NewOutput extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> outpoint;
+
+  @ffi.Uint64()
+  external int amount_sat;
+}
+
+final class wire_cst_SpNotification_OutputSpent extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> outpoint;
+}
+
+final class wire_cst_SpNotification_Broadcasted extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> txid;
+}
+
+final class wire_cst_SpNotification_BroadcastFailed extends ffi.Struct {
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> message;
+}
+
+final class wire_cst_SpNotification_ElectrumTx extends ffi.Struct {
+  @ffi.Int32()
+  external int kind;
+
+  external ffi.Pointer<wire_cst_list_prim_u_8_strict> txid;
+
+  @ffi.Uint64()
+  external int amount_sat;
+
+  external ffi.Pointer<ffi.Uint32> height;
+}
+
+final class wire_cst_SpNotification_ScanSpendProgress extends ffi.Struct {
+  @ffi.Uint32()
+  external int current;
+
+  @ffi.Uint32()
+  external int end;
+}
+
+final class wire_cst_SpNotification_HeaderProgressStarted extends ffi.Struct {
+  @ffi.Int32()
+  external int phase;
+
+  @ffi.Uint32()
+  external int start;
+
+  @ffi.Uint32()
+  external int end;
+}
+
+final class wire_cst_SpNotification_HeaderProgress extends ffi.Struct {
+  @ffi.Int32()
+  external int phase;
+
+  @ffi.Uint32()
+  external int current;
+
+  @ffi.Uint32()
+  external int end;
+}
+
+final class wire_cst_SpNotification_HeaderProgressCompleted extends ffi.Struct {
+  @ffi.Int32()
+  external int phase;
+}
+
+final class wire_cst_SpNotification_HeaderProgressFailed extends ffi.Struct {
+  @ffi.Int32()
+  external int phase;
+}
+
+final class SpNotificationKind extends ffi.Union {
+  external wire_cst_SpNotification_ScanStarted ScanStarted;
+
+  external wire_cst_SpNotification_ScanReceiveProgress ScanReceiveProgress;
+
+  external wire_cst_SpNotification_ScanFailed ScanFailed;
+
+  external wire_cst_SpNotification_NewOutput NewOutput;
+
+  external wire_cst_SpNotification_OutputSpent OutputSpent;
+
+  external wire_cst_SpNotification_Broadcasted Broadcasted;
+
+  external wire_cst_SpNotification_BroadcastFailed BroadcastFailed;
+
+  external wire_cst_SpNotification_ElectrumTx ElectrumTx;
+
+  external wire_cst_SpNotification_ScanSpendProgress ScanSpendProgress;
+
+  external wire_cst_SpNotification_HeaderProgressStarted HeaderProgressStarted;
+
+  external wire_cst_SpNotification_HeaderProgress HeaderProgress;
+
+  external wire_cst_SpNotification_HeaderProgressCompleted
+  HeaderProgressCompleted;
+
+  external wire_cst_SpNotification_HeaderProgressFailed HeaderProgressFailed;
+}
+
+final class wire_cst_sp_notification extends ffi.Struct {
+  @ffi.Int32()
+  external int tag;
+
+  external SpNotificationKind kind;
 }
 
 final class wire_cst_split extends ffi.Struct {
