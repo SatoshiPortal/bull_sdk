@@ -101,6 +101,8 @@ sealed class SpNotification with _$SpNotification {
       SpNotification_Reorg;
   const factory SpNotification.headerCheckpointMismatch() =
       SpNotification_HeaderCheckpointMismatch;
+  const factory SpNotification.electrumConnected() =
+      SpNotification_ElectrumConnected;
 }
 
 @freezed
