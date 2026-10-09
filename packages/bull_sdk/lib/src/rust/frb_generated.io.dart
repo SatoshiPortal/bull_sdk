@@ -3176,6 +3176,9 @@ abstract class BullSdkApiImplPlatform extends BaseApiImpl<BullSdkWire> {
     wireObj.outputs = cst_encode_list_recipient_view(apiObj.outputs);
     wireObj.fee_sat = cst_encode_u_64(apiObj.feeSat);
     wireObj.change_sat = cst_encode_u_64(apiObj.changeSat);
+    wireObj.change_dust_threshold = cst_encode_opt_box_autoadd_u_64(
+      apiObj.changeDustThreshold,
+    );
   }
 
   @protected
@@ -5471,12 +5474,14 @@ class BullSdkWire implements BaseWire {
     int that,
     ffi.Pointer<wire_cst_list_recipient_view> recipients,
     int feerate_sat_vb,
+    ffi.Pointer<ffi.Uint64> change_dust_threshold,
   ) {
     return _wire__dart_bwk__api__sp_account__SpAccount_prepare_psbt(
       port_,
       that,
       recipients,
       feerate_sat_vb,
+      change_dust_threshold,
     );
   }
 
@@ -5488,6 +5493,7 @@ class BullSdkWire implements BaseWire {
             ffi.UintPtr,
             ffi.Pointer<wire_cst_list_recipient_view>,
             ffi.Uint64,
+            ffi.Pointer<ffi.Uint64>,
           )
         >
       >(
@@ -5501,6 +5507,7 @@ class BullSdkWire implements BaseWire {
               int,
               ffi.Pointer<wire_cst_list_recipient_view>,
               int,
+              ffi.Pointer<ffi.Uint64>,
             )
           >();
 
@@ -10842,6 +10849,8 @@ final class wire_cst_tx_simulation extends ffi.Struct {
 
   @ffi.Uint64()
   external int change_sat;
+
+  external ffi.Pointer<ffi.Uint64> change_dust_threshold;
 }
 
 final class wire_cst_out_point extends ffi.Struct {

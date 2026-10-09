@@ -2177,6 +2177,7 @@ fn wire__dart_bwk__api__sp_account__SpAccount_prepare_psbt_impl(
     >,
     recipients: impl CstDecode<Vec<crate::api::simple::RecipientView>>,
     feerate_sat_vb: impl CstDecode<u64>,
+    change_dust_threshold: impl CstDecode<Option<u64>>,
 ) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
         flutter_rust_bridge::for_generated::TaskInfo {
@@ -2190,6 +2191,7 @@ fn wire__dart_bwk__api__sp_account__SpAccount_prepare_psbt_impl(
             let api_recipients: Vec<dart_bwk::api::types::RecipientView> =
                 api_recipients.into_iter().map(Into::into).collect();
             let api_feerate_sat_vb = feerate_sat_vb.cst_decode();
+            let api_change_dust_threshold = change_dust_threshold.cst_decode();
             move |context| {
                 transform_result_dco::<_, _, String>((move || {
                     let mut api_that_guard = None;
@@ -2210,6 +2212,7 @@ fn wire__dart_bwk__api__sp_account__SpAccount_prepare_psbt_impl(
                         &*api_that_guard,
                         api_recipients,
                         api_feerate_sat_vb,
+                        api_change_dust_threshold,
                     )?;
                     Ok(output_ok)
                 })())
@@ -7324,6 +7327,7 @@ const _: fn() = || {
         let _: Vec<dart_bwk::api::types::RecipientView> = TxSimulation.outputs;
         let _: u64 = TxSimulation.fee_sat;
         let _: u64 = TxSimulation.change_sat;
+        let _: Option<u64> = TxSimulation.change_dust_threshold;
     }
     {
         let UnifiedCoinView = None::<dart_bwk::api::types::UnifiedCoinView>.unwrap();
@@ -9736,6 +9740,7 @@ impl SseDecode for dart_bwk::api::types::TxSimulation {
         let mut var_outputs = <Vec<crate::api::simple::RecipientView>>::sse_decode(deserializer);
         let mut var_feeSat = <u64>::sse_decode(deserializer);
         let mut var_changeSat = <u64>::sse_decode(deserializer);
+        let mut var_changeDustThreshold = <Option<u64>>::sse_decode(deserializer);
         return dart_bwk::api::types::TxSimulation {
             inputs: var_inputs,
             outputs: var_outputs
@@ -9744,6 +9749,7 @@ impl SseDecode for dart_bwk::api::types::TxSimulation {
                 .collect::<Vec<dart_bwk::api::types::RecipientView>>(),
             fee_sat: var_feeSat,
             change_sat: var_changeSat,
+            change_dust_threshold: var_changeDustThreshold,
         };
     }
 }
@@ -11930,6 +11936,7 @@ impl flutter_rust_bridge::IntoDart for FrbWrapper<dart_bwk::api::types::TxSimula
                 .into_dart(),
             self.0.fee_sat.into_into_dart().into_dart(),
             self.0.change_sat.into_into_dart().into_dart(),
+            self.0.change_dust_threshold.into_into_dart().into_dart(),
         ]
         .into_dart()
     }
@@ -13747,6 +13754,7 @@ impl SseEncode for dart_bwk::api::types::TxSimulation {
         );
         <u64>::sse_encode(self.fee_sat, serializer);
         <u64>::sse_encode(self.change_sat, serializer);
+        <Option<u64>>::sse_encode(self.change_dust_threshold, serializer);
     }
 }
 
@@ -15395,6 +15403,7 @@ mod io {
                 },
                 fee_sat: self.fee_sat.cst_decode(),
                 change_sat: self.change_sat.cst_decode(),
+                change_dust_threshold: self.change_dust_threshold.cst_decode(),
             }
         }
     }
@@ -16346,6 +16355,7 @@ mod io {
                 outputs: core::ptr::null_mut(),
                 fee_sat: Default::default(),
                 change_sat: Default::default(),
+                change_dust_threshold: core::ptr::null_mut(),
             }
         }
     }
@@ -16904,12 +16914,14 @@ mod io {
         that: usize,
         recipients: *mut wire_cst_list_recipient_view,
         feerate_sat_vb: u64,
+        change_dust_threshold: *mut u64,
     ) {
         wire__dart_bwk__api__sp_account__SpAccount_prepare_psbt_impl(
             port_,
             that,
             recipients,
             feerate_sat_vb,
+            change_dust_threshold,
         )
     }
 
@@ -20079,6 +20091,7 @@ mod io {
         outputs: *mut wire_cst_list_recipient_view,
         fee_sat: u64,
         change_sat: u64,
+        change_dust_threshold: *mut u64,
     }
     #[repr(C)]
     #[derive(Clone, Copy)]
