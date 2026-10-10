@@ -125,15 +125,9 @@ with open('$FILE', 'r') as f:
 # 6a: SseDecode for TxSimulation — decoded mirror Vec must be converted to the
 # dart_bwk field type before constructing the struct.
 content = content.replace(
-    '        let mut var_outputs = <Vec<crate::api::simple::RecipientView>>::sse_decode(deserializer);\n'
-    '        let mut var_feeSat = <u64>::sse_decode(deserializer);\n'
-    '        let mut var_changeSat = <u64>::sse_decode(deserializer);\n'
     '        return dart_bwk::api::types::TxSimulation {\n'
     '            inputs: var_inputs,\n'
     '            outputs: var_outputs,',
-    '        let mut var_outputs = <Vec<crate::api::simple::RecipientView>>::sse_decode(deserializer);\n'
-    '        let mut var_feeSat = <u64>::sse_decode(deserializer);\n'
-    '        let mut var_changeSat = <u64>::sse_decode(deserializer);\n'
     '        return dart_bwk::api::types::TxSimulation {\n'
     '            inputs: var_inputs,\n'
     '            outputs: var_outputs.into_iter().map(Into::into).collect::<Vec<dart_bwk::api::types::RecipientView>>(),',
@@ -152,18 +146,10 @@ content = content.replace(
 
 # 6c: IntoDart for FrbWrapper<TxSimulation> — convert dart_bwk field to mirror.
 content = content.replace(
-    '        [\n'
     '            self.0.inputs.into_into_dart().into_dart(),\n'
-    '            self.0.outputs.into_into_dart().into_dart(),\n'
-    '            self.0.fee_sat.into_into_dart().into_dart(),\n'
-    '            self.0.change_sat.into_into_dart().into_dart(),\n'
-    '        ]',
-    '        [\n'
+    '            self.0.outputs.into_into_dart().into_dart(),',
     '            self.0.inputs.into_into_dart().into_dart(),\n'
-    '            self.0.outputs.into_iter().map(|o| -> crate::api::simple::RecipientView { o.into() }).collect::<Vec<_>>().into_into_dart().into_dart(),\n'
-    '            self.0.fee_sat.into_into_dart().into_dart(),\n'
-    '            self.0.change_sat.into_into_dart().into_dart(),\n'
-    '        ]',
+    '            self.0.outputs.into_iter().map(|o| -> crate::api::simple::RecipientView { o.into() }).collect::<Vec<_>>().into_into_dart().into_dart(),',
     1,
 )
 

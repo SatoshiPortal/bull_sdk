@@ -368,6 +368,7 @@ abstract class BullSdkApi extends BaseApi {
     required SpAccount that,
     required List<RecipientView> recipients,
     required BigInt feerateSatVb,
+    BigInt? changeDustThreshold,
   });
 
   bool dartBwkApiSpAccountSpAccountRestampMissingTimestamps({
@@ -3215,6 +3216,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     required SpAccount that,
     required List<RecipientView> recipients,
     required BigInt feerateSatVb,
+    BigInt? changeDustThreshold,
   }) {
     return handler.executeNormal(
       NormalTask(
@@ -3225,11 +3227,13 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
               );
           var arg1 = cst_encode_list_recipient_view(recipients);
           var arg2 = cst_encode_u_64(feerateSatVb);
+          var arg3 = cst_encode_opt_box_autoadd_u_64(changeDustThreshold);
           return wire.wire__dart_bwk__api__sp_account__SpAccount_prepare_psbt(
             port_,
             arg0,
             arg1,
             arg2,
+            arg3,
           );
         },
         codec: DcoCodec(
@@ -3237,7 +3241,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           decodeErrorData: dco_decode_String,
         ),
         constMeta: kDartBwkApiSpAccountSpAccountPreparePsbtConstMeta,
-        argValues: [that, recipients, feerateSatVb],
+        argValues: [that, recipients, feerateSatVb, changeDustThreshold],
         apiImpl: this,
       ),
     );
@@ -3246,7 +3250,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   TaskConstMeta get kDartBwkApiSpAccountSpAccountPreparePsbtConstMeta =>
       const TaskConstMeta(
         debugName: "SpAccount_prepare_psbt",
-        argNames: ["that", "recipients", "feerateSatVb"],
+        argNames: ["that", "recipients", "feerateSatVb", "changeDustThreshold"],
       );
 
   @override
@@ -10324,13 +10328,14 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
   TxSimulation dco_decode_tx_simulation(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     final arr = raw as List<dynamic>;
-    if (arr.length != 4)
-      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    if (arr.length != 5)
+      throw Exception('unexpected arr length: expect 5 but see ${arr.length}');
     return TxSimulation(
       inputs: dco_decode_list_unified_coin_view(arr[0]),
       outputs: dco_decode_list_recipient_view(arr[1]),
       feeSat: dco_decode_u_64(arr[2]),
       changeSat: dco_decode_u_64(arr[3]),
+      changeDustThreshold: dco_decode_opt_box_autoadd_u_64(arr[4]),
     );
   }
 
@@ -12525,11 +12530,13 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     var var_outputs = sse_decode_list_recipient_view(deserializer);
     var var_feeSat = sse_decode_u_64(deserializer);
     var var_changeSat = sse_decode_u_64(deserializer);
+    var var_changeDustThreshold = sse_decode_opt_box_autoadd_u_64(deserializer);
     return TxSimulation(
       inputs: var_inputs,
       outputs: var_outputs,
       feeSat: var_feeSat,
       changeSat: var_changeSat,
+      changeDustThreshold: var_changeDustThreshold,
     );
   }
 
@@ -14834,6 +14841,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     sse_encode_list_recipient_view(self.outputs, serializer);
     sse_encode_u_64(self.feeSat, serializer);
     sse_encode_u_64(self.changeSat, serializer);
+    sse_encode_opt_box_autoadd_u_64(self.changeDustThreshold, serializer);
   }
 
   @protected
@@ -15329,13 +15337,17 @@ class SpAccountImpl extends RustOpaque implements SpAccount {
   /// Does NOT produce a signable PSBT — use finalize_psbt() for that.
   ///
   /// feerate_sat_vb: fee rate in satoshis per virtual byte.
+  /// change_dust_threshold: a change below it goes to the fee; `None` keeps
+  /// bwk's default.
   Future<TxSimulation> preparePsbt({
     required List<RecipientView> recipients,
     required BigInt feerateSatVb,
+    BigInt? changeDustThreshold,
   }) => BullSdk.instance.api.dartBwkApiSpAccountSpAccountPreparePsbt(
     that: this,
     recipients: recipients,
     feerateSatVb: feerateSatVb,
+    changeDustThreshold: changeDustThreshold,
   );
 
   /// Stamp the confirmed txs still missing a block time from the header

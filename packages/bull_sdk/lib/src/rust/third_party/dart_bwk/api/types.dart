@@ -199,16 +199,25 @@ class TxSimulation {
   final BigInt feeSat;
   final BigInt changeSat;
 
+  /// The threshold `prepare_psbt` used, reused by `finalize_psbt`. `None`
+  /// keeps bwk's default.
+  final BigInt? changeDustThreshold;
+
   const TxSimulation({
     required this.inputs,
     required this.outputs,
     required this.feeSat,
     required this.changeSat,
+    this.changeDustThreshold,
   });
 
   @override
   int get hashCode =>
-      inputs.hashCode ^ outputs.hashCode ^ feeSat.hashCode ^ changeSat.hashCode;
+      inputs.hashCode ^
+      outputs.hashCode ^
+      feeSat.hashCode ^
+      changeSat.hashCode ^
+      changeDustThreshold.hashCode;
 
   @override
   bool operator ==(Object other) =>
@@ -218,7 +227,8 @@ class TxSimulation {
           inputs == other.inputs &&
           outputs == other.outputs &&
           feeSat == other.feeSat &&
-          changeSat == other.changeSat;
+          changeSat == other.changeSat &&
+          changeDustThreshold == other.changeDustThreshold;
 }
 
 enum UnifiedCoinStatus { unconfirmed, unspent, spent }

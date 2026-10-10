@@ -242,9 +242,12 @@ abstract class SpAccount implements RustOpaqueInterface {
   /// Does NOT produce a signable PSBT — use finalize_psbt() for that.
   ///
   /// feerate_sat_vb: fee rate in satoshis per virtual byte.
+  /// change_dust_threshold: a change below it goes to the fee; `None` keeps
+  /// bwk's default.
   Future<TxSimulation> preparePsbt({
     required List<RecipientView> recipients,
     required BigInt feerateSatVb,
+    BigInt? changeDustThreshold,
   });
 
   /// Stamp the confirmed txs still missing a block time from the header
