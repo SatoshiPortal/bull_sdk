@@ -46,7 +46,7 @@ dependencies:
   bdk_dart:
     git:
       url: https://github.com/bitcoindevkit/bdk-dart
-      ref: db0ec383250979143f1f3ce6acc3406fe2fdc535 # v1.0.0
+      ref: 30e75f6a21d00c2307b27c47a91d80e39cca31c2 # v1.0.1
 
 dev_dependencies:
   flutter_test:
