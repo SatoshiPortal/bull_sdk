@@ -403,8 +403,8 @@ dependencies = [
 
 [[package]]
 name = "bbqr"
-version = "0.5.0"
-source = "git+https://github.com/SatoshiPortal/bbqr-rust.git?rev=e4807767d6a61cd7fd9a590f33437553595d0305#e4807767d6a61cd7fd9a590f33437553595d0305"
+version = "0.6.0"
+source = "git+https://github.com/SatoshiPortal/bbqr-rust.git?rev=c02a2028616f595a8b6ebc5eef317d5622e4479a#c02a2028616f595a8b6ebc5eef317d5622e4479a"
 dependencies = [
  "data-encoding",
  "flate2",
@@ -1448,7 +1448,7 @@ dependencies = [
 [[package]]
 name = "dart_bbqr"
 version = "0.1.0"
-source = "git+https://github.com/SatoshiPortal/bbqr-dart?rev=b06901953ab9c0440a9c0373efcc4345f3c35d32#b06901953ab9c0440a9c0373efcc4345f3c35d32"
+source = "git+https://github.com/SatoshiPortal/bbqr-dart?rev=133edcb11fc5caa184faa41194c6ebd5c51e66e8#133edcb11fc5caa184faa41194c6ebd5c51e66e8"
 dependencies = [
  "anyhow",
  "bbqr",

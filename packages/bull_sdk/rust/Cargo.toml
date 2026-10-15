@@ -12,8 +12,8 @@ log = "0.4"
 # Cross-repository dependencies use immutable revisions so clean builds remain
 # reproducible.
 bitbox = { git = "https://github.com/SatoshiPortal/bitbox-dart", rev = "b832be8ab497377ac4f9ceb9b0f5f1e830a84e5a", features = ["bull_sdk"] }
-bbqr = { git = "https://github.com/SatoshiPortal/bbqr-rust.git", rev = "e4807767d6a61cd7fd9a590f33437553595d0305", default-features = false }
-dart_bbqr = { git = "https://github.com/SatoshiPortal/bbqr-dart", rev = "b06901953ab9c0440a9c0373efcc4345f3c35d32", features = ["bull_sdk"] }
+bbqr = { git = "https://github.com/SatoshiPortal/bbqr-rust.git", rev = "c02a2028616f595a8b6ebc5eef317d5622e4479a", default-features = false }
+dart_bbqr = { git = "https://github.com/SatoshiPortal/bbqr-dart", rev = "133edcb11fc5caa184faa41194c6ebd5c51e66e8", features = ["bull_sdk"] }
 boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", rev = "85bcd9fdee8b431c4bf2980fa35c474234e37663", features = ["bull_sdk"] }
 # TEMPORARY test-week pin: SatoshiPortal/lwk-dart#88 (Liquid UTXO consolidation)
 # isn't merged/tagged yet — pinned by rev (not branch, per the convention
