@@ -1,3 +1,6 @@
+import 'dart:isolate';
+
+import 'package:flutter/services.dart';
 import 'package:bull_sdk/bitbox.dart' as api;
 import 'package:bull_sdk/bull_sdk.dart';
 import 'platform.dart';
@@ -5,6 +8,8 @@ import 'usb_connector.dart';
 
 class BitBoxApi {
   static bool _initialized = false;
+  static Future<void>? _usbWorker;
+  static SendPort? _stopUsbWorker;
 
   static Future<void> initialize() async {
     if (_initialized) {
@@ -33,7 +38,26 @@ class BitBoxApi {
       return false;
     }
 
-    UsbConnector().start(deviceSerial: serialNumber);
+    final ready = ReceivePort();
+    final readyPort = ready.sendPort;
+    final rootToken = ServicesBinding.rootIsolateToken!;
+    final worker = Isolate.run(
+      () => _runUsbWorker(rootToken, serialNumber, readyPort),
+    );
+    _usbWorker = worker;
+    try {
+      _stopUsbWorker = await Future.any<SendPort>([
+        ready.first.then((message) => message as SendPort),
+        worker.then(
+          (_) => throw StateError('USB worker exited before startup'),
+        ),
+      ]);
+    } catch (_) {
+      _usbWorker = null;
+      rethrow;
+    } finally {
+      ready.close();
+    }
 
     return true;
   }
@@ -114,7 +138,10 @@ class BitBoxApi {
   static Future<void> closeDevice(String serialNumber) async {
     _ensureInitialized();
 
-    UsbConnector().stop();
+    _stopUsbWorker?.send(null);
+    await _usbWorker;
+    _stopUsbWorker = null;
+    _usbWorker = null;
 
     await api.closeUsbChannel(serialNumber: serialNumber);
 
@@ -127,5 +154,26 @@ class BitBoxApi {
     if (!_initialized) {
       throw StateError('BitBoxApi not initialized. Call initialize() first.');
     }
+  }
+}
+
+// USB keepalives must continue while Flutter is busy rendering or running app
+// code. The Rust queues are shared; only the frame pump runs in this isolate.
+Future<void> _runUsbWorker(
+  RootIsolateToken rootToken,
+  String serialNumber,
+  SendPort ready,
+) async {
+  BackgroundIsolateBinaryMessenger.ensureInitialized(rootToken);
+  await BullSdk.init();
+  final stop = ReceivePort();
+  final connector = UsbConnector();
+  try {
+    connector.start(deviceSerial: serialNumber);
+    ready.send(stop.sendPort);
+    await stop.first;
+  } finally {
+    connector.stop();
+    stop.close();
   }
 }
