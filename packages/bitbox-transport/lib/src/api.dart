@@ -143,9 +143,8 @@ class BitBoxApi {
     _stopUsbWorker = null;
     _usbWorker = null;
 
+    // Preserve the paired session for subsequent actions on this device.
     await api.closeUsbChannel(serialNumber: serialNumber);
-
-    await api.closeDevice(serialNumber: serialNumber);
 
     await BitBoxFlutterPlatform.closeDevice();
   }
