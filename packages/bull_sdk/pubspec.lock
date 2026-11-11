@@ -37,11 +37,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: db0ec383250979143f1f3ce6acc3406fe2fdc535
-      resolved-ref: db0ec383250979143f1f3ce6acc3406fe2fdc535
-      url: "https://github.com/bitcoindevkit/bdk-dart"
+      ref: "757d4e81a55d920fdf5c9d48d65723aa8790e6bd"
+      resolved-ref: "757d4e81a55d920fdf5c9d48d65723aa8790e6bd"
+      url: "https://github.com/ethicnology/bdk-dart"
     source: git
-    version: "1.0.0"
+    version: "1.0.1"
   boolean_selector:
     dependency: transitive
     description:
