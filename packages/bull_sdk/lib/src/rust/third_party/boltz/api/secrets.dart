@@ -93,6 +93,17 @@ class SwapMasterKey {
     network: network,
   );
 
+  /// Creates the swap master key from a 64-byte BIP39 seed instead of English mnemonic words.
+  ///
+  /// The seed already encodes the wallet mnemonic's language and passphrase, which [SwapMasterKey::create] cannot express: it parses English words only. The derivation is the one `create` performs after its PBKDF2: BIP32 root from the seed, then the BIP85 12-word swap mnemonic at index 26589, so an English mnemonic gives the same key through either constructor.
+  static Future<SwapMasterKey> createFromSeed({
+    required List<int> seed,
+    required Network network,
+  }) => BullSdk.instance.api.boltzApiSecretsSwapMasterKeyCreateFromSeed(
+    seed: seed,
+    network: network,
+  );
+
   @override
   int get hashCode =>
       xprv.hashCode ^
