@@ -23,6 +23,17 @@ exclude = [
 ]
 resolver = "2"
 
+# lwk_wollet and lwk_signer require their sibling crates by crates.io version,
+# and lwk-dart redirects them with a [patch] that cargo ignores in a dependency.
+# Repeat lwk-dart's redirection here so the aggregate graph holds a single copy
+# of each LWK crate (two lwk_common copies make their `Signer` traits
+# incompatible). Keep these revs equal to lwk-dart's at the pinned rev.
+[patch.crates-io]
+lwk_common = { git = "https://github.com/SatoshiPortal/lwk", rev = "f80953d0b45af7cb5950128e44ca47e618b114cc" }
+lwk_jade = { git = "https://github.com/SatoshiPortal/lwk", rev = "f80953d0b45af7cb5950128e44ca47e618b114cc" }
+lwk_prices = { git = "https://github.com/SatoshiPortal/lwk", rev = "f80953d0b45af7cb5950128e44ca47e618b114cc" }
+lwk_registry = { git = "https://github.com/SatoshiPortal/lwk", rev = "f80953d0b45af7cb5950128e44ca47e618b114cc" }
+
 [profile.dev]
 debug = false
 
