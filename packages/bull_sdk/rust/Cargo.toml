@@ -15,7 +15,7 @@ bitcoin = "0.32"
 miniscript = "12"
 # Cross-repository dependencies use immutable revisions so clean builds remain
 # reproducible.
-bitbox = { git = "https://github.com/ethicnology-agent/bitbox-dart", rev = "cefdf32dc873bf7d6a2ee47acb50c7ab42f20097", features = ["bull_sdk"] }
+bitbox = { git = "https://github.com/SatoshiPortal/bitbox-dart", rev = "12391c53a94f5f39ec89b9d7d05cb95151df61fc", features = ["bull_sdk"] }
 bbqr = { git = "https://github.com/SatoshiPortal/bbqr-rust.git", rev = "e4807767d6a61cd7fd9a590f33437553595d0305", default-features = false }
 dart_bbqr = { git = "https://github.com/ethicnology-agent/bbqr-dart", rev = "251ab07f9350e51d02b1d688c3690bbe9cc7c7e5", features = ["bull_sdk"] }
 # SatoshiPortal/boltz-dart develop + SwapMasterKey.createFromSeed (feat/swap-master-key-from-seed).

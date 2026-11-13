@@ -455,7 +455,7 @@ dependencies = [
 [[package]]
 name = "bitbox"
 version = "0.2.0"
-source = "git+https://github.com/ethicnology-agent/bitbox-dart?rev=cefdf32dc873bf7d6a2ee47acb50c7ab42f20097#cefdf32dc873bf7d6a2ee47acb50c7ab42f20097"
+source = "git+https://github.com/SatoshiPortal/bitbox-dart?rev=12391c53a94f5f39ec89b9d7d05cb95151df61fc#12391c53a94f5f39ec89b9d7d05cb95151df61fc"
 dependencies = [
  "anyhow",
  "async-trait",
