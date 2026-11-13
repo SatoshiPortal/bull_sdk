@@ -752,7 +752,7 @@ checksum = "72f5acc6cb2ba439de613abc23857ec3d78374d8ed5ac84e9d11336e87da8649"
 [[package]]
 name = "bwk"
 version = "0.0.8"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1#7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1"
+source = "git+https://github.com/SatoshiPortal/bwk?rev=46130f0345bfe3163aa0a021eb6907892dd5db06#46130f0345bfe3163aa0a021eb6907892dd5db06"
 dependencies = [
  "bip39",
  "bwk-backoff",
@@ -774,7 +774,7 @@ dependencies = [
 [[package]]
 name = "bwk-backoff"
 version = "0.0.3"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1#7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1"
+source = "git+https://github.com/SatoshiPortal/bwk?rev=46130f0345bfe3163aa0a021eb6907892dd5db06#46130f0345bfe3163aa0a021eb6907892dd5db06"
 dependencies = [
  "rand 0.9.5",
 ]
@@ -782,7 +782,7 @@ dependencies = [
 [[package]]
 name = "bwk-coin"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1#7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1"
+source = "git+https://github.com/SatoshiPortal/bwk?rev=46130f0345bfe3163aa0a021eb6907892dd5db06#46130f0345bfe3163aa0a021eb6907892dd5db06"
 dependencies = [
  "bitcoin",
  "bwk-error",
@@ -793,7 +793,7 @@ dependencies = [
 [[package]]
 name = "bwk-descriptor"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1#7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1"
+source = "git+https://github.com/SatoshiPortal/bwk?rev=46130f0345bfe3163aa0a021eb6907892dd5db06#46130f0345bfe3163aa0a021eb6907892dd5db06"
 dependencies = [
  "bwk-error",
  "bwk-keys",
@@ -803,7 +803,7 @@ dependencies = [
 [[package]]
 name = "bwk-electrum"
 version = "0.0.4"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1#7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1"
+source = "git+https://github.com/SatoshiPortal/bwk?rev=46130f0345bfe3163aa0a021eb6907892dd5db06#46130f0345bfe3163aa0a021eb6907892dd5db06"
 dependencies = [
  "bitcoin_slices",
  "bwk-backoff",
@@ -822,8 +822,8 @@ dependencies = [
 
 [[package]]
 name = "bwk-error"
-version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1#7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1"
+version = "0.1.0"
+source = "git+https://github.com/SatoshiPortal/bwk?rev=46130f0345bfe3163aa0a021eb6907892dd5db06#46130f0345bfe3163aa0a021eb6907892dd5db06"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -833,7 +833,7 @@ dependencies = [
 [[package]]
 name = "bwk-keys"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1#7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1"
+source = "git+https://github.com/SatoshiPortal/bwk?rev=46130f0345bfe3163aa0a021eb6907892dd5db06#46130f0345bfe3163aa0a021eb6907892dd5db06"
 dependencies = [
  "bip39",
  "bitcoin",
@@ -844,7 +844,7 @@ dependencies = [
 [[package]]
 name = "bwk-persist"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1#7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1"
+source = "git+https://github.com/SatoshiPortal/bwk?rev=46130f0345bfe3163aa0a021eb6907892dd5db06#46130f0345bfe3163aa0a021eb6907892dd5db06"
 dependencies = [
  "bwk-error",
  "fs2",
@@ -857,7 +857,7 @@ dependencies = [
 [[package]]
 name = "bwk-sign"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1#7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1"
+source = "git+https://github.com/SatoshiPortal/bwk?rev=46130f0345bfe3163aa0a021eb6907892dd5db06#46130f0345bfe3163aa0a021eb6907892dd5db06"
 dependencies = [
  "bip39",
  "bwk-descriptor",
@@ -874,7 +874,7 @@ dependencies = [
 [[package]]
 name = "bwk-sp"
 version = "0.1.0"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1#7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1"
+source = "git+https://github.com/SatoshiPortal/bwk?rev=46130f0345bfe3163aa0a021eb6907892dd5db06#46130f0345bfe3163aa0a021eb6907892dd5db06"
 dependencies = [
  "bech32 0.9.1",
  "bimap",
@@ -897,12 +897,13 @@ dependencies = [
  "serde",
  "serde_json",
  "ureq 3.4.0",
+ "zeroize",
 ]
 
 [[package]]
 name = "bwk-tx"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1#7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1"
+source = "git+https://github.com/SatoshiPortal/bwk?rev=46130f0345bfe3163aa0a021eb6907892dd5db06#46130f0345bfe3163aa0a021eb6907892dd5db06"
 dependencies = [
  "bitcoin",
  "bwk-coin",
@@ -916,7 +917,7 @@ dependencies = [
 [[package]]
 name = "bwk-utils"
 version = "0.0.1"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1#7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1"
+source = "git+https://github.com/SatoshiPortal/bwk?rev=46130f0345bfe3163aa0a021eb6907892dd5db06#46130f0345bfe3163aa0a021eb6907892dd5db06"
 dependencies = [
  "bitcoin",
  "log",
@@ -1434,7 +1435,7 @@ dependencies = [
 [[package]]
 name = "dart_bwk"
 version = "0.1.0"
-source = "git+https://github.com/ethicnology-agent/bwk-dart?rev=56cc6ad17d78359767cf28b2bdef37220ac45d5b#56cc6ad17d78359767cf28b2bdef37220ac45d5b"
+source = "git+https://github.com/ethicnology-agent/bwk-dart?rev=3bcfce4e7e2beb5151433d8799d5df20f9fc14fd#3bcfce4e7e2beb5151433d8799d5df20f9fc14fd"
 dependencies = [
  "bitcoin",
  "bwk",
@@ -1446,6 +1447,7 @@ dependencies = [
  "serde_json",
  "thiserror 1.0.69",
  "ureq 2.12.1",
+ "zeroize",
 ]
 
 [[package]]
@@ -3126,7 +3128,7 @@ checksum = "4050469837a6ff301cd14c1f8f24f88549e6d548f24f64e2148eb0f72cebc51f"
 [[package]]
 name = "lwk"
 version = "0.3.0"
-source = "git+https://github.com/ethicnology-agent/lwk-dart?rev=22c713d76df2bc0d8fc8671a4143e1b3470548f2#22c713d76df2bc0d8fc8671a4143e1b3470548f2"
+source = "git+https://github.com/ethicnology-agent/lwk-dart?rev=186e5e6d29aea84f54a2143c8ce84be4f099b0bd#186e5e6d29aea84f54a2143c8ce84be4f099b0bd"
 dependencies = [
  "anyhow",
  "flutter_rust_bridge",
@@ -3145,7 +3147,7 @@ dependencies = [
 [[package]]
 name = "lwk_common"
 version = "0.20.0"
-source = "git+https://github.com/ethicnology-agent/lwk?rev=e6692633e3e973867f6503d9c70a48b1f6b0adbf#e6692633e3e973867f6503d9c70a48b1f6b0adbf"
+source = "git+https://github.com/SatoshiPortal/lwk?rev=db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb#db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb"
 dependencies = [
  "aes-gcm-siv",
  "base64 0.22.1",
@@ -3163,7 +3165,7 @@ dependencies = [
 [[package]]
 name = "lwk_jade"
 version = "0.20.0"
-source = "git+https://github.com/ethicnology-agent/lwk?rev=e6692633e3e973867f6503d9c70a48b1f6b0adbf#e6692633e3e973867f6503d9c70a48b1f6b0adbf"
+source = "git+https://github.com/SatoshiPortal/lwk?rev=db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb#db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb"
 dependencies = [
  "elements 0.27.0",
  "elements-miniscript",
@@ -3184,7 +3186,7 @@ dependencies = [
 [[package]]
 name = "lwk_prices"
 version = "0.20.0"
-source = "git+https://github.com/ethicnology-agent/lwk?rev=e6692633e3e973867f6503d9c70a48b1f6b0adbf#e6692633e3e973867f6503d9c70a48b1f6b0adbf"
+source = "git+https://github.com/SatoshiPortal/lwk?rev=db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb#db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb"
 dependencies = [
  "futures",
  "reqwest",
@@ -3197,7 +3199,7 @@ dependencies = [
 [[package]]
 name = "lwk_registry"
 version = "0.20.0"
-source = "git+https://github.com/ethicnology-agent/lwk?rev=e6692633e3e973867f6503d9c70a48b1f6b0adbf#e6692633e3e973867f6503d9c70a48b1f6b0adbf"
+source = "git+https://github.com/SatoshiPortal/lwk?rev=db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb#db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb"
 dependencies = [
  "elements 0.27.0",
  "futures",
@@ -3214,7 +3216,7 @@ dependencies = [
 [[package]]
 name = "lwk_signer"
 version = "0.20.0"
-source = "git+https://github.com/ethicnology-agent/lwk?rev=e6692633e3e973867f6503d9c70a48b1f6b0adbf#e6692633e3e973867f6503d9c70a48b1f6b0adbf"
+source = "git+https://github.com/SatoshiPortal/lwk?rev=db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb#db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb"
 dependencies = [
  "bip39",
  "elements-miniscript",
@@ -3227,7 +3229,7 @@ dependencies = [
 [[package]]
 name = "lwk_wollet"
 version = "0.20.0"
-source = "git+https://github.com/ethicnology-agent/lwk?rev=e6692633e3e973867f6503d9c70a48b1f6b0adbf#e6692633e3e973867f6503d9c70a48b1f6b0adbf"
+source = "git+https://github.com/SatoshiPortal/lwk?rev=db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb#db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb"
 dependencies = [
  "aes",
  "aes-gcm",
@@ -4499,7 +4501,7 @@ dependencies = [
 [[package]]
 name = "secp256k1_spscan-sys"
 version = "0.1.0"
-source = "git+https://github.com/bwk-bitcoin/bwk?rev=7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1#7e531f74f04b7f99db0099d4a1ab5dd41e1b28f1"
+source = "git+https://github.com/SatoshiPortal/bwk?rev=46130f0345bfe3163aa0a021eb6907892dd5db06#46130f0345bfe3163aa0a021eb6907892dd5db06"
 dependencies = [
  "cc",
 ]
