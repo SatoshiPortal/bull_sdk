@@ -16,6 +16,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+import io.flutter.plugin.common.StandardMethodCodec
 
 class BitboxFlutterPlugin : FlutterPlugin, MethodCallHandler {
     private lateinit var channel: MethodChannel
@@ -35,7 +36,7 @@ class BitboxFlutterPlugin : FlutterPlugin, MethodCallHandler {
     private val usbReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             if (ACTION_USB_PERMISSION == intent.action) {
-                synchronized(this) {
+                synchronized(this@BitboxFlutterPlugin) {
                     val device: UsbDevice? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         intent.getParcelableExtra(UsbManager.EXTRA_DEVICE, UsbDevice::class.java)
                     } else {
@@ -56,7 +57,13 @@ class BitboxFlutterPlugin : FlutterPlugin, MethodCallHandler {
     }
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-        channel = MethodChannel(flutterPluginBinding.binaryMessenger, "bitbox_flutter")
+        val messenger = flutterPluginBinding.binaryMessenger
+        channel = MethodChannel(
+            messenger,
+            "bitbox_flutter",
+            StandardMethodCodec.INSTANCE,
+            messenger.makeBackgroundTaskQueue()
+        )
         channel.setMethodCallHandler(this)
         context = flutterPluginBinding.applicationContext
         usbManager = context?.getSystemService(Context.USB_SERVICE) as? UsbManager
@@ -69,6 +76,7 @@ class BitboxFlutterPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
+    @Synchronized
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         try {
             when (call.method) {
@@ -322,6 +330,7 @@ class BitboxFlutterPlugin : FlutterPlugin, MethodCallHandler {
         }
     }
 
+    @Synchronized
     override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
         channel.setMethodCallHandler(null)
         try {
@@ -341,7 +350,7 @@ class BitboxFlutterPlugin : FlutterPlugin, MethodCallHandler {
     private fun receiveData(result: Result) {
         try {
             if (currentDevice == null || currentConnection == null) {
-                result.success(emptyList<Int>())
+                result.error("DEVICE_NOT_CONNECTED", "No USB device connected", null)
                 return
             }
             
@@ -359,20 +368,21 @@ class BitboxFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 }
             }
             if (inEndpoint == null) {
-                result.success(emptyList<Int>())
+                result.error("NO_ENDPOINT", "No USB input endpoint found", null)
                 return
             }
             
             val response = ByteArray(64) // HID report size
-            val bytesRead = connection.bulkTransfer(inEndpoint, response, response.size, 100) // 100ms timeout
+            // An empty read must not hold up the next protocol keepalive.
+            val bytesRead = connection.bulkTransfer(inEndpoint, response, response.size, 20)
             
             if (bytesRead <= 0) {
-                result.success(emptyList<Int>())
+                result.success(ByteArray(0))
                 return
             }
             result.success(response.copyOf(bytesRead))
         } catch (e: Exception) {
-            result.success(emptyList<Int>())
+            result.error("RECEIVE_ERROR", e.message, null)
         }
     }
 }
