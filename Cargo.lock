@@ -1435,7 +1435,7 @@ dependencies = [
 [[package]]
 name = "dart_bwk"
 version = "0.1.0"
-source = "git+https://github.com/ethicnology-agent/bwk-dart?rev=3bcfce4e7e2beb5151433d8799d5df20f9fc14fd#3bcfce4e7e2beb5151433d8799d5df20f9fc14fd"
+source = "git+https://github.com/SatoshiPortal/bwk-dart?rev=38989212f47f50ccca19fa0d38cb45ef59156f6f#38989212f47f50ccca19fa0d38cb45ef59156f6f"
 dependencies = [
  "bitcoin",
  "bwk",
@@ -3128,7 +3128,7 @@ checksum = "4050469837a6ff301cd14c1f8f24f88549e6d548f24f64e2148eb0f72cebc51f"
 [[package]]
 name = "lwk"
 version = "0.3.0"
-source = "git+https://github.com/ethicnology-agent/lwk-dart?rev=186e5e6d29aea84f54a2143c8ce84be4f099b0bd#186e5e6d29aea84f54a2143c8ce84be4f099b0bd"
+source = "git+https://github.com/ethicnology-agent/lwk-dart?rev=3ee9c5b9b77078fda915d179d7e949d5983aeb11#3ee9c5b9b77078fda915d179d7e949d5983aeb11"
 dependencies = [
  "anyhow",
  "flutter_rust_bridge",
