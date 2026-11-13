@@ -1,6 +1,7 @@
 name: bitbox_transport
 description: USB and Bluetooth transport for BitBox02 hardware wallet
 version: 0.1.0
+publish_to: none
 
 environment:
   sdk: ">=3.12.2 <4.0.0"
