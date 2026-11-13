@@ -3126,7 +3126,7 @@ checksum = "4050469837a6ff301cd14c1f8f24f88549e6d548f24f64e2148eb0f72cebc51f"
 [[package]]
 name = "lwk"
 version = "0.3.0"
-source = "git+https://github.com/ethicnology-agent/lwk-dart?rev=66d7a83c94e26551d8b09d424b8cb46af358b090#66d7a83c94e26551d8b09d424b8cb46af358b090"
+source = "git+https://github.com/ethicnology-agent/lwk-dart?rev=22c713d76df2bc0d8fc8671a4143e1b3470548f2#22c713d76df2bc0d8fc8671a4143e1b3470548f2"
 dependencies = [
  "anyhow",
  "flutter_rust_bridge",
@@ -3145,7 +3145,7 @@ dependencies = [
 [[package]]
 name = "lwk_common"
 version = "0.20.0"
-source = "git+https://github.com/SatoshiPortal/lwk?rev=f80953d0b45af7cb5950128e44ca47e618b114cc#f80953d0b45af7cb5950128e44ca47e618b114cc"
+source = "git+https://github.com/ethicnology-agent/lwk?rev=e6692633e3e973867f6503d9c70a48b1f6b0adbf#e6692633e3e973867f6503d9c70a48b1f6b0adbf"
 dependencies = [
  "aes-gcm-siv",
  "base64 0.22.1",
@@ -3163,7 +3163,7 @@ dependencies = [
 [[package]]
 name = "lwk_jade"
 version = "0.20.0"
-source = "git+https://github.com/SatoshiPortal/lwk?rev=f80953d0b45af7cb5950128e44ca47e618b114cc#f80953d0b45af7cb5950128e44ca47e618b114cc"
+source = "git+https://github.com/ethicnology-agent/lwk?rev=e6692633e3e973867f6503d9c70a48b1f6b0adbf#e6692633e3e973867f6503d9c70a48b1f6b0adbf"
 dependencies = [
  "elements 0.27.0",
  "elements-miniscript",
@@ -3184,7 +3184,7 @@ dependencies = [
 [[package]]
 name = "lwk_prices"
 version = "0.20.0"
-source = "git+https://github.com/SatoshiPortal/lwk?rev=f80953d0b45af7cb5950128e44ca47e618b114cc#f80953d0b45af7cb5950128e44ca47e618b114cc"
+source = "git+https://github.com/ethicnology-agent/lwk?rev=e6692633e3e973867f6503d9c70a48b1f6b0adbf#e6692633e3e973867f6503d9c70a48b1f6b0adbf"
 dependencies = [
  "futures",
  "reqwest",
@@ -3197,7 +3197,7 @@ dependencies = [
 [[package]]
 name = "lwk_registry"
 version = "0.20.0"
-source = "git+https://github.com/SatoshiPortal/lwk?rev=f80953d0b45af7cb5950128e44ca47e618b114cc#f80953d0b45af7cb5950128e44ca47e618b114cc"
+source = "git+https://github.com/ethicnology-agent/lwk?rev=e6692633e3e973867f6503d9c70a48b1f6b0adbf#e6692633e3e973867f6503d9c70a48b1f6b0adbf"
 dependencies = [
  "elements 0.27.0",
  "futures",
@@ -3214,7 +3214,7 @@ dependencies = [
 [[package]]
 name = "lwk_signer"
 version = "0.20.0"
-source = "git+https://github.com/SatoshiPortal/lwk?rev=f80953d0b45af7cb5950128e44ca47e618b114cc#f80953d0b45af7cb5950128e44ca47e618b114cc"
+source = "git+https://github.com/ethicnology-agent/lwk?rev=e6692633e3e973867f6503d9c70a48b1f6b0adbf#e6692633e3e973867f6503d9c70a48b1f6b0adbf"
 dependencies = [
  "bip39",
  "elements-miniscript",
@@ -3227,7 +3227,7 @@ dependencies = [
 [[package]]
 name = "lwk_wollet"
 version = "0.20.0"
-source = "git+https://github.com/SatoshiPortal/lwk?rev=f80953d0b45af7cb5950128e44ca47e618b114cc#f80953d0b45af7cb5950128e44ca47e618b114cc"
+source = "git+https://github.com/ethicnology-agent/lwk?rev=e6692633e3e973867f6503d9c70a48b1f6b0adbf#e6692633e3e973867f6503d9c70a48b1f6b0adbf"
 dependencies = [
  "aes",
  "aes-gcm",
