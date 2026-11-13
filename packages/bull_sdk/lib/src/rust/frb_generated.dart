@@ -3,14 +3,19 @@
 
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
+import '../native_assets_library.dart';
 import 'api/simple.dart';
 import 'api/verify_tx.dart';
+
 import 'dart:async';
 import 'dart:convert';
+
 import 'frb_generated.dart';
 import 'frb_generated.io.dart'
     if (dart.library.js_interop) 'frb_generated.web.dart';
+
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+
 import 'third_party/bbqr/continuous_join.dart';
 import 'third_party/bbqr/encode.dart';
 import 'third_party/bbqr/file_type.dart';
@@ -58,7 +63,7 @@ class BullSdk extends BaseEntrypoint<BullSdkApi, BullSdkApiImpl, BullSdkWire> {
     await instance.initImpl(
       api: api,
       handler: handler,
-      externalLibrary: externalLibrary,
+      externalLibrary: externalLibrary ?? nativeAssetsLibrary(),
       forceSameCodegenVersion: forceSameCodegenVersion,
     );
   }
