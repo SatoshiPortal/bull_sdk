@@ -44,7 +44,7 @@ dependencies:
   bdk_dart:
     git:
       url: https://github.com/ethicnology-agent/bdk-dart
-      ref: db1a841d4e5419d471a45597643324d188d352ac # hooks 2 + Electrum cache prefill
+      ref: 94bd6ead0a3a15fe399acc4c0e8d1793397d7bde # hooks 2 + Electrum cache prefill
   flutter_rust_bridge_hooks: 2.13.0
 
 dev_dependencies:

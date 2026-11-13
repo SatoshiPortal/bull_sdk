@@ -37,8 +37,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: db1a841d4e5419d471a45597643324d188d352ac
-      resolved-ref: db1a841d4e5419d471a45597643324d188d352ac
+      ref: "94bd6ead0a3a15fe399acc4c0e8d1793397d7bde"
+      resolved-ref: "94bd6ead0a3a15fe399acc4c0e8d1793397d7bde"
       url: "https://github.com/ethicnology-agent/bdk-dart"
     source: git
     version: "1.0.1"
