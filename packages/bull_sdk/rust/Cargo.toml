@@ -23,7 +23,7 @@ boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", rev = "40dda2bd15
 # lwk-dart develop: LWK master, seed-based descriptor and signing, Liquid
 # regtest (SatoshiPortal/lwk-dart#99, which includes #88).
 lwk = { git = "https://github.com/SatoshiPortal/lwk-dart", rev = "3ce987b3c5be27dc1afc90ce6d9f8ba6d01f0dd3", features = ["bull_sdk"] }
-dart_bwk = { git = "https://github.com/pythcoiner/bwk-dart", rev = "c3c01df320eeb4c0198d784e353be2f7a037beea", package = "dart_bwk", features = ["bull_sdk"] }
+dart_bwk = { git = "https://github.com/SatoshiPortal/bwk-dart", rev = "7325fd1dadef7723d6360dd69a0068f43190853e", package = "dart_bwk", features = ["bull_sdk"] }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }
