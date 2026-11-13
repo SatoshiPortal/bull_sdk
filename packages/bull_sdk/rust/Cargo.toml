@@ -17,9 +17,9 @@ miniscript = "12"
 # reproducible.
 bitbox = { git = "https://github.com/SatoshiPortal/bitbox-dart", rev = "12391c53a94f5f39ec89b9d7d05cb95151df61fc", features = ["bull_sdk"] }
 bbqr = { git = "https://github.com/SatoshiPortal/bbqr-rust.git", rev = "e4807767d6a61cd7fd9a590f33437553595d0305", default-features = false }
-dart_bbqr = { git = "https://github.com/ethicnology-agent/bbqr-dart", rev = "251ab07f9350e51d02b1d688c3690bbe9cc7c7e5", features = ["bull_sdk"] }
+dart_bbqr = { git = "https://github.com/SatoshiPortal/bbqr-dart", rev = "95d51fb972cd712daf2587f6bd21a2701161df9c", features = ["bull_sdk"] }
 # SatoshiPortal/boltz-dart develop + SwapMasterKey.createFromSeed (feat/swap-master-key-from-seed).
-boltz = { git = "https://github.com/ethicnology-agent/boltz-dart", rev = "ae2387f313cf2b4a51d6b92ad2daf4a759fdc757", features = ["bull_sdk"] }
+boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", rev = "d8f2691940cd299eef9c57d5f4eb79b0b242cc82", features = ["bull_sdk"] }
 # lwk-dart develop: LWK master, seed-based descriptor and signing, Liquid
 # regtest (SatoshiPortal/lwk-dart#99, which includes #88).
 lwk = { git = "https://github.com/SatoshiPortal/lwk-dart", rev = "d5f24345e65c6a38fd90d0080ca2a6e553b54d6f", features = ["bull_sdk"] }

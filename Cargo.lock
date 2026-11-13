@@ -678,7 +678,7 @@ checksum = "829a082bd3761fde7476dc2ed85ca56c11628948460ece621e4f56fef5046567"
 [[package]]
 name = "boltz"
 version = "0.5.2"
-source = "git+https://github.com/ethicnology-agent/boltz-dart?rev=ae2387f313cf2b4a51d6b92ad2daf4a759fdc757#ae2387f313cf2b4a51d6b92ad2daf4a759fdc757"
+source = "git+https://github.com/SatoshiPortal/boltz-dart?rev=d8f2691940cd299eef9c57d5f4eb79b0b242cc82#d8f2691940cd299eef9c57d5f4eb79b0b242cc82"
 dependencies = [
  "anyhow",
  "bip85_extended",
@@ -1421,7 +1421,7 @@ dependencies = [
 [[package]]
 name = "dart_bbqr"
 version = "0.1.0"
-source = "git+https://github.com/ethicnology-agent/bbqr-dart?rev=251ab07f9350e51d02b1d688c3690bbe9cc7c7e5#251ab07f9350e51d02b1d688c3690bbe9cc7c7e5"
+source = "git+https://github.com/SatoshiPortal/bbqr-dart?rev=95d51fb972cd712daf2587f6bd21a2701161df9c#95d51fb972cd712daf2587f6bd21a2701161df9c"
 dependencies = [
  "anyhow",
  "bbqr",
