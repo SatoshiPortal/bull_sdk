@@ -507,7 +507,7 @@ dependencies = [
  "bitcoin_hashes 0.14.101",
  "hex-conservative 0.2.3",
  "hex_lit",
- "secp256k1 0.29.1",
+ "secp256k1 0.29.100",
  "serde",
 ]
 
@@ -678,7 +678,7 @@ checksum = "829a082bd3761fde7476dc2ed85ca56c11628948460ece621e4f56fef5046567"
 [[package]]
 name = "boltz"
 version = "0.5.2"
-source = "git+https://github.com/SatoshiPortal/boltz-dart?rev=d8f2691940cd299eef9c57d5f4eb79b0b242cc82#d8f2691940cd299eef9c57d5f4eb79b0b242cc82"
+source = "git+https://github.com/SatoshiPortal/boltz-dart?rev=6bd9f6d5005102a3cd9a88e2943045e94b13438e#6bd9f6d5005102a3cd9a88e2943045e94b13438e"
 dependencies = [
  "anyhow",
  "bip85_extended",
@@ -697,7 +697,7 @@ dependencies = [
 [[package]]
 name = "boltz-client"
 version = "0.4.1"
-source = "git+https://github.com/SatoshiPortal/boltz-rust?rev=7542d2eeaf8c8198b448e6cd70a1f1f09471ef11#7542d2eeaf8c8198b448e6cd70a1f1f09471ef11"
+source = "git+https://github.com/SatoshiPortal/boltz-rust?rev=c42ca77c20daa1f9ee4831a0be57fdbcfa751a2d#c42ca77c20daa1f9ee4831a0be57fdbcfa751a2d"
 dependencies = [
  "async-trait",
  "bip39",
@@ -705,7 +705,7 @@ dependencies = [
  "bitcoin",
  "boltz-client-macros",
  "electrum-client",
- "elements 0.26.2",
+ "elements",
  "env_logger",
  "futures-util",
  "getrandom 0.2.17",
@@ -717,7 +717,7 @@ dependencies = [
  "lnurl-rs",
  "log",
  "reqwest",
- "secp256k1 0.32.0-beta.2",
+ "secp256k1 0.33.1",
  "serde",
  "serde_json",
  "tokio",
@@ -745,9 +745,9 @@ checksum = "832133bbabbbaa9fbdba793456a2827627a7d2b8fb96032fa1e7666d7895832b"
 
 [[package]]
 name = "bumpalo"
-version = "3.20.3"
+version = "3.20.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "72f5acc6cb2ba439de613abc23857ec3d78374d8ed5ac84e9d11336e87da8649"
+checksum = "87a0cf66fd1eb2fb7b822cb78370d82303750809bc6ba855f3f58e517d3238db"
 
 [[package]]
 name = "bwk"
@@ -892,7 +892,7 @@ dependencies = [
  "hex",
  "log",
  "miniscript",
- "secp256k1 0.29.1",
+ "secp256k1 0.29.100",
  "secp256k1_spscan-sys",
  "serde",
  "serde_json",
@@ -1014,9 +1014,9 @@ dependencies = [
 
 [[package]]
 name = "cc"
-version = "1.11.1"
+version = "1.11.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4ff2a8126fff0f8c839080d619675a585e61720bb12d2baceae45769fd66f155"
+checksum = "33ef9e3e8154a45c7a95cff4c1299702106ad94062d7bb85fdc5d3a5afd91d45"
 dependencies = [
  "find-msvc-tools",
  "jobserver",
@@ -1581,19 +1581,6 @@ dependencies = [
 
 [[package]]
 name = "elements"
-version = "0.26.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1210978e2686f892318085f806866014d4788479a37f0a634db97fcb39454bde"
-dependencies = [
- "bech32 0.11.1",
- "bitcoin",
- "secp256k1-zkp",
- "serde",
- "serde_json",
-]
-
-[[package]]
-name = "elements"
 version = "0.27.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "34e00f7ddcd826d2f4c9bd72d79a6b6991a0ac4286e7e2b2ff8eecd130549073"
@@ -1616,7 +1603,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0c18e931c81e6e7e58d63b6fea1c57f5534717f0e6721741c4fce72a6c547e19"
 dependencies = [
  "bitcoin",
- "elements 0.27.0",
+ "elements",
  "miniscript",
  "serde",
 ]
@@ -3151,7 +3138,7 @@ source = "git+https://github.com/SatoshiPortal/lwk?rev=db8eb7b7b9dc2942488425ebd
 dependencies = [
  "aes-gcm-siv",
  "base64 0.22.1",
- "elements 0.27.0",
+ "elements",
  "elements-miniscript",
  "getrandom 0.2.17",
  "qr_code",
@@ -3167,7 +3154,7 @@ name = "lwk_jade"
 version = "0.20.0"
 source = "git+https://github.com/SatoshiPortal/lwk?rev=db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb#db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb"
 dependencies = [
- "elements 0.27.0",
+ "elements",
  "elements-miniscript",
  "getrandom 0.2.17",
  "hex",
@@ -3201,7 +3188,7 @@ name = "lwk_registry"
 version = "0.20.0"
 source = "git+https://github.com/SatoshiPortal/lwk?rev=db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb#db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb"
 dependencies = [
- "elements 0.27.0",
+ "elements",
  "futures",
  "idna",
  "lwk_common",
@@ -3240,7 +3227,7 @@ dependencies = [
  "bitcoincore-rpc",
  "cbc",
  "electrum-client",
- "elements 0.27.0",
+ "elements",
  "elements-miniscript",
  "flate2",
  "futures",
@@ -3345,9 +3332,9 @@ dependencies = [
 
 [[package]]
 name = "mio"
-version = "1.2.4"
+version = "1.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1788edb87fdc09c7e26304471e2f5be8cdefb1b6930d6e3985fc02ff53bf86ee"
+checksum = "20521a903f02b0a573cd6840e9d0a5a0cc043d361fe924092cd70f8556cc9c4a"
 dependencies = [
  "libc",
  "wasi",
@@ -4437,9 +4424,9 @@ dependencies = [
 
 [[package]]
 name = "secp256k1"
-version = "0.29.1"
+version = "0.29.100"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9465315bc9d4566e1724f0fffcbcc446268cb522e60f9a27bcded6b19c108113"
+checksum = "fa163bcf53957be4beb29c82e6ea07c604dc6e27b7bd904ab8163dfb4ee9a3a9"
 dependencies = [
  "bitcoin_hashes 0.14.101",
  "rand 0.8.8",
@@ -4449,12 +4436,12 @@ dependencies = [
 
 [[package]]
 name = "secp256k1"
-version = "0.32.0-beta.2"
+version = "0.33.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3c5fdc7d6e800869d3fd60ff857c479bf0a83ea7bf44b389e64461e844204994"
+checksum = "d7f404a8dab7a7a5a631e741d8699aa9c8e1d689fc26ccf897c7187565490b69"
 dependencies = [
  "rand 0.9.5",
- "secp256k1-sys 0.12.0",
+ "secp256k1-sys 0.14.1",
 ]
 
 [[package]]
@@ -4468,9 +4455,9 @@ dependencies = [
 
 [[package]]
 name = "secp256k1-sys"
-version = "0.12.0"
+version = "0.14.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6d3be00697c88c00fe102af8dc316038cc2062eab8da646e7463f4c0e70ca9fd"
+checksum = "f6b2992d4a3cd244539a7d5d0966aadbe5ca7fb868a5d7e38c29499b9e709bbd"
 dependencies = [
  "cc",
 ]
@@ -4483,7 +4470,7 @@ checksum = "403f6ab6ef5189ded7d11cb384a96a9f871001e50b391a8fcbb310c9ebc2099b"
 dependencies = [
  "bitcoin-private",
  "rand 0.8.8",
- "secp256k1 0.29.1",
+ "secp256k1 0.29.100",
  "secp256k1-zkp-sys",
  "serde",
 ]
@@ -4957,7 +4944,7 @@ checksum = "b52fd3255258d26fac7264ab5a76b53c13367136dc011d3d6ad4f8ed070396a3"
 dependencies = [
  "bytes",
  "libc",
- "mio 1.2.4",
+ "mio 1.2.5",
  "pin-project-lite",
  "socket2",
  "tokio-macros",
