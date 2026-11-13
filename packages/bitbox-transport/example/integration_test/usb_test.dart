@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 import 'package:bitbox_transport/bitbox_transport.dart';
 import 'package:bull_sdk/bitbox.dart' as bitbox;
 import 'package:bull_sdk/bull_sdk.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 
@@ -23,9 +24,9 @@ void main() {
 
       final devices = await BitBoxApi.scanDevices();
       expect(devices, isA<List<BitBox02Device>>());
-      print('Found ${devices.length} USB device(s)');
+      debugPrint('Found ${devices.length} USB device(s)');
       for (final device in devices) {
-        print('  - ${device.product} (${device.serialNumber})');
+        debugPrint('  - ${device.product} (${device.serialNumber})');
       }
     });
 
@@ -43,7 +44,7 @@ void main() {
       }
 
       final device = devices.first;
-      print('Connecting to ${device.product} (${device.serialNumber})...');
+      debugPrint('Connecting to ${device.product} (${device.serialNumber})...');
 
       // Request permission
       final permitted = await BitBoxApi.requestPermission(device.deviceName);
@@ -58,11 +59,11 @@ void main() {
 
       // Start pairing
       final pairingCode = await BitBoxApi.startPairing(device.serialNumber);
-      print('Pairing code: $pairingCode');
+      debugPrint('Pairing code: $pairingCode');
       // User must confirm on device...
 
       if (pairingCode != null) {
-        print('Please confirm pairing on BitBox02...');
+        debugPrint('Please confirm pairing on BitBox02...');
         final confirmed = await BitBoxApi.confirmPairing(device.serialNumber);
         expect(confirmed, isTrue);
 
@@ -70,18 +71,18 @@ void main() {
         final fingerprint =
             await BitBoxApi.getRootFingerprint(device.serialNumber);
         expect(fingerprint, isNotEmpty);
-        print('Root fingerprint: $fingerprint');
+        debugPrint('Root fingerprint: $fingerprint');
 
         // Get device info
         final info =
             await bitbox.getDeviceInfo(serialNumber: device.serialNumber);
-        print(
+        debugPrint(
             'Device: ${info.name} v${info.version} (initialized: ${info.initialized})');
       }
 
       // Cleanup
       await BitBoxApi.closeDevice(device.serialNumber);
-      print('Device closed');
+      debugPrint('Device closed');
     });
   });
 }
