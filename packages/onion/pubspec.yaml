@@ -4,8 +4,8 @@ version: 0.1.0
 repository: https://github.com/SatoshiPortal/bull_sdk
 
 environment:
-  sdk: ^3.12.2
-  flutter: '>=3.44.2'
+  sdk: ^3.14.0
+  flutter: '>=3.50.0'
 
 dependencies:
   flutter:
