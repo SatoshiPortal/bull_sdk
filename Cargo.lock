@@ -455,7 +455,7 @@ dependencies = [
 [[package]]
 name = "bitbox"
 version = "0.2.0"
-source = "git+https://github.com/ethicnology-agent/bitbox-dart?rev=4ef1df2acf7941699d8e15c0941ede5319af7263#4ef1df2acf7941699d8e15c0941ede5319af7263"
+source = "git+https://github.com/ethicnology-agent/bitbox-dart?rev=cefdf32dc873bf7d6a2ee47acb50c7ab42f20097#cefdf32dc873bf7d6a2ee47acb50c7ab42f20097"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -678,7 +678,7 @@ checksum = "829a082bd3761fde7476dc2ed85ca56c11628948460ece621e4f56fef5046567"
 [[package]]
 name = "boltz"
 version = "0.5.2"
-source = "git+https://github.com/ethicnology-agent/boltz-dart?rev=cec1c62b0da640a190fe024d71d369f3d9d42db8#cec1c62b0da640a190fe024d71d369f3d9d42db8"
+source = "git+https://github.com/ethicnology-agent/boltz-dart?rev=ae2387f313cf2b4a51d6b92ad2daf4a759fdc757#ae2387f313cf2b4a51d6b92ad2daf4a759fdc757"
 dependencies = [
  "anyhow",
  "bip85_extended",
@@ -1421,7 +1421,7 @@ dependencies = [
 [[package]]
 name = "dart_bbqr"
 version = "0.1.0"
-source = "git+https://github.com/ethicnology-agent/bbqr-dart?rev=b0a7ce9e0e6f1b9f599ccf5466d2d7073ebc582d#b0a7ce9e0e6f1b9f599ccf5466d2d7073ebc582d"
+source = "git+https://github.com/ethicnology-agent/bbqr-dart?rev=251ab07f9350e51d02b1d688c3690bbe9cc7c7e5#251ab07f9350e51d02b1d688c3690bbe9cc7c7e5"
 dependencies = [
  "anyhow",
  "bbqr",
