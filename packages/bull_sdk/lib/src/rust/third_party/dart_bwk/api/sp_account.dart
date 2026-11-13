@@ -10,6 +10,16 @@ import 'types.dart';
 
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `drop`
 
+/// Derive the public BIP352 account-0 address without opening account storage.
+/// The caller has already folded the mnemonic language and passphrase into the seed.
+Future<String> deriveSpAddressFromSeed({
+  required List<int> seed,
+  required SpNetwork network,
+}) => BullSdk.instance.api.dartBwkApiSpAccountDeriveSpAddressFromSeed(
+  seed: seed,
+  network: network,
+);
+
 Future<SpRecipientAddressKind> validateRecipientAddress({
   required String address,
   required SpNetwork network,
@@ -115,9 +125,62 @@ abstract class SpAccount implements RustOpaqueInterface {
         headerCheckpoint: headerCheckpoint,
       );
 
-  /// Cooperatively stop the notification thread and release the inner
-  /// Account (and its sqlite handle). Safe to call multiple times; the
-  /// second call is a no-op.
+  /// Build a hot SP account from the 64 bytes of a BIP39 seed.
+  /// The mnemonic language and passphrase are already represented in the seed.
+  /// Recreate the account with the seed when reopening it: signer material is not persisted.
+  static Future<SpAccount> createFromSeed({
+    required String name,
+    required SpNetwork network,
+    required List<int> seed,
+    required String blindbitUrl,
+    required String electrumUrl,
+    required String dataDir,
+    int? birthdayHeight,
+    BigInt? dustLimit,
+    SpHeaderCheckpoint? headerCheckpoint,
+  }) => BullSdk.instance.api.dartBwkApiSpAccountSpAccountCreateFromSeed(
+    name: name,
+    network: network,
+    seed: seed,
+    blindbitUrl: blindbitUrl,
+    electrumUrl: electrumUrl,
+    dataDir: dataDir,
+    birthdayHeight: birthdayHeight,
+    dustLimit: dustLimit,
+    headerCheckpoint: headerCheckpoint,
+  );
+
+  /// [create_from_seed] with an explicit scan runtime.
+  static Future<SpAccount> createFromSeedWithScanRuntime({
+    required String name,
+    required SpNetwork network,
+    required List<int> seed,
+    required String blindbitUrl,
+    required String electrumUrl,
+    required String dataDir,
+    int? birthdayHeight,
+    BigInt? dustLimit,
+    int? fetchConcurrencyFactor,
+    int? matchConcurrencyFactor,
+    SpHeaderCheckpoint? headerCheckpoint,
+  }) => BullSdk.instance.api
+      .dartBwkApiSpAccountSpAccountCreateFromSeedWithScanRuntime(
+        name: name,
+        network: network,
+        seed: seed,
+        blindbitUrl: blindbitUrl,
+        electrumUrl: electrumUrl,
+        dataDir: dataDir,
+        birthdayHeight: birthdayHeight,
+        dustLimit: dustLimit,
+        fetchConcurrencyFactor: fetchConcurrencyFactor,
+        matchConcurrencyFactor: matchConcurrencyFactor,
+        headerCheckpoint: headerCheckpoint,
+      );
+
+  /// Cooperatively stop the notification thread and wait for in-flight work.
+  /// Safe to call multiple times; the second call is a no-op. After success,
+  /// call [release] to consume the account and release its sqlite handle.
   ///
   /// Dart callers MUST invoke this before dropping the last reference to
   /// `SpAccount` (typically from `SpWalletEntity.dispose()` which is in
@@ -249,6 +312,13 @@ abstract class SpAccount implements RustOpaqueInterface {
     required BigInt feerateSatVb,
     BigInt? changeDustThreshold,
   });
+
+  /// Consume this account and release its resources after [dispose] succeeds.
+  /// Do not call this after a failed disposal: retain the handle and retry.
+  /// The handle cannot be used again after this call.
+  ///
+  /// Not `#[frb(sync)]`: dropping the account may block while resources close.
+  Future<void> release();
 
   /// Stamp the confirmed txs still missing a block time from the header
   /// store. Local only, no network call. Returns whether any tx got stamped.

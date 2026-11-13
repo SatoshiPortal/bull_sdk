@@ -5340,6 +5340,139 @@ class BullSdkWire implements BaseWire {
             )
           >();
 
+  void wire__dart_bwk__api__sp_account__SpAccount_create_from_seed(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> name,
+    int network,
+    ffi.Pointer<wire_cst_list_prim_u_8_loose> seed,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> blindbit_url,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> electrum_url,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> data_dir,
+    ffi.Pointer<ffi.Uint32> birthday_height,
+    ffi.Pointer<ffi.Uint64> dust_limit,
+    ffi.Pointer<wire_cst_sp_header_checkpoint> header_checkpoint,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_create_from_seed(
+      port_,
+      name,
+      network,
+      seed,
+      blindbit_url,
+      electrum_url,
+      data_dir,
+      birthday_height,
+      dust_limit,
+      header_checkpoint,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_create_from_seedPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Int32,
+            ffi.Pointer<wire_cst_list_prim_u_8_loose>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<ffi.Uint64>,
+            ffi.Pointer<wire_cst_sp_header_checkpoint>,
+          )
+        >
+      >(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_create_from_seed',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_create_from_seed =
+      _wire__dart_bwk__api__sp_account__SpAccount_create_from_seedPtr
+          .asFunction<
+            void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_loose>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Pointer<ffi.Uint64>,
+              ffi.Pointer<wire_cst_sp_header_checkpoint>,
+            )
+          >();
+
+  void
+  wire__dart_bwk__api__sp_account__SpAccount_create_from_seed_with_scan_runtime(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> name,
+    int network,
+    ffi.Pointer<wire_cst_list_prim_u_8_loose> seed,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> blindbit_url,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> electrum_url,
+    ffi.Pointer<wire_cst_list_prim_u_8_strict> data_dir,
+    ffi.Pointer<ffi.Uint32> birthday_height,
+    ffi.Pointer<ffi.Uint64> dust_limit,
+    ffi.Pointer<ffi.Uint32> fetch_concurrency_factor,
+    ffi.Pointer<ffi.Uint32> match_concurrency_factor,
+    ffi.Pointer<wire_cst_sp_header_checkpoint> header_checkpoint,
+  ) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_create_from_seed_with_scan_runtime(
+      port_,
+      name,
+      network,
+      seed,
+      blindbit_url,
+      electrum_url,
+      data_dir,
+      birthday_height,
+      dust_limit,
+      fetch_concurrency_factor,
+      match_concurrency_factor,
+      header_checkpoint,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_create_from_seed_with_scan_runtimePtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Int32,
+            ffi.Pointer<wire_cst_list_prim_u_8_loose>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+            ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<ffi.Uint64>,
+            ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<ffi.Uint32>,
+            ffi.Pointer<wire_cst_sp_header_checkpoint>,
+          )
+        >
+      >(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_create_from_seed_with_scan_runtime',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_create_from_seed_with_scan_runtime =
+      _wire__dart_bwk__api__sp_account__SpAccount_create_from_seed_with_scan_runtimePtr
+          .asFunction<
+            void Function(
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              int,
+              ffi.Pointer<wire_cst_list_prim_u_8_loose>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<wire_cst_list_prim_u_8_strict>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Pointer<ffi.Uint64>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Pointer<ffi.Uint32>,
+              ffi.Pointer<wire_cst_sp_header_checkpoint>,
+            )
+          >();
+
   void wire__dart_bwk__api__sp_account__SpAccount_dispose(int port_, int that) {
     return _wire__dart_bwk__api__sp_account__SpAccount_dispose(port_, that);
   }
@@ -5574,6 +5707,18 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<ffi.Uint64>,
             )
           >();
+
+  void wire__dart_bwk__api__sp_account__SpAccount_release(int port_, int that) {
+    return _wire__dart_bwk__api__sp_account__SpAccount_release(port_, that);
+  }
+
+  late final _wire__dart_bwk__api__sp_account__SpAccount_releasePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.UintPtr)>>(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_release',
+      );
+  late final _wire__dart_bwk__api__sp_account__SpAccount_release =
+      _wire__dart_bwk__api__sp_account__SpAccount_releasePtr
+          .asFunction<void Function(int, int)>();
 
   WireSyncRust2DartDco
   wire__dart_bwk__api__sp_account__SpAccount_restamp_missing_timestamps(
@@ -7860,6 +8005,36 @@ class BullSdkWire implements BaseWire {
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
               ffi.Pointer<wire_cst_list_prim_u_8_strict>,
             )
+          >();
+
+  void wire__dart_bwk__api__sp_account__derive_sp_address_from_seed(
+    int port_,
+    ffi.Pointer<wire_cst_list_prim_u_8_loose> seed,
+    int network,
+  ) {
+    return _wire__dart_bwk__api__sp_account__derive_sp_address_from_seed(
+      port_,
+      seed,
+      network,
+    );
+  }
+
+  late final _wire__dart_bwk__api__sp_account__derive_sp_address_from_seedPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(
+            ffi.Int64,
+            ffi.Pointer<wire_cst_list_prim_u_8_loose>,
+            ffi.Int32,
+          )
+        >
+      >(
+        'frbgen_bull_sdk_wire__dart_bwk__api__sp_account__derive_sp_address_from_seed',
+      );
+  late final _wire__dart_bwk__api__sp_account__derive_sp_address_from_seed =
+      _wire__dart_bwk__api__sp_account__derive_sp_address_from_seedPtr
+          .asFunction<
+            void Function(int, ffi.Pointer<wire_cst_list_prim_u_8_loose>, int)
           >();
 
   void wire__lwk__api__descriptor__descriptor_new_confidential(

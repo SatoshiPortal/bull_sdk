@@ -46,7 +46,7 @@ flutter_rust_bridge::frb_generated_boilerplate!(
     default_rust_auto_opaque = RustAutoOpaqueNom,
 );
 pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_VERSION: &str = "2.13.0";
-pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = -480431498;
+pub(crate) const FLUTTER_RUST_BRIDGE_CODEGEN_CONTENT_HASH: i32 = 787595051;
 
 // Section: executor
 
@@ -1798,6 +1798,107 @@ fn wire__dart_bwk__api__sp_account__SpAccount_create_from_mnemonic_with_scan_run
                     })())
                 } })
 }
+fn wire__dart_bwk__api__sp_account__SpAccount_create_from_seed_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    name: impl CstDecode<String>,
+    network: impl CstDecode<dart_bwk::api::types::SpNetwork>,
+    seed: impl CstDecode<Vec<u8>>,
+    blindbit_url: impl CstDecode<String>,
+    electrum_url: impl CstDecode<String>,
+    data_dir: impl CstDecode<String>,
+    birthday_height: impl CstDecode<Option<u32>>,
+    dust_limit: impl CstDecode<Option<u64>>,
+    header_checkpoint: impl CstDecode<Option<dart_bwk::api::types::SpHeaderCheckpoint>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "SpAccount_create_from_seed",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_name = name.cst_decode();
+            let api_network = network.cst_decode();
+            let api_seed = seed.cst_decode();
+            let api_blindbit_url = blindbit_url.cst_decode();
+            let api_electrum_url = electrum_url.cst_decode();
+            let api_data_dir = data_dir.cst_decode();
+            let api_birthday_height = birthday_height.cst_decode();
+            let api_dust_limit = dust_limit.cst_decode();
+            let api_header_checkpoint = header_checkpoint.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, String>((move || {
+                    let output_ok = dart_bwk::api::sp_account::SpAccount::create_from_seed(
+                        api_name,
+                        api_network,
+                        api_seed,
+                        api_blindbit_url,
+                        api_electrum_url,
+                        api_data_dir,
+                        api_birthday_height,
+                        api_dust_limit,
+                        api_header_checkpoint,
+                    )?;
+                    std::result::Result::Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__dart_bwk__api__sp_account__SpAccount_create_from_seed_with_scan_runtime_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    name: impl CstDecode<String>,
+    network: impl CstDecode<dart_bwk::api::types::SpNetwork>,
+    seed: impl CstDecode<Vec<u8>>,
+    blindbit_url: impl CstDecode<String>,
+    electrum_url: impl CstDecode<String>,
+    data_dir: impl CstDecode<String>,
+    birthday_height: impl CstDecode<Option<u32>>,
+    dust_limit: impl CstDecode<Option<u64>>,
+    fetch_concurrency_factor: impl CstDecode<Option<u32>>,
+    match_concurrency_factor: impl CstDecode<Option<u32>>,
+    header_checkpoint: impl CstDecode<Option<dart_bwk::api::types::SpHeaderCheckpoint>>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "SpAccount_create_from_seed_with_scan_runtime",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_name = name.cst_decode();
+            let api_network = network.cst_decode();
+            let api_seed = seed.cst_decode();
+            let api_blindbit_url = blindbit_url.cst_decode();
+            let api_electrum_url = electrum_url.cst_decode();
+            let api_data_dir = data_dir.cst_decode();
+            let api_birthday_height = birthday_height.cst_decode();
+            let api_dust_limit = dust_limit.cst_decode();
+            let api_fetch_concurrency_factor = fetch_concurrency_factor.cst_decode();
+            let api_match_concurrency_factor = match_concurrency_factor.cst_decode();
+            let api_header_checkpoint = header_checkpoint.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, String>((move || {
+                    let output_ok =
+                        dart_bwk::api::sp_account::SpAccount::create_from_seed_with_scan_runtime(
+                            api_name,
+                            api_network,
+                            api_seed,
+                            api_blindbit_url,
+                            api_electrum_url,
+                            api_data_dir,
+                            api_birthday_height,
+                            api_dust_limit,
+                            api_fetch_concurrency_factor,
+                            api_match_concurrency_factor,
+                            api_header_checkpoint,
+                        )?;
+                    std::result::Result::Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
 fn wire__dart_bwk__api__sp_account__SpAccount_dispose_impl(
     port_: flutter_rust_bridge::for_generated::MessagePort,
     that: impl CstDecode<
@@ -2209,6 +2310,29 @@ fn wire__dart_bwk__api__sp_account__SpAccount_prepare_psbt_impl(
                         api_feerate_sat_vb,
                         api_change_dust_threshold,
                     )?;
+                    std::result::Result::Ok(output_ok)
+                })())
+            }
+        },
+    )
+}
+fn wire__dart_bwk__api__sp_account__SpAccount_release_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    that: impl CstDecode<SpAccount>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "SpAccount_release",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_that = that.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, ()>((move || {
+                    let output_ok = Ok::<_, ()>({
+                        dart_bwk::api::sp_account::SpAccount::release(api_that);
+                    })?;
                     std::result::Result::Ok(output_ok)
                 })())
             }
@@ -4899,6 +5023,32 @@ fn wire__boltz__api__invoice__decoded_invoice_from_string_impl(
                     })()
                     .await,
                 )
+            }
+        },
+    )
+}
+fn wire__dart_bwk__api__sp_account__derive_sp_address_from_seed_impl(
+    port_: flutter_rust_bridge::for_generated::MessagePort,
+    seed: impl CstDecode<Vec<u8>>,
+    network: impl CstDecode<dart_bwk::api::types::SpNetwork>,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_normal::<flutter_rust_bridge::for_generated::DcoCodec, _, _>(
+        flutter_rust_bridge::for_generated::TaskInfo {
+            debug_name: "derive_sp_address_from_seed",
+            port: Some(port_),
+            mode: flutter_rust_bridge::for_generated::FfiCallMode::Normal,
+        },
+        move || {
+            let api_seed = seed.cst_decode();
+            let api_network = network.cst_decode();
+            move |context| {
+                transform_result_dco::<_, _, String>((move || {
+                    let output_ok = dart_bwk::api::sp_account::derive_sp_address_from_seed(
+                        api_seed,
+                        api_network,
+                    )?;
+                    std::result::Result::Ok(output_ok)
+                })())
             }
         },
     )
@@ -17124,6 +17274,64 @@ mod io {
     }
 
     #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_create_from_seed(
+        port_: i64,
+        name: *mut wire_cst_list_prim_u_8_strict,
+        network: i32,
+        seed: *mut wire_cst_list_prim_u_8_loose,
+        blindbit_url: *mut wire_cst_list_prim_u_8_strict,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        data_dir: *mut wire_cst_list_prim_u_8_strict,
+        birthday_height: *mut u32,
+        dust_limit: *mut u64,
+        header_checkpoint: *mut wire_cst_sp_header_checkpoint,
+    ) {
+        wire__dart_bwk__api__sp_account__SpAccount_create_from_seed_impl(
+            port_,
+            name,
+            network,
+            seed,
+            blindbit_url,
+            electrum_url,
+            data_dir,
+            birthday_height,
+            dust_limit,
+            header_checkpoint,
+        )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_create_from_seed_with_scan_runtime(
+        port_: i64,
+        name: *mut wire_cst_list_prim_u_8_strict,
+        network: i32,
+        seed: *mut wire_cst_list_prim_u_8_loose,
+        blindbit_url: *mut wire_cst_list_prim_u_8_strict,
+        electrum_url: *mut wire_cst_list_prim_u_8_strict,
+        data_dir: *mut wire_cst_list_prim_u_8_strict,
+        birthday_height: *mut u32,
+        dust_limit: *mut u64,
+        fetch_concurrency_factor: *mut u32,
+        match_concurrency_factor: *mut u32,
+        header_checkpoint: *mut wire_cst_sp_header_checkpoint,
+    ) {
+        wire__dart_bwk__api__sp_account__SpAccount_create_from_seed_with_scan_runtime_impl(
+            port_,
+            name,
+            network,
+            seed,
+            blindbit_url,
+            electrum_url,
+            data_dir,
+            birthday_height,
+            dust_limit,
+            fetch_concurrency_factor,
+            match_concurrency_factor,
+            header_checkpoint,
+        )
+    }
+
+    #[unsafe(no_mangle)]
     pub extern "C" fn frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_dispose(
         port_: i64,
         that: usize,
@@ -17221,6 +17429,14 @@ mod io {
             feerate_sat_vb,
             change_dust_threshold,
         )
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__dart_bwk__api__sp_account__SpAccount_release(
+        port_: i64,
+        that: usize,
+    ) {
+        wire__dart_bwk__api__sp_account__SpAccount_release_impl(port_, that)
     }
 
     #[unsafe(no_mangle)]
@@ -18146,6 +18362,15 @@ mod io {
         boltz_url: *mut wire_cst_list_prim_u_8_strict,
     ) {
         wire__boltz__api__invoice__decoded_invoice_from_string_impl(port_, s, boltz_url)
+    }
+
+    #[unsafe(no_mangle)]
+    pub extern "C" fn frbgen_bull_sdk_wire__dart_bwk__api__sp_account__derive_sp_address_from_seed(
+        port_: i64,
+        seed: *mut wire_cst_list_prim_u_8_loose,
+        network: i32,
+    ) {
+        wire__dart_bwk__api__sp_account__derive_sp_address_from_seed_impl(port_, seed, network)
     }
 
     #[unsafe(no_mangle)]

@@ -97,7 +97,7 @@ class BullSdk extends BaseEntrypoint<BullSdkApi, BullSdkApiImpl, BullSdkWire> {
   String get codegenVersion => '2.13.0';
 
   @override
-  int get rustContentHash => -480431498;
+  int get rustContentHash => 787595051;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -334,6 +334,32 @@ abstract class BullSdkApi extends BaseApi {
     SpHeaderCheckpoint? headerCheckpoint,
   });
 
+  Future<SpAccount> dartBwkApiSpAccountSpAccountCreateFromSeed({
+    required String name,
+    required SpNetwork network,
+    required List<int> seed,
+    required String blindbitUrl,
+    required String electrumUrl,
+    required String dataDir,
+    int? birthdayHeight,
+    BigInt? dustLimit,
+    SpHeaderCheckpoint? headerCheckpoint,
+  });
+
+  Future<SpAccount> dartBwkApiSpAccountSpAccountCreateFromSeedWithScanRuntime({
+    required String name,
+    required SpNetwork network,
+    required List<int> seed,
+    required String blindbitUrl,
+    required String electrumUrl,
+    required String dataDir,
+    int? birthdayHeight,
+    BigInt? dustLimit,
+    int? fetchConcurrencyFactor,
+    int? matchConcurrencyFactor,
+    SpHeaderCheckpoint? headerCheckpoint,
+  });
+
   Future<void> dartBwkApiSpAccountSpAccountDispose({required SpAccount that});
 
   Future<Uint8List> dartBwkApiSpAccountSpAccountFinalizePsbt({
@@ -371,6 +397,8 @@ abstract class BullSdkApi extends BaseApi {
     required BigInt feerateSatVb,
     BigInt? changeDustThreshold,
   });
+
+  Future<void> dartBwkApiSpAccountSpAccountRelease({required SpAccount that});
 
   bool dartBwkApiSpAccountSpAccountRestampMissingTimestamps({
     required SpAccount that,
@@ -778,6 +806,11 @@ abstract class BullSdkApi extends BaseApi {
   Future<DecodedInvoice> boltzApiInvoiceDecodedInvoiceFromString({
     required String s,
     String? boltzUrl,
+  });
+
+  Future<String> dartBwkApiSpAccountDeriveSpAddressFromSeed({
+    required List<int> seed,
+    required SpNetwork network,
   });
 
   Future<Descriptor> lwkApiDescriptorDescriptorNewConfidential({
@@ -2921,6 +2954,174 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       );
 
   @override
+  Future<SpAccount> dartBwkApiSpAccountSpAccountCreateFromSeed({
+    required String name,
+    required SpNetwork network,
+    required List<int> seed,
+    required String blindbitUrl,
+    required String electrumUrl,
+    required String dataDir,
+    int? birthdayHeight,
+    BigInt? dustLimit,
+    SpHeaderCheckpoint? headerCheckpoint,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(name);
+          var arg1 = cst_encode_sp_network(network);
+          var arg2 = cst_encode_list_prim_u_8_loose(seed);
+          var arg3 = cst_encode_String(blindbitUrl);
+          var arg4 = cst_encode_String(electrumUrl);
+          var arg5 = cst_encode_String(dataDir);
+          var arg6 = cst_encode_opt_box_autoadd_u_32(birthdayHeight);
+          var arg7 = cst_encode_opt_box_autoadd_u_64(dustLimit);
+          var arg8 = cst_encode_opt_box_autoadd_sp_header_checkpoint(
+            headerCheckpoint,
+          );
+          return wire
+              .wire__dart_bwk__api__sp_account__SpAccount_create_from_seed(
+                port_,
+                arg0,
+                arg1,
+                arg2,
+                arg3,
+                arg4,
+                arg5,
+                arg6,
+                arg7,
+                arg8,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData:
+              dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount,
+          decodeErrorData: dco_decode_String,
+        ),
+        constMeta: kDartBwkApiSpAccountSpAccountCreateFromSeedConstMeta,
+        argValues: [
+          name,
+          network,
+          seed,
+          blindbitUrl,
+          electrumUrl,
+          dataDir,
+          birthdayHeight,
+          dustLimit,
+          headerCheckpoint,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kDartBwkApiSpAccountSpAccountCreateFromSeedConstMeta =>
+      const TaskConstMeta(
+        debugName: "SpAccount_create_from_seed",
+        argNames: [
+          "name",
+          "network",
+          "seed",
+          "blindbitUrl",
+          "electrumUrl",
+          "dataDir",
+          "birthdayHeight",
+          "dustLimit",
+          "headerCheckpoint",
+        ],
+      );
+
+  @override
+  Future<SpAccount> dartBwkApiSpAccountSpAccountCreateFromSeedWithScanRuntime({
+    required String name,
+    required SpNetwork network,
+    required List<int> seed,
+    required String blindbitUrl,
+    required String electrumUrl,
+    required String dataDir,
+    int? birthdayHeight,
+    BigInt? dustLimit,
+    int? fetchConcurrencyFactor,
+    int? matchConcurrencyFactor,
+    SpHeaderCheckpoint? headerCheckpoint,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_String(name);
+          var arg1 = cst_encode_sp_network(network);
+          var arg2 = cst_encode_list_prim_u_8_loose(seed);
+          var arg3 = cst_encode_String(blindbitUrl);
+          var arg4 = cst_encode_String(electrumUrl);
+          var arg5 = cst_encode_String(dataDir);
+          var arg6 = cst_encode_opt_box_autoadd_u_32(birthdayHeight);
+          var arg7 = cst_encode_opt_box_autoadd_u_64(dustLimit);
+          var arg8 = cst_encode_opt_box_autoadd_u_32(fetchConcurrencyFactor);
+          var arg9 = cst_encode_opt_box_autoadd_u_32(matchConcurrencyFactor);
+          var arg10 = cst_encode_opt_box_autoadd_sp_header_checkpoint(
+            headerCheckpoint,
+          );
+          return wire
+              .wire__dart_bwk__api__sp_account__SpAccount_create_from_seed_with_scan_runtime(
+                port_,
+                arg0,
+                arg1,
+                arg2,
+                arg3,
+                arg4,
+                arg5,
+                arg6,
+                arg7,
+                arg8,
+                arg9,
+                arg10,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData:
+              dco_decode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount,
+          decodeErrorData: dco_decode_String,
+        ),
+        constMeta:
+            kDartBwkApiSpAccountSpAccountCreateFromSeedWithScanRuntimeConstMeta,
+        argValues: [
+          name,
+          network,
+          seed,
+          blindbitUrl,
+          electrumUrl,
+          dataDir,
+          birthdayHeight,
+          dustLimit,
+          fetchConcurrencyFactor,
+          matchConcurrencyFactor,
+          headerCheckpoint,
+        ],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta
+  get kDartBwkApiSpAccountSpAccountCreateFromSeedWithScanRuntimeConstMeta =>
+      const TaskConstMeta(
+        debugName: "SpAccount_create_from_seed_with_scan_runtime",
+        argNames: [
+          "name",
+          "network",
+          "seed",
+          "blindbitUrl",
+          "electrumUrl",
+          "dataDir",
+          "birthdayHeight",
+          "dustLimit",
+          "fetchConcurrencyFactor",
+          "matchConcurrencyFactor",
+          "headerCheckpoint",
+        ],
+      );
+
+  @override
   Future<void> dartBwkApiSpAccountSpAccountDispose({required SpAccount that}) {
     return handler.executeNormal(
       NormalTask(
@@ -3278,6 +3479,34 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
         debugName: "SpAccount_prepare_psbt",
         argNames: ["that", "recipients", "feerateSatVb", "changeDustThreshold"],
       );
+
+  @override
+  Future<void> dartBwkApiSpAccountSpAccountRelease({required SpAccount that}) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Owned_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerSpAccount(
+                that,
+              );
+          return wire.wire__dart_bwk__api__sp_account__SpAccount_release(
+            port_,
+            arg0,
+          );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_unit,
+          decodeErrorData: null,
+        ),
+        constMeta: kDartBwkApiSpAccountSpAccountReleaseConstMeta,
+        argValues: [that],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kDartBwkApiSpAccountSpAccountReleaseConstMeta =>
+      const TaskConstMeta(debugName: "SpAccount_release", argNames: ["that"]);
 
   @override
   bool dartBwkApiSpAccountSpAccountRestampMissingTimestamps({
@@ -6151,6 +6380,40 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
       const TaskConstMeta(
         debugName: "decoded_invoice_from_string",
         argNames: ["s", "boltzUrl"],
+      );
+
+  @override
+  Future<String> dartBwkApiSpAccountDeriveSpAddressFromSeed({
+    required List<int> seed,
+    required SpNetwork network,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 = cst_encode_list_prim_u_8_loose(seed);
+          var arg1 = cst_encode_sp_network(network);
+          return wire
+              .wire__dart_bwk__api__sp_account__derive_sp_address_from_seed(
+                port_,
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_String,
+          decodeErrorData: dco_decode_String,
+        ),
+        constMeta: kDartBwkApiSpAccountDeriveSpAddressFromSeedConstMeta,
+        argValues: [seed, network],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kDartBwkApiSpAccountDeriveSpAddressFromSeedConstMeta =>
+      const TaskConstMeta(
+        debugName: "derive_sp_address_from_seed",
+        argNames: ["seed", "network"],
       );
 
   @override
@@ -15497,9 +15760,9 @@ class SpAccountImpl extends RustOpaque implements SpAccount {
   BigInt confirmedBalance() => BullSdk.instance.api
       .dartBwkApiSpAccountSpAccountConfirmedBalance(that: this);
 
-  /// Cooperatively stop the notification thread and release the inner
-  /// Account (and its sqlite handle). Safe to call multiple times; the
-  /// second call is a no-op.
+  /// Cooperatively stop the notification thread and wait for in-flight work.
+  /// Safe to call multiple times; the second call is a no-op. After success,
+  /// call [release] to consume the account and release its sqlite handle.
   ///
   /// Dart callers MUST invoke this before dropping the last reference to
   /// `SpAccount` (typically from `SpWalletEntity.dispose()` which is in
@@ -15628,6 +15891,14 @@ class SpAccountImpl extends RustOpaque implements SpAccount {
     feerateSatVb: feerateSatVb,
     changeDustThreshold: changeDustThreshold,
   );
+
+  /// Consume this account and release its resources after [dispose] succeeds.
+  /// Do not call this after a failed disposal: retain the handle and retry.
+  /// The handle cannot be used again after this call.
+  ///
+  /// Not `#[frb(sync)]`: dropping the account may block while resources close.
+  Future<void> release() =>
+      BullSdk.instance.api.dartBwkApiSpAccountSpAccountRelease(that: this);
 
   /// Stamp the confirmed txs still missing a block time from the header
   /// store. Local only, no network call. Returns whether any tx got stamped.
