@@ -22,7 +22,7 @@ dart_bbqr = { git = "https://github.com/ethicnology-agent/bbqr-dart", rev = "b0a
 boltz = { git = "https://github.com/ethicnology-agent/boltz-dart", rev = "cec1c62b0da640a190fe024d71d369f3d9d42db8", features = ["bull_sdk"] }
 # lwk-dart develop: LWK master, seed-based descriptor and signing, Liquid
 # regtest (SatoshiPortal/lwk-dart#99, which includes #88).
-lwk = { git = "https://github.com/ethicnology-agent/lwk-dart", rev = "3ee9c5b9b77078fda915d179d7e949d5983aeb11", features = ["bull_sdk"] }
+lwk = { git = "https://github.com/SatoshiPortal/lwk-dart", rev = "d5f24345e65c6a38fd90d0080ca2a6e553b54d6f", features = ["bull_sdk"] }
 dart_bwk = { git = "https://github.com/SatoshiPortal/bwk-dart", rev = "38989212f47f50ccca19fa0d38cb45ef59156f6f", package = "dart_bwk", features = ["bull_sdk"] }
 
 [lints.rust]
