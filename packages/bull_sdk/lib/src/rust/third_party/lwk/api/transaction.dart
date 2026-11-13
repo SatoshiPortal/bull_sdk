@@ -106,7 +106,6 @@ abstract class PartiallySignedElementsTransaction
 
   BigInt outputCount();
 
-  @override
   String toString();
 }
 

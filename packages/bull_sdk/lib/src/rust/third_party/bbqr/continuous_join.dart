@@ -19,7 +19,6 @@ abstract class ContinuousJoiner
   static Future<ContinuousJoiner> default_() =>
       BullSdk.instance.api.bbqrContinuousJoinContinuousJoinerDefault();
 
-  @override
   Future<ContinuousJoinResult> addPart({required String part_});
 
   // HINT: Make it `#[frb(sync)]` to let it become the default constructor of Dart class.
