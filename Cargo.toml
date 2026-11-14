@@ -29,10 +29,10 @@ resolver = "2"
 # of each LWK crate (two lwk_common copies make their `Signer` traits
 # incompatible). Keep these revs equal to lwk-dart's at the pinned rev.
 [patch.crates-io]
-lwk_common = { git = "https://github.com/SatoshiPortal/lwk", rev = "db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb" }
-lwk_jade = { git = "https://github.com/SatoshiPortal/lwk", rev = "db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb" }
-lwk_prices = { git = "https://github.com/SatoshiPortal/lwk", rev = "db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb" }
-lwk_registry = { git = "https://github.com/SatoshiPortal/lwk", rev = "db8eb7b7b9dc2942488425ebd0ee7b2a240ab0eb" }
+lwk_common = { git = "https://github.com/SatoshiPortal/lwk", rev = "6ad7a81dccfa37abe322c5871cfae39623880147" }
+lwk_jade = { git = "https://github.com/SatoshiPortal/lwk", rev = "6ad7a81dccfa37abe322c5871cfae39623880147" }
+lwk_prices = { git = "https://github.com/SatoshiPortal/lwk", rev = "6ad7a81dccfa37abe322c5871cfae39623880147" }
+lwk_registry = { git = "https://github.com/SatoshiPortal/lwk", rev = "6ad7a81dccfa37abe322c5871cfae39623880147" }
 
 [profile.dev]
 debug = false
