@@ -254,8 +254,9 @@ an argument for keeping the dependency current.
 
 ## Binding shape
 
-Running `flutter_rust_bridge_codegen generate` (2.12.0, the version bull_sdk
-pins) produces the complete Dart API from the Rust surface:
+Run `./codegen.sh` with flutter_rust_bridge_codegen 2.13.0 to regenerate the complete Dart API and preserve Native Assets loading. Flutter 3.50 / Dart 3.14 loads the registered `package:onion/src/rust/frb_generated.io.dart` code asset; an explicit library override and `initMock` remain available for tests. The Android/iOS plugin still provides the Snowflake platform transport, while Rust builds through Native Assets.
+
+The generated API follows the Rust surface:
 
 ```dart
 abstract class TorService implements RustOpaqueInterface {

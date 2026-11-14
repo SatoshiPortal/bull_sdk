@@ -1,8 +1,7 @@
 import 'dart:io' show Platform;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:bitbox_transport/bitbox_transport.dart';
 import 'package:bull_sdk/bitbox.dart' as bitbox;
-import 'package:bull_sdk/bull_sdk.dart';
 
 void main() {
   runApp(const BitBoxExample());

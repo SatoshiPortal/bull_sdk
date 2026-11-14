@@ -7,7 +7,7 @@ edition = "2021"
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
-flutter_rust_bridge = "=2.12.0"
+flutter_rust_bridge = "=2.13.0"
 log = "0.4"
 # Transaction signature verification (GHSA-6jp4-8v48-cc5v guard); versions
 # already unified in the graph via boltz/lwk.
@@ -15,15 +15,14 @@ bitcoin = "0.32"
 miniscript = "12"
 # Cross-repository dependencies use immutable revisions so clean builds remain
 # reproducible.
-bitbox = { git = "https://github.com/SatoshiPortal/bitbox-dart", rev = "b832be8ab497377ac4f9ceb9b0f5f1e830a84e5a", features = ["bull_sdk"] }
-bbqr = { git = "https://github.com/SatoshiPortal/bbqr-rust.git", rev = "e4807767d6a61cd7fd9a590f33437553595d0305", default-features = false }
-dart_bbqr = { git = "https://github.com/SatoshiPortal/bbqr-dart", rev = "b06901953ab9c0440a9c0373efcc4345f3c35d32", features = ["bull_sdk"] }
-# SatoshiPortal/boltz-dart develop + SwapMasterKey.createFromSeed (feat/swap-master-key-from-seed).
-boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", rev = "40dda2bd15b1b27b6f98d1aa4af2193b13a72a24", features = ["bull_sdk"] }
-# lwk-dart develop: LWK master, seed-based descriptor and signing, Liquid
-# regtest (SatoshiPortal/lwk-dart#99, which includes #88).
-lwk = { git = "https://github.com/SatoshiPortal/lwk-dart", rev = "3ce987b3c5be27dc1afc90ce6d9f8ba6d01f0dd3", features = ["bull_sdk"] }
-dart_bwk = { git = "https://github.com/SatoshiPortal/bwk-dart", rev = "7325fd1dadef7723d6360dd69a0068f43190853e", package = "dart_bwk", features = ["bull_sdk"] }
+bitbox = { git = "https://github.com/SatoshiPortal/bitbox-dart", rev = "b1e114d4fecfa352acac1786b01a99d95d3449a2", features = ["bull_sdk"] }
+bbqr = { git = "https://github.com/SatoshiPortal/bbqr-rust.git", rev = "b1b3a7f7b9901b1ec320542bfd84411a4860033e", default-features = false }
+dart_bbqr = { git = "https://github.com/SatoshiPortal/bbqr-dart", rev = "5235225a8fe6b8ae4a69618aa38f61d40176db76", features = ["bull_sdk"] }
+# Accepted seed-enabled Boltz bindings with FRB 2.13 and Native Assets.
+boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", rev = "ce7f0fa1de3bc3e4e335bb57da4e0cefb19f0eea", features = ["bull_sdk"] }
+# Accepted LWK bindings and core; keep workspace patches on the same core.
+lwk = { git = "https://github.com/SatoshiPortal/lwk-dart", rev = "4a192f5daac4b2674efb588f069bd13876554a76", features = ["bull_sdk"] }
+dart_bwk = { git = "https://github.com/SatoshiPortal/bwk-dart", rev = "a7985c2627ad684d100a2da9a5b555811d29bb77", package = "dart_bwk", features = ["bull_sdk"] }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(frb_expand)'] }

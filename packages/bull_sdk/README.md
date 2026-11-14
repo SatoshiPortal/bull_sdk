@@ -1,16 +1,15 @@
 # bull_sdk
 
-A new Flutter project.
+Unified Flutter Rust Bridge bindings for Bitcoin and Liquid wallet operations. Flutter 3.50 / Dart 3.14 builds and bundles the Rust library through Native Assets.
 
-## Getting Started
+```dart
+import 'package:bull_sdk/bull_sdk.dart';
 
-This project is a starting point for a Flutter application.
+await BullSdk.init();
+```
 
-A few resources to get you started if this is your first Flutter project:
+The default initializer loads the registered `package:bull_sdk/src/rust/frb_generated.io.dart` code asset. An explicit `externalLibrary` still selects a caller-provided library; `initMock` remains available for tests. Native Assets builds the Rust library; the legacy CargoKit and downloaded Rust-library paths are removed.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+After changing the Rust API, run `flutter_rust_bridge_codegen generate` with version 2.13.0, followed by `bash fix_frb_generated.sh`. The post-processing preserves external error/type conversions, checked unsigned integers and Native Assets loading. Commit the generated bridge separately.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Apple packaging and signing require a full Xcode build on macOS.

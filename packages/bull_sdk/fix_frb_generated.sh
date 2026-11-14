@@ -370,3 +370,6 @@ with open(path, "w") as f:
 PY
 
 echo "Post-processed $DART_FILE"
+
+# Step 10: Resolve the registered Native Assets library without platform paths.
+python3 ../../tool/patch_frb_native_assets.py lib/src/rust/frb_generated.dart
