@@ -21,9 +21,9 @@ packages:
     dependency: transitive
     description:
       path: "."
-      ref: "94bd6ead0a3a15fe399acc4c0e8d1793397d7bde"
-      resolved-ref: "94bd6ead0a3a15fe399acc4c0e8d1793397d7bde"
-      url: "https://github.com/ethicnology-agent/bdk-dart"
+      ref: "9ba4d5001620a8a840f3b33de17a667c08629b98"
+      resolved-ref: "9ba4d5001620a8a840f3b33de17a667c08629b98"
+      url: "https://github.com/SatoshiPortal/bdk-dart"
     source: git
     version: "1.0.1"
   bluez:
