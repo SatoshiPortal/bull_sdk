@@ -14,8 +14,8 @@
 use std::time::Duration;
 
 use futures::StreamExt as _;
-use onion::api::client::TorService;
-use onion::api::session::SocksPolicy;
+use rust_lib_onion::api::client::TorService;
+use rust_lib_onion::api::session::SocksPolicy;
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
 
