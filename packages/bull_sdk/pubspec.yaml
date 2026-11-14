@@ -45,8 +45,8 @@ dependencies:
   freezed_annotation: ^3.1.0
   bdk_dart:
     git:
-      url: https://github.com/bitcoindevkit/bdk-dart
-      ref: db0ec383250979143f1f3ce6acc3406fe2fdc535 # v1.0.0
+      url: https://github.com/ethicnology/bdk-dart
+      ref: 757d4e81a55d920fdf5c9d48d65723aa8790e6bd # v1.0.1 + bdk-ffi master + Electrum cache prefill
 
 dev_dependencies:
   flutter_test:
