@@ -37,10 +37,10 @@ packages:
     dependency: transitive
     description:
       name: bluez
-      sha256: "61a7204381925896a374301498f2f5399e59827c6498ae1e924aaa598751b545"
+      sha256: "4747e4f25abf91a9a341a1c3f83a9081be9bdd189d913e391b6707db4214b4d2"
       url: "https://pub.dev"
     source: hosted
-    version: "0.8.3"
+    version: "0.9.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -124,10 +124,10 @@ packages:
     dependency: transitive
     description:
       name: dbus
-      sha256: d0c98dcd4f5169878b6cf8f6e0a52403a9dff371a3e2f019697accbf6f44a270
+      sha256: f7db8504e715b835f5ebe5fe74604ccd961d504c73389a5d8e81bafc2e2f3612
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.12"
+    version: "0.8.0"
   fake_async:
     dependency: transitive
     description:
@@ -200,10 +200,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_web_bluetooth
-      sha256: ad26a1b3fef95b86ea5f63793b9a0cdc1a33490f35d754e4e711046cae3ebbf8
+      sha256: "71fa37f699032b4416d56aeb5214363ba057f6aed4eba544cc26293e2582b85d"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   freezed_annotation:
     dependency: transitive
     description:
@@ -470,10 +470,10 @@ packages:
     dependency: transitive
     description:
       name: universal_ble
-      sha256: "8325ca9f5cce2fba2b4efef74a4fcfe7144f303b409d6fc6ed16197b00a1a241"
+      sha256: bfbc5dea17fa04e365d3870309d8a8a49067ff5195a84d4f6f73c92aa96bf7ed
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "3.3.0"
   vector_math:
     dependency: transitive
     description:
