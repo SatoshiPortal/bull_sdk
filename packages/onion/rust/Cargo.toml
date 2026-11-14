@@ -7,8 +7,13 @@ edition = "2021"
 license = "MIT"
 
 [lib]
+# Not `onion`: Native Assets names the iOS framework after the library, and the
+# `onion` CocoaPods plugin (IPtProxy) already produces `onion.framework`. With
+# `use_frameworks!` the pod's framework overwrites the Rust one in the app
+# bundle and FRB finds no symbols. `rust_lib_` matches `rust_lib_bull_sdk`.
+name = "rust_lib_onion"
 # `lib` is added to the template's `["cdylib", "staticlib"]` so `tests/` can
-# `use onion::…`. The upstream template tests through the Flutter example app
+# `use rust_lib_onion::…`. The upstream template tests through the Flutter example app
 # instead; we keep a `cargo test` suite because the Tor logic is worth
 # exercising without a device attached.
 crate-type = ["lib", "cdylib", "staticlib"]
