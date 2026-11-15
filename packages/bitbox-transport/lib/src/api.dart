@@ -11,12 +11,9 @@ class BitBoxApi {
   static Future<void>? _usbWorker;
   static SendPort? _stopUsbWorker;
 
+  /// Marks the transport ready. The host app must call `BullSdk.init()` first:
+  /// BitBox shares that native library, and a second init throws.
   static Future<void> initialize() async {
-    if (_initialized) {
-      return;
-    }
-
-    await BullSdk.init();
     _initialized = true;
   }
 
