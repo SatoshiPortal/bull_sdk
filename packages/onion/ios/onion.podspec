@@ -15,7 +15,8 @@ Embedded Tor client and loopback SOCKS5 proxy for Bull Bitcoin, built on Arti.
   s.module_name      = 'onion'
 
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'onion/Sources/onion/**/*.{h,m,c}'
+  s.public_header_files = 'onion/Sources/onion/include/**/*.h'
   s.dependency 'Flutter'
   s.dependency 'IPtProxy', '5.6.0'
   s.platform = :ios, '15.0'
