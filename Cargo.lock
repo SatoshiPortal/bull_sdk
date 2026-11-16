@@ -665,8 +665,8 @@ checksum = "829a082bd3761fde7476dc2ed85ca56c11628948460ece621e4f56fef5046567"
 
 [[package]]
 name = "boltz"
-version = "0.5.2"
-source = "git+https://github.com/SatoshiPortal/boltz-dart?rev=ce7f0fa1de3bc3e4e335bb57da4e0cefb19f0eea#ce7f0fa1de3bc3e4e335bb57da4e0cefb19f0eea"
+version = "0.6.0"
+source = "git+https://github.com/SatoshiPortal/boltz-dart?rev=c8ab3b5e583313b693283c54fa5c67ee6dce445e#c8ab3b5e583313b693283c54fa5c67ee6dce445e"
 dependencies = [
  "anyhow",
  "bip85_extended",
