@@ -2,7 +2,8 @@ rust_input: crate::api, bbqr::continuous_join, bbqr::encode, bbqr::file_type, bb
 rust_root: rust/
 dart_output: lib/src/rust
 dart_entrypoint_class_name: BullSdk
-enable_lifetime: true
+# BBQr has internal borrowed parser types outside the exported SDK surface.
+enable_lifetime: false
 full_dep: true
 dart3: true
 web: false
