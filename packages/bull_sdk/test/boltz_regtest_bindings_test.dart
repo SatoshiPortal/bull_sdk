@@ -16,18 +16,21 @@ void main() {
     expect(await Chain.liquidRegtest.isTestnet(), isFalse);
   });
 
-  test('production JSON retains the exact ce7 bytes through FFI', () async {
-    for (final name in ['mainnet', 'testnet']) {
-      final original = File('test/fixtures/boltz_chain_swap_$name.json')
-          .readAsStringSync();
-      final swap = await ChainSwap.fromJson(jsonStr: original);
-      expect(await swap.toJson(), original);
-      expect(
-        swap.network,
-        name == 'mainnet' ? Network.mainnet : Network.testnet,
-      );
-    }
-  });
+  test(
+    'synthetic legacy production JSON round-trips exactly through FFI',
+    () async {
+      for (final name in ['mainnet', 'testnet']) {
+        final original = File('test/fixtures/boltz_chain_swap_$name.json')
+            .readAsStringSync();
+        final swap = await ChainSwap.fromJson(jsonStr: original);
+        expect(await swap.toJson(), original);
+        expect(
+          swap.network,
+          name == 'mainnet' ? Network.mainnet : Network.testnet,
+        );
+      }
+    },
+  );
 
   test('regtest manual construction and JSON preserve caller URLs', () async {
     final data = jsonDecode(
@@ -110,26 +113,37 @@ void main() {
     },
   );
 
-  test('native rejects a mismatched key before parsing or IO', () async {
-    final key = SwapMasterKey(
-      xprv: '',
-      xpub: '',
-      mnemonic: '',
-      fingerprint: '',
-      network: Network.testnet,
-    );
-    await expectLater(
-      BtcLnSwap.newSubmarine(
-        swapMasterKey: key,
-        index: BigInt.zero,
-        invoice: '',
-        network: Chain.bitcoinRegtest,
-        electrumUrl: 'bitcoin.example:18201',
-        boltzUrl: 'http://boltz.example:18200/custom/v2',
-      ),
-      throwsA(
-        isA<BoltzError>().having((error) => error.kind, 'kind', 'Network'),
-      ),
-    );
-  });
+  test(
+    'ChainSwap.newSwap rejects a mismatched key through the changed wire',
+    () async {
+      final key = SwapMasterKey(
+        xprv: '',
+        xpub: '',
+        mnemonic: '',
+        fingerprint: '',
+        network: Network.testnet,
+      );
+      await expectLater(
+        ChainSwap.newSwap(
+          direction: ChainSwapDirection.btcToLbtc,
+          swapMasterKey: key,
+          index: BigInt.zero,
+          amount: BigInt.from(1000),
+          network: Network.regtest,
+          btcElectrumUrl: 'bitcoin.example:18201',
+          lbtcElectrumUrl: 'liquid.example:18202',
+          boltzUrl: 'http://boltz.example:18200/custom/v2',
+        ),
+        throwsA(
+          isA<BoltzError>()
+              .having((error) => error.kind, 'kind', 'Network')
+              .having(
+                (error) => error.message,
+                'message',
+                'Swap master key network does not match the swap network',
+              ),
+        ),
+      );
+    },
+  );
 }
