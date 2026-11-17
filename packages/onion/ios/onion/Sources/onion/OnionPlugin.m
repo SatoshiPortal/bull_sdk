@@ -90,6 +90,10 @@ static NSUInteger OnionSnowflakeLeases;
                                    details:nil]);
         return;
       }
+      // A failed Go constructor still yields an object, with no Go value
+      // behind it: probe it so the @catch below rejects it instead of keeping
+      // it for the rest of the process.
+      [candidate port:IPtProxySnowflake];
       OnionSnowflakeController = candidate;
     }
 
