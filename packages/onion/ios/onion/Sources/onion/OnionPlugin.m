@@ -76,6 +76,8 @@ static NSUInteger OnionSnowflakeLeases;
         return;
       }
 
+      // Built once per process: IPtProxy registers its transports globally,
+      // so a second controller cannot be constructed.
       IPtProxyController *candidate = [[IPtProxyController alloc]
           init:stateDir.path
           enableLogging:NO
@@ -88,38 +90,41 @@ static NSUInteger OnionSnowflakeLeases;
                                    details:nil]);
         return;
       }
-
-      NSError *startError = nil;
-      if (![candidate start:IPtProxySnowflake proxy:@"" error:&startError]) {
-        result([FlutterError errorWithCode:@"snowflake_start_failed"
-                                   message:@"Snowflake could not be started"
-                                   details:nil]);
-        return;
-      }
-      long port = [candidate port:IPtProxySnowflake];
-      if (![self validPort:port]) {
-        [candidate stop:IPtProxySnowflake];
-        result([FlutterError errorWithCode:@"snowflake_start_failed"
-                                   message:@"Snowflake did not bind a local port"
-                                   details:nil]);
-        return;
-      }
+      // A failed Go constructor still yields an object, with no Go value
+      // behind it: probe it so the @catch below rejects it instead of keeping
+      // it for the rest of the process.
+      [candidate port:IPtProxySnowflake];
       OnionSnowflakeController = candidate;
     }
 
     long port = [OnionSnowflakeController port:IPtProxySnowflake];
     if (![self validPort:port]) {
-      result([FlutterError errorWithCode:@"snowflake_not_running"
-                                 message:@"Snowflake is not running"
-                                 details:nil]);
-      return;
+      NSError *startError = nil;
+      if (![OnionSnowflakeController start:IPtProxySnowflake proxy:@"" error:&startError]) {
+        result([FlutterError errorWithCode:@"snowflake_start_failed"
+                                   message:@"Snowflake could not be started"
+                                   details:nil]);
+        return;
+      }
+      port = [OnionSnowflakeController port:IPtProxySnowflake];
+      if (![self validPort:port]) {
+        [OnionSnowflakeController stop:IPtProxySnowflake];
+        result([FlutterError errorWithCode:@"snowflake_start_failed"
+                                   message:@"Snowflake did not bind a local port"
+                                   details:nil]);
+        return;
+      }
     }
     OnionSnowflakeLeases++;
     self.acquired = YES;
     result(@(port));
   } @catch (NSException *exception) {
     if (OnionSnowflakeLeases == 0) {
-      OnionSnowflakeController = nil;
+      @try {
+        [OnionSnowflakeController stop:IPtProxySnowflake];
+      } @catch (__unused NSException *stopException) {
+        // Best-effort: the next start begins from a fresh listener.
+      }
     }
     result([FlutterError errorWithCode:@"snowflake_start_failed"
                                message:@"Snowflake could not be started"
@@ -141,9 +146,8 @@ static NSUInteger OnionSnowflakeLeases;
       @try {
         [OnionSnowflakeController stop:IPtProxySnowflake];
       } @catch (__unused NSException *exception) {
-        // Teardown is best-effort during engine detachment.
-      } @finally {
-        OnionSnowflakeController = nil;
+        // Teardown is best-effort during engine detachment; the controller
+        // is kept for the next start.
       }
     }
   } @finally {

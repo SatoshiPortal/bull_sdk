@@ -7,9 +7,10 @@ import 'package:onion/onion.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  // The bridge refuses a second initialization in the same process.
+  setUpAll(OnionCore.init);
 
   testWidgets('starts and stops the local SOCKS listener', (tester) async {
-    await OnionCore.init();
     final root = await Directory.systemTemp.createTemp('onion_test_');
     final service = await TorService.start(
       stateDir: '${root.path}/state',
@@ -41,7 +42,6 @@ void main() {
   testWidgets('watches bootstrap status without a runtime panic', (
     tester,
   ) async {
-    await OnionCore.init();
     final root = await Directory.systemTemp.createTemp('onion_status_');
     final service = await TorService.start(
       stateDir: '${root.path}/state',
@@ -66,7 +66,6 @@ void main() {
   testWidgets(
     'routes an Arti client through the native Snowflake listener',
     (tester) async {
-      await OnionCore.init();
       final root = await Directory.systemTemp.createTemp('onion_snowflake_');
       TorService? service;
       try {
@@ -88,6 +87,21 @@ void main() {
         await service?.stop();
         await SnowflakeTransport.stop();
         await root.delete(recursive: true);
+      }
+    },
+    skip: !Platform.isAndroid && !Platform.isIOS,
+  );
+
+  testWidgets(
+    'starts Snowflake again after a stop in the same process',
+    (tester) async {
+      await SnowflakeTransport.start();
+      await SnowflakeTransport.stop();
+
+      try {
+        expect(await SnowflakeTransport.start(), inInclusiveRange(1, 65535));
+      } finally {
+        await SnowflakeTransport.stop();
       }
     },
     skip: !Platform.isAndroid && !Platform.isIOS,
