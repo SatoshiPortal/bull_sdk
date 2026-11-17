@@ -5,7 +5,9 @@
 
 import '../frb_generated.dart';
 import 'error.dart';
+
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+
 import 'session.dart';
 import 'status.dart';
 
@@ -18,6 +20,10 @@ import 'status.dart';
 abstract class TorService implements RustOpaqueInterface {
   /// Bootstrap, resolving when the client is usable.
   Future<void> bootstrap();
+
+  /// Bootstrap with a caller-chosen deadline in milliseconds. `None` sets no
+  /// deadline: the caller bounds the attempt and cancels it with `stop`.
+  Future<void> bootstrapWithTimeout({BigInt? timeoutMs});
 
   /// Open another loopback SOCKS listener with separate Tor circuits.
   ///

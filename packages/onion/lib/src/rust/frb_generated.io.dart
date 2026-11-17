@@ -7,10 +7,13 @@ import 'api/client.dart';
 import 'api/error.dart';
 import 'api/session.dart';
 import 'api/status.dart';
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ffi' as ffi;
+
 import 'frb_generated.dart';
+
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_io.dart';
 
 abstract class OnionCoreApiImplPlatform extends BaseApiImpl<OnionCoreWire> {
@@ -641,6 +644,30 @@ class OnionCoreWire implements BaseWire {
       _wire__crate__api__client__TorService_bootstrapPtr
           .asFunction<void Function(int, int)>();
 
+  void wire__crate__api__client__TorService_bootstrap_with_timeout(
+    int port_,
+    int that,
+    ffi.Pointer<ffi.Uint64> timeout_ms,
+  ) {
+    return _wire__crate__api__client__TorService_bootstrap_with_timeout(
+      port_,
+      that,
+      timeout_ms,
+    );
+  }
+
+  late final _wire__crate__api__client__TorService_bootstrap_with_timeoutPtr =
+      _lookup<
+        ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.UintPtr, ffi.Pointer<ffi.Uint64>)
+        >
+      >(
+        'frbgen_onion_wire__crate__api__client__TorService_bootstrap_with_timeout',
+      );
+  late final _wire__crate__api__client__TorService_bootstrap_with_timeout =
+      _wire__crate__api__client__TorService_bootstrap_with_timeoutPtr
+          .asFunction<void Function(int, int, ffi.Pointer<ffi.Uint64>)>();
+
   void wire__crate__api__client__TorService_open_session(
     int port_,
     int that,
@@ -1252,10 +1279,14 @@ class OnionCoreWire implements BaseWire {
 
 typedef DartPort = ffi.Int64;
 typedef DartDartPort = int;
-typedef DartPostCObjectFnTypeFunction =
-    ffi.Bool Function(DartPort port_id, ffi.Pointer<ffi.Void> message);
-typedef DartDartPostCObjectFnTypeFunction =
-    bool Function(DartDartPort port_id, ffi.Pointer<ffi.Void> message);
+typedef DartPostCObjectFnTypeFunction = ffi.Bool Function(
+  DartPort port_id,
+  ffi.Pointer<ffi.Void> message,
+);
+typedef DartDartPostCObjectFnTypeFunction = bool Function(
+  DartDartPort port_id,
+  ffi.Pointer<ffi.Void> message,
+);
 typedef DartPostCObjectFnType =
     ffi.Pointer<ffi.NativeFunction<DartPostCObjectFnTypeFunction>>;
 

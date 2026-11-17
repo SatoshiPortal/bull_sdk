@@ -72,7 +72,7 @@ class OnionCore
   String get codegenVersion => '2.13.0';
 
   @override
-  int get rustContentHash => -1426353639;
+  int get rustContentHash => -1507730562;
 
   static const kDefaultExternalLibraryLoaderConfig =
       ExternalLibraryLoaderConfig(
@@ -85,6 +85,11 @@ class OnionCore
 
 abstract class OnionCoreApi extends BaseApi {
   Future<void> crateApiClientTorServiceBootstrap({required TorService that});
+
+  Future<void> crateApiClientTorServiceBootstrapWithTimeout({
+    required TorService that,
+    BigInt? timeoutMs,
+  });
 
   Future<TorSession> crateApiClientTorServiceOpenSession({
     required TorService that,
@@ -228,6 +233,43 @@ class OnionCoreApiImpl extends OnionCoreApiImplPlatform
       const TaskConstMeta(
         debugName: "TorService_bootstrap",
         argNames: ["that"],
+      );
+
+  @override
+  Future<void> crateApiClientTorServiceBootstrapWithTimeout({
+    required TorService that,
+    BigInt? timeoutMs,
+  }) {
+    return handler.executeNormal(
+      NormalTask(
+        callFfi: (port_) {
+          var arg0 =
+              cst_encode_Auto_Ref_RustOpaque_flutter_rust_bridgefor_generatedRustAutoOpaqueInnerTorService(
+                that,
+              );
+          var arg1 = cst_encode_opt_box_autoadd_u_64(timeoutMs);
+          return wire
+              .wire__crate__api__client__TorService_bootstrap_with_timeout(
+                port_,
+                arg0,
+                arg1,
+              );
+        },
+        codec: DcoCodec(
+          decodeSuccessData: dco_decode_unit,
+          decodeErrorData: dco_decode_tor_failure,
+        ),
+        constMeta: kCrateApiClientTorServiceBootstrapWithTimeoutConstMeta,
+        argValues: [that, timeoutMs],
+        apiImpl: this,
+      ),
+    );
+  }
+
+  TaskConstMeta get kCrateApiClientTorServiceBootstrapWithTimeoutConstMeta =>
+      const TaskConstMeta(
+        debugName: "TorService_bootstrap_with_timeout",
+        argNames: ["that", "timeoutMs"],
       );
 
   @override
@@ -1859,6 +1901,14 @@ class TorServiceImpl extends RustOpaque implements TorService {
   /// Bootstrap, resolving when the client is usable.
   Future<void> bootstrap() =>
       OnionCore.instance.api.crateApiClientTorServiceBootstrap(that: this);
+
+  /// Bootstrap with a caller-chosen deadline in milliseconds. `None` sets no
+  /// deadline: the caller bounds the attempt and cancels it with `stop`.
+  Future<void> bootstrapWithTimeout({BigInt? timeoutMs}) =>
+      OnionCore.instance.api.crateApiClientTorServiceBootstrapWithTimeout(
+        that: this,
+        timeoutMs: timeoutMs,
+      );
 
   /// Open another loopback SOCKS listener with separate Tor circuits.
   ///
