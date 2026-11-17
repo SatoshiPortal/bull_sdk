@@ -50,6 +50,9 @@ class BoltzWebSocket {
     _disposed = false;
     channel = IOWebSocketChannel.connect(wssProtocolCheck('$baseUrl/ws'),
         pingInterval: pingInterval);
+    // A failed connection also completes `ready` with the error; the stream
+    // below already reports it, so `ready` must not surface it unhandled.
+    unawaited(channel!.ready.catchError((Object _) {}));
     _broadcastController ??= StreamController<SwapStreamStatus>.broadcast();
     _channelSubscription = channel!.stream.listen((msg) {
       final resp = jsonDecode(msg);
