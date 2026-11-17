@@ -77,39 +77,35 @@ public final class OnionPlugin implements FlutterPlugin, MethodChannel.MethodCal
                         return;
                     }
 
-                    final Controller candidate = new Controller(
+                    // Built once per process: IPtProxy registers its transports
+                    // globally, so a second Controller cannot be constructed.
+                    controller = new Controller(
                             stateDir.getAbsolutePath(),
                             false,
                             false,
                             "ERROR",
                             null
                     );
-                    candidate.start(IPtProxy.Snowflake, "");
-                    final long port = candidate.port(IPtProxy.Snowflake);
+                }
+
+                long port = controller.port(IPtProxy.Snowflake);
+                if (!isValidPort(port)) {
+                    controller.start(IPtProxy.Snowflake, "");
+                    port = controller.port(IPtProxy.Snowflake);
                     if (!isValidPort(port)) {
-                        candidate.stop(IPtProxy.Snowflake);
+                        stopQuietly(controller);
                         result.error("snowflake_start_failed", "Snowflake did not bind a local port", null);
                         return;
                     }
-                    controller = candidate;
-                }
-
-                final long port = controller.port(IPtProxy.Snowflake);
-                if (!isValidPort(port)) {
-                    result.error("snowflake_not_running", "Snowflake is not running", null);
-                    return;
                 }
                 leases++;
                 acquired = true;
                 result.success(port);
             } catch (Exception ignored) {
-                // Nobody holds a lease, so this controller is ours to discard.
-                // Dropping the reference without stopping it would leave the
-                // Snowflake proxy running for the life of the process, with no
-                // way left to reach it.
+                // Nobody holds a lease, so the transport is ours to stop. Left
+                // running, the Snowflake proxy would outlive every user of it.
                 if (leases == 0) {
                     stopQuietly(controller);
-                    controller = null;
                 }
                 result.error("snowflake_start_failed", "Snowflake could not be started", null);
             }
@@ -125,12 +121,11 @@ public final class OnionPlugin implements FlutterPlugin, MethodChannel.MethodCal
             leases--;
             if (leases == 0) {
                 stopQuietly(controller);
-                controller = null;
             }
         }
     }
 
-    /** Teardown is best-effort: it runs during engine detachment and on the failed-start path. */
+    /** Stops the transport but keeps the controller; best-effort, since it runs during engine detachment and on the failed-start path. */
     private static void stopQuietly(Controller candidate) {
         if (candidate == null) {
             return;
@@ -138,7 +133,7 @@ public final class OnionPlugin implements FlutterPlugin, MethodChannel.MethodCal
         try {
             candidate.stop(IPtProxy.Snowflake);
         } catch (Exception ignored) {
-            // Nothing left to do; the reference is dropped either way.
+            // Nothing left to do; the next start begins from a fresh listener.
         }
     }
 
