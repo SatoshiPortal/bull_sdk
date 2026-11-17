@@ -19,7 +19,7 @@ bitbox = { git = "https://github.com/SatoshiPortal/bitbox-dart", rev = "b1e114d4
 bbqr = { git = "https://github.com/SatoshiPortal/bbqr-rust.git", rev = "b1b3a7f7b9901b1ec320542bfd84411a4860033e", default-features = false }
 dart_bbqr = { git = "https://github.com/SatoshiPortal/bbqr-dart", rev = "5235225a8fe6b8ae4a69618aa38f61d40176db76", features = ["bull_sdk"] }
 # Concrete regtest chains with caller-supplied endpoints and FRB 2.13.
-boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", rev = "507571b098654c06f36e9c4b940e7a90123a5417", features = ["bull_sdk"] }
+boltz = { git = "https://github.com/SatoshiPortal/boltz-dart", rev = "3b3725c3a718974c8b4e6b5e497862ca59067d51", features = ["bull_sdk"] }
 # Accepted LWK bindings and core; keep workspace patches on the same core.
 lwk = { git = "https://github.com/SatoshiPortal/lwk-dart", rev = "4a192f5daac4b2674efb588f069bd13876554a76", features = ["bull_sdk"] }
 dart_bwk = { git = "https://github.com/SatoshiPortal/bwk-dart", rev = "a7985c2627ad684d100a2da9a5b555811d29bb77", package = "dart_bwk", features = ["bull_sdk"] }
