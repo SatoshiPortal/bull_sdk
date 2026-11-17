@@ -666,7 +666,7 @@ checksum = "829a082bd3761fde7476dc2ed85ca56c11628948460ece621e4f56fef5046567"
 [[package]]
 name = "boltz"
 version = "0.6.0"
-source = "git+https://github.com/SatoshiPortal/boltz-dart?rev=c8ab3b5e583313b693283c54fa5c67ee6dce445e#c8ab3b5e583313b693283c54fa5c67ee6dce445e"
+source = "git+https://github.com/SatoshiPortal/boltz-dart?rev=507571b098654c06f36e9c4b940e7a90123a5417#507571b098654c06f36e9c4b940e7a90123a5417"
 dependencies = [
  "anyhow",
  "bip85_extended",
@@ -684,8 +684,8 @@ dependencies = [
 
 [[package]]
 name = "boltz-client"
-version = "0.4.1"
-source = "git+https://github.com/SatoshiPortal/boltz-rust?rev=17062ab71a495fa0b3f0da8d2d5d4fbcee70d2b4#17062ab71a495fa0b3f0da8d2d5d4fbcee70d2b4"
+version = "0.5.0"
+source = "git+https://github.com/SatoshiPortal/boltz-rust?rev=c6bca8338cb13053701da4b404d7219fb24b0be4#c6bca8338cb13053701da4b404d7219fb24b0be4"
 dependencies = [
  "async-trait",
  "bip39",
