@@ -92,4 +92,18 @@ void main() {
     skip: !Platform.isAndroid && !Platform.isIOS,
   );
 
+  testWidgets(
+    'starts Snowflake again after a stop in the same process',
+    (tester) async {
+      await SnowflakeTransport.start();
+      await SnowflakeTransport.stop();
+
+      try {
+        expect(await SnowflakeTransport.start(), inInclusiveRange(1, 65535));
+      } finally {
+        await SnowflakeTransport.stop();
+      }
+    },
+    skip: !Platform.isAndroid && !Platform.isIOS,
+  );
 }
