@@ -5,7 +5,9 @@
 
 import '../../../frb_generated.dart';
 import 'error.dart';
+
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+
 import 'types.dart';
 
 /// This function queries the Boltz API to get the swap transaction ID, then checks

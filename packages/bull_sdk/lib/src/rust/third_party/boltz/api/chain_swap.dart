@@ -6,7 +6,9 @@
 import '../../../api/simple.dart';
 import '../../../frb_generated.dart';
 import 'error.dart';
+
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
+
 import 'secrets.dart';
 import 'types.dart';
 
@@ -171,6 +173,8 @@ class ChainSwap {
     required String lbtcElectrumUrl,
     required String boltzUrl,
     String? referralId,
+    ElectrumSettings? btcElectrumSettings,
+    ElectrumSettings? lbtcElectrumSettings,
   }) => BullSdk.instance.api.boltzApiChainSwapChainSwapNewSwap(
     direction: direction,
     swapMasterKey: swapMasterKey,
@@ -181,6 +185,8 @@ class ChainSwap {
     lbtcElectrumUrl: lbtcElectrumUrl,
     boltzUrl: boltzUrl,
     referralId: referralId,
+    btcElectrumSettings: btcElectrumSettings,
+    lbtcElectrumSettings: lbtcElectrumSettings,
   );
 
   /// Refund a failed swap
