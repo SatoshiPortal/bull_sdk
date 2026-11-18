@@ -3,13 +3,13 @@
 
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
-import '../native_assets_library.dart';
 import 'api/simple.dart';
 import 'api/verify_tx.dart';
 
 import 'dart:async';
 import 'dart:convert';
 
+import '../native_assets_library.dart';
 import 'frb_generated.dart';
 import 'frb_generated.io.dart'
     if (dart.library.js_interop) 'frb_generated.web.dart';
@@ -651,6 +651,7 @@ abstract class BullSdkApi extends BaseApi {
     required String boltzUrl,
     String? description,
     String? referralId,
+    ElectrumSettings? electrumSettings,
   });
 
   Future<BtcLnSwap> boltzApiBtcLnBtcLnSwapNewSubmarine({
@@ -661,6 +662,7 @@ abstract class BullSdkApi extends BaseApi {
     required String electrumUrl,
     required String boltzUrl,
     String? referralId,
+    ElectrumSettings? electrumSettings,
   });
 
   Future<String> boltzApiBtcLnBtcLnSwapRefund({
@@ -763,6 +765,8 @@ abstract class BullSdkApi extends BaseApi {
     required String lbtcElectrumUrl,
     required String boltzUrl,
     String? referralId,
+    ElectrumSettings? btcElectrumSettings,
+    ElectrumSettings? lbtcElectrumSettings,
   });
 
   Future<String> boltzApiChainSwapChainSwapRefund({
@@ -979,6 +983,7 @@ abstract class BullSdkApi extends BaseApi {
     required String boltzUrl,
     String? description,
     String? referralId,
+    ElectrumSettings? electrumSettings,
   });
 
   Future<LbtcLnSwap> boltzApiLbtcLnLbtcLnSwapNewSubmarine({
@@ -989,6 +994,7 @@ abstract class BullSdkApi extends BaseApi {
     required String electrumUrl,
     required String boltzUrl,
     String? referralId,
+    ElectrumSettings? electrumSettings,
   });
 
   Future<String> boltzApiLbtcLnLbtcLnSwapRefund({
@@ -5210,6 +5216,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     required String boltzUrl,
     String? description,
     String? referralId,
+    ElectrumSettings? electrumSettings,
   }) {
     return handler.executeNormal(
       NormalTask(
@@ -5223,6 +5230,9 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           var arg6 = cst_encode_String(boltzUrl);
           var arg7 = cst_encode_opt_String(description);
           var arg8 = cst_encode_opt_String(referralId);
+          var arg9 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
           return wire.wire__boltz__api__btc_ln__btc_ln_swap_new_reverse(
             port_,
             arg0,
@@ -5234,6 +5244,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
             arg6,
             arg7,
             arg8,
+            arg9,
           );
         },
         codec: DcoCodec(
@@ -5251,6 +5262,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           boltzUrl,
           description,
           referralId,
+          electrumSettings,
         ],
         apiImpl: this,
       ),
@@ -5270,6 +5282,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           "boltzUrl",
           "description",
           "referralId",
+          "electrumSettings",
         ],
       );
 
@@ -5282,6 +5295,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     required String electrumUrl,
     required String boltzUrl,
     String? referralId,
+    ElectrumSettings? electrumSettings,
   }) {
     return handler.executeNormal(
       NormalTask(
@@ -5293,6 +5307,9 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           var arg4 = cst_encode_String(electrumUrl);
           var arg5 = cst_encode_String(boltzUrl);
           var arg6 = cst_encode_opt_String(referralId);
+          var arg7 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
           return wire.wire__boltz__api__btc_ln__btc_ln_swap_new_submarine(
             port_,
             arg0,
@@ -5302,6 +5319,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
             arg4,
             arg5,
             arg6,
+            arg7,
           );
         },
         codec: DcoCodec(
@@ -5317,6 +5335,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           electrumUrl,
           boltzUrl,
           referralId,
+          electrumSettings,
         ],
         apiImpl: this,
       ),
@@ -5334,6 +5353,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           "electrumUrl",
           "boltzUrl",
           "referralId",
+          "electrumSettings",
         ],
       );
 
@@ -5952,6 +5972,8 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     required String lbtcElectrumUrl,
     required String boltzUrl,
     String? referralId,
+    ElectrumSettings? btcElectrumSettings,
+    ElectrumSettings? lbtcElectrumSettings,
   }) {
     return handler.executeNormal(
       NormalTask(
@@ -5965,6 +5987,12 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           var arg6 = cst_encode_String(lbtcElectrumUrl);
           var arg7 = cst_encode_String(boltzUrl);
           var arg8 = cst_encode_opt_String(referralId);
+          var arg9 = cst_encode_opt_box_autoadd_electrum_settings(
+            btcElectrumSettings,
+          );
+          var arg10 = cst_encode_opt_box_autoadd_electrum_settings(
+            lbtcElectrumSettings,
+          );
           return wire.wire__boltz__api__chain_swap__chain_swap_new_swap(
             port_,
             arg0,
@@ -5976,6 +6004,8 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
             arg6,
             arg7,
             arg8,
+            arg9,
+            arg10,
           );
         },
         codec: DcoCodec(
@@ -5993,6 +6023,8 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           lbtcElectrumUrl,
           boltzUrl,
           referralId,
+          btcElectrumSettings,
+          lbtcElectrumSettings,
         ],
         apiImpl: this,
       ),
@@ -6012,6 +6044,8 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           "lbtcElectrumUrl",
           "boltzUrl",
           "referralId",
+          "btcElectrumSettings",
+          "lbtcElectrumSettings",
         ],
       );
 
@@ -7624,6 +7658,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     required String boltzUrl,
     String? description,
     String? referralId,
+    ElectrumSettings? electrumSettings,
   }) {
     return handler.executeNormal(
       NormalTask(
@@ -7637,6 +7672,9 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           var arg6 = cst_encode_String(boltzUrl);
           var arg7 = cst_encode_opt_String(description);
           var arg8 = cst_encode_opt_String(referralId);
+          var arg9 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
           return wire.wire__boltz__api__lbtc_ln__lbtc_ln_swap_new_reverse(
             port_,
             arg0,
@@ -7648,6 +7686,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
             arg6,
             arg7,
             arg8,
+            arg9,
           );
         },
         codec: DcoCodec(
@@ -7665,6 +7704,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           boltzUrl,
           description,
           referralId,
+          electrumSettings,
         ],
         apiImpl: this,
       ),
@@ -7684,6 +7724,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           "boltzUrl",
           "description",
           "referralId",
+          "electrumSettings",
         ],
       );
 
@@ -7696,6 +7737,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
     required String electrumUrl,
     required String boltzUrl,
     String? referralId,
+    ElectrumSettings? electrumSettings,
   }) {
     return handler.executeNormal(
       NormalTask(
@@ -7707,6 +7749,9 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           var arg4 = cst_encode_String(electrumUrl);
           var arg5 = cst_encode_String(boltzUrl);
           var arg6 = cst_encode_opt_String(referralId);
+          var arg7 = cst_encode_opt_box_autoadd_electrum_settings(
+            electrumSettings,
+          );
           return wire.wire__boltz__api__lbtc_ln__lbtc_ln_swap_new_submarine(
             port_,
             arg0,
@@ -7716,6 +7761,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
             arg4,
             arg5,
             arg6,
+            arg7,
           );
         },
         codec: DcoCodec(
@@ -7731,6 +7777,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           electrumUrl,
           boltzUrl,
           referralId,
+          electrumSettings,
         ],
         apiImpl: this,
       ),
@@ -7748,6 +7795,7 @@ class BullSdkApiImpl extends BullSdkApiImplPlatform implements BullSdkApi {
           "electrumUrl",
           "boltzUrl",
           "referralId",
+          "electrumSettings",
         ],
       );
 

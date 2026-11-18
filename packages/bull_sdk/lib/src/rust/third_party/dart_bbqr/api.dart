@@ -5,6 +5,7 @@
 
 import '../../frb_generated.dart';
 import '../bbqr/continuous_join.dart';
+
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 abstract class ContinuousJoinerExt {
